@@ -1,0 +1,56 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 913ce2f6d3aa58b40a969ea0e59b404e, type: 3}
+  m_Name: DescriptionsButtonsUpgrades
+  m_EditorClassIdentifier: 
+  _nameEngineUpgrade: Engine
+  _descriptionEngineUpgrade: '1Test Test Test
+
+    Test Test
+
+    Test '
+  _nameGearboxUpgrade: Gearbox
+  _descriptionGearboxUpgrade: '2Test Test Test
+
+    Test Test
+
+    Test'
+  _nameWheelUpgrade: Wheels
+  _descriptionWheelUpgrade: '3Test Test Test
+
+    Test Test
+
+    Test'
+  _nameGunUpgrade: Gun
+  _descriptionGunUpgrade: '4Test Test Test
+
+    Test Test
+
+    Test'
+  _nameCorpusUpgrade: Corpus
+  _descriptionCorpusUpgrade: '5Test Test Test
+
+    Test Test
+
+    Test'
+  _nameBoosterUpgrade: Booster
+  _descriptionBoosterUpgrade: '6Test Test Test
+
+    Test Test
+
+    Test'
+  _nameTankUpgrade: Fuel
+  _descriptionTankUpgrade: '7Test Test Test
+
+    Test Test
+
+    Test'

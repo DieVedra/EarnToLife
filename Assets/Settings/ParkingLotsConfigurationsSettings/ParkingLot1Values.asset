@@ -1,0 +1,72 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0ad2e7de512ef404d9bbd6549eee0933, type: 3}
+  m_Name: ParkingLot1Values
+  m_EditorClassIdentifier: 
+  _defaultEngineOverclockingMultiplier: 1
+  _defaultGearRatio: 1.1
+  _defaultFuelQuantityValue: 50
+  _priceTagMurder: 10
+  _priceTagWayMeter: 20
+  _engineOverclockingMultiplierUpgrade:
+  - Price: 101
+    Value: 1.2
+  - Price: 102
+    Value: 1.4
+  - Price: 103
+    Value: 1.5
+  - Price: 104
+    Value: 1.7
+  _gearRatioUpgrade:
+  - Price: 101
+    Value: 1.2
+  - Price: 102
+    Value: 1.3
+  - Price: 103
+    Value: 1.4
+  _wheelsUpgrade:
+  - Price: 101
+    Value: 1
+  - Price: 102
+    Value: 2
+  _gunUpgrade:
+  - Price: 101
+    Value: 10
+  - Price: 102
+    Value: 15
+  - Price: 103
+    Value: 20
+  _corpusUpgrade:
+  - Price: 101
+    Value: 1
+  - Price: 102
+    Value: 2
+  - Price: 103
+    Value: 3
+  - Price: 104
+    Value: 4
+  _boosterUpgrade:
+  - Price: 101
+    Value: 20
+  - Price: 102
+    Value: 30
+  - Price: 103
+    Value: 40
+  _fuelQuantityUpgrade:
+  - Price: 101
+    Value: 60
+  - Price: 102
+    Value: 70
+  - Price: 103
+    Value: 80
+  - Price: 104
+    Value: 90

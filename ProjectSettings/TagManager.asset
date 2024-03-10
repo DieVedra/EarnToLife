@@ -1,0 +1,58 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!78 &1
+TagManager:
+  serializedVersion: 2
+  tags: []
+  layers:
+  - Default
+  - TransparentFX
+  - Ignore Raycast
+  - 
+  - Water
+  - UI
+  - 
+  - 
+  - 
+  - Car
+  - CarRoofBroken
+  - WheelsCar
+  - Driver
+  - CarHotWheels
+  - 
+  - 
+  - Ground
+  - Underground
+  - Bridges
+  - Zombie
+  - CarDebris
+  - 
+  - LevelContent
+  - PhysicalLevelContent
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - UI2
+  m_SortingLayers:
+  - name: Default
+    uniqueID: 0
+    locked: 0
+  - name: Pipes
+    uniqueID: 1615938377
+    locked: 0
+  - name: Beams
+    uniqueID: 4212272321
+    locked: 0
+  - name: Conteiners
+    uniqueID: 1539085125
+    locked: 0
+  - name: Car
+    uniqueID: 157630223
+    locked: 0
+  - name: Canvas
+    uniqueID: 1797723625
+    locked: 0

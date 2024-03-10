@@ -1,0 +1,124 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!687078895 &4343727234628468602
+SpriteAtlas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: UISpriteAtlas
+  m_EditorData:
+    serializedVersion: 2
+    textureSettings:
+      serializedVersion: 2
+      anisoLevel: 1
+      compressionQuality: 50
+      maxTextureSize: 2048
+      textureCompression: 0
+      filterMode: 1
+      generateMipMaps: 0
+      readable: 0
+      crunchedCompression: 0
+      sRGB: 1
+    platformSettings:
+    - serializedVersion: 3
+      m_BuildTarget: DefaultTexturePlatform
+      m_MaxTextureSize: 2048
+      m_ResizeAlgorithm: 0
+      m_TextureFormat: -1
+      m_TextureCompression: 1
+      m_CompressionQuality: 50
+      m_CrunchedCompression: 1
+      m_AllowsAlphaSplitting: 0
+      m_Overridden: 0
+      m_AndroidETC2FallbackOverride: 0
+      m_ForceMaximumCompressionQuality_BC6H_BC7: 0
+    packingSettings:
+      serializedVersion: 2
+      padding: 8
+      blockOffset: 1
+      allowAlphaSplitting: 0
+      enableRotation: 0
+      enableTightPacking: 0
+      enableAlphaDilation: 0
+    secondaryTextureSettings: {}
+    variantMultiplier: 1
+    packables:
+    - {fileID: 2800000, guid: 6c6e4700437ed5d498cd631c112d8c82, type: 3}
+    - {fileID: 2800000, guid: af26a9336c87a0d438a8df9b26255724, type: 3}
+    - {fileID: 2800000, guid: 1ebe36a5b75050d4f95abe94d9a1cd0f, type: 3}
+    - {fileID: 2800000, guid: c2fb00652a8f9d347a63d29239aa49f5, type: 3}
+    - {fileID: 2800000, guid: 80fd1dc19409c2044ba683d40d72d39e, type: 3}
+    - {fileID: 2800000, guid: 8a87e217497645f4ea6872b2a7bf8fa4, type: 3}
+    - {fileID: 2800000, guid: f7d328c0398783b4683a8d099cead4ce, type: 3}
+    - {fileID: 2800000, guid: 2ec794cf89b8ad342ae7eb82377e0a58, type: 3}
+    - {fileID: 2800000, guid: 28834ed8d7d78ba499c8e0f2b079d135, type: 3}
+    - {fileID: 2800000, guid: 4a652a24eb7ca4041ae13a7dabf2fd20, type: 3}
+    - {fileID: 2800000, guid: 0aa63dfe92c652c44a338ca229b0db2a, type: 3}
+    - {fileID: 2800000, guid: a497aa5368a09d741a4efd3bc818e2fb, type: 3}
+    - {fileID: 2800000, guid: 1c8631f377e4c284cb3bab218f8d19e5, type: 3}
+    bindAsDefault: 1
+    isAtlasV2: 0
+    cachedData: {fileID: 0}
+  m_MasterAtlas: {fileID: 0}
+  m_PackedSprites:
+  - {fileID: -1089829755, guid: 6c6e4700437ed5d498cd631c112d8c82, type: 3}
+  - {fileID: 399955941, guid: 6c6e4700437ed5d498cd631c112d8c82, type: 3}
+  - {fileID: -1040720032, guid: 6c6e4700437ed5d498cd631c112d8c82, type: 3}
+  - {fileID: -616028013, guid: 6c6e4700437ed5d498cd631c112d8c82, type: 3}
+  - {fileID: -214649825, guid: 6c6e4700437ed5d498cd631c112d8c82, type: 3}
+  - {fileID: 605793494, guid: 6c6e4700437ed5d498cd631c112d8c82, type: 3}
+  - {fileID: 867759680, guid: 6c6e4700437ed5d498cd631c112d8c82, type: 3}
+  - {fileID: 611831273, guid: 6c6e4700437ed5d498cd631c112d8c82, type: 3}
+  - {fileID: 453854413, guid: 6c6e4700437ed5d498cd631c112d8c82, type: 3}
+  - {fileID: 1787644829, guid: 6c6e4700437ed5d498cd631c112d8c82, type: 3}
+  - {fileID: -1151600948, guid: 6c6e4700437ed5d498cd631c112d8c82, type: 3}
+  - {fileID: -1585034628, guid: 6c6e4700437ed5d498cd631c112d8c82, type: 3}
+  - {fileID: -1106171950, guid: 6c6e4700437ed5d498cd631c112d8c82, type: 3}
+  - {fileID: -1642550760, guid: 6c6e4700437ed5d498cd631c112d8c82, type: 3}
+  - {fileID: 489907547, guid: 6c6e4700437ed5d498cd631c112d8c82, type: 3}
+  - {fileID: -917237435, guid: 6c6e4700437ed5d498cd631c112d8c82, type: 3}
+  - {fileID: 21300000, guid: f7d328c0398783b4683a8d099cead4ce, type: 3}
+  - {fileID: 21300000, guid: 80fd1dc19409c2044ba683d40d72d39e, type: 3}
+  - {fileID: 21300000, guid: af26a9336c87a0d438a8df9b26255724, type: 3}
+  - {fileID: 21300000, guid: a497aa5368a09d741a4efd3bc818e2fb, type: 3}
+  - {fileID: 21300000, guid: 1c8631f377e4c284cb3bab218f8d19e5, type: 3}
+  - {fileID: 21300000, guid: 4a652a24eb7ca4041ae13a7dabf2fd20, type: 3}
+  - {fileID: 21300000, guid: c2fb00652a8f9d347a63d29239aa49f5, type: 3}
+  - {fileID: 21300000, guid: 1ebe36a5b75050d4f95abe94d9a1cd0f, type: 3}
+  - {fileID: 21300000, guid: 8a87e217497645f4ea6872b2a7bf8fa4, type: 3}
+  - {fileID: 21300000, guid: 28834ed8d7d78ba499c8e0f2b079d135, type: 3}
+  - {fileID: 21300000, guid: 0aa63dfe92c652c44a338ca229b0db2a, type: 3}
+  - {fileID: 21300000, guid: 2ec794cf89b8ad342ae7eb82377e0a58, type: 3}
+  m_PackedSpriteNamesToIndex:
+  - Atlas2_9
+  - Atlas2_8
+  - Atlas2_7
+  - Atlas2_6
+  - Atlas2_5
+  - Atlas2_4
+  - Atlas2_3
+  - Atlas2_2
+  - Atlas2_1
+  - Atlas2_0
+  - Atlas2_12
+  - Atlas2_13
+  - Atlas2_10
+  - Atlas2_11
+  - Atlas2_14
+  - Atlas2_15
+  - DevicePanel
+  - Button2
+  - ArrowBack
+  - LightOff
+  - LightOn
+  - Panel1
+  - Button1
+  - ArrowSwipe
+  - Button3
+  - Lock
+  - Panel2
+  - TextPanel
+  m_RenderDataMap: {}
+  m_Tag: UISpriteAtlas
+  m_IsVariant: 0

@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="c28f6e19-1ef1-4491-a2bf-570f22e7de6f" name="Default Changelist" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/../WarriorCar/Assets/Scripts/UI/CustomButton.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/ScriptableObjectScripts/Providers/PrefabsProviders/LevelPrefabsProvider.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Installers/GlobalInstallers/GarageDataInstaller.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/ScriptableObjectScripts/DescriptionsButtonsUpgrades.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Installers/GlobalInstallers/SaveServiceInstaller.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/ScriptableObjectScripts/GarageData.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/ScriptableObjectScripts/UpgradeButtonsGarageContent.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Installers/GlobalInstallers/GlobalAudioInstaller.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.svermeulen.extenject@574bdc68ae/Runtime/Main/DiContainer.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Car/Car.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/UI/UIEntryScene/Model/ButtonsUpgrade/AppearanceButtonsAnimation.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ugui@1.0.0/Runtime/UI/Core/Selectable.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.svermeulen.extenject@574bdc68ae/Runtime/Install/MonoInstallerBase.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/UI/CustomButton/CustomButtonUpgrade.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Game/Garage/InGarageCarCustomize/WheelCarValues.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Installers/GlobalInstallers/PlayerDataProviderInstaller.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../WarriorCar/Assets/Scripts/Game/Main.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/UI/UIEntryScene/Model/ConfirmationUpgrade/AnimationPanelConfirmationUpgrade.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Interfaces/IPlayerData.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.svermeulen.extenject@574bdc68ae/Runtime/Injection/InjectContext.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/UI/UIEntryScene/Model/GarageUI/AnimationSwitchArrows.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Car/Parts/FrontWingRef.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.dbrizov.naughtyattributes@8a8fa5a965/Scripts/Core/MetaAttributes/BoxGroupAttribute.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/2B55B237-E8B2-4855-A53A-D17E3290A342/0b/9814e60a/PanelSettings.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Game/Player/PlayerDataHandler.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.svermeulen.extenject@574bdc68ae/Runtime/Internal/Log.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Installers/LevelScenesInstallers/LevelContentInstaller.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Game/Level/LevelEditor/test.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Game/Garage/InGarageCarCustomize/CarInGarage.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.cysharp.unitask@66de0d3a58/Runtime/External/DOTween/DOTweenAsyncExtensions.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Installers/AdditionalDontDestroyInstaller.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/2549D8D0-8566-462A-8AAB-7D994B120431/94/28a21ef0/IInstantiator.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/UI/UIEntryScene/Model/ButtonsUpgrade/ButtonData.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Game/Level/KillsCount.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Factory.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ugui@1.0.0/Runtime/UI/Core/Button.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.dbrizov.naughtyattributes@8a8fa5a965/Scripts/Core/DrawerAttributes/HorizontalLineAttribute.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Editor/LoadScene.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Enums/CarControlMethod.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.cinemachine@2.8.9/Runtime/Behaviours/CinemachineBrain.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.2d.spriteshape@7.0.7/Runtime/SpriteShapeGenerator.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.dbrizov.naughtyattributes@8a8fa5a965/Scripts/Editor/Utility/ReflectionUtility.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Game/ValuesPanelActivator.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/C04CB7EF-E37E-4049-8BFB-31F76B813987/e6/46c5a183/IPointerClickHandler.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/2A3B1FC1-40AE-44E9-A447-6E34A2A29726/d9/d3d474ed/SerializeField.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Car/Parts/GunRef.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Car/Parts/BoosterRef.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Game/Level/Level.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/ScriptableObjectScripts/GameData.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/2A3B1FC1-40AE-44E9-A447-6E34A2A29726/1e/49ff131c/CreateAssetMenuAttribute.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/UI/CustomButton/CustomButton.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.cysharp.unitask@66de0d3a58/Runtime/UniTaskScheduler.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Test.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Game/Garage/CarConfigurationProvider.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/2A3B1FC1-40AE-44E9-A447-6E34A2A29726/04/0ad46d37/Transform.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Game/Garage/InGarageCarCustomize/SuspensionValues.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/2549D8D0-8566-462A-8AAB-7D994B120431/c8/f0c960a3/MonoInstaller.cs" root0="SKIP_HIGHLIGHTING" />
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/Assets/Scripts/Car/DestructionCar/DestructionBoosterHandler.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Car/DestructionCar/DoorDestructionHandler.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Car/Parts/ArmoredRoofRef.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Car/Parts/ArmoredBackFrame.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Car/Parts/ArmoredFrontRef.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Car/Parts/DoorRef.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Car/Parts/CabineRef.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Car/DestructionCar/DestructionHandlerContent.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/CarMass.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/CarMass/CalculateMass.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Car/Parts/HotWheelRef.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Interfaces/ICutable.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Car/HotWheel.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Car/DestructionCar/HotWheelDestructionHandler.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Car/Parts/ArmoredBackFrameRef.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Car/DestructionCar/ArmoredBackFrameDestructionHandler.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Game/Garage/CarCustomize/CustomizeCar.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Car/Parts/SafetyFrameworkRef.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Car/DestructionCar/SafetyFrameworkDestructionHandler.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/CoupAnalyzer.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Car/DestructionCar/FrontDoorDestructionHandler.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Game/Garage/InGarageCarCustomize/SuspensionCarValues.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Game/Garage/InGarageCarCustomize/WheelsCarValues.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Game/Garage/InGarageCarCustomize/WheelCarValues.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Game/Garage/InGarageCarCustomize/SuspensionValues.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/CarFSM/CarFSM.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/CarFSM/States/GasStateHalfCar.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Car/Car.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/CarWheel.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Car/CarInLevel.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/CarMass/CarMass.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Car/DestructionCar/BackCarDestructionHandler.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Car/DestructionCar/DestructionCar.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Car/Parts/BumperRef.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Car/DestructionCar/BottomDestructionHandler.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Car/DestructionCar/BackWingDestructionHandler.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Car/DestructionCar/BackDoorDestructionHandler.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Car/DestructionCar/BoosterDestructionHandler.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Car/DestructionCar/FrontWingDestructionHandler.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Car/DestructionCar/GlassDestructionHandler.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Car/DestructionCar/GunDestructionHandler.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Car/Parts/BackWingRef.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Car/Parts/BoosterRef.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Car/Parts/BottomRef.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Car/Parts/FrontWingRef.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Car/Parts/GlassRef.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Car/Parts/GunRef.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Car/Parts/RoofRef.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Car/DestructionCar/RoofDestructionHandler.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Car/DestructionCar/BumperDestructionHandler.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Car/DestructionCar/DestructionHandler.cs" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectId" id="2arkDEDNBZaMySM4llNZjxFt9ZD" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="Discover.Launch.Via.Unity" value="true" />
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="nodejs_package_manager_path" value="npm" />
+    <property name="settings.editor.selected.configurable" value="preferences.general" />
+    <property name="vue.rearranger.settings.migration" value="true" />
+  </component>
+  <component name="RunManager" selected="Attach to Unity Editor.Attach to Unity Editor">
+    <configuration name="Attach to Unity Editor &amp; Play" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="UNITY_ATTACH_AND_PLAY" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost">
+      <option name="allowRunningInParallel" value="false" />
+      <option name="listenPortForConnections" value="false" />
+      <option name="pid" />
+      <option name="selectedOptions">
+        <set />
+      </option>
+      <method v="2" />
+    </configuration>
+    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost">
+      <option name="allowRunningInParallel" value="false" />
+      <option name="listenPortForConnections" value="false" />
+      <option name="pid" />
+      <option name="selectedOptions">
+        <set />
+      </option>
+      <method v="2" />
+    </configuration>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="c28f6e19-1ef1-4491-a2bf-570f22e7de6f" name="Default Changelist" comment="" />
+      <created>1705083968958</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1705083968958</updated>
+      <workItem from="1705084041129" duration="123000" />
+      <workItem from="1705084203112" duration="6753000" />
+      <workItem from="1705387310766" duration="14858000" />
+      <workItem from="1705405588794" duration="19661000" />
+      <workItem from="1705493456459" duration="25266000" />
+      <workItem from="1705662533252" duration="19721000" />
+      <workItem from="1705748583738" duration="24665000" />
+      <workItem from="1705922459707" duration="31244000" />
+      <workItem from="1706009901853" duration="7112000" />
+      <workItem from="1706021930113" duration="19350000" />
+      <workItem from="1706090791200" duration="9622000" />
+      <workItem from="1706102502340" duration="18189000" />
+      <workItem from="1706186413549" duration="19545000" />
+      <workItem from="1706269063737" duration="26767000" />
+      <workItem from="1706360715458" duration="23134000" />
+      <workItem from="1706470183554" duration="10410000" />
+      <workItem from="1706556042862" duration="15057000" />
+      <workItem from="1706611883170" duration="16021000" />
+      <workItem from="1706702025359" duration="7591000" />
+      <workItem from="1706808218929" duration="2891000" />
+      <workItem from="1707223102391" duration="7307000" />
+      <workItem from="1707314657905" duration="7394000" />
+      <workItem from="1707394288674" duration="9648000" />
+      <workItem from="1707434262738" duration="673000" />
+      <workItem from="1707489321499" duration="22451000" />
+      <workItem from="1707567214110" duration="29558000" />
+      <workItem from="1707665277832" duration="21086000" />
+      <workItem from="1707738988944" duration="6848000" />
+      <workItem from="1707746628207" duration="4725000" />
+      <workItem from="1707763600251" duration="11671000" />
+      <workItem from="1707824506966" duration="18120000" />
+      <workItem from="1707911105742" duration="12509000" />
+      <workItem from="1708002494314" duration="18698000" />
+      <workItem from="1708109094736" duration="10962000" />
+      <workItem from="1708197721130" duration="12768000" />
+      <workItem from="1708253952090" duration="16924000" />
+      <workItem from="1708347409226" duration="13030000" />
+      <workItem from="1708366258746" duration="14163000" />
+      <workItem from="1708432873328" duration="29178000" />
+      <workItem from="1708514413374" duration="17365000" />
+      <workItem from="1708631344487" duration="2092000" />
+      <workItem from="1708639921009" duration="937000" />
+      <workItem from="1708719580274" duration="7658000" />
+      <workItem from="1708781737773" duration="601000" />
+      <workItem from="1708787488245" duration="4013000" />
+      <workItem from="1708976510192" duration="2530000" />
+      <workItem from="1709060567598" duration="8264000" />
+      <workItem from="1709121881888" duration="7709000" />
+      <workItem from="1709141808977" duration="12594000" />
+      <workItem from="1709205123317" duration="21279000" />
+      <workItem from="1709287570697" duration="12387000" />
+      <workItem from="1709323411936" duration="11754000" />
+      <workItem from="1709374390780" duration="32126000" />
+      <workItem from="1709550973531" duration="8185000" />
+      <workItem from="1709656179123" duration="18843000" />
+      <workItem from="1709708677702" duration="15876000" />
+      <workItem from="1709886467044" duration="13356000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="UnityProjectConfiguration" hasMinimizedUI="true" />
+  <component name="UnityUnitTestConfiguration" currentTestLauncher="EditMode" />
+  <component name="VcsManagerConfiguration">
+    <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="431" y="189" key="#Notifications" timestamp="1705493480078">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="431" y="189" key="#Notifications/0.0.1366.728@0.0.1366.728" timestamp="1705493480078" />
+    <state x="456" y="38" key="RiderGenerateDialog" timestamp="1709331275401">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="456" y="38" key="RiderGenerateDialog/0.0.1366.728@0.0.1366.728" timestamp="1709331275401" />
+    <state x="184" y="9" key="SettingsEditor" timestamp="1705419389468">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="184" y="9" key="SettingsEditor/0.0.1366.728@0.0.1366.728" timestamp="1705419389468" />
+    <state x="289" y="0" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser" timestamp="1706271713945">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="289" y="0" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser/0.0.1366.728@0.0.1366.728" timestamp="1706271713945" />
+    <state x="339" y="162" key="run.anything.popup" timestamp="1708444177709">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="339" y="162" key="run.anything.popup/0.0.1366.728@0.0.1366.728" timestamp="1708444177709" />
+    <state x="346" y="49" width="672" height="678" key="search.everywhere.popup" timestamp="1707852882087">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="346" y="49" width="672" height="678" key="search.everywhere.popup/0.0.1366.728@0.0.1366.728" timestamp="1707852882087" />
+  </component>
+</project>
