@@ -44,16 +44,16 @@ public class BackWingDestructionHandler : DestructionHandler
             _armoredBackFrameRef = armoredBackFrameHandler.ArmoredBackFrameRef;
             _armoredBackNormal = _armoredBackFrameRef.ArmoredBackNormal;
             _armoredBackDamaged = _armoredBackFrameRef.ArmoredBackDamagedRoofDamaged;
-            SubscribeCollider(_armoredBackNormal.GetComponent<Collider2D>(), CheckCollision, TryDestruct);
+            SubscribeCollider(_armoredBackNormal.GetComponent<Collider2D>(), CheckCollision, TrySwitchMode);
         }
-        SubscribeCollider(_wingNormal.GetComponent<Collider2D>(), CheckCollision, TryDestruct);
+        SubscribeCollider(_wingNormal.GetComponent<Collider2D>(), CheckCollision, TrySwitchMode);
     }
 
     public void Dispose()
     {
         CompositeDisposable.Clear();
     }
-    protected override void TryDestruct()
+    protected override void TrySwitchMode()
     {
         ApplyDamage();
         if (MaxStrength <= StrengthForDestruct)
@@ -79,9 +79,9 @@ public class BackWingDestructionHandler : DestructionHandler
         if (_isArmored == true)
         {
             _armoredBackFrameHandler.TryTakeDamageFromBack();
-            SubscribeCollider(_armoredBackFrameHandler.CurrentCollider, CheckCollision, TryDestruct);
+            SubscribeCollider(_armoredBackFrameHandler.CurrentCollider, CheckCollision, TrySwitchMode);
         }
-        SubscribeCollider(_wingDamaged1Collider, CheckCollision, TryDestruct);
+        SubscribeCollider(_wingDamaged1Collider, CheckCollision, TrySwitchMode);
     }
     private void DestructionMode2()
     {

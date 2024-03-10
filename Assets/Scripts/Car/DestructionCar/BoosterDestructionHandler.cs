@@ -5,8 +5,8 @@ using UnityEngine;
 public class BoosterDestructionHandler : DestructionHandler
 {
     private readonly float _switchLayerDelay = 1f;
-    private Booster _booster;
-    private BoosterRef _boosterRef;
+    private readonly Booster _booster;
+    private readonly BoosterRef _boosterRef;
     public BoosterDestructionHandler(BoosterRef boosterRef, Booster booster, DestructionHandlerContent destructionHandlerContent) 
         : base(boosterRef, destructionHandlerContent, boosterRef.StrengthBooster)
     {
@@ -14,19 +14,22 @@ public class BoosterDestructionHandler : DestructionHandler
         _boosterRef = boosterRef;
         SubscribeColliders();
     }
-    protected override void TryDestruct()
+    protected override void TrySwitchMode()
     {
-        ApplyDamage();
-        if (MaxStrength <= StrengthForDestruct)
+        if (ValueNormalImpulse > MaxStrength)
         {
             Destruction();
+        }
+        else
+        {
+            RecalculateStrength();
         }
     }
     private void SubscribeColliders()
     {
         for (int i = 0; i < _boosterRef.BoosterParts.Length; i++)
         {
-            SubscribeCollider(_boosterRef.BoosterParts[i].GetComponent<Collider2D>(), CheckCollision, TryDestruct);
+            SubscribeCollider(_boosterRef.BoosterParts[i].GetComponent<Collider2D>(), CheckCollision, TrySwitchMode);
         }
     }
 
@@ -34,11 +37,12 @@ public class BoosterDestructionHandler : DestructionHandler
     {
         CompositeDisposable.Clear();
         _booster.BoosterDisable();
-        SetParentDebris();
         for (int i = 0; i < _boosterRef.BoosterParts.Length; i++)
         {
             _boosterRef.BoosterParts[i].gameObject.AddComponent<Rigidbody2D>();
+            SetParentDebris(_boosterRef.BoosterParts[i]);
         }
+        SetParentDebris();
         await UniTask.Delay(TimeSpan.FromSeconds(_switchLayerDelay));
         SetCarDebrisLayer();
     }

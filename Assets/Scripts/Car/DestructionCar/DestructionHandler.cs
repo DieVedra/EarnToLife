@@ -9,17 +9,17 @@ public abstract class DestructionHandler
     protected readonly float StrengthForDestruct = 0;
     protected readonly float HalfStrengthMultiplier = 0.7f;
     protected readonly float MinStrengthMultiplier = 0.2f;
-    // protected readonly float HalfStrength;
-    // protected readonly float MinStrength;
     protected readonly Transform DebrisParent;
     protected readonly Speedometer Speedometer;
     protected readonly LayerMask CanCollisionsLayerMasks;
     protected readonly CompositeDisposable CompositeDisposable = new CompositeDisposable();
     private readonly MonoBehaviour _monoBehaviour;
+    private readonly float _minSpeedForDestruct = 10f;
+    private readonly float _reducingStrengthMultiplier = 0.7f;
     protected float MaxStrength;
     protected float HalfStrength;
     protected float MinStrength;
-    protected float NormalImpulseValue;
+    protected float ValueNormalImpulse;
 
     protected DestructionHandler(MonoBehaviour monoBehaviour, DestructionHandlerContent destructionHandlerContent,
         int maxStrength = 0)
@@ -36,10 +36,10 @@ public abstract class DestructionHandler
                 Dispose();
             }).AddTo(monoBehaviour);
     }
-    protected virtual void TryDestruct(){}
+    protected virtual void TrySwitchMode(){}
     protected void ApplyDamage()
     {
-        MaxStrength -= NormalImpulseValue;
+        MaxStrength -= ValueNormalImpulse;
     }
     protected virtual void SubscribeCollider(Collider2D collider2D, Predicate<Collision2D> condition = null, Action operation = null)
     {
@@ -64,18 +64,32 @@ public abstract class DestructionHandler
     }
     protected void SetCarDebrisLayer(Transform transform = null)
     {
+        Transform transformCarPart;
         if (transform == null)
         {
-            _monoBehaviour.gameObject.layer = CarDebrisLayer;
+            transformCarPart = _monoBehaviour.transform;
         }
         else
         {
-            transform.gameObject.layer = CarDebrisLayer;
+            transformCarPart = transform;
+        }
+
+        if (transformCarPart.childCount > 0)
+        {
+            for (int i = 0; i < transformCarPart.childCount; i++)
+            {
+                transformCarPart.GetChild(i).gameObject.layer = CarDebrisLayer;
+            }
+        }
+        else
+        {
+            transformCarPart.gameObject.layer = CarDebrisLayer;
         }
     }
     protected virtual bool CheckCollision(Collision2D collision)
     {
-        if ((1 << collision.gameObject.layer & CanCollisionsLayerMasks.value) == 1 << collision.gameObject.layer)
+        if ((1 << collision.gameObject.layer & CanCollisionsLayerMasks.value) == 1 << collision.gameObject.layer
+            && Speedometer.CurrentSpeedFloat >= _minSpeedForDestruct)
         {
             SetImpulseNormal(collision);
             return true;
@@ -85,28 +99,11 @@ public abstract class DestructionHandler
             return false;
         }
     }
-    private void SetImpulseNormal(Collision2D collision)
+    protected void RecalculateStrength()
     {
-        for (int i = 0; i < collision.contacts.Length; i++)
-        {
-            if (NormalImpulseValue < collision.contacts[i].normalImpulse)
-            {
-                NormalImpulseValue = collision.contacts[i].normalImpulse;
-            }
-        }
-
+        CalculateStrength(MaxStrength - ValueNormalImpulse * _reducingStrengthMultiplier);
     }
-    private void Dispose()
-    {
-        CompositeDisposable.Clear();
-    }
-
-    private void RecalculateStrength()
-    {
-        // CalculateStrength(int strength);
-    }
-
-    private void CalculateStrength(int strength)
+    private void CalculateStrength(float strength)
     {
         if (strength > 0)
         {
@@ -114,5 +111,20 @@ public abstract class DestructionHandler
             HalfStrength = strength * HalfStrengthMultiplier;
             MinStrength = strength * MinStrengthMultiplier;
         }
+    }
+    private void SetImpulseNormal(Collision2D collision)
+    {
+        for (int i = 0; i < collision.contacts.Length; i++)
+        {
+            if (ValueNormalImpulse < collision.contacts[i].normalImpulse)
+            {
+                ValueNormalImpulse = collision.contacts[i].normalImpulse;
+            }
+        }
+
+    }
+    private void Dispose()
+    {
+        CompositeDisposable.Clear();
     }
 }

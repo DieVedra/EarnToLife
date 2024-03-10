@@ -78,9 +78,9 @@ public class RoofDestructionHandler : DestructionHandler
             _frameNormal = armoredRoofFrameRef.FrameNormal;
             _frameDamaged = armoredRoofFrameRef.FrameDamaged;
             _currentFrame = _frameNormal;
-            SubscribeCollider(_frameNormal.GetComponent<Collider2D>(), CheckCollision, TryDestruct);
+            SubscribeCollider(_frameNormal.GetComponent<Collider2D>(), CheckCollision, TrySwitchMode);
         }
-        SubscribeCollider(_roofNormal.GetComponent<Collider2D>(), CheckCollision, TryDestruct);
+        SubscribeCollider(_roofNormal.GetComponent<Collider2D>(), CheckCollision, TrySwitchMode);
     }
 
     public void Dispose()
@@ -100,7 +100,7 @@ public class RoofDestructionHandler : DestructionHandler
         _currentRoof.gameObject.AddComponent<Rigidbody2D>();
         SetParentDebris(_roofRef.transform);
     }
-    protected override void TryDestruct()
+    protected override void TrySwitchMode()
     {
         // if (_coupAnalyzer.CarIsCoup == true)
         // {
@@ -177,7 +177,7 @@ public class RoofDestructionHandler : DestructionHandler
             _armoredBackFrameDestructionHandler?.TryThrow();
             _isArmored = false;
         }
-        SubscribeCollider(_roofDamaged2.GetComponent<Collider2D>(), CheckCollision, TryDestruct);
+        SubscribeCollider(_roofDamaged2.GetComponent<Collider2D>(), CheckCollision, TrySwitchMode);
     }
 
     private /*async*/ void DestructionMode3()
@@ -281,16 +281,16 @@ public class RoofDestructionHandler : DestructionHandler
     {
         if (_isArmored == true)
         {
-            SubscribeCollider(_frameDamaged.GetComponent<Collider2D>(), CheckCollision, TryDestruct);
+            SubscribeCollider(_frameDamaged.GetComponent<Collider2D>(), CheckCollision, TrySwitchMode);
         }
 
-        SubscribeCollider(_roofDamaged1.GetComponent<Collider2D>(), CheckCollision, TryDestruct);
+        SubscribeCollider(_roofDamaged1.GetComponent<Collider2D>(), CheckCollision, TrySwitchMode);
     }
     private void SubscribesDestructionMode2()
     {
         if (_coupAnalyzer.CarIsCoup == false)
         {
-            SubscribeCollider(_roofDamaged2.GetComponent<Collider2D>(), CheckCollision, TryDestruct);
+            SubscribeCollider(_roofDamaged2.GetComponent<Collider2D>(), CheckCollision, TrySwitchMode);
         }
     }
 }

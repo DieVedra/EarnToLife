@@ -1,0 +1,700 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ContentModelStore">
+    <e p="C:\Users\Roboter\AppData\Local\JetBrains\Rider2020.2\extResources" t="IncludeRecursive" />
+    <e p="C:\Users\Roboter\AppData\Local\JetBrains\Rider2020.2\resharper-host\Local\Transient\Rider\v202\SolutionCaches\_EarnToLife.998082604.00" t="ExcludeRecursive" />
+    <e p="E:\Project\EarnToLife" t="IncludeRecursive">
+      <e p="Assembly-CSharp-Editor.csproj" t="IncludeRecursive" />
+      <e p="Assembly-CSharp-firstpass.csproj" t="IncludeRecursive" />
+      <e p="Assembly-CSharp.csproj" t="IncludeRecursive" />
+      <e p="Assets" t="Include">
+        <e p="Plugins" t="Include">
+          <e p="Demigiant" t="Include">
+            <e p="DOTween" t="Include">
+              <e p="Modules" t="Include">
+                <e p="DOTweenModuleAudio.cs" t="Include" />
+                <e p="DOTweenModuleEPOOutline.cs" t="Include" />
+                <e p="DOTweenModulePhysics.cs" t="Include" />
+                <e p="DOTweenModulePhysics2D.cs" t="Include" />
+                <e p="DOTweenModuleSprite.cs" t="Include" />
+                <e p="DOTweenModuleUI.cs" t="Include" />
+                <e p="DOTweenModuleUnityVersion.cs" t="Include" />
+                <e p="DOTweenModuleUtils.cs" t="Include" />
+              </e>
+              <e p="readme.txt" t="Include" />
+            </e>
+          </e>
+          <e p="TextMesh Pro" t="Include">
+            <e p="Fonts" t="Include">
+              <e p="LiberationSans - OFL.txt" t="Include" />
+            </e>
+            <e p="Resources" t="Include">
+              <e p="LineBreaking Following Characters.txt" t="Include" />
+              <e p="LineBreaking Leading Characters.txt" t="Include" />
+            </e>
+            <e p="Shaders" t="Include">
+              <e p="TMP_Bitmap-Custom-Atlas.shader" t="Include" />
+              <e p="TMP_Bitmap-Mobile.shader" t="Include" />
+              <e p="TMP_Bitmap.shader" t="Include" />
+              <e p="TMP_SDF Overlay.shader" t="Include" />
+              <e p="TMP_SDF SSD.shader" t="Include" />
+              <e p="TMP_SDF-Mobile Masking.shader" t="Include" />
+              <e p="TMP_SDF-Mobile Overlay.shader" t="Include" />
+              <e p="TMP_SDF-Mobile SSD.shader" t="Include" />
+              <e p="TMP_SDF-Mobile.shader" t="Include" />
+              <e p="TMP_SDF-Surface-Mobile.shader" t="Include" />
+              <e p="TMP_SDF-Surface.shader" t="Include" />
+              <e p="TMP_SDF.shader" t="Include" />
+              <e p="TMP_Sprite.shader" t="Include" />
+              <e p="TMPro.cginc" t="Include" />
+              <e p="TMPro_Mobile.cginc" t="Include" />
+              <e p="TMPro_Properties.cginc" t="Include" />
+              <e p="TMPro_Surface.cginc" t="Include" />
+            </e>
+            <e p="Sprites" t="Include">
+              <e p="EmojiOne Attribution.txt" t="Include" />
+              <e p="EmojiOne.json" t="Include" />
+            </e>
+          </e>
+          <e p="UniRx" t="Include">
+            <e p="Examples" t="Include">
+              <e p="Sample01_ObservableWWW.cs" t="Include" />
+              <e p="Sample02_ObservableTriggers.cs" t="Include" />
+              <e p="Sample03_GameObjectAsObservable.cs" t="Include" />
+              <e p="Sample04_ConvertFromUnityCallback.cs" t="Include" />
+              <e p="Sample05_ConvertFromCoroutine.cs" t="Include" />
+              <e p="Sample06_ConvertToCoroutine.cs" t="Include" />
+              <e p="Sample07_OrchestratIEnumerator.cs" t="Include" />
+              <e p="Sample08_DetectDoubleClick.cs" t="Include" />
+              <e p="Sample09_EventHandling.cs" t="Include" />
+              <e p="Sample10_MainThreadDispatcher.cs" t="Include" />
+              <e p="Sample11_Logger.cs" t="Include" />
+              <e p="Sample12_ReactiveProperty.cs" t="Include" />
+              <e p="Sample13_ToDoApp.cs" t="Include" />
+              <e p="UniRx.Examples.asmdef" t="Include" />
+            </e>
+            <e p="readme.txt" t="Include" />
+            <e p="Scripts" t="Include">
+              <e p="Asynchronous" t="Include">
+                <e p="WebRequestExtensions.cs" t="Include" />
+              </e>
+              <e p="Disposables" t="Include">
+                <e p="BooleanDisposable.cs" t="Include" />
+                <e p="CancellationDisposable.cs" t="Include" />
+                <e p="CompositeDisposable.cs" t="Include" />
+                <e p="DictionaryDisposable.cs" t="Include" />
+                <e p="Disposable.cs" t="Include" />
+                <e p="DisposableExtensions.cs" t="Include" />
+                <e p="ICancelable.cs" t="Include" />
+                <e p="MultipleAssignmentDisposable.cs" t="Include" />
+                <e p="RefCountDisposable.cs" t="Include" />
+                <e p="ScheduledDisposable.cs" t="Include" />
+                <e p="SerialDisposable.cs" t="Include" />
+                <e p="SingleAssignmentDisposable.cs" t="Include" />
+                <e p="StableCompositeDisposable.cs" t="Include" />
+              </e>
+              <e p="EventPattern.cs" t="Include" />
+              <e p="InternalUtil" t="Include">
+                <e p="AscynLock.cs" t="Include" />
+                <e p="CancellableTaskCompletionSource.cs" t="Include" />
+                <e p="ExceptionExtensions.cs" t="Include" />
+                <e p="ImmutableList.cs" t="Include" />
+                <e p="ListObserver.cs" t="Include" />
+                <e p="MicroCoroutine.cs" t="Include" />
+                <e p="PriorityQueue.cs" t="Include" />
+                <e p="PromiseHelper.cs" t="Include" />
+                <e p="ScheduledItem.cs" t="Include" />
+                <e p="ThreadSafeQueueWorker.cs" t="Include" />
+                <e p="UnityEqualityComparer.cs" t="Include" />
+              </e>
+              <e p="Notification.cs" t="Include" />
+              <e p="Notifiers" t="Include">
+                <e p="BooleanNotifier.cs" t="Include" />
+                <e p="CountNotifier.cs" t="Include" />
+                <e p="MessageBroker.cs" t="Include" />
+                <e p="ScheduledNotifier.cs" t="Include" />
+              </e>
+              <e p="Observable.Aggregate.cs" t="Include" />
+              <e p="Observable.Awaiter.cs" t="Include" />
+              <e p="Observable.Binding.cs" t="Include" />
+              <e p="Observable.Blocking.cs" t="Include" />
+              <e p="Observable.Concatenate.cs" t="Include" />
+              <e p="Observable.Concurrency.cs" t="Include" />
+              <e p="Observable.Conversions.cs" t="Include" />
+              <e p="Observable.Creation.cs" t="Include" />
+              <e p="Observable.cs" t="Include" />
+              <e p="Observable.ErrorHandling.cs" t="Include" />
+              <e p="Observable.Events.cs" t="Include" />
+              <e p="Observable.FromAsync.cs" t="Include" />
+              <e p="Observable.Joins.cs" t="Include" />
+              <e p="Observable.Paging.cs" t="Include" />
+              <e p="Observable.Time.cs" t="Include" />
+              <e p="Observer.cs" t="Include" />
+              <e p="Operators" t="Include">
+                <e p="Aggregate.cs" t="Include" />
+                <e p="Amb.cs" t="Include" />
+                <e p="AsObservable.cs" t="Include" />
+                <e p="AsSingleUnitObservable.cs" t="Include" />
+                <e p="AsUnitObservable.cs" t="Include" />
+                <e p="Buffer.cs" t="Include" />
+                <e p="Cast.cs" t="Include" />
+                <e p="Catch.cs" t="Include" />
+                <e p="CombineLatest.cs" t="Include" />
+                <e p="Concat.cs" t="Include" />
+                <e p="ContinueWith.cs" t="Include" />
+                <e p="Create.cs" t="Include" />
+                <e p="DefaultIfEmpty.cs" t="Include" />
+                <e p="Defer.cs" t="Include" />
+                <e p="Delay.cs" t="Include" />
+                <e p="DelaySubscription.cs" t="Include" />
+                <e p="Dematerialize.cs" t="Include" />
+                <e p="Distinct.cs" t="Include" />
+                <e p="DistinctUntilChanged.cs" t="Include" />
+                <e p="Do.cs" t="Include" />
+                <e p="Empty.cs" t="Include" />
+                <e p="Finally.cs" t="Include" />
+                <e p="First.cs" t="Include" />
+                <e p="ForEachAsync.cs" t="Include" />
+                <e p="FromEvent.cs" t="Include" />
+                <e p="GroupBy.cs" t="Include" />
+                <e p="IgnoreElements.cs" t="Include" />
+                <e p="Last.cs" t="Include" />
+                <e p="Materialize.cs" t="Include" />
+                <e p="Merge.cs" t="Include" />
+                <e p="Never.cs" t="Include" />
+                <e p="ObserveOn.cs" t="Include" />
+                <e p="OfType.cs" t="Include" />
+                <e p="OperatorObservableBase.cs" t="Include" />
+                <e p="OperatorObserverBase.cs" t="Include" />
+                <e p="PairWise.cs" t="Include" />
+                <e p="Range.cs" t="Include" />
+                <e p="RefCount.cs" t="Include" />
+                <e p="Repeat.cs" t="Include" />
+                <e p="RepeatSafe.cs" t="Include" />
+                <e p="Return.cs" t="Include" />
+                <e p="Sample.cs" t="Include" />
+                <e p="Scan.cs" t="Include" />
+                <e p="Select.cs" t="Include" />
+                <e p="SelectMany.cs" t="Include" />
+                <e p="SelectWhere.cs" t="Include" />
+                <e p="Single.cs" t="Include" />
+                <e p="Skip.cs" t="Include" />
+                <e p="SkipUntil.cs" t="Include" />
+                <e p="SkipWhile.cs" t="Include" />
+                <e p="Start.cs" t="Include" />
+                <e p="StartWith.cs" t="Include" />
+                <e p="SubscribeOn.cs" t="Include" />
+                <e p="Switch.cs" t="Include" />
+                <e p="Synchronize.cs" t="Include" />
+                <e p="SynchronizedObserver.cs" t="Include" />
+                <e p="Take.cs" t="Include" />
+                <e p="TakeLast.cs" t="Include" />
+                <e p="TakeUntil.cs" t="Include" />
+                <e p="TakeWhile.cs" t="Include" />
+                <e p="Throttle.cs" t="Include" />
+                <e p="ThrottleFirst.cs" t="Include" />
+                <e p="Throw.cs" t="Include" />
+                <e p="TimeInterval.cs" t="Include" />
+                <e p="Timeout.cs" t="Include" />
+                <e p="Timer.cs" t="Include" />
+                <e p="Timestamp.cs" t="Include" />
+                <e p="ToArray.cs" t="Include" />
+                <e p="ToList.cs" t="Include" />
+                <e p="ToObservable.cs" t="Include" />
+                <e p="Wait.cs" t="Include" />
+                <e p="WhenAll.cs" t="Include" />
+                <e p="Where.cs" t="Include" />
+                <e p="WhereSelect.cs" t="Include" />
+                <e p="WithLatestFrom.cs" t="Include" />
+                <e p="Zip.cs" t="Include" />
+                <e p="ZipLatest.cs" t="Include" />
+              </e>
+              <e p="Pair.cs" t="Include" />
+              <e p="Schedulers" t="Include">
+                <e p="CurrentThreadScheduler.cs" t="Include" />
+                <e p="ImmediateScheduler.cs" t="Include" />
+                <e p="IScheduler.cs" t="Include" />
+                <e p="Scheduler.cs" t="Include" />
+                <e p="ThreadPoolScheduler.cs" t="Include" />
+              </e>
+              <e p="Subjects" t="Include">
+                <e p="AsyncSubject.cs" t="Include" />
+                <e p="BehaviorSubject.cs" t="Include" />
+                <e p="ConnectableObservable.cs" t="Include" />
+                <e p="ISubject.cs" t="Include" />
+                <e p="ReplaySubject.cs" t="Include" />
+                <e p="Subject.cs" t="Include" />
+                <e p="SubjectExtensions.cs" t="Include" />
+              </e>
+              <e p="System" t="Include">
+                <e p="IObservable.cs" t="Include" />
+                <e p="IObserver.cs" t="Include" />
+                <e p="IOptimizedObservable.cs" t="Include" />
+                <e p="IProgress.cs" t="Include" />
+                <e p="Tuple.cs" t="Include" />
+                <e p="Unit.cs" t="Include" />
+              </e>
+              <e p="Tasks" t="Include">
+                <e p="TaskObservableExtensions.cs" t="Include" />
+              </e>
+              <e p="TimeInterval.cs" t="Include" />
+              <e p="Timestamped.cs" t="Include" />
+              <e p="UniRx.asmdef" t="Include" />
+              <e p="UnityEngineBridge" t="Include">
+                <e p="AsyncOperationExtensions.cs" t="Include" />
+                <e p="CancellationToken.cs" t="Include" />
+                <e p="CoroutineAsyncBridge.cs" t="Include" />
+                <e p="Diagnostics" t="Include">
+                  <e p="LogEntry.cs" t="Include" />
+                  <e p="LogEntryExtensions.cs" t="Include" />
+                  <e p="Logger.cs" t="Include" />
+                  <e p="ObservableDebugExtensions.cs" t="Include" />
+                  <e p="ObservableLogger.cs" t="Include" />
+                  <e p="UnityDebugSink.cs" t="Include" />
+                </e>
+                <e p="FrameInterval.cs" t="Include" />
+                <e p="InspectableReactiveProperty.cs" t="Include" />
+                <e p="InspectorDisplayDrawer.cs" t="Include" />
+                <e p="LifetimeDisposableExtensions.cs" t="Include" />
+                <e p="MainThreadDispatcher.cs" t="Include" />
+                <e p="MainThreadScheduler.cs" t="Include" />
+                <e p="Observable.Unity.cs" t="Include" />
+                <e p="ObservableWWW.cs" t="Include" />
+                <e p="ObserveExtensions.cs" t="Include" />
+                <e p="Operators" t="Include">
+                  <e p="BatchFrame.cs" t="Include" />
+                  <e p="DelayFrame.cs" t="Include" />
+                  <e p="DelayFrameSubscription.cs" t="Include" />
+                  <e p="FrameInterval.cs" t="Include" />
+                  <e p="FrameTimeInterval.cs" t="Include" />
+                  <e p="FromCoroutine.cs" t="Include" />
+                  <e p="RepeatUntil.cs" t="Include" />
+                  <e p="SampleFrame.cs" t="Include" />
+                  <e p="SubscribeOnMainThread.cs" t="Include" />
+                  <e p="ThrottleFirstFrame.cs" t="Include" />
+                  <e p="ThrottleFrame.cs" t="Include" />
+                  <e p="TimeoutFrame.cs" t="Include" />
+                </e>
+                <e p="ReactiveCollection.cs" t="Include" />
+                <e p="ReactiveCommand.cs" t="Include" />
+                <e p="ReactiveDictionary.cs" t="Include" />
+                <e p="ReactiveProperty.cs" t="Include" />
+                <e p="ScenePlaybackDetector.cs" t="Include" />
+                <e p="Toolkit" t="Include">
+                  <e p="ObjectPool.cs" t="Include" />
+                </e>
+                <e p="Triggers" t="Include">
+                  <e p="ObservableAnimatorTrigger.cs" t="Include" />
+                  <e p="ObservableBeginDragTrigger.cs" t="Include" />
+                  <e p="ObservableCancelTrigger.cs" t="Include" />
+                  <e p="ObservableCanvasGroupChangedTrigger.cs" t="Include" />
+                  <e p="ObservableCollision2DTrigger.cs" t="Include" />
+                  <e p="ObservableCollisionTrigger.cs" t="Include" />
+                  <e p="ObservableDeselectTrigger.cs" t="Include" />
+                  <e p="ObservableDestroyTrigger.cs" t="Include" />
+                  <e p="ObservableDragTrigger.cs" t="Include" />
+                  <e p="ObservableDropTrigger.cs" t="Include" />
+                  <e p="ObservableEnableTrigger.cs" t="Include" />
+                  <e p="ObservableEndDragTrigger.cs" t="Include" />
+                  <e p="ObservableEventTrigger.cs" t="Include" />
+                  <e p="ObservableFixedUpdateTrigger.cs" t="Include" />
+                  <e p="ObservableInitializePotentialDragTrigger.cs" t="Include" />
+                  <e p="ObservableJointTrigger.cs" t="Include" />
+                  <e p="ObservableLateUpdateTrigger.cs" t="Include" />
+                  <e p="ObservableMouseTrigger.cs" t="Include" />
+                  <e p="ObservableMoveTrigger.cs" t="Include" />
+                  <e p="ObservableParticleTrigger.cs" t="Include" />
+                  <e p="ObservablePointerClickTrigger.cs" t="Include" />
+                  <e p="ObservablePointerDownTrigger.cs" t="Include" />
+                  <e p="ObservablePointerEnterTrigger.cs" t="Include" />
+                  <e p="ObservablePointerExitTrigger.cs" t="Include" />
+                  <e p="ObservablePointerUpTrigger.cs" t="Include" />
+                  <e p="ObservableRectTransformTrigger.cs" t="Include" />
+                  <e p="ObservableScrollTrigger.cs" t="Include" />
+                  <e p="ObservableSelectTrigger.cs" t="Include" />
+                  <e p="ObservableStateMachineTrigger.cs" t="Include" />
+                  <e p="ObservableSubmitTrigger.cs" t="Include" />
+                  <e p="ObservableTransformChangedTrigger.cs" t="Include" />
+                  <e p="ObservableTrigger2DTrigger.cs" t="Include" />
+                  <e p="ObservableTriggerBase.cs" t="Include" />
+                  <e p="ObservableTriggerExtensions.Component.cs" t="Include" />
+                  <e p="ObservableTriggerExtensions.cs" t="Include" />
+                  <e p="ObservableTriggerTrigger.cs" t="Include" />
+                  <e p="ObservableUpdateSelectedTrigger.cs" t="Include" />
+                  <e p="ObservableUpdateTrigger.cs" t="Include" />
+                  <e p="ObservableVisibleTrigger.cs" t="Include" />
+                </e>
+                <e p="UnityEventExtensions.cs" t="Include" />
+                <e p="UnityGraphicExtensions.cs" t="Include" />
+                <e p="UnityUIComponentExtensions.cs" t="Include" />
+                <e p="YieldInstructionCache.cs" t="Include" />
+              </e>
+              <e p="UnityWinRTBridge" t="Include">
+                <e p="Thread.cs" t="Include" />
+                <e p="ThreadPoolScheduler_UnityWinRT.cs" t="Include" />
+              </e>
+            </e>
+          </e>
+        </e>
+        <e p="Scripts" t="Include">
+          <e p="Audio" t="Include">
+            <e p="AudioHandlers" t="Include">
+              <e p="AudioHandlerUI.cs" t="Include" />
+              <e p="CarAudioHandler.cs" t="Include" />
+            </e>
+            <e p="AudioSettingSwitch.cs" t="Include" />
+            <e p="CarClips.cs" t="Include" />
+            <e p="GlobalAudio.cs" t="Include" />
+            <e p="GlobalAudioValues.cs" t="Include" />
+            <e p="UIClips.cs" t="Include" />
+          </e>
+          <e p="Bot" t="Include">
+            <e p="Bot.cs" t="Include" />
+            <e p="BotSound.cs" t="Include" />
+            <e p="Flip.cs" t="Include" />
+            <e p="LookAt.cs" t="Include" />
+            <e p="Ragdoll" t="Include">
+              <e p="BotRagdoll.cs" t="Include" />
+              <e p="ComponentRagdoll.cs" t="Include" />
+            </e>
+            <e p="States" t="Include">
+              <e p="BotStateSwitch.cs" t="Include" />
+              <e p="DeadState.cs" t="Include" />
+              <e p="LiveState.cs" t="Include" />
+            </e>
+            <e p="Vision.cs" t="Include" />
+          </e>
+          <e p="Car" t="Include">
+            <e p="Car.cs" t="Include" />
+            <e p="CarInLevel.cs" t="Include" />
+            <e p="DestructionCar" t="Include">
+              <e p="ArmoredBackFrameDestructionHandler.cs" t="Include" />
+              <e p="BackCarDestructionHandler.cs" t="Include" />
+              <e p="BackDoorDestructionHandler.cs" t="Include" />
+              <e p="BackWingDestructionHandler.cs" t="Include" />
+              <e p="BoosterDestructionHandler.cs" t="Include" />
+              <e p="BottomDestructionHandler.cs" t="Include" />
+              <e p="BumperDestructionHandler.cs" t="Include" />
+              <e p="DestructionCar.cs" t="Include" />
+              <e p="DestructionHandler.cs" t="Include" />
+              <e p="DestructionHandlerContent.cs" t="Include" />
+              <e p="DestructionMode.cs" t="Include" />
+              <e p="FrontDoorDestructionHandler.cs" t="Include" />
+              <e p="FrontWingDestructionHandler.cs" t="Include" />
+              <e p="GlassDestructionHandler.cs" t="Include" />
+              <e p="GunDestructionHandler.cs" t="Include" />
+              <e p="HotWheelDestructionHandler.cs" t="Include" />
+              <e p="RoofDestructionHandler.cs" t="Include" />
+              <e p="SafetyFrameworkDestructionHandler.cs" t="Include" />
+            </e>
+            <e p="HotWheel.cs" t="Include" />
+            <e p="Parts" t="Include">
+              <e p="ArmoredBackFrameRef.cs" t="Include" />
+              <e p="ArmoredFrontFrameRef.cs" t="Include" />
+              <e p="ArmoredRoofFrameRef.cs" t="Include" />
+              <e p="BackWingRef.cs" t="Include" />
+              <e p="BoosterRef.cs" t="Include" />
+              <e p="BottomRef.cs" t="Include" />
+              <e p="BumperRef.cs" t="Include" />
+              <e p="CabineRef.cs" t="Include" />
+              <e p="DoorRef.cs" t="Include" />
+              <e p="FrontWingRef.cs" t="Include" />
+              <e p="GlassRef.cs" t="Include" />
+              <e p="GunRef.cs" t="Include" />
+              <e p="HotWheelRef.cs" t="Include" />
+              <e p="RoofRef.cs" t="Include" />
+              <e p="SafetyFrameworkRef.cs" t="Include" />
+            </e>
+            <e p="Sourse" t="Include">
+              <e p="Booster.cs" t="Include" />
+              <e p="BoosterScrew.cs" t="Include" />
+              <e p="Brakes.cs" t="Include" />
+              <e p="CarFSM" t="Include">
+                <e p="CarFSM.cs" t="Include" />
+                <e p="States" t="Include">
+                  <e p="CarState.cs" t="Include" />
+                  <e p="FlyState.cs" t="Include" />
+                  <e p="GasState.cs" t="Include" />
+                  <e p="RollState.cs" t="Include" />
+                  <e p="StopState.cs" t="Include" />
+                </e>
+              </e>
+              <e p="CarMass" t="Include">
+                <e p="CarMass.cs" t="Include" />
+              </e>
+              <e p="CarWheel.cs" t="Include" />
+              <e p="Control" t="Include">
+                <e p="ControlCar.cs" t="Include" />
+                <e p="ControlCarKeyboard.cs" t="Include" />
+                <e p="ControlCarUI.cs" t="Include" />
+                <e p="InputMethod.cs" t="Include" />
+                <e p="KeyboardInputMethod.cs" t="Include" />
+                <e p="UIInputMethod.cs" t="Include" />
+              </e>
+              <e p="CoupAnalyzer.cs" t="Include" />
+              <e p="FuelTank" t="Include">
+                <e p="BoosterFuelTank.cs" t="Include" />
+                <e p="FuelTank.cs" t="Include" />
+                <e p="Tank.cs" t="Include" />
+              </e>
+              <e p="Gun" t="Include">
+                <e p="CarGun.cs" t="Include" />
+                <e p="CarGunDetector.cs" t="Include" />
+                <e p="CarGunTarget.cs" t="Include" />
+                <e p="GunGuidance.cs" t="Include" />
+              </e>
+              <e p="Gyroscope.cs" t="Include" />
+              <e p="PropulsionUnit" t="Include">
+                <e p="Engine.cs" t="Include" />
+                <e p="PropulsionUnit.cs" t="Include" />
+                <e p="Transmission.cs" t="Include" />
+              </e>
+              <e p="Speedometer.cs" t="Include" />
+              <e p="Suspension.cs" t="Include" />
+            </e>
+          </e>
+          <e p="Editor" t="Include">
+            <e p="LoadScene.cs" t="Include" />
+          </e>
+          <e p="Enums" t="Include">
+            <e p="CarControlMethod.cs" t="Include" />
+            <e p="PanelsInMenu.cs" t="Include" />
+          </e>
+          <e p="Factory.cs" t="Include" />
+          <e p="Game" t="Include">
+            <e p="BuildString.cs" t="Include" />
+            <e p="EntryPoint.cs" t="Include" />
+            <e p="Game.cs" t="Include" />
+            <e p="GamePause.cs" t="Include" />
+            <e p="Garage" t="Include">
+              <e p="CarConfiguration.cs" t="Include" />
+              <e p="CarConfigurationInParkingLot.cs" t="Include" />
+              <e p="CarConfigurationProvider.cs" t="Include" />
+              <e p="CarCustomize" t="Include">
+                <e p="CustomizeCar.cs" t="Include" />
+              </e>
+              <e p="Garage.cs" t="Include" />
+              <e p="GarageConfig.cs" t="Include" />
+              <e p="InGarageCarCustomize" t="Include">
+                <e p="CarInGarage.cs" t="Include" />
+                <e p="CombinedImprovement.cs" t="Include" />
+                <e p="CustomizeCarInGarage.cs" t="Include" />
+                <e p="SuspensionValues.cs" t="Include" />
+                <e p="WheelCarValues.cs" t="Include" />
+              </e>
+              <e p="ParkingLot.cs" t="Include" />
+              <e p="SwitchGarageLot.cs" t="Include" />
+              <e p="UpgradeParkingLot.cs" t="Include" />
+            </e>
+            <e p="Level" t="Include">
+              <e p="KillsCount.cs" t="Include" />
+              <e p="Level.cs" t="Include" />
+              <e p="LevelConfig.cs" t="Include" />
+              <e p="LevelContent" t="Include">
+                <e p="Trap.cs" t="Include" />
+              </e>
+              <e p="LevelEditor" t="Include">
+                <e p="LandGenerator.cs" t="Include" />
+                <e p="test.cs" t="Include" />
+              </e>
+              <e p="LevelPart.cs" t="Include" />
+              <e p="LevelProgressCounter.cs" t="Include" />
+              <e p="LevelProgressSliderSectionsValuesProvider.cs" t="Include" />
+              <e p="NotificationsProvider.cs" t="Include" />
+              <e p="ResultsLevel.cs" t="Include" />
+              <e p="ResultsLevelProvider.cs" t="Include" />
+            </e>
+            <e p="Map" t="Include">
+              <e p="BezierPointCalculator.cs" t="Include" />
+              <e p="Map.cs" t="Include" />
+              <e p="SegmentMap.cs" t="Include" />
+            </e>
+            <e p="Player" t="Include">
+              <e p="PlayerData.cs" t="Include" />
+              <e p="PlayerDataHandler.cs" t="Include" />
+            </e>
+            <e p="SceneSwitch.cs" t="Include" />
+            <e p="ValuesPanelActivator.cs" t="Include" />
+            <e p="Wallet.cs" t="Include" />
+          </e>
+          <e p="Guns" t="Include">
+            <e p="Bullet" t="Include">
+              <e p="Bullet.cs" t="Include" />
+            </e>
+            <e p="BulletReservoir.cs" t="Include" />
+            <e p="FireAnimation.cs" t="Include" />
+            <e p="Gun.cs" t="Include" />
+            <e p="PersecuteHands.cs" t="Include" />
+            <e p="RateFire.cs" t="Include" />
+          </e>
+          <e p="Installers" t="Include">
+            <e p="AdditionalDontDestroyInstaller.cs" t="Include" />
+            <e p="EntryScenesInstallers" t="Include">
+              <e p="GarageInstaller.cs" t="Include" />
+              <e p="MapInstaller.cs" t="Include" />
+              <e p="PrefabInstallers" t="Include">
+                <e p="GaragePrefabsProviderInstaller.cs" t="Include" />
+              </e>
+              <e p="StartMenuBackgroundInstaller.cs" t="Include" />
+              <e p="ViewEntrySceneInstaller.cs" t="Include" />
+            </e>
+            <e p="GlobalInstallers" t="Include">
+              <e p="GameDataInstaller.cs" t="Include" />
+              <e p="GarageDataInstaller.cs" t="Include" />
+              <e p="GlobalAudioInstaller.cs" t="Include" />
+              <e p="PlayerDataProviderInstaller.cs" t="Include" />
+              <e p="SaveServiceInstaller.cs" t="Include" />
+            </e>
+            <e p="LevelScenesInstallers" t="Include">
+              <e p="LevelContentInstaller.cs" t="Include" />
+            </e>
+          </e>
+          <e p="Interfaces" t="Include">
+            <e p="IAudioSettingSwitch.cs" t="Include" />
+            <e p="ICarAudio.cs" t="Include" />
+            <e p="IClickAudio.cs" t="Include" />
+            <e p="ICorutineStarter.cs" t="Include" />
+            <e p="ICutable.cs" t="Include" />
+            <e p="IDamageble.cs" t="Include" />
+            <e p="IExplodable.cs" t="Include" />
+            <e p="IKnockable.cs" t="Include" />
+            <e p="IPlayerData.cs" t="Include" />
+            <e p="IShotable.cs" t="Include" />
+            <e p="ISoundPause.cs" t="Include" />
+            <e p="IStateSetter.cs" t="Include" />
+          </e>
+          <e p="Ragdoll.cs" t="Include" />
+          <e p="SaveService" t="Include">
+            <e p="Data" t="Include">
+              <e p="SaveData.cs" t="Include" />
+              <e p="SaveParkingIndexes.cs" t="Include" />
+            </e>
+            <e p="SaveMetods" t="Include">
+              <e p="BinarySave.cs" t="Include" />
+              <e p="ISaveMetod.cs" t="Include" />
+            </e>
+            <e p="SaveService.cs" t="Include" />
+          </e>
+          <e p="ScriptableObjectScripts" t="Include">
+            <e p="CarsConfigurationsSettingsToSave.cs" t="Include" />
+            <e p="CarsConfigurationsStartSettings.cs" t="Include" />
+            <e p="DescriptionsButtonsUpgrades.cs" t="Include" />
+            <e p="GameData.cs" t="Include" />
+            <e p="GarageData.cs" t="Include" />
+            <e p="ParkingLotConfiguration.cs" t="Include" />
+            <e p="Providers" t="Include">
+              <e p="AudioClipProvider.cs" t="Include" />
+              <e p="PlayerDataProvider.cs" t="Include" />
+              <e p="PrefabsProviders" t="Include">
+                <e p="GaragePrefabsProvider.cs" t="Include" />
+                <e p="LevelPrefabsProvider.cs" t="Include" />
+              </e>
+            </e>
+            <e p="UpgradeButtonsGarageContent.cs" t="Include" />
+          </e>
+          <e p="SmoothnessTimer.cs" t="Include" />
+          <e p="Spawner.cs" t="Include" />
+          <e p="SpawnerGame.cs" t="Include" />
+          <e p="test.cs" t="Include" />
+          <e p="UI" t="Include">
+            <e p="CustomButton" t="Include">
+              <e p="CustomButton.cs" t="Include" />
+              <e p="CustomButtonUpgrade.cs" t="Include" />
+            </e>
+            <e p="UIEntryScene" t="Include">
+              <e p="Model" t="Include">
+                <e p="AnimationsUI.cs" t="Include" />
+                <e p="ButtonsUpgrade" t="Include">
+                  <e p="AppearanceButtonsAnimation.cs" t="Include" />
+                  <e p="ButtonData.cs" t="Include" />
+                  <e p="ButtonsUpgradeCar.cs" t="Include" />
+                  <e p="InteractableButtonHandler.cs" t="Include" />
+                  <e p="PriceLabel.cs" t="Include" />
+                  <e p="ProgressIndicator.cs" t="Include" />
+                  <e p="UpgradeButton.cs" t="Include" />
+                </e>
+                <e p="ConfirmationUpgrade" t="Include">
+                  <e p="AnimationPanelConfirmationUpgrade.cs" t="Include" />
+                  <e p="ConfirmationUpgrade.cs" t="Include" />
+                </e>
+                <e p="GarageUI" t="Include">
+                  <e p="AnimationSwitchArrows.cs" t="Include" />
+                  <e p="GarageUI.cs" t="Include" />
+                  <e p="LockLotIndicator.cs" t="Include" />
+                  <e p="SwitchingArrows.cs" t="Include" />
+                </e>
+                <e p="MapPanelHandler.cs" t="Include" />
+                <e p="ModelEntryScene.cs" t="Include" />
+                <e p="PanelsActivator.cs" t="Include" />
+                <e p="ValuesPanelHandler.cs" t="Include" />
+              </e>
+              <e p="Presenter" t="Include">
+                <e p="PresenterEntryScene.cs" t="Include" />
+              </e>
+              <e p="View" t="Include">
+                <e p="ButtonWithStatusBar.cs" t="Include" />
+                <e p="Panels" t="Include">
+                  <e p="GaragePanel.cs" t="Include" />
+                  <e p="MapPanel.cs" t="Include" />
+                  <e p="PanelConfirmationUpgrade.cs" t="Include" />
+                  <e p="SettingsPanel.cs" t="Include" />
+                  <e p="StartMenuPanel.cs" t="Include" />
+                </e>
+                <e p="ViewEntryScene.cs" t="Include" />
+              </e>
+            </e>
+            <e p="UILevelScene" t="Include">
+              <e p="Model" t="Include">
+                <e p="ButtonsControl.cs" t="Include" />
+                <e p="CarBoosterHandler.cs" t="Include" />
+                <e p="CarGunHandler.cs" t="Include" />
+                <e p="DevicePanel" t="Include">
+                  <e p="BlinkIndicator.cs" t="Include" />
+                  <e p="Device.cs" t="Include" />
+                  <e p="DeviceForBoosterFuel.cs" t="Include" />
+                  <e p="DeviceForFuel.cs" t="Include" />
+                  <e p="DeviceForSpeed.cs" t="Include" />
+                  <e p="DevicePanelHandler.cs" t="Include" />
+                  <e p="DevicesOnPanelValues.cs" t="Include" />
+                </e>
+                <e p="LevelProgressHandler.cs" t="Include" />
+                <e p="ModelUILevel.cs" t="Include" />
+                <e p="NotificationsHandler.cs" t="Include" />
+                <e p="PanelsHandler.cs" t="Include" />
+                <e p="PausePanelButtonsHandler.cs" t="Include" />
+                <e p="ResultLevelForSlider.cs" t="Include" />
+                <e p="ResultsLevelHandler.cs" t="Include" />
+              </e>
+              <e p="Presenter" t="Include">
+                <e p="PresenterUILevel.cs" t="Include" />
+              </e>
+              <e p="View" t="Include">
+                <e p="Panels" t="Include">
+                  <e p="DevicePanel.cs" t="Include" />
+                  <e p="PanelPause.cs" t="Include" />
+                  <e p="PanelScore.cs" t="Include" />
+                </e>
+                <e p="ViewUILevel.cs" t="Include" />
+              </e>
+            </e>
+          </e>
+        </e>
+        <e p="SimpleFolderIcon" t="Include">
+          <e p="Editor" t="Include">
+            <e p="CustomFolder.cs" t="Include" />
+            <e p="FolderIconSO.cs" t="Include" />
+            <e p="IconDictionaryCreator.cs" t="Include" />
+            <e p="SimpleFolderIcon.asmdef" t="Include" />
+          </e>
+        </e>
+      </e>
+      <e p="EarnToLife.sln" t="IncludeFlat" />
+      <e p="obj" t="ExcludeRecursive" />
+      <e p="Packages" t="ExcludeRecursive" />
+      <e p="SimpleFolderIcon.csproj" t="IncludeRecursive" />
+      <e p="Temp\Bin" t="ExcludeRecursive" />
+      <e p="UniRx.csproj" t="IncludeRecursive" />
+      <e p="UniRx.Examples.csproj" t="IncludeRecursive" />
+    </e>
+  </component>
+</project>

@@ -2,8 +2,6 @@
 
 public class FrontWingDestructionHandler : DestructionHandler
 {
-    private readonly float _strength1AfterHit;
-    private readonly float _strength2AfterHit;
     private readonly ArmoredFrontFrameRef _armoredFrontFrameRef;
     private readonly GlassDestructionHandler _glassDestructionHandler;
     private readonly HotWheelDestructionHandler _hotWheelDestructionHandler;
@@ -17,27 +15,20 @@ public class FrontWingDestructionHandler : DestructionHandler
     private readonly Transform _armoredFrontDamaged;
     private readonly Collider2D _wingDamaged1Collider;
     private readonly Collider2D _wingDamaged2Collider;
-    // private readonly Collider2D _armoredFrontNormalCollider;
     private readonly Collider2D _armoredFrontDamagedCollider;
     private readonly bool _isArmored;
     private Transform _damaged2Hood;
+    private DestructionMode _destructionMode = DestructionMode.ModeDefault;
+    private bool _lighterBroken;
 
     public FrontWingDestructionHandler(FrontWingRef frontWingRef, ArmoredFrontFrameRef armoredFrontFrameRef, 
         GlassDestructionHandler glassDestructionHandler, HotWheelDestructionHandler hotWheelDestructionHandler,
         DestructionHandlerContent destructionHandlerContent, int strength, bool isArmored)
         :base(frontWingRef, destructionHandlerContent, strength)
     {
-        // if (_wingNormal.gameObject.activeSelf == true)
-        // {
-        //     Debug.Log("                      08");
-        //
-        // }
         _glassDestructionHandler = glassDestructionHandler;
         _hotWheelDestructionHandler = hotWheelDestructionHandler;
-        _strength1AfterHit = strength * HalfStrengthMultiplier;
-        _strength2AfterHit = strength * MinStrengthMultiplier;
         _wingNormal = frontWingRef.WingNormal;
-
         _lighterWingNormal = frontWingRef.LighterWingNormal;
         _lighterWingNormal.gameObject.SetActive(false);
         _damaged2Hood = frontWingRef.WingFrontDamaged2TrunkCover;
@@ -55,50 +46,74 @@ public class FrontWingDestructionHandler : DestructionHandler
             _armoredFrontNormal = armoredFrontFrameRef.ArmoredFrontNormal;
             _armoredFrontDamaged = armoredFrontFrameRef.ArmoredFrontDamaged;
             _armoredFrontDamagedCollider = _armoredFrontDamaged.GetComponent<Collider2D>();
-            SubscribeCollider(_armoredFrontNormal.GetComponent<Collider2D>(), CheckCollision, TryDestruct);
+            SubscribeCollider(_armoredFrontNormal.GetComponent<Collider2D>(), CheckCollision, TrySwitchMode);
         }
-        SubscribeCollider(_wingNormal.GetComponent<Collider2D>(), CheckCollision, TryDestruct);
+        SubscribeCollider(_wingNormal.GetComponent<Collider2D>(), CheckCollision, TrySwitchMode);
     }
-    protected override void TryDestruct()
+    protected override void TrySwitchMode()
     {
-        ApplyDamage();
-        if (MaxStrength <= StrengthForDestruct)
+        if (ValueNormalImpulse > MaxStrength)
         {
-            DestructionMode3();
+            DestructionMode3AndSubscribe();
         }
-        else if (MaxStrength <= _strength2AfterHit)
+        else if (ValueNormalImpulse > HalfStrength)
         {
-            DestructionMode2();
+            RecalculateStrength();
+            DestructionMode2AndSubscribe();
         }
-        else if (MaxStrength <= _strength1AfterHit)
+        else if (ValueNormalImpulse > MinStrength)
         {
-            DestructionMode1();
+            RecalculateStrength();
+            if (_destructionMode == DestructionMode.Mode2)
+            {
+                DestructionMode2AndSubscribe();
+            }
+            else
+            {
+                DestructionMode1AndSubscribe();
+            }
         }
+    }
+
+    private void DestructionMode1AndSubscribe()
+    {
+        DestructionMode1();
+        if (_isArmored == true)
+        {
+            SubscribeCollider(_armoredFrontDamagedCollider, CheckCollision, TrySwitchMode);
+        }
+        SubscribeCollider(_wingDamaged1Collider, CheckCollision, TrySwitchMode);
     }
     private void DestructionMode1()
     {
         CompositeDisposable.Clear();
         ThrowLighter();
         SwitchSprites1();
-        _glassDestructionHandler.TryBreakGlass();
-        if (_isArmored == true)
-        {
-            SubscribeCollider(_armoredFrontDamagedCollider, CheckCollision, TryDestruct);
-        }
-        SubscribeCollider(_wingDamaged1Collider, CheckCollision, TryDestruct);
-        Debug.Log(32323332);
+        TrySwitchSpriteArmoredFrame();
+        _glassDestructionHandler?.TryBreakGlass();
+        _destructionMode = DestructionMode.Mode1;
+    }
 
+    private void DestructionMode2AndSubscribe()
+    {
+        DestructionMode2();
+        SubscribeCollider(_wingDamaged2Collider, CheckCollision, TrySwitchMode);
     }
     private void DestructionMode2()
     {
+        if (_destructionMode == DestructionMode.ModeDefault)
+        {
+            DestructionMode1();
+        }
         CompositeDisposable.Clear();
         SwitchSprites2();
+        SwitchBottom();
+        TrySwitchSpriteArmoredFrame();
         if (_isArmored == true)
         {
             _armoredFrontDamaged.gameObject.AddComponent<Rigidbody2D>();
             SetParentDebris(_armoredFrontFrameRef.transform);
         }
-
         if (_hotWheelDestructionHandler != null)
         {
             _hotWheelDestructionHandler.Destruct();
@@ -106,29 +121,27 @@ public class FrontWingDestructionHandler : DestructionHandler
         }
         _glassDestructionHandler?.TryThrowGlass();
         ThrowHood();
-        SubscribeCollider(_wingDamaged2Collider, CheckCollision, TryDestruct);
+        _destructionMode = DestructionMode.Mode2;
     }
-    private void DestructionMode3()
+    private void DestructionMode3AndSubscribe()
     {
-        DestructionMode2();
+        if (_destructionMode != DestructionMode.Mode2)
+        {
+            DestructionMode2();
+        }
+        _destructionMode = DestructionMode.Mode3;
+        Debug.Log("       engine broken");
         //engine broken
     }
     private void SwitchSprites1()
     {
-        Debug.Log(111111);
         _wingNormal.gameObject.SetActive(false);
         _wingDamaged1.gameObject.SetActive(true);
-        TrySwitchSpriteArmoredFrame();
     }
     private void SwitchSprites2()
     {
-        Debug.Log(5454544444444);
-
-        _wingNormal.gameObject.SetActive(false);
         _wingDamaged1.gameObject.SetActive(false);
         _wingDamaged2.gameObject.SetActive(true);
-        TrySwitchSpriteArmoredFrame();
-        SwitchBottom();
     }
 
     private void TrySwitchSpriteArmoredFrame()
@@ -141,9 +154,13 @@ public class FrontWingDestructionHandler : DestructionHandler
     }
     private void ThrowLighter()
     {
-        _lighterWingNormal.gameObject.SetActive(true);
-        _lighterWingNormal.gameObject.AddComponent<Rigidbody2D>();
-        SetParentDebris(_lighterWingNormal);
+        if (_lighterBroken == false)
+        {
+            _lighterBroken = true;
+            _lighterWingNormal.gameObject.SetActive(true);
+            _lighterWingNormal.gameObject.AddComponent<Rigidbody2D>();
+            SetParentDebris(_lighterWingNormal);
+        }
     }
 
     private void ThrowHood()

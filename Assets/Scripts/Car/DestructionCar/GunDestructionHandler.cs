@@ -2,38 +2,41 @@
 
 public sealed class GunDestructionHandler : DestructionHandler
 {
-    private Transform _gunTransform;
-    private Collider2D _gunCollider2D;
-    private CarGun _carGun;
-    private Transform[] _gunParts;
-    
+    private readonly CarGun _carGun;
+    private readonly Transform[] _gunParts;
+    private bool _isBroken = false;
     public GunDestructionHandler(GunRef gunRefs, CarGun carGun, DestructionHandlerContent destructionHandlerContent)
     :base(gunRefs, destructionHandlerContent, gunRefs.StrengthGun)
     {
-        _gunTransform = gunRefs.transform;
         _gunParts = gunRefs.GunParts;
         _carGun = carGun;
-        _gunCollider2D = _gunParts[0].GetComponent<Collider2D>();
-        SubscribeCollider(_gunCollider2D, CheckCollision, TryDestruct);
+        SubscribeCollider(_gunParts[0].GetComponent<Collider2D>(), CheckCollision, TrySwitchMode);
     }
-    protected override void TryDestruct()
+    protected override void TrySwitchMode()
     {
-        ApplyDamage();
-        if (MaxStrength <= StrengthForDestruct)
+        if (ValueNormalImpulse > MaxStrength)
         {
-            Destruction();
+            TryDestruct();
+        }
+        else
+        {
+            RecalculateStrength();
         }
     }
-
-    private void Destruction()
+    public void TryDestruct()
     {
-        CompositeDisposable.Clear();
-        _carGun.GunDisableFromDestruct();
-        _gunTransform.SetParent(DebrisParent);
-        SetCarDebrisLayer();
-        for (int i = 0; i < _gunParts.Length; i++)
+        if (_isBroken == false)
         {
-            _gunParts[i].gameObject.AddComponent<Rigidbody2D>();
+            _isBroken = true;
+            CompositeDisposable.Clear();
+            _carGun.GunDisableFromDestruct();
+            for (int i = 0; i < _gunParts.Length; i++)
+            {
+                _gunParts[i].gameObject.AddComponent<Rigidbody2D>();
+                SetParentDebris(_gunParts[i]);
+            }
+            SetParentDebris();
+            SetCarDebrisLayer();
         }
     }
 }

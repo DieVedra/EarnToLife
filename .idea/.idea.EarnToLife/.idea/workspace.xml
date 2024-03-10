@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="3af2ac40-862a-4bb0-a04f-e86f35a10e50" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Car/DestructionCar/DestructionMode.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Car/DestructionCar/DestructionMode.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Cars/CarsToGame/Car1ToGame.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Cars/CarsToGame/Car1ToGame.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/DestructionCar/BackWingDestructionHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Car/DestructionCar/BackWingDestructionHandler.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/DestructionCar/BoosterDestructionHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Car/DestructionCar/BoosterDestructionHandler.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/DestructionCar/BottomDestructionHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Car/DestructionCar/BottomDestructionHandler.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/DestructionCar/BumperDestructionHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Car/DestructionCar/BumperDestructionHandler.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/DestructionCar/DestructionHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Car/DestructionCar/DestructionHandler.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/DestructionCar/FrontWingDestructionHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Car/DestructionCar/FrontWingDestructionHandler.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/DestructionCar/GlassDestructionHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Car/DestructionCar/GlassDestructionHandler.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/DestructionCar/GunDestructionHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Car/DestructionCar/GunDestructionHandler.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/DestructionCar/RoofDestructionHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Car/DestructionCar/RoofDestructionHandler.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/Parts/FrontWingRef.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Car/Parts/FrontWingRef.cs" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/Assets/Scripts/Car/DestructionCar/DestructionMode.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Car/DestructionCar/BumperDestructionHandler.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Car/DestructionCar/GunDestructionHandler.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Car/DestructionCar/BoosterDestructionHandler.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Car/Parts/FrontWingRef.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Car/DestructionCar/FrontWingDestructionHandler.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Car/DestructionCar/GlassDestructionHandler.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Car/DestructionCar/DestructionHandler.cs" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectId" id="2dV1N4tsgFa6ycb3bsvBMyrKFrN" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="Discover.Launch.Via.Unity" value="true" />
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="vue.rearranger.settings.migration" value="true" />
+  </component>
+  <component name="RunManager" selected="Attach to Unity Editor.Attach to Unity Editor">
+    <configuration name="Attach to Unity Editor &amp; Play" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="UNITY_ATTACH_AND_PLAY" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost">
+      <option name="allowRunningInParallel" value="false" />
+      <option name="listenPortForConnections" value="false" />
+      <option name="pid" />
+      <option name="selectedOptions">
+        <set />
+      </option>
+      <method v="2" />
+    </configuration>
+    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost">
+      <option name="allowRunningInParallel" value="false" />
+      <option name="listenPortForConnections" value="false" />
+      <option name="pid" />
+      <option name="selectedOptions">
+        <set />
+      </option>
+      <method v="2" />
+    </configuration>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="3af2ac40-862a-4bb0-a04f-e86f35a10e50" name="Default Changelist" comment="" />
+      <created>1710078394299</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1710078394299</updated>
+      <workItem from="1710078409685" duration="11832000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="UnityProjectConfiguration" hasMinimizedUI="true" />
+  <component name="UnityUnitTestConfiguration" currentTestLauncher="EditMode" />
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
+  </component>
+</project>

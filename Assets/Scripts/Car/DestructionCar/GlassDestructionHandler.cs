@@ -22,6 +22,7 @@ public class GlassDestructionHandler : DestructionHandler
             _glassDamaged.gameObject.AddComponent<Rigidbody2D>();
             SetParentDebris();
             SetCarDebrisLayer();
+            
         }
     }
 

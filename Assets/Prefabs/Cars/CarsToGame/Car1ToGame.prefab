@@ -278,8 +278,8 @@ MonoBehaviour:
   _bottomNormal: {fileID: 2013505653609334920}
   _bottomDamaged: {fileID: 7301471666059876034}
   _lighterWingNormal: {fileID: 8441800656479341039}
-  _wingFrontDamaged2TrunkCover: {fileID: 0}
-  _strengthWing: 50
+  _wingFrontDamaged2TrunkCover: {fileID: 8877937520880071963}
+  _strengthWing: 450
 --- !u!1 &361269972011439785
 GameObject:
   m_ObjectHideFlags: 0
@@ -3805,8 +3805,8 @@ MonoBehaviour:
     m_Bits: 4390912
   _carRoofBrokenLayer: 10
   _bumpersDestructuonOn: 1
-  _glassesDestructuonOn: 0
-  _frontWingDestructuonOn: 0
+  _glassesDestructuonOn: 1
+  _frontWingDestructuonOn: 1
   _backWingDestructuonOn: 0
   _roofDestructuonOn: 0
   _bottomDestructuonOn: 0
@@ -12054,7 +12054,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8441800656479341039}
   - component: {fileID: 8974560515649271100}
-  - component: {fileID: 1428430967864131469}
+  - component: {fileID: 126168668340662231}
   m_Layer: 9
   m_Name: Lighter1
   m_TagString: Untagged
@@ -12129,8 +12129,8 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!58 &1428430967864131469
-CircleCollider2D:
+--- !u!61 &126168668340662231
+BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -12142,9 +12142,19 @@ CircleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -0.000000059604645}
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 0.13, y: 0.13}
+    newSize: {x: 0.13, y: 0.13}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
   serializedVersion: 2
-  m_Radius: 0.065
+  m_Size: {x: 0.1, y: 0.1}
+  m_EdgeRadius: 0
 --- !u!1 &7674069524390424464
 GameObject:
   m_ObjectHideFlags: 0

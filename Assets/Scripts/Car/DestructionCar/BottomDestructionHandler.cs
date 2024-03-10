@@ -36,15 +36,15 @@ public class BottomDestructionHandler : DestructionHandler
         if (_isArmored == true)
         {
             _collider2DStandart.enabled = false;
-            SubscribeCollider(_bottomRef.ArmoredBottom.GetComponent<Collider2D>(), CheckCollision, TryDestruct);
+            SubscribeCollider(_bottomRef.ArmoredBottom.GetComponent<Collider2D>(), CheckCollision, TrySwitchMode);
         }
         else
         {
-            SubscribeCollider(_collider2DStandart, CheckCollision, TryDestruct);
+            SubscribeCollider(_collider2DStandart, CheckCollision, TrySwitchMode);
         }
     }
 
-    protected override void TryDestruct()
+    protected override void TrySwitchMode()
     {
         ApplyDamage();
         if (MaxStrength <= StrengthForDestruct)
