@@ -159,7 +159,7 @@ public class DestructionCar : MonoBehaviour
         if (_backWingDestructuonOn == true)
         {
             _backWingDestructionHandler = new BackWingDestructionHandler(_backWingRef, _backGlassDestructionHandler, _armoredBackFrameHandler,
-                _destructionHandlerContent, CalculateStrengthBackWing(), CheckPart(boosterRef), CheckPart(_armoredBackFrameRef));
+                _destructionHandlerContent, CalculateStrengthBackWing(), CheckPart(_armoredBackFrameRef), CheckPart(boosterRef));
         }
     }
     private void InitDoorsHandler()

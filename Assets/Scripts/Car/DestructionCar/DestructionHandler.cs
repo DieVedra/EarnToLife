@@ -103,16 +103,8 @@ public abstract class DestructionHandler
     {
         CalculateStrength(MaxStrength - ValueNormalImpulse * _reducingStrengthMultiplier);
     }
-    private void CalculateStrength(float strength)
-    {
-        if (strength > 0)
-        {
-            MaxStrength = strength;
-            HalfStrength = strength * HalfStrengthMultiplier;
-            MinStrength = strength * MinStrengthMultiplier;
-        }
-    }
-    private void SetImpulseNormal(Collision2D collision)
+
+    protected void SetImpulseNormal(Collision2D collision)
     {
         for (int i = 0; i < collision.contacts.Length; i++)
         {
@@ -123,6 +115,17 @@ public abstract class DestructionHandler
         }
 
     }
+
+    private void CalculateStrength(float strength)
+    {
+        if (strength > 0)
+        {
+            MaxStrength = strength;
+            HalfStrength = strength * HalfStrengthMultiplier;
+            MinStrength = strength * MinStrengthMultiplier;
+        }
+    }
+
     private void Dispose()
     {
         CompositeDisposable.Clear();

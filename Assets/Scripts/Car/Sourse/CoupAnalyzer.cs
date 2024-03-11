@@ -10,7 +10,7 @@ public class CoupAnalyzer
     private readonly float _maxAngle = 220f;
     private readonly float _timeDelay = 10f;
     private readonly Transform _carTransform;
-    public bool CarIsCoup => IsCoup.Value;
+    public bool CarIsCoupCurrentValue => IsCoup.Value;
     public ReactiveProperty<bool> IsCoup = new ReactiveProperty<bool>();
     private CompositeDisposable _compositeDisposable = new CompositeDisposable();
     private CancellationTokenSource _cancellationTokenSource = new CancellationTokenSource();
@@ -19,11 +19,11 @@ public class CoupAnalyzer
     public CoupAnalyzer(Transform carTransform)
     {
         _carTransform = carTransform;
-        IsCoup.Subscribe(_ =>
-        {
-            TryStartTimer();
-            TryStopTimer();
-        }).AddTo(_compositeDisposable);
+        // IsCoup.Subscribe(_ =>
+        // {
+        //     TryStartTimer();
+        //     TryStopTimer();
+        // }).AddTo(_compositeDisposable);
     }
 
     public void Dispose()

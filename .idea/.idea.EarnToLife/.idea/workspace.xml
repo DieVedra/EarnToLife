@@ -20,19 +20,20 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3af2ac40-862a-4bb0-a04f-e86f35a10e50" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Car/DestructionCar/DestructionMode.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Car/DestructionCar/DestructionMode.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.EarnToLife/.idea/indexLayout.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.EarnToLife/.idea/indexLayout.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.EarnToLife/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.EarnToLife/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Cars/CarsToGame/Car1ToGame.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Cars/CarsToGame/Car1ToGame.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Levels/Level_1_Parts/Part1.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Levels/Level_1_Parts/Part1.unity" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/DestructionCar/BackWingDestructionHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Car/DestructionCar/BackWingDestructionHandler.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/DestructionCar/BoosterDestructionHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Car/DestructionCar/BoosterDestructionHandler.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/DestructionCar/BottomDestructionHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Car/DestructionCar/BottomDestructionHandler.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/DestructionCar/BumperDestructionHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Car/DestructionCar/BumperDestructionHandler.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/DestructionCar/DestructionCar.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Car/DestructionCar/DestructionCar.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/DestructionCar/DestructionHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Car/DestructionCar/DestructionHandler.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/DestructionCar/FrontWingDestructionHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Car/DestructionCar/FrontWingDestructionHandler.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/DestructionCar/GlassDestructionHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Car/DestructionCar/GlassDestructionHandler.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/DestructionCar/GunDestructionHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Car/DestructionCar/GunDestructionHandler.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/DestructionCar/RoofDestructionHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Car/DestructionCar/RoofDestructionHandler.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/Parts/ArmoredBackFrameRef.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Car/Parts/ArmoredBackFrameRef.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/Parts/ArmoredFrontFrameRef.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Car/Parts/ArmoredFrontFrameRef.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/Parts/BackWingRef.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Car/Parts/BackWingRef.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/Parts/FrontWingRef.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Car/Parts/FrontWingRef.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/CoupAnalyzer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/CoupAnalyzer.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -46,13 +47,20 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/Assets/Scripts/Car/DestructionCar/DestructionMode.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Car/DestructionCar/BumperDestructionHandler.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Car/DestructionCar/GunDestructionHandler.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Car/DestructionCar/BoosterDestructionHandler.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Car/Parts/FrontWingRef.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Car/DestructionCar/FrontWingDestructionHandler.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Car/DestructionCar/GlassDestructionHandler.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Car/Parts/FrontWingRef.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Car/Parts/ArmoredBackFrameRef.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Car/Parts/ArmoredFrontFrameRef.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Car/Parts/BackWingRef.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Car/DestructionCar/BumperDestructionHandler.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Car/DestructionCar/DestructionCar.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Car/DestructionCar/BackWingDestructionHandler.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Car/DestructionCar/DestructionHandler.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/CoupAnalyzer.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Car/DestructionCar/RoofDestructionHandler.cs" />
       </list>
     </option>
   </component>
@@ -96,6 +104,7 @@
       <option name="presentableId" value="Default" />
       <updated>1710078394299</updated>
       <workItem from="1710078409685" duration="11832000" />
+      <workItem from="1710176364230" duration="11435000" />
     </task>
     <servers />
   </component>
@@ -114,6 +123,7 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />

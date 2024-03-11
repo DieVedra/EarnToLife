@@ -6,7 +6,7 @@ public class ArmoredFrontFrameRef : MonoBehaviour
     [SerializeField, BoxGroup("ArmoredFront")] private Transform _armoredFrontNormal;
     [SerializeField, BoxGroup("ArmoredFront")] private Transform _armoredFrontDamaged;
  
-    [SerializeField, BoxGroup("Settings"), Range(1,50)] private int _strengthArmoredFront;
+    [SerializeField, BoxGroup("Settings"), Range(1,1000)] private int _strengthArmoredFront;
 
     public Transform ArmoredFrontNormal => _armoredFrontNormal;
     public Transform ArmoredFrontDamaged => _armoredFrontDamaged;

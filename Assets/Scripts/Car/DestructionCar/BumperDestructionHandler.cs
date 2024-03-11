@@ -76,7 +76,7 @@ public class BumperDestructionHandler : DestructionHandler
         _hingeJoint2D.enabled = false;
         SetParentDebris();
         await UniTask.Delay(TimeSpan.FromSeconds(_switchLayerDelay));
-        SetCarDebrisLayer();
+        // SetCarDebrisLayer();
     }
 
     private void SubscribeColliderAndSwitchSprites()

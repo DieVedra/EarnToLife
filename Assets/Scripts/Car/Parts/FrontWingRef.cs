@@ -12,7 +12,7 @@ public class FrontWingRef : MonoBehaviour
     [SerializeField, BoxGroup("FrontBottom")] private Transform _bottomDamaged;
     [SerializeField, BoxGroup("Content")] private Transform _lighterWingNormal;
     [SerializeField, BoxGroup("Content")] private Transform _wingFrontDamaged2TrunkCover;
-    [SerializeField, BoxGroup("Settings"), Range(1,500), HorizontalLine(color:EColor.Blue)] private int _strengthWing;
+    [SerializeField, BoxGroup("Settings"), Range(1,1000), HorizontalLine(color:EColor.Blue)] private int _strengthWing;
     public Transform WingNormal => _wingNormal;
     public Transform WingDamaged1 => _wingDamaged1;
     public Transform WingDamaged2 => _wingDamaged2;
