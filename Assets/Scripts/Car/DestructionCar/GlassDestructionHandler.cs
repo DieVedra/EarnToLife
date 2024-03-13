@@ -1,9 +1,10 @@
 ﻿using UnityEngine;
 
-public class GlassDestructionHandler : DestructionHandler
+public class GlassDestructionHandler : DestructionHandler, IDispose
 {
     private Transform _glassNormal;
     private Transform _glassDamaged;
+    private Transform _currentGlass;
     private bool _isBreaked = false;
     private bool _isBroken = false;
     public GlassDestructionHandler(GlassRef glassRef, DestructionHandlerContent destructionHandlerContent)
@@ -12,6 +13,12 @@ public class GlassDestructionHandler : DestructionHandler
         TryInitGlasses(glassRef);
         SubscribeCollider(_glassNormal.GetComponent<Collider2D>(), CheckCollision, TryBreakGlass);
     }
+
+    public void Dispose()
+    {
+        CompositeDisposable.Clear();
+    }
+
     public void TryThrowGlass()
     {
         if (_isBroken == false)
@@ -19,7 +26,7 @@ public class GlassDestructionHandler : DestructionHandler
             _isBroken = true;
             TryBreakGlass();
             CompositeDisposable.Clear();
-            _glassDamaged.gameObject.AddComponent<Rigidbody2D>();
+            TryAddRigidBody(_currentGlass.gameObject);
             SetParentDebris();
             SetCarDebrisLayer();
             
@@ -32,22 +39,23 @@ public class GlassDestructionHandler : DestructionHandler
         {
             _isBreaked = true;
             CompositeDisposable.Clear();
-            SwitchSprites();
+            TrySwitchSprites();
         }
     }
 
-    private void SwitchSprites()
+    private void TrySwitchSprites()
     {
         if (_glassDamaged != null)
         {
             _glassNormal.gameObject.SetActive(false);
             _glassDamaged.gameObject.SetActive(true);
+            _currentGlass = _glassDamaged;
         }
     }
-
     private void TryInitGlasses(GlassRef glassRef)
     {
         _glassNormal = glassRef.Glasses[0];
+        _currentGlass = _glassNormal;
         if (glassRef.Glasses.Length > 1)
         {
             _glassDamaged = glassRef.Glasses[1];

@@ -116,6 +116,13 @@ public abstract class DestructionHandler
 
     }
 
+    protected void TryAddRigidBody(GameObject gameObject)
+    {
+        if (gameObject.TryGetComponent(out Rigidbody2D rigidbody2D) == false)
+        {
+            gameObject.AddComponent<Rigidbody2D>();
+        }
+    }
     private void CalculateStrength(float strength)
     {
         if (strength > 0)

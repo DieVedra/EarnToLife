@@ -1,11 +1,12 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-public class BackWingDestructionHandler : DestructionHandler
+public class BackWingDestructionHandler : DestructionHandler, IDispose
 {
     private readonly GlassDestructionHandler _glassDestructionHandler;
     private readonly ArmoredBackFrameDestructionHandler _armoredBackFrameHandler;
     private readonly ArmoredBackFrameRef _armoredBackFrameRef;
+    private readonly BumperDestructionHandler _backBumperDestructionHandler;
     private readonly Transform _wingNormal;
     private readonly Transform _wingDamaged1;
     private readonly Transform _wingDamaged2;
@@ -23,12 +24,14 @@ public class BackWingDestructionHandler : DestructionHandler
     private bool _boosterActive;
     private bool _isArmored = false;
     private DestructionMode _destructionMode = DestructionMode.ModeDefault;
-    public BackWingDestructionHandler(BackWingRef backWingRef, GlassDestructionHandler glassDestructionHandler, ArmoredBackFrameDestructionHandler armoredBackFrameHandler,
+    public BackWingDestructionHandler(BackWingRef backWingRef, GlassDestructionHandler glassDestructionHandler,
+        ArmoredBackFrameDestructionHandler armoredBackFrameHandler, BumperDestructionHandler backBumperDestructionHandler,
         DestructionHandlerContent destructionHandlerContent, int totalStrength, bool isArmored, bool boosterActive)
         :base(backWingRef, destructionHandlerContent, totalStrength)
     {
         _glassDestructionHandler = glassDestructionHandler;
         _armoredBackFrameHandler = armoredBackFrameHandler;
+        _backBumperDestructionHandler = backBumperDestructionHandler;
         _wingNormal = backWingRef.WingNormal;
         _wingDamaged1 = backWingRef.WingDamaged1;
         _wingDamaged2 = backWingRef.WingDamaged2;
@@ -84,6 +87,7 @@ public class BackWingDestructionHandler : DestructionHandler
     private void DestructionMode1()
     {
         CompositeDisposable.Clear();
+        _backBumperDestructionHandler.TryThrow();
         ThrowContent();
         SwitchSprites1();
         _glassDestructionHandler?.TryBreakGlass();
@@ -153,7 +157,7 @@ public class BackWingDestructionHandler : DestructionHandler
         for (int i = 0; i < _wingContent.Count; i++)
         {
             _contentColliders[i].enabled = true;
-            _wingContent[i].gameObject.AddComponent<Rigidbody2D>();
+            TryAddRigidBody(_wingContent[i].gameObject);
             SetParentDebris(_wingContent[i]);
             SetCarDebrisLayer(_wingContent[i]);
         }

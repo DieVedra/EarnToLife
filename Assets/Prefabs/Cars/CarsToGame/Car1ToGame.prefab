@@ -920,7 +920,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &2692823885056931480
 Transform:
   m_ObjectHideFlags: 0
@@ -1440,7 +1440,8 @@ MonoBehaviour:
   _doorDamaged1: {fileID: 555173951950187507}
   _doorDamaged2: {fileID: 7045153421645437078}
   _doorHingeJoint: {fileID: 0}
-  _strengthDoors: 50
+  _rearviewMirror: {fileID: 0}
+  _strengthDoors: 200
 --- !u!1 &840547580570558311
 GameObject:
   m_ObjectHideFlags: 0
@@ -1458,7 +1459,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &8388694935163606834
 Transform:
   m_ObjectHideFlags: 0
@@ -1583,7 +1584,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &8056200545665486165
 Transform:
   m_ObjectHideFlags: 0
@@ -2581,7 +2582,8 @@ MonoBehaviour:
   _doorDamaged1: {fileID: 5751225354959896848}
   _doorDamaged2: {fileID: 7133570373313711870}
   _doorHingeJoint: {fileID: 0}
-  _strengthDoors: 50
+  _rearviewMirror: {fileID: 0}
+  _strengthDoors: 200
 --- !u!1 &1493593659111579179
 GameObject:
   m_ObjectHideFlags: 0
@@ -2593,7 +2595,7 @@ GameObject:
   - component: {fileID: 5707552299276702402}
   - component: {fileID: 4745285250665288605}
   - component: {fileID: 6807913918302864556}
-  m_Layer: 10
+  m_Layer: 9
   m_Name: RoofDamaged3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3437,7 +3439,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &8877534289413577557
 Transform:
   m_ObjectHideFlags: 0
@@ -3818,7 +3820,7 @@ MonoBehaviour:
   _glassesDestructuonOn: 1
   _frontWingDestructuonOn: 1
   _backWingDestructuonOn: 1
-  _roofDestructuonOn: 0
+  _roofDestructuonOn: 1
   _bottomDestructuonOn: 0
   _standartBumperRefFront: {fileID: 130725765311685168}
   _standartBumperRefBack: {fileID: 2450179089555068214}
@@ -3875,16 +3877,15 @@ MonoBehaviour:
     - {fileID: 1248525969684197013}
   - _partsToON:
     - {fileID: 5470397286679721534}
-    - {fileID: 1248525969684197013}
     - {fileID: 3524117009426412821}
     _partsToOFF:
     - {fileID: 1960504192252561203}
-    - {fileID: 2897568773147032734}
   - _partsToON:
     - {fileID: 5058909353850577618}
-    - {fileID: 817583255820265961}
+    - {fileID: 4630388962440789021}
+    - {fileID: 1248525969684197013}
     _partsToOFF:
-    - {fileID: 8647590957342667574}
+    - {fileID: 2897568773147032734}
   - _partsToON:
     - {fileID: 6269320357671974968}
     - {fileID: 578692895673088477}
@@ -3895,8 +3896,8 @@ MonoBehaviour:
     - {fileID: 5197342562913960225}
   - _partsToON:
     - {fileID: 1492730808766400758}
+    - {fileID: 817583255820265961}
     - {fileID: 7737953684992248818}
-    - {fileID: 4630388962440789021}
     _partsToOFF:
     - {fileID: 7198465491107415660}
   WheelsUpgrades:
@@ -4276,7 +4277,7 @@ MonoBehaviour:
   _roofDamaged2: {fileID: 8125250805501052871}
   _roofDamaged3: {fileID: 5707552299276702402}
   _supportRoof: {fileID: 2013505652587187932}
-  _strengthRoof: 15
+  _strengthRoof: 500
 --- !u!1 &2013505652633737158
 GameObject:
   m_ObjectHideFlags: 0
@@ -5870,7 +5871,7 @@ FixedJoint2D:
   m_Anchor: {x: 0.039570797, y: -0.26999998}
   m_ConnectedAnchor: {x: -0.0065431297, y: 0.5401499}
   m_DampingRatio: 0.1
-  m_Frequency: 7
+  m_Frequency: 50
 --- !u!1 &2325040279250666803
 GameObject:
   m_ObjectHideFlags: 0
@@ -7113,7 +7114,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2695681429377935366
 Transform:
   m_ObjectHideFlags: 0
@@ -7886,7 +7887,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &3919440685053115527
 Transform:
   m_ObjectHideFlags: 0
@@ -8167,7 +8168,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &380512765207526081
 Transform:
   m_ObjectHideFlags: 0
@@ -8217,7 +8218,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &8498376145441682065
 Transform:
   m_ObjectHideFlags: 0
@@ -8707,7 +8708,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &3564533325748528467
 Transform:
   m_ObjectHideFlags: 0
@@ -9379,7 +9380,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &5688282722086408737
 Transform:
   m_ObjectHideFlags: 0
@@ -9511,7 +9512,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &4414248575428589039
 Transform:
   m_ObjectHideFlags: 0
@@ -9564,7 +9565,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &5054661446231016933
 Transform:
   m_ObjectHideFlags: 0
@@ -10749,7 +10750,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1836317225378733627
 Transform:
   m_ObjectHideFlags: 0
@@ -11973,7 +11974,8 @@ MonoBehaviour:
   _doorDamaged1: {fileID: 8308808035119711175}
   _doorDamaged2: {fileID: 590037652290411557}
   _doorHingeJoint: {fileID: 0}
-  _strengthDoors: 25
+  _rearviewMirror: {fileID: 168162725711160541}
+  _strengthDoors: 100
 --- !u!1 &7311147598624261007
 GameObject:
   m_ObjectHideFlags: 0
@@ -14042,7 +14044,8 @@ MonoBehaviour:
   _doorDamaged1: {fileID: 7701371857802991772}
   _doorDamaged2: {fileID: 6020439430876255569}
   _doorHingeJoint: {fileID: 0}
-  _strengthDoors: 25
+  _rearviewMirror: {fileID: 0}
+  _strengthDoors: 100
 --- !u!1 &8727604559954307258
 GameObject:
   m_ObjectHideFlags: 0

@@ -2,7 +2,7 @@
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 
-public class BoosterDestructionHandler : DestructionHandler
+public class BoosterDestructionHandler : DestructionHandler, IDispose
 {
     private readonly float _switchLayerDelay = 1f;
     private readonly Booster _booster;
@@ -14,6 +14,12 @@ public class BoosterDestructionHandler : DestructionHandler
         _boosterRef = boosterRef;
         SubscribeColliders();
     }
+
+    public void Dispose()
+    {
+        CompositeDisposable.Clear();
+    }
+
     protected override void TrySwitchMode()
     {
         if (ValueNormalImpulse > MaxStrength)
@@ -25,6 +31,7 @@ public class BoosterDestructionHandler : DestructionHandler
             RecalculateStrength();
         }
     }
+
     private void SubscribeColliders()
     {
         for (int i = 0; i < _boosterRef.BoosterParts.Length; i++)

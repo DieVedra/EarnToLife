@@ -2,15 +2,16 @@
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 
-public class BumperDestructionHandler : DestructionHandler
+public class BumperDestructionHandler : DestructionHandler, IDispose
 {
-    private readonly float _switchLayerDelay = 1f;
-    private Transform _bumperNormal;
-    private Transform _bumperDamaged;
-    private Collider2D _collider2DBumperNormal;
-    private Collider2D _collider2DBumperDamaged;
+    private readonly Transform _bumperNormal;
+    private readonly Transform _bumperDamaged;
+    private readonly Collider2D _collider2DBumperNormal;
+    private readonly Collider2D _collider2DBumperDamaged;
     private HingeJoint2D _hingeJoint2D;
+    private Transform _currentbumper;
     private DestructionMode _destructionMode = DestructionMode.ModeDefault;
+    private bool _isBroken = false;
     public BumperDestructionHandler(BumperRef bumperRef, DestructionHandlerContent destructionHandlerContent)
     :base(bumperRef, destructionHandlerContent, bumperRef.StrengthBumper)
     {
@@ -22,7 +23,14 @@ public class BumperDestructionHandler : DestructionHandler
         _bumperDamaged.gameObject.SetActive(false);
         _hingeJoint2D = _bumperDamaged.GetComponent<HingeJoint2D>();
         _hingeJoint2D.useMotor = true;
+        _currentbumper = _bumperNormal;
         SubscribeCollider(_collider2DBumperNormal, CheckCollision, TrySwitchMode);
+    }
+
+    public void Dispose()
+    {
+        CompositeDisposable.Clear();
+
     }
     protected override void TrySwitchMode()
     {
@@ -56,27 +64,36 @@ public class BumperDestructionHandler : DestructionHandler
 
     private void DestructionMode2()
     {
-        SubscribeColliderAndSwitchSprites();
+        if (_destructionMode == DestructionMode.ModeDefault)
+        {
+            DestructionMode1();
+        }
         _hingeJoint2D.useMotor = false;
         _destructionMode = DestructionMode.Mode2;
     }
     private void DestructionMode3()
     {
         CompositeDisposable.Clear();
-        SwitchSprites();
-        Throw();
+        if (_destructionMode != DestructionMode.Mode2)
+        {
+            DestructionMode2();
+        }
+        TryThrow();
     }
     private void SwitchSprites()
     {
         _bumperNormal.gameObject.SetActive(false);
         _bumperDamaged.gameObject.SetActive(true);
     }
-    private async void Throw()
+    public void TryThrow()
     {
-        _hingeJoint2D.enabled = false;
-        SetParentDebris();
-        await UniTask.Delay(TimeSpan.FromSeconds(_switchLayerDelay));
-        // SetCarDebrisLayer();
+        if (_isBroken == false)
+        {
+            _isBroken = true;
+            Dispose();
+            _hingeJoint2D.enabled = false;
+            SetParentDebris();
+        }
     }
 
     private void SubscribeColliderAndSwitchSprites()

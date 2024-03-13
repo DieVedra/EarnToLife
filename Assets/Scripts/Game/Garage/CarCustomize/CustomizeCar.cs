@@ -10,7 +10,9 @@ public class CustomizeCar : MonoBehaviour
     [SerializeField, BoxGroup("WheelsUpgrades"), HorizontalLine(color: EColor.Green)] protected List<CombinedImprovement> WheelsUpgrades;
     [SerializeField, BoxGroup("Gun"), HorizontalLine(color: EColor.Yellow)] protected GameObject Gun;
     [SerializeField, BoxGroup("Booster"), HorizontalLine(color: EColor.Violet)] protected CombinedImprovement BoosterImprovement;
+    [ShowNativeProperty] public int CorpusIndex => _currentCorpusIndex;
     private CarConfiguration _carConfiguration;
+    private int _currentCorpusIndex;
     public event Action<IReadOnlyList<GameObject>> OnSetWheels;
     public void Construct(CarConfiguration carConfiguration)
     {
@@ -31,6 +33,8 @@ public class CustomizeCar : MonoBehaviour
         {
             CorpusUpgrades[i].ImprovementSwitch();
         }
+
+        _currentCorpusIndex = _carConfiguration.CorpusIndex;
     }
     private void TryOpenGun()
     {
@@ -72,6 +76,7 @@ public class CustomizeCar : MonoBehaviour
     private void a()
     {
         CorpusUpgrades[0].ImprovementSwitch();
+        _currentCorpusIndex = 0;
     }
     
     [Button("Corpus 1")]
@@ -83,6 +88,7 @@ public class CustomizeCar : MonoBehaviour
             CorpusUpgrades[i].ImprovementSwitch();
             if (i == 1)
             {
+                _currentCorpusIndex = 1;
                 break;
             }
         }
@@ -97,6 +103,7 @@ public class CustomizeCar : MonoBehaviour
             CorpusUpgrades[i].ImprovementSwitch();
             if (i == 2)
             {
+                _currentCorpusIndex = 2;
                 break;
             }
         }
@@ -111,6 +118,7 @@ public class CustomizeCar : MonoBehaviour
             CorpusUpgrades[i].ImprovementSwitch();
             if (i == 3)
             {
+                _currentCorpusIndex = 3;
                 break;
             }
         }
@@ -124,6 +132,7 @@ public class CustomizeCar : MonoBehaviour
             CorpusUpgrades[i].ImprovementSwitch();
             if (i == 4)
             {
+                _currentCorpusIndex = 4;
                 break;
             }
         }

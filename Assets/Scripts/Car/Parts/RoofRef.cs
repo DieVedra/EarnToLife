@@ -8,7 +8,7 @@ public class RoofRef : MonoBehaviour
     [SerializeField, BoxGroup("Roof")] private Transform _roofDamaged2;
     [SerializeField, BoxGroup("Roof")] private Transform _roofDamaged3;
     [SerializeField, BoxGroup("Roof")] private Transform _supportRoof;
-    [SerializeField, BoxGroup("Settings"), Range(1,100), HorizontalLine(color:EColor.Blue)] private int _strengthRoof;
+    [SerializeField, BoxGroup("Settings"), Range(1,1000), HorizontalLine(color:EColor.Blue)] private int _strengthRoof;
 
     public Transform RoofNormal => _roofNormal;
     public Transform RoofDamaged1 => _roofDamaged1;

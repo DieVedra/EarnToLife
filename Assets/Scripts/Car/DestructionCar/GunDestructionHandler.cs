@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public sealed class GunDestructionHandler : DestructionHandler
+public sealed class GunDestructionHandler : DestructionHandler, IDispose
 {
     private readonly CarGun _carGun;
     private readonly Transform[] _gunParts;
@@ -11,6 +11,11 @@ public sealed class GunDestructionHandler : DestructionHandler
         _gunParts = gunRefs.GunParts;
         _carGun = carGun;
         SubscribeCollider(_gunParts[0].GetComponent<Collider2D>(), CheckCollision, TrySwitchMode);
+    }
+
+    public void Dispose()
+    {
+        CompositeDisposable.Clear();
     }
     protected override void TrySwitchMode()
     {
@@ -28,7 +33,7 @@ public sealed class GunDestructionHandler : DestructionHandler
         if (_isBroken == false)
         {
             _isBroken = true;
-            CompositeDisposable.Clear();
+            Dispose();
             _carGun.GunDisableFromDestruct();
             for (int i = 0; i < _gunParts.Length; i++)
             {

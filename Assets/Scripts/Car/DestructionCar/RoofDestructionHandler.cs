@@ -3,10 +3,8 @@ using Cysharp.Threading.Tasks;
 using UniRx;
 using UnityEngine;
 
-public class RoofDestructionHandler : DestructionHandler
+public class RoofDestructionHandler : DestructionHandler, IDispose
 {
-    private readonly int _carRoofBrokenLayer;
-    // private readonly float _delay = 1f;
     private readonly Vector3 _scaleSupportRoofAfterHit = new Vector3(1f, 0.9f,1f);
     private readonly RoofRef _roofRef;
     private readonly FrontDoorDestructionHandler _frontDoorDestructionHandler;
@@ -14,6 +12,7 @@ public class RoofDestructionHandler : DestructionHandler
     private readonly GlassDestructionHandler _frontGlassDestructionHandler;
     private readonly GlassDestructionHandler _backGlassDestructionHandler;
     private readonly ArmoredBackFrameDestructionHandler _armoredBackFrameDestructionHandler;
+    private readonly GunDestructionHandler _gunDestructionHandler;
     private readonly CoupAnalyzer _coupAnalyzer;
     private readonly CarMass _carMass;
     private readonly Transform _roofNormal;
@@ -23,7 +22,6 @@ public class RoofDestructionHandler : DestructionHandler
     private readonly Transform _supportRoof;
 
     private readonly SafetyFrameworkDestructionHandler _safetyFrameworkDestructionHandler;
-    private readonly SafetyFrameworkRef _safetyFramework;
     private readonly ArmoredRoofFrameRef _armoredRoofFrameRef;
     private readonly Transform _frameNormal;
     private readonly Transform _frameDamaged;
@@ -41,12 +39,11 @@ public class RoofDestructionHandler : DestructionHandler
         CarMass carMass, CoupAnalyzer coupAnalyzer, ArmoredBackFrameDestructionHandler armoredBackFrameDestructionHandler,
         FrontDoorDestructionHandler frontDoorDestructionHandler, BackDoorDestructionHandler backDoorDestructionHandler,
         GlassDestructionHandler frontGlassDestructionHandler, GlassDestructionHandler backGlassDestructionHandler,
-        DestructionHandlerContent destructionHandlerContent,
-        int carRoofBrokenLayer, int totalStrengthRoof, bool isArmored, bool safetyFrameworkInstalled)
+        GunDestructionHandler gunDestructionHandler, DestructionHandlerContent destructionHandlerContent,
+        int totalStrengthRoof, bool isArmored, bool safetyFrameworkInstalled)
         : base(roofRef, destructionHandlerContent, totalStrengthRoof)
     {
         Debug.Log("TotalStrengthRoof:  " + totalStrengthRoof);
-        _carRoofBrokenLayer = carRoofBrokenLayer;
         _roofRef = roofRef;
         _coupAnalyzer = coupAnalyzer;
         _carMass = carMass;
@@ -55,6 +52,7 @@ public class RoofDestructionHandler : DestructionHandler
         _frontGlassDestructionHandler = frontGlassDestructionHandler;
         _backGlassDestructionHandler = backGlassDestructionHandler;
         _armoredBackFrameDestructionHandler = armoredBackFrameDestructionHandler;
+        _gunDestructionHandler = gunDestructionHandler;
         _roofNormal = roofRef.RoofNormal;
         _roofDamaged1 = roofRef.RoofDamaged1;
         _roofDamaged2 = roofRef.RoofDamaged2;
@@ -65,7 +63,6 @@ public class RoofDestructionHandler : DestructionHandler
         if (_safetyFrameworkInstalled == true)
         {
             _safetyFrameworkDestructionHandler = safetyFrameworkDestructionHandler;
-            _safetyFramework = safetyFrameworkDestructionHandler.SafetyFrameworkRef;
         }
         _isArmored = isArmored;
         if (_isArmored == true)
@@ -82,6 +79,7 @@ public class RoofDestructionHandler : DestructionHandler
     public void Dispose()
     {
         _disposableCoupAnalyze.Clear();
+        CompositeDisposable.Clear();
     }
     public void DestructNow()
     {
@@ -100,15 +98,18 @@ public class RoofDestructionHandler : DestructionHandler
     {
         if (ValueNormalImpulse > MaxStrength)
         {
+            Debug.Log("DestructionMode3");
             DestructionMode3();
         }
         else if (ValueNormalImpulse > HalfStrength)
         {
+            Debug.Log("DestructionMode2");
             DestructionMode2AndSubscribe();
             RecalculateStrength();
         }
         else if (ValueNormalImpulse > MinStrength)
         {
+            Debug.Log("DestructionMode1");
             DestructionMode1AndSubscribe();
             RecalculateStrength();
         }
@@ -123,6 +124,7 @@ public class RoofDestructionHandler : DestructionHandler
     {
         CompositeDisposable.Clear();
         SwitchSprites1();
+        _gunDestructionHandler?.TryDestruct();
         SetCurrentRoof(_roofDamaged1);
         _frontDoorDestructionHandler.TryDestructionMode1();
         _backDoorDestructionHandler.DestructionMode1();
@@ -153,7 +155,7 @@ public class RoofDestructionHandler : DestructionHandler
         SetCurrentRoof(_roofDamaged2);
         _frontDoorDestructionHandler.TryDestructionMode2();
         _backDoorDestructionHandler.TryDestructionMode2();
-        _armoredBackFrameDestructionHandler.TryTakeDamageFromRoof();
+        _armoredBackFrameDestructionHandler?.TryTakeDamageFromRoof();
         _supportRoof.localScale = _scaleSupportRoofAfterHit;
         if (_safetyFrameworkInstalled == true)
         {
@@ -189,15 +191,15 @@ public class RoofDestructionHandler : DestructionHandler
         {
             SwitchSprites3();
             SetCurrentRoof(_roofDamaged3);
-            _safetyFrameworkDestructionHandler.TryThrow();
+            _safetyFrameworkDestructionHandler?.TryThrow();
             _frontDoorDestructionHandler.TryThrowDoor();
             _backDoorDestructionHandler.TryThrowDoor();
             SetParentDebris(_supportRoof);
             _supportRoof.gameObject.AddComponent<Rigidbody2D>();
-            _roofRef.gameObject.layer = _carRoofBrokenLayer;
             // await UniTask.Delay(TimeSpan.FromSeconds(_delay));
         
             //invoke game over driver crushed
+            Debug.Log("game over driver crushed");
         }
         _destructionMode = DestructionMode.Mode3;
     }
@@ -229,6 +231,10 @@ public class RoofDestructionHandler : DestructionHandler
                 result = false;
             }
         }
+        Debug.Log("Impulse: " + ValueNormalImpulse);
+        Debug.Log("result: " + result);
+        Debug.Log("CarIsCoupCurrentValue: " + _coupAnalyzer.CarIsCoupCurrentValue);
+        
         return result;
     }
 

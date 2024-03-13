@@ -3,7 +3,7 @@ using UniRx;
 using UniRx.Triggers;
 using UnityEngine;
 
-public class BottomDestructionHandler : DestructionHandler
+public class BottomDestructionHandler : DestructionHandler, IDispose
 {
     private readonly float _halfStrength;
     private readonly BottomRef _bottomRef;
@@ -42,6 +42,11 @@ public class BottomDestructionHandler : DestructionHandler
         {
             SubscribeCollider(_collider2DStandart, CheckCollision, TrySwitchMode);
         }
+    }
+
+    public void Dispose()
+    {
+        CompositeDisposable.Clear();
     }
 
     protected override void TrySwitchMode()

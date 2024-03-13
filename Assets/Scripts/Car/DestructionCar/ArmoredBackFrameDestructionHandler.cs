@@ -3,7 +3,6 @@
 public class ArmoredBackFrameDestructionHandler : DestructionHandler
 {
     public readonly ArmoredBackFrameRef ArmoredBackFrameRef;
-    // private readonly Transform _armoredBackNormal;
     private readonly Transform _armoredBackDamagedRoofDamaged;
     private readonly Transform _armoredBackNormalRoofDamaged;
     private readonly Transform _armoredBackDamagedRoofNotDamaged;

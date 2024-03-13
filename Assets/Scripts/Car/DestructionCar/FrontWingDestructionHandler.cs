@@ -1,10 +1,11 @@
 ﻿using UnityEngine;
 
-public class FrontWingDestructionHandler : DestructionHandler
+public class FrontWingDestructionHandler : DestructionHandler, IDispose
 {
     private readonly ArmoredFrontFrameRef _armoredFrontFrameRef;
     private readonly GlassDestructionHandler _glassDestructionHandler;
     private readonly HotWheelDestructionHandler _hotWheelDestructionHandler;
+    private readonly BumperDestructionHandler _bumperDestructionFrontHandler;
     private readonly Transform _wingNormal;
     private readonly Transform _lighterWingNormal;
     private readonly Transform _wingDamaged1;
@@ -23,11 +24,13 @@ public class FrontWingDestructionHandler : DestructionHandler
 
     public FrontWingDestructionHandler(FrontWingRef frontWingRef, ArmoredFrontFrameRef armoredFrontFrameRef, 
         GlassDestructionHandler glassDestructionHandler, HotWheelDestructionHandler hotWheelDestructionHandler,
-        DestructionHandlerContent destructionHandlerContent, int strength, bool isArmored)
+        BumperDestructionHandler bumperDestructionFrontHandler, DestructionHandlerContent destructionHandlerContent,
+        int strength, bool isArmored)
         :base(frontWingRef, destructionHandlerContent, strength)
     {
         _glassDestructionHandler = glassDestructionHandler;
         _hotWheelDestructionHandler = hotWheelDestructionHandler;
+        _bumperDestructionFrontHandler = bumperDestructionFrontHandler;
         _wingNormal = frontWingRef.WingNormal;
         _lighterWingNormal = frontWingRef.LighterWingNormal;
         _lighterWingNormal.gameObject.SetActive(false);
@@ -49,6 +52,11 @@ public class FrontWingDestructionHandler : DestructionHandler
             SubscribeCollider(_armoredFrontNormal.GetComponent<Collider2D>(), CheckCollision, TrySwitchMode);
         }
         SubscribeCollider(_wingNormal.GetComponent<Collider2D>(), CheckCollision, TrySwitchMode);
+    }
+
+    public void Dispose()
+    {
+        CompositeDisposable.Clear();
     }
     protected override void TrySwitchMode()
     {
@@ -87,6 +95,7 @@ public class FrontWingDestructionHandler : DestructionHandler
     private void DestructionMode1()
     {
         CompositeDisposable.Clear();
+        _bumperDestructionFrontHandler.TryThrow();
         ThrowLighter();
         SwitchSprites1();
         TrySwitchSpriteArmoredFrame();
@@ -111,7 +120,7 @@ public class FrontWingDestructionHandler : DestructionHandler
         TrySwitchSpriteArmoredFrame();
         if (_isArmored == true)
         {
-            _armoredFrontDamaged.gameObject.AddComponent<Rigidbody2D>();
+            TryAddRigidBody(_armoredFrontDamaged.gameObject);
             SetParentDebris(_armoredFrontFrameRef.transform);
         }
         if (_hotWheelDestructionHandler != null)
@@ -158,14 +167,14 @@ public class FrontWingDestructionHandler : DestructionHandler
         {
             _lighterBroken = true;
             _lighterWingNormal.gameObject.SetActive(true);
-            _lighterWingNormal.gameObject.AddComponent<Rigidbody2D>();
+            TryAddRigidBody(_lighterWingNormal.gameObject);
             SetParentDebris(_lighterWingNormal);
         }
     }
 
     private void ThrowHood()
     {
-        _damaged2Hood.gameObject.AddComponent<Rigidbody2D>();
+        TryAddRigidBody(_damaged2Hood.gameObject);
         SetParentDebris(_damaged2Hood);
         SetCarDebrisLayer(_damaged2Hood);
     }

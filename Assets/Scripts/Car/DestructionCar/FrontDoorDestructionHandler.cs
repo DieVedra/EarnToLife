@@ -20,20 +20,20 @@ public class FrontDoorDestructionHandler : DestructionHandler
         _doorDamaged1 = doorRef.DoorDamaged1;
         _doorDamaged2 = doorRef.DoorDamaged2;
         StrengthDoor = doorRef.StrengthDoors;
+        _rearviewMirror = doorRef.RearviewMirror;
         _activePart = _doorNormal;
         _isArmored = isArmored;
     }
     
     public void TryDestructionMode1()
     {
-        if (_isBroken)
+        if (_isBroken == false)
         {
             _doorNormal.gameObject.SetActive(false);
             _doorDamaged1.gameObject.SetActive(true);
             _activePart = _doorDamaged1;
             if (_isArmored == false)
             {
-                _rearviewMirror = _doorDamaged1.GetComponentInChildren<Transform>();
                 _rearviewMirror.gameObject.AddComponent<Rigidbody2D>();
                 SetParentDebris(_rearviewMirror);
             }
@@ -41,7 +41,7 @@ public class FrontDoorDestructionHandler : DestructionHandler
     }
     public void TryDestructionMode2()
     {
-        if (_isBroken)
+        if (_isBroken == false)
         {
             _doorDamaged1.gameObject.SetActive(false);
             _doorDamaged2.gameObject.SetActive(true);

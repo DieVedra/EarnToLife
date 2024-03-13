@@ -556,6 +556,7 @@
             <e p="ICorutineStarter.cs" t="Include" />
             <e p="ICutable.cs" t="Include" />
             <e p="IDamageble.cs" t="Include" />
+            <e p="IDispose.cs" t="Include" />
             <e p="IExplodable.cs" t="Include" />
             <e p="IKnockable.cs" t="Include" />
             <e p="IPlayerData.cs" t="Include" />
