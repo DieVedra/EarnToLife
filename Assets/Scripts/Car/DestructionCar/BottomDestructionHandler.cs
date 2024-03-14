@@ -5,29 +5,28 @@ using UnityEngine;
 
 public class BottomDestructionHandler : DestructionHandler, IDispose
 {
-    private readonly float _halfStrength;
     private readonly BottomRef _bottomRef;
     private readonly Collider2D _collider2DStandart;
     private readonly Transform _armoredBottom;
     private readonly Transform _exhaust;
     private readonly Transform _backCar;
-    private readonly BackCarDestructionHandler _backCarDestructionHandler;
+    private readonly BackCarHandler _backCarHandler;
     private readonly RoofDestructionHandler _roofDestructionHandler;
     private readonly SafetyFrameworkDestructionHandler _safetyFrameworkDestructionHandler;
     private readonly FrontDoorDestructionHandler _frontDoorDestructionHandler;
     private readonly BackDoorDestructionHandler _backDoorDestructionHandler;
     private readonly bool _isArmored;
     private bool _exhaustBroken = false;
-    public BottomDestructionHandler(BottomRef bottomRef, BackCarDestructionHandler backCarDestructionHandler, RoofDestructionHandler roofDestructionHandler, 
+    private DestructionMode _destructionMode = DestructionMode.ModeDefault;
+    public BottomDestructionHandler(BottomRef bottomRef, BackCarHandler backCarHandler, RoofDestructionHandler roofDestructionHandler, 
         FrontDoorDestructionHandler frontDoorDestructionHandler, BackDoorDestructionHandler backDoorDestructionHandler,
         DestructionHandlerContent destructionHandlerContent, int strength, bool isArmored)
         : base(bottomRef, destructionHandlerContent, strength)
     {
         _bottomRef = bottomRef;
-        _halfStrength = bottomRef.StrengthBottom * HalfStrengthMultiplier;
         _exhaust = bottomRef.Exhaust;
         _backCar = bottomRef.BackCar;
-        _backCarDestructionHandler = backCarDestructionHandler;
+        _backCarHandler = backCarHandler;
         _roofDestructionHandler = roofDestructionHandler;
         _frontDoorDestructionHandler = frontDoorDestructionHandler;
         _backDoorDestructionHandler = backDoorDestructionHandler;
@@ -51,16 +50,20 @@ public class BottomDestructionHandler : DestructionHandler, IDispose
 
     protected override void TrySwitchMode()
     {
-        ApplyDamage();
-        if (MaxStrength <= StrengthForDestruct)
+        Debug.Log("BottomDestruction TrySwitchMode");
+        if (ValueNormalImpulse > MaxStrength)
         {
             DestructionMode2();
+            RecalculateStrength();
         }
-        else if (MaxStrength <= _halfStrength)
+        else if (ValueNormalImpulse > HalfStrength)
         {
             DestructionMode1();
+            RecalculateStrength();
+        }else if (ValueNormalImpulse > MinStrength)
+        {
+            RecalculateStrength();
         }
-        
     }
 
     private void DestructionMode1()
@@ -69,11 +72,16 @@ public class BottomDestructionHandler : DestructionHandler, IDispose
         _frontDoorDestructionHandler.TryThrowDoor();
         _backDoorDestructionHandler.TryThrowDoor();
         TryThrowExhaust();
-
+        _destructionMode = DestructionMode.Mode1;
+        Debug.Log("           DestructionMode1");
 
     }
     private void DestructionMode2()
     {
+        if (_destructionMode != DestructionMode.Mode1)
+        {
+            DestructionMode1();
+        }
         CompositeDisposable.Clear();
         if (_isArmored == true)
         {
@@ -83,13 +91,12 @@ public class BottomDestructionHandler : DestructionHandler, IDispose
         {
             _collider2DStandart.enabled = false;
         }
-        _frontDoorDestructionHandler.TryThrowDoor();
-        _backDoorDestructionHandler.TryThrowDoor();
-        TryThrowExhaust();
         _roofDestructionHandler?.DestructNow();
-        _backCarDestructionHandler?.DestructNow();
-        _backCar.gameObject.AddComponent<Rigidbody2D>();
+        _backCarHandler?.DestructNow();
         SetParentDebris(_backCar);
+        _destructionMode = DestructionMode.Mode2;
+        Debug.Log("    DestructionMode2");
+
     }
 
     private void TryThrowExhaust()
@@ -97,14 +104,14 @@ public class BottomDestructionHandler : DestructionHandler, IDispose
         if (_exhaustBroken == false)
         {
             _exhaustBroken = true;
-            _exhaust.gameObject.AddComponent<Rigidbody2D>();
+            TryAddRigidBody(_exhaust.gameObject);
             SetParentDebris(_exhaust);
         }
     }
 
     private void ThrowArmor()
     {
-        _armoredBottom.gameObject.AddComponent<Rigidbody2D>();
+        TryAddRigidBody(_armoredBottom.gameObject);
         SetParentDebris(_armoredBottom);
     }
 

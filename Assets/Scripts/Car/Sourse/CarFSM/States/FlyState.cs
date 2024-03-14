@@ -16,7 +16,10 @@ public class FlyState : CarState
     public override void Enter()
     {
         SetMotorSpeed(FrontWheelJoint);
-        SetMotorSpeed(BackWheelJoint);
+        if (BackWheelJoint != null)
+        {
+            SetMotorSpeed(BackWheelJoint);
+        }
         Booster.RunBooster();
     }
 

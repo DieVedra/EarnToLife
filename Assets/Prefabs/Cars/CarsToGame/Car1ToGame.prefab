@@ -920,7 +920,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2692823885056931480
 Transform:
   m_ObjectHideFlags: 0
@@ -1441,7 +1441,7 @@ MonoBehaviour:
   _doorDamaged2: {fileID: 7045153421645437078}
   _doorHingeJoint: {fileID: 0}
   _rearviewMirror: {fileID: 0}
-  _strengthDoors: 200
+  _strengthDoors: 400
 --- !u!1 &840547580570558311
 GameObject:
   m_ObjectHideFlags: 0
@@ -2583,7 +2583,7 @@ MonoBehaviour:
   _doorDamaged2: {fileID: 7133570373313711870}
   _doorHingeJoint: {fileID: 0}
   _rearviewMirror: {fileID: 0}
-  _strengthDoors: 200
+  _strengthDoors: 400
 --- !u!1 &1493593659111579179
 GameObject:
   m_ObjectHideFlags: 0
@@ -3747,10 +3747,10 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  _gyroscopePower: 1
-  _ground:
+  _gyroscopePower: 0.5
+  _groundLayerMask:
     serializedVersion: 2
-    m_Bits: 65536
+    m_Bits: 0
   _brakeVolumeCurve:
     serializedVersion: 2
     m_Curve:
@@ -3812,16 +3812,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _carDebrisLayer: 20
+  _fallingContentLayer: 24
   _canCollisionsLayerMasks:
     serializedVersion: 2
     m_Bits: 5439488
-  _carRoofBrokenLayer: 10
   _bumpersDestructuonOn: 1
   _glassesDestructuonOn: 1
   _frontWingDestructuonOn: 1
   _backWingDestructuonOn: 1
   _roofDestructuonOn: 1
-  _bottomDestructuonOn: 0
+  _bottomDestructionOn: 1
   _standartBumperRefFront: {fileID: 130725765311685168}
   _standartBumperRefBack: {fileID: 2450179089555068214}
   _armoredBumperRefFront: {fileID: 409917400238723288}
@@ -3900,6 +3900,7 @@ MonoBehaviour:
     - {fileID: 7737953684992248818}
     _partsToOFF:
     - {fileID: 7198465491107415660}
+    - {fileID: 8647590957342667574}
   WheelsUpgrades:
   - _partsToON:
     - {fileID: 2013505652389259804}
@@ -4277,7 +4278,7 @@ MonoBehaviour:
   _roofDamaged2: {fileID: 8125250805501052871}
   _roofDamaged3: {fileID: 5707552299276702402}
   _supportRoof: {fileID: 2013505652587187932}
-  _strengthRoof: 500
+  _strengthRoof: 400
 --- !u!1 &2013505652633737158
 GameObject:
   m_ObjectHideFlags: 0
@@ -8168,7 +8169,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &380512765207526081
 Transform:
   m_ObjectHideFlags: 0
@@ -8218,7 +8219,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &8498376145441682065
 Transform:
   m_ObjectHideFlags: 0
@@ -8740,7 +8741,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _frameNormal: {fileID: 2174007487745399308}
   _frameDamaged: {fileID: 2644848831265610730}
-  _strengthArmoredRoof: 30
+  _strengthArmoredRoof: 600
 --- !u!1 &4436702996011596194
 GameObject:
   m_ObjectHideFlags: 0
@@ -9412,7 +9413,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _support1: {fileID: 5592273786469099305}
   _support2: {fileID: 3397308860270430463}
-  _strengthSafetyFramework: 70
+  _strengthSafetyFramework: 500
 --- !u!1 &4767004764339245255
 GameObject:
   m_ObjectHideFlags: 0
@@ -9565,7 +9566,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &5054661446231016933
 Transform:
   m_ObjectHideFlags: 0
@@ -10750,7 +10751,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1836317225378733627
 Transform:
   m_ObjectHideFlags: 0
@@ -11059,8 +11060,8 @@ MonoBehaviour:
   _backCar: {fileID: 6454157641997372604}
   _armoredBottom: {fileID: 1221468920182407973}
   _exhaust: {fileID: 9153136211874766378}
-  _strengthArmoredBottom: 30
-  _strengthBottom: 30
+  _strengthArmoredBottom: 50
+  _strengthBottom: 50
 --- !u!1 &6353439164812903221
 GameObject:
   m_ObjectHideFlags: 0

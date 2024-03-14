@@ -1,9 +1,11 @@
 ﻿using System;
+using System.Threading;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 public class BumperDestructionHandler : DestructionHandler, IDispose
 {
+    private readonly float _delay = 2f;
     private readonly Transform _bumperNormal;
     private readonly Transform _bumperDamaged;
     private readonly Collider2D _collider2DBumperNormal;
@@ -11,6 +13,7 @@ public class BumperDestructionHandler : DestructionHandler, IDispose
     private HingeJoint2D _hingeJoint2D;
     private Transform _currentbumper;
     private DestructionMode _destructionMode = DestructionMode.ModeDefault;
+    private CancellationTokenSource _cancellationTokenSource = new CancellationTokenSource();
     private bool _isBroken = false;
     public BumperDestructionHandler(BumperRef bumperRef, DestructionHandlerContent destructionHandlerContent)
     :base(bumperRef, destructionHandlerContent, bumperRef.StrengthBumper)
@@ -30,7 +33,7 @@ public class BumperDestructionHandler : DestructionHandler, IDispose
     public void Dispose()
     {
         CompositeDisposable.Clear();
-
+        _cancellationTokenSource.Cancel();
     }
     protected override void TrySwitchMode()
     {
@@ -78,14 +81,14 @@ public class BumperDestructionHandler : DestructionHandler, IDispose
         {
             DestructionMode2();
         }
-        TryThrow();
+        TryThrow().Forget();
     }
     private void SwitchSprites()
     {
         _bumperNormal.gameObject.SetActive(false);
         _bumperDamaged.gameObject.SetActive(true);
     }
-    public void TryThrow()
+    public async UniTaskVoid TryThrow()
     {
         if (_isBroken == false)
         {
@@ -93,6 +96,8 @@ public class BumperDestructionHandler : DestructionHandler, IDispose
             Dispose();
             _hingeJoint2D.enabled = false;
             SetParentDebris();
+            await UniTask.Delay(TimeSpan.FromSeconds(_delay), cancellationToken: _cancellationTokenSource.Token);
+            SetCarDebrisLayer();
         }
     }
 

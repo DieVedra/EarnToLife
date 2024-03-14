@@ -1708,7 +1708,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &126589384202159898
 Transform:
   m_ObjectHideFlags: 0
@@ -2068,16 +2068,15 @@ MonoBehaviour:
     - {fileID: 842800020335576384}
   - _partsToON:
     - {fileID: 840547580570558311}
-    - {fileID: 842800020335576384}
     - {fileID: 1661959234879897647}
     _partsToOFF:
     - {fileID: 2328941686821054628}
-    - {fileID: 8113509178716376037}
   - _partsToON:
     - {fileID: 9087227889629054402}
-    - {fileID: 7143829027807821217}
+    - {fileID: 842800020335576384}
+    - {fileID: 4630388962440789021}
     _partsToOFF:
-    - {fileID: 7674069524390424464}
+    - {fileID: 8113509178716376037}
   - _partsToON:
     - {fileID: 2677471266641553572}
     - {fileID: 5820879385997779445}
@@ -2088,10 +2087,11 @@ MonoBehaviour:
     - {fileID: 4439639783074425330}
   - _partsToON:
     - {fileID: 8075138913287645159}
-    - {fileID: 4630388962440789021}
     - {fileID: 7737953684992248818}
+    - {fileID: 7143829027807821217}
     _partsToOFF:
     - {fileID: 1193517030216836746}
+    - {fileID: 7674069524390424464}
   WheelsUpgrades:
   - _partsToON:
     - {fileID: 407310454804378791}
@@ -3945,7 +3945,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1234678008895820982
 Transform:
   m_ObjectHideFlags: 0
@@ -8037,7 +8037,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &6764517318871096572
 Transform:
   m_ObjectHideFlags: 0

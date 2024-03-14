@@ -17,6 +17,16 @@ public class Car : MonoBehaviour
     protected WheelCarValues BackWheelCarValues;
     protected SuspensionValues _frontSupensionValues;
     protected SuspensionValues _backSuspensionValues;
+
+    protected void ReinitBackWheelAndSuspensionOnCarBrokenIntoTwoParts(WheelJoint2D joint2D)
+    {
+        BackWheelJoint.connectedBody = null;
+        Destroy(BackWheelJoint);
+        // joint2D.connectedBody = BackWheelCarValues.WheelRigidbody2D;
+        // joint2D.anchor = BackWheelCarValues.Anchor;
+        InitWheelJoint(joint2D, BackWheelCarValues);
+        InitSuspension(out BackSuspension, _backSuspensionValues, joint2D);
+    }
     
     private void InitWheelsAndSuspension(IReadOnlyList<GameObject> parts)
     {
@@ -25,11 +35,11 @@ public class Car : MonoBehaviour
         List<SuspensionValues> suspensionValues = new List<SuspensionValues>(2);
         for (int i = 0; i < parts.Count; i++)
         {
-            if (parts[i].TryGetComponent<WheelCarValues>(out WheelCarValues wheelValue))
+            if (parts[i].TryGetComponent(out WheelCarValues wheelValue))
             {
                 wheelCarValues.Add(wheelValue);
             }
-            if (parts[i].TryGetComponent<SuspensionValues>(out SuspensionValues suspensionValue))
+            if (parts[i].TryGetComponent(out SuspensionValues suspensionValue))
             {
                 suspensionValues.Add(suspensionValue);
             }
@@ -53,21 +63,37 @@ public class Car : MonoBehaviour
     }
     private void InitFrontSuspension()
     {
-        FrontSuspension = _frontSupensionValues.GetSuspension(FrontWheelJoint);
+        // FrontSuspension = _frontSupensionValues.GetSuspension(FrontWheelJoint);
+        InitSuspension(out FrontSuspension, _frontSupensionValues, FrontWheelJoint);
     }
     private void InitBackSuspension()
     {
-        BackSuspension = _backSuspensionValues.GetSuspension(BackWheelJoint);
+        // BackSuspension = _backSuspensionValues.GetSuspension(BackWheelJoint);
+        InitSuspension(out BackSuspension, _backSuspensionValues, BackWheelJoint);
+    }
+
+    private void InitSuspension(out Suspension suspension, SuspensionValues suspensionValues, WheelJoint2D joint2D)
+    {
+        suspension = suspensionValues.GetSuspension(joint2D);
     }
     private void InitFrontWheelJoint()
     {
-        FrontWheelJoint.anchor = FrontWheelCarValues.Anchor;
-        FrontWheelJoint.connectedBody = FrontWheelCarValues.WheelRigidbody2D;
+        // FrontWheelJoint.anchor = FrontWheelCarValues.Anchor;
+        // FrontWheelJoint.connectedBody = FrontWheelCarValues.WheelRigidbody2D;
+        InitWheelJoint(FrontWheelJoint, FrontWheelCarValues);
+
     }
     private void InitBackWheelJoint()
     {
-        BackWheelJoint.anchor = BackWheelCarValues.Anchor;
-        BackWheelJoint.connectedBody = BackWheelCarValues.WheelRigidbody2D;
+        // BackWheelJoint.anchor = BackWheelCarValues.Anchor;
+        // BackWheelJoint.connectedBody = BackWheelCarValues.WheelRigidbody2D;
+        InitWheelJoint(BackWheelJoint, BackWheelCarValues);
+    }
+
+    private void InitWheelJoint(WheelJoint2D joint2D, WheelCarValues values)
+    {
+        joint2D.anchor = values.Anchor;
+        joint2D.connectedBody = values.WheelRigidbody2D;
     }
     private void OnEnable()
     {

@@ -13,7 +13,10 @@ public class StopState : CarState
     public override void Enter()
     {
         SetMotorSpeed(FrontWheelJoint);
-        SetMotorSpeed(BackWheelJoint);
+        if (BackWheelJoint != null)
+        {
+            SetMotorSpeed(BackWheelJoint);
+        }
         Booster?.TryStopBooster();
     }
     public override void Update()
@@ -30,11 +33,9 @@ public class StopState : CarState
     protected override void SetMotorSpeed(WheelJoint2D wheelJoint)
     {
         JointMotor2D motor;
-
         motor = wheelJoint.motor;
         motor.motorSpeed = STOPSPEED;
         wheelJoint.motor = motor;
-
         wheelJoint.useMotor = USEMOTOR;
     }
 

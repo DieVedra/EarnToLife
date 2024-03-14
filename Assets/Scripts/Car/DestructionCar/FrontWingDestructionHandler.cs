@@ -95,7 +95,7 @@ public class FrontWingDestructionHandler : DestructionHandler, IDispose
     private void DestructionMode1()
     {
         CompositeDisposable.Clear();
-        _bumperDestructionFrontHandler.TryThrow();
+        _bumperDestructionFrontHandler.TryThrow().Forget();
         ThrowLighter();
         SwitchSprites1();
         TrySwitchSpriteArmoredFrame();

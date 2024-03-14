@@ -5,25 +5,22 @@ using UnityEngine;
 public class Brakes
 {
     private const int MINSPEED = 15;
-    private CarWheel _frontWheel;
-    private CarWheel _backWheel;
-    private Speedometer _speedometer;
-    private CarAudioHandler _carAudioHandler;
-    private LayerMask _ground;
-    private AnimationCurve _brakeVolumeCurve;
+    private readonly GroundAnalyzer _groundAnalyzer;
+    private readonly Speedometer _speedometer;
+    private readonly CarAudioHandler _carAudioHandler;
+    private readonly AnimationCurve _brakeVolumeCurve;
     private bool _isBrake = false;
-    public Brakes(CarAudioHandler carAudioHandler, Speedometer speedometer, CarWheel frontWheel, CarWheel backWheel, LayerMask ground, AnimationCurve brakeVolumeCurve)
+    private bool GroundContact => _groundAnalyzer.CheckGroundContact();
+    public Brakes(CarAudioHandler carAudioHandler, Speedometer speedometer, GroundAnalyzer groundAnalyzer, AnimationCurve brakeVolumeCurve)
     {
         _speedometer = speedometer;
+        _groundAnalyzer = groundAnalyzer;
         _carAudioHandler = carAudioHandler;
-        _frontWheel = frontWheel;
-        _backWheel = backWheel;
-        _ground = ground;
         _brakeVolumeCurve = brakeVolumeCurve;
     }
     public void BrakeSoundOn()
     {
-        if (CheckGround() && CheckSpeed())
+        if (GroundContact && CheckSpeed())
         {
             if (_isBrake == false)
             {
@@ -49,29 +46,5 @@ public class Brakes
             return true;
         }
         else return false;
-    }
-    private bool CheckGround()
-    {
-        if (CheckCircle(_backWheel))
-        {
-            return true;
-        }
-        else if (CheckCircle(_frontWheel))
-        {
-            return true;
-        }
-        else return false;
-    }
-
-    private bool CheckCircle(CarWheel wheel)
-    {
-        if (Physics2D.OverlapCircle(wheel.Position, wheel.Radius, _ground.value))
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
     }
 }

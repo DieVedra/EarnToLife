@@ -87,7 +87,7 @@ public class BackWingDestructionHandler : DestructionHandler, IDispose
     private void DestructionMode1()
     {
         CompositeDisposable.Clear();
-        _backBumperDestructionHandler.TryThrow();
+        _backBumperDestructionHandler.TryThrow().Forget();
         ThrowContent();
         SwitchSprites1();
         _glassDestructionHandler?.TryBreakGlass();

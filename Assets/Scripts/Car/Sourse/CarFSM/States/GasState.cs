@@ -16,7 +16,10 @@ public class GasState : CarState
         AccelerationEngine();
         CalculateSpeed();
         SetMotorSpeed(FrontWheelJoint);
-        SetMotorSpeed(BackWheelJoint);
+        if (BackWheelJoint != null)
+        {
+            SetMotorSpeed(BackWheelJoint);
+        }
         PropulsionUnit.FuelTank.BurnFuelOnMoving();
         SmoothMovement();
     }

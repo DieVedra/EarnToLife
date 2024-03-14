@@ -200,7 +200,7 @@ public class CarMass : MonoBehaviour
     }
     #endregion
 
-    private void ChangeMassOnCarBrokenIntoTwoParts()
+    public void ChangeMassOnCarBrokenIntoTwoParts()
     {
         if (CheckActivePart(_wheelStandart))
         {

@@ -10,9 +10,9 @@ public class CarInLevel : Car
 {
     [SerializeField, BoxGroup("Engine"), HorizontalLine(color:EColor.White)] private AnimationCurve _engineAccelerationCurve;
 
-    [SerializeField, Range(0f, 10f), BoxGroup("Gyroscope"), HorizontalLine(color:EColor.Green)] private float _gyroscopePower;
+    [SerializeField, Range(0f, 1f), BoxGroup("Gyroscope"), HorizontalLine(color:EColor.Green)] private float _gyroscopePower;
 
-    [SerializeField, BoxGroup("Brake"), HorizontalLine(color:EColor.Yellow)] private LayerMask _ground;
+    [SerializeField, BoxGroup("Brake"), HorizontalLine(color:EColor.Yellow)] private LayerMask _groundLayerMask;
     [SerializeField, BoxGroup("Brake")] private AnimationCurve _brakeVolumeCurve;
 
     [SerializeField, BoxGroup("Gun"), HorizontalLine(color:EColor.Red)] private GunRef _gunRef;
@@ -57,6 +57,7 @@ public class CarInLevel : Car
     private PropulsionUnit _propulsionUnit;
     private CoupAnalyzer _coupAnalyzer;
     private HotWheel _hotWheel;
+    private GroundAnalyzer _groundAnalyzer;
     public CarConfiguration CarConfiguration { get; private set; }
     // public CompositeDisposable CompositeDisposable { get; private set; } = new CompositeDisposable();
     public CarMass CarMass { get; private set; }
@@ -89,8 +90,9 @@ public class CarInLevel : Car
         _propulsionUnit = new PropulsionUnit(_engine, FuelTank, carConfiguration.GearRatio);
         _frontWheel = new CarWheel(FrontWheelJoint, FrontWheelCarValues.WheelRigidbody2D, _corpusTransform);
         _backWheel = new CarWheel(BackWheelJoint, BackWheelCarValues.WheelRigidbody2D, _corpusTransform);
-        Gyroscope = new Gyroscope(_bodyRigidbody2D, _gyroscopePower);
-        _brakes = new Brakes(_carAudioHandler, Speedometer, _frontWheel, _backWheel, _ground, _brakeVolumeCurve);
+        _groundAnalyzer = new GroundAnalyzer(_frontWheel, _backWheel, _groundLayerMask);
+        Gyroscope = new Gyroscope(_groundAnalyzer, _bodyRigidbody2D, CarMass, _gyroscopePower);
+        _brakes = new Brakes(_carAudioHandler, Speedometer, _groundAnalyzer, _brakeVolumeCurve);
 
         _controlActive = true;
         SubscribeActions();
@@ -227,6 +229,10 @@ public class CarInLevel : Car
         {
             _destructionCar.Construct(CarGun, _hotWheel ,CarMass, Booster, Speedometer, _coupAnalyzer, _hotWheelRef,
                 _boosterRef, _gunRef,  debrisParent);
+            if (_destructionCar.BottomDestructionOn == true)
+            {
+                _destructionCar.OnCarBrokenIntoTwoParts += CarBrokenIntoTwoParts;
+            }
         }
     }
 
@@ -258,7 +264,13 @@ public class CarInLevel : Car
         ControlCar.TryTurnOffCheckBooster();
         Booster = null;
     }
-
+    private void CarBrokenIntoTwoParts(WheelJoint2D joint2D)
+    {
+        ReinitBackWheelAndSuspensionOnCarBrokenIntoTwoParts(joint2D);
+        ControlCar.TryTurnOffCheckBooster();
+        // OnCarBrokenIntoTwoParts?.Invoke(joint2D);
+        // _carMass.ChangeMassOnCarBrokenIntoTwoParts();
+    }
     private void OnDisable()
     {
         FuelTank.OnTankEmpty -= _notificationsProvider.FuelTankEmpty;
@@ -277,6 +289,11 @@ public class CarInLevel : Car
         if (_hotWheel != null)
         {
             _hotWheel.Dispose();
+        }
+
+        if (_destructionActive == true && _destructionCar.BottomDestructionOn == true)
+        {
+            _destructionCar.OnCarBrokenIntoTwoParts -= CarBrokenIntoTwoParts;
         }
     }
 }

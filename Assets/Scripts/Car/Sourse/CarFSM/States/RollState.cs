@@ -8,7 +8,10 @@ public class RollState : CarState
     public override void Enter()
     {
         SetMotorSpeed(FrontWheelJoint);
-        SetMotorSpeed(BackWheelJoint);
+        if (BackWheelJoint != null)
+        {
+            SetMotorSpeed(BackWheelJoint);
+        }
         Booster?.TryStopBooster();
     }
     public override void Update()

@@ -6,15 +6,16 @@ using UnityEngine;
 public class DestructionCar : MonoBehaviour
 {
     [SerializeField] private int _carDebrisLayer;
+    [SerializeField] private int _fallingContentLayer;
+
     [SerializeField] private LayerMask _canCollisionsLayerMasks;
-    [SerializeField] private int _carRoofBrokenLayer;
 
     [SerializeField, BoxGroup("Settings")] private bool _bumpersDestructuonOn;
     [SerializeField, BoxGroup("Settings")] private bool _glassesDestructuonOn;
     [SerializeField, BoxGroup("Settings")] private bool _frontWingDestructuonOn;
     [SerializeField, BoxGroup("Settings")] private bool _backWingDestructuonOn;
     [SerializeField, BoxGroup("Settings")] private bool _roofDestructuonOn;
-    [SerializeField, BoxGroup("Settings")] private bool _bottomDestructuonOn;
+    [SerializeField, BoxGroup("Settings")] private bool _bottomDestructionOn;
 
     [SerializeField, BoxGroup("Bumpers"), HorizontalLine(color:EColor.Red)] private BumperRef _standartBumperRefFront;
     [SerializeField, BoxGroup("Bumpers")] private BumperRef _standartBumperRefBack;
@@ -46,6 +47,7 @@ public class DestructionCar : MonoBehaviour
 
 
     private CoupAnalyzer _coupAnalyzer;
+    private CarMass _carMass;
     private BumperDestructionHandler _frontBumperDestructionHandler;
     private BumperDestructionHandler _backBumperDestructionHandler;
     private GunDestructionHandler _gunDestructionHandler;
@@ -65,16 +67,18 @@ public class DestructionCar : MonoBehaviour
     private HotWheelDestructionHandler _hotWheelDestructionHandler;
     private ArmoredBackFrameDestructionHandler _armoredBackFrameHandler;
     private BottomDestructionHandler _bottomDestructionHandler;
-    private BackCarDestructionHandler _backCarDestructionHandler;
+    private BackCarHandler _backCarHandler;
     private DestructionHandlerContent _destructionHandlerContent;
     private List<IDispose> _disposes = new List<IDispose>();
+    public event Action<WheelJoint2D> OnCarBrokenIntoTwoParts;
+    public bool BottomDestructionOn => _bottomDestructionOn;
     public void Construct(CarGun carGun, HotWheel hotWheel, CarMass carMass, Booster booster, Speedometer speedometer, CoupAnalyzer coupAnalyzer,
         HotWheelRef hotWheelRef, BoosterRef boosterRef, GunRef gunRef,
         Transform debrisParent)
     {
         _coupAnalyzer = coupAnalyzer;
         _destructionHandlerContent = new DestructionHandlerContent(speedometer, debrisParent, _canCollisionsLayerMasks, _carDebrisLayer);
-        
+        _carMass = carMass;
         TryInitSafetyFrameworkDestructionHandler(debrisParent);
         InitBumpersHandler();
         InitGlassesHandler();
@@ -202,7 +206,7 @@ public class DestructionCar : MonoBehaviour
                 carMass, coupAnalyzer, _armoredBackFrameHandler, 
                 _frontDoorDestructionHandler, _backDoorDestructionHandler,
                 _frontGlassDestructionHandler, _backGlassDestructionHandler,
-                _gunDestructionHandler, _destructionHandlerContent, CalculateStrengthRoof(),
+                _gunDestructionHandler, _destructionHandlerContent, CalculateStrengthRoof(), _fallingContentLayer,
                 CheckPart(_armoredRoofFrameRef), CheckPart(_safetyFrameworkRef));
             AddToDispose(_roofDestructionHandler);
         }
@@ -232,14 +236,15 @@ public class DestructionCar : MonoBehaviour
 
     private void InitBottomHandler()
     {
-        if (_bottomDestructuonOn == true)
+        if (_bottomDestructionOn == true)
         {
-            _backCarDestructionHandler = new BackCarDestructionHandler(_backWingDestructionHandler, _backBumperDestructionHandler);
+            _backCarHandler = new BackCarHandler(_bottomRef, _backWingDestructionHandler);
             _bottomDestructionHandler = new BottomDestructionHandler(_bottomRef,
-                _backCarDestructionHandler, _roofDestructionHandler,
+                _backCarHandler, _roofDestructionHandler,
                 _frontDoorDestructionHandler, _backDoorDestructionHandler, _destructionHandlerContent,
                 CalculateStrengthBottom(), CheckPart(_bottomRef.ArmoredBottom));
             AddToDispose(_bottomDestructionHandler);
+            _backCarHandler.OnCarBrokenIntoTwoParts += CarBrokenIntoTwoParts;
         }
     }
     private bool CheckPart(Transform part)
@@ -313,12 +318,22 @@ public class DestructionCar : MonoBehaviour
     {
         _disposes.Add(dispose);
     }
+
+    private void CarBrokenIntoTwoParts(WheelJoint2D joint2D)
+    {
+        OnCarBrokenIntoTwoParts?.Invoke(joint2D);
+        _carMass.ChangeMassOnCarBrokenIntoTwoParts();
+    }
+
     private void OnDisable()
     {
         foreach (var dispose in _disposes)
         {
             dispose.Dispose();
         }
-        _gunDestructionHandler?.Dispose();
+        if (_bottomDestructionOn == true)
+        {
+            _backCarHandler.OnCarBrokenIntoTwoParts -= CarBrokenIntoTwoParts;
+        }
     }
 }

@@ -1133,7 +1133,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _startPanelInMenu: 2
-  _cash: 1000
+  _cash: 10000
   carControlMethod: 0
 --- !u!4 &221235209
 Transform:

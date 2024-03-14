@@ -8,6 +8,7 @@ public class BackDoorDestructionHandler : DestructionHandler
     private readonly Transform _doorDamaged2;
     private readonly Transform[] _parts;
     private bool _isBroken = false;
+    private DestructionMode _destructionMode = DestructionMode.ModeDefault;
 
     public BackDoorDestructionHandler(DoorRef doorRef, DestructionHandlerContent destructionHandlerContent) 
         : base(doorRef, destructionHandlerContent, doorRef.StrengthDoors)
@@ -24,22 +25,22 @@ public class BackDoorDestructionHandler : DestructionHandler
         {
             _doorNormal.gameObject.SetActive(false);
             _doorDamaged1.gameObject.SetActive(true);
+            _destructionMode = DestructionMode.Mode1;
         }
     }
     public void TryDestructionMode2()
     {
         if (_isBroken == false)
         {
-            _doorNormal.gameObject.SetActive(false);
+            if (_destructionMode == DestructionMode.ModeDefault)
+            {
+                DestructionMode1();
+            }
             _doorDamaged1.gameObject.SetActive(false);
             _doorDamaged2.gameObject.SetActive(true);
+            _destructionMode = DestructionMode.Mode2;
         }
     }
-    // public void DestructionMode3()
-    // {
-    //     CompositeDisposable.Clear();
-    // }
-
     public void TryThrowDoor()
     {
         if (_isBroken == false)
@@ -50,7 +51,7 @@ public class BackDoorDestructionHandler : DestructionHandler
             {
                 if (_parts[i].gameObject.activeSelf == true)
                 {
-                    _parts[i].gameObject.AddComponent<Rigidbody2D>();
+                    TryAddRigidBody(_parts[i].gameObject);
                 }
             }
         }

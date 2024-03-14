@@ -4,15 +4,20 @@ using UnityEngine;
 
 public class Gyroscope
 {
-    private Rigidbody2D _rigidbodyBody;
+    private readonly GroundAnalyzer _groundAnalyzer;
+    private readonly Rigidbody2D _rigidbodyBody;
+    private readonly CarMass _carMass;
     private float _gyroscopePower;
-    public Gyroscope(Rigidbody2D rigidbodyBody, float gyroscopePower)
+    private float _torque => _gyroscopePower * _carMass.Mass;
+    public Gyroscope(GroundAnalyzer groundAnalyzer, Rigidbody2D rigidbodyBody, CarMass carMass, float gyroscopePower)
     {
+        _groundAnalyzer = groundAnalyzer;
         _rigidbodyBody = rigidbodyBody;
         _gyroscopePower = gyroscopePower;
+        _carMass = carMass;
     }
     public void Rotation(float multiplierDirection)
     {
-        _rigidbodyBody.AddTorque(_gyroscopePower * multiplierDirection * _rigidbodyBody.mass, ForceMode2D.Impulse);
+        _rigidbodyBody.AddTorque(_gyroscopePower * multiplierDirection * _carMass.Mass, ForceMode2D.Force);
     }
 }
