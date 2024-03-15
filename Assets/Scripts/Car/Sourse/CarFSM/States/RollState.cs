@@ -1,14 +1,16 @@
+using UniRx;
 using UnityEngine;
 
 public class RollState : CarState
 {
     private readonly bool _useMotor = false;
-    public RollState(WheelJoint2D frontWheelJoint, WheelJoint2D backWheelJoint, PropulsionUnit propulsionUnit, Booster booster)
-        : base(frontWheelJoint, backWheelJoint, propulsionUnit, booster) { }
+    public RollState(WheelJoint2D frontWheelJoint, WheelJoint2D backWheelJoint, PropulsionUnit propulsionUnit,
+        Booster booster, ReactiveCommand onCarBrokenIntoTwoParts)
+        : base(frontWheelJoint, backWheelJoint, propulsionUnit, booster, onCarBrokenIntoTwoParts) { }
     public override void Enter()
     {
         SetMotorSpeed(FrontWheelJoint);
-        if (BackWheelJoint != null)
+        if (CarBroken == false)
         {
             SetMotorSpeed(BackWheelJoint);
         }

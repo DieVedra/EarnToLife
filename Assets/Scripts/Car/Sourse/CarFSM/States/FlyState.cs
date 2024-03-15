@@ -1,3 +1,4 @@
+using UniRx;
 using UnityEngine;
 
 public class FlyState : CarState
@@ -6,8 +7,9 @@ public class FlyState : CarState
     private readonly bool _useMotor = false;
     private readonly Rigidbody2D _rigidbody;
     private readonly Transform _transform;
-    public FlyState(WheelJoint2D frontWheelJoint, WheelJoint2D backWheelJoint, PropulsionUnit propulsionUnit, Booster booster, Rigidbody2D rigidbody, float force)
-        : base(frontWheelJoint, backWheelJoint, propulsionUnit, booster)
+    public FlyState(WheelJoint2D frontWheelJoint, WheelJoint2D backWheelJoint, PropulsionUnit propulsionUnit,
+        Booster booster, Rigidbody2D rigidbody, ReactiveCommand onCarBrokenIntoTwoParts, float force)
+        : base(frontWheelJoint, backWheelJoint, propulsionUnit, booster, onCarBrokenIntoTwoParts)
     {
         _rigidbody = rigidbody;
         _transform = rigidbody.transform;
@@ -16,7 +18,7 @@ public class FlyState : CarState
     public override void Enter()
     {
         SetMotorSpeed(FrontWheelJoint);
-        if (BackWheelJoint != null)
+        if (CarBroken == false)
         {
             SetMotorSpeed(BackWheelJoint);
         }

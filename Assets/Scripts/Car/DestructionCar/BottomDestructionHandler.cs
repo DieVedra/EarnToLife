@@ -68,7 +68,6 @@ public class BottomDestructionHandler : DestructionHandler, IDispose
 
     private void DestructionMode1()
     {
-        // CompositeDisposable.Clear();
         _frontDoorDestructionHandler.TryThrowDoor();
         _backDoorDestructionHandler.TryThrowDoor();
         TryThrowExhaust();
@@ -93,6 +92,9 @@ public class BottomDestructionHandler : DestructionHandler, IDispose
         }
         _roofDestructionHandler?.DestructNow();
         _backCarHandler?.DestructNow();
+        
+        
+        
         SetParentDebris(_backCar);
         _destructionMode = DestructionMode.Mode2;
         Debug.Log("    DestructionMode2");
@@ -108,11 +110,9 @@ public class BottomDestructionHandler : DestructionHandler, IDispose
             SetParentDebris(_exhaust);
         }
     }
-
     private void ThrowArmor()
     {
         TryAddRigidBody(_armoredBottom.gameObject);
         SetParentDebris(_armoredBottom);
     }
-
 }

@@ -1,3 +1,4 @@
+using UniRx;
 using UnityEngine;
 
 public class GasState : CarState
@@ -5,8 +6,9 @@ public class GasState : CarState
     private const bool USEMOTOR = true;
     private float _currentSpeed;
     private float _newSpeed;
-    public GasState(WheelJoint2D frontWheelJoint, WheelJoint2D backWheelJoint, PropulsionUnit propulsionUnit, Booster booster)
-        : base(frontWheelJoint, backWheelJoint, propulsionUnit, booster) { }
+    public GasState(WheelJoint2D frontWheelJoint, WheelJoint2D backWheelJoint, PropulsionUnit propulsionUnit,
+        Booster booster, ReactiveCommand onCarBrokenIntoTwoParts)
+        : base(frontWheelJoint, backWheelJoint, propulsionUnit, booster, onCarBrokenIntoTwoParts) { }
     public override void Enter()
     {
         Booster?.TryStopBooster();
@@ -16,7 +18,7 @@ public class GasState : CarState
         AccelerationEngine();
         CalculateSpeed();
         SetMotorSpeed(FrontWheelJoint);
-        if (BackWheelJoint != null)
+        if (CarBroken == false)
         {
             SetMotorSpeed(BackWheelJoint);
         }

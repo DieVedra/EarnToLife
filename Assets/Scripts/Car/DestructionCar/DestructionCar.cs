@@ -70,7 +70,7 @@ public class DestructionCar : MonoBehaviour
     private BackCarHandler _backCarHandler;
     private DestructionHandlerContent _destructionHandlerContent;
     private List<IDispose> _disposes = new List<IDispose>();
-    public event Action<WheelJoint2D> OnCarBrokenIntoTwoParts;
+    public event Action<WheelJoint2D, WheelCarValues> OnCarBrokenIntoTwoParts;
     public bool BottomDestructionOn => _bottomDestructionOn;
     public void Construct(CarGun carGun, HotWheel hotWheel, CarMass carMass, Booster booster, Speedometer speedometer, CoupAnalyzer coupAnalyzer,
         HotWheelRef hotWheelRef, BoosterRef boosterRef, GunRef gunRef,
@@ -319,9 +319,9 @@ public class DestructionCar : MonoBehaviour
         _disposes.Add(dispose);
     }
 
-    private void CarBrokenIntoTwoParts(WheelJoint2D joint2D)
+    private void CarBrokenIntoTwoParts(WheelJoint2D joint2D, WheelCarValues wheelCarValues)
     {
-        OnCarBrokenIntoTwoParts?.Invoke(joint2D);
+        OnCarBrokenIntoTwoParts?.Invoke(joint2D, wheelCarValues);
         _carMass.ChangeMassOnCarBrokenIntoTwoParts();
     }
 

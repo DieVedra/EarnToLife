@@ -36,6 +36,8 @@ public class CarInLevel : Car
     [SerializeField, BoxGroup("HotWheel"), Range(1f,50f)] private float _hotWheelRotationSpeed;
 
     [HorizontalLine(color:EColor.Orange)]
+    [SerializeField, BoxGroup("Settings")] private Rigidbody2D _bodyRigidbody2D;
+    [SerializeField, BoxGroup("Settings")] private Vector2 _centerMassOffset;
     [SerializeField, BoxGroup("Settings")] private Transform _corpusTransform;
     [SerializeField, BoxGroup("Settings"), ProgressBar("Fuel", 1000, EColor.Green)] private float _currentFuelQuantity;
     [SerializeField, BoxGroup("Settings"), ProgressBar("BoosterFuel", 1000, EColor.Orange)] private float _currentBoosterFuelQuantity;
@@ -45,7 +47,6 @@ public class CarInLevel : Car
     [ShowNativeProperty] public bool ControlActive => _controlActive;
 
     private DestructionCar _destructionCar;
-    private Rigidbody2D _bodyRigidbody2D;
     private CarFSM _carFsm;
     private Engine _engine;
     private CarAudioHandler _carAudioHandler;
@@ -71,6 +72,8 @@ public class CarInLevel : Car
     public CarGun CarGun { get; private set; }
     public bool BoosterAvailable => CarConfiguration.BoosterCountFuelQuantity > 0f ? true : false;
     public bool GunAvailable => CarConfiguration.GunCountAmmo > 0 ? true : false;
+    // private ReactiveProperty<bool> _carBrokenIntoTwoParts = new ReactiveProperty<bool>();
+    private ReactiveCommand _onCarBrokenIntoTwoPartsReactiveCommand = new ReactiveCommand();
     public void Construct(CarConfiguration carConfiguration, NotificationsProvider notificationsProvider,
         CarAudioHandler carAudioHandler, LevelProgressCounter levelProgressCounter, Transform debrisParent, CarControlMethod carControlMethod)
     {
@@ -103,6 +106,7 @@ public class CarInLevel : Car
         InitControlCar(carControlMethod);
         InitCarMass();
         TryInitDestructionCar(debrisParent);
+        _bodyRigidbody2D.centerOfMass += _centerMassOffset;
         _carAudioHandler.PlayStartEngine();
     }
     public void UpdateCar()
@@ -156,6 +160,8 @@ public class CarInLevel : Car
             Gizmos.DrawWireSphere(_gunRef.transform.position, _distanceDetectionValue);
             Gizmos.DrawWireSphere(_gunRef.transform.position, _deadZoneDetectionValue);
         }
+        Gizmos.color = Color.green;
+        Gizmos.DrawSphere(_bodyRigidbody2D.centerOfMass + _centerMassOffset, 0.1f);
     }
 
     private void SubscribeActions()
@@ -214,10 +220,10 @@ public class CarInLevel : Car
     {
         Dictionary<Type, CarState> dictionaryStates = new Dictionary<Type, CarState>
         {
-            {typeof(GasState), new GasState(FrontWheelJoint, BackWheelJoint, _propulsionUnit, Booster)},
-            {typeof(StopState), new StopState(FrontWheelJoint, BackWheelJoint, _propulsionUnit, _brakes, Booster)},
-            {typeof(RollState), new RollState(FrontWheelJoint, BackWheelJoint, _propulsionUnit, Booster)},
-            {typeof(FlyState), new FlyState(FrontWheelJoint, BackWheelJoint, _propulsionUnit, Booster, _bodyRigidbody2D, _force)}
+            {typeof(GasState), new GasState(FrontWheelJoint, BackWheelJoint, _propulsionUnit, Booster, _onCarBrokenIntoTwoPartsReactiveCommand)},
+            {typeof(StopState), new StopState(FrontWheelJoint, BackWheelJoint, _propulsionUnit, _brakes, Booster, _onCarBrokenIntoTwoPartsReactiveCommand)},
+            {typeof(RollState), new RollState(FrontWheelJoint, BackWheelJoint, _propulsionUnit, Booster, _onCarBrokenIntoTwoPartsReactiveCommand)},
+            {typeof(FlyState), new FlyState(FrontWheelJoint, BackWheelJoint, _propulsionUnit, Booster, _bodyRigidbody2D, _onCarBrokenIntoTwoPartsReactiveCommand, _force)}
         };
         _carFsm = new CarFSM(dictionaryStates);
         _carFsm.SetState<StopState>();
@@ -264,12 +270,13 @@ public class CarInLevel : Car
         ControlCar.TryTurnOffCheckBooster();
         Booster = null;
     }
-    private void CarBrokenIntoTwoParts(WheelJoint2D joint2D)
+    private void CarBrokenIntoTwoParts(WheelJoint2D joint2D, WheelCarValues wheelCarValues)
     {
-        ReinitBackWheelAndSuspensionOnCarBrokenIntoTwoParts(joint2D);
+        ReinitBackWheelAndSuspensionOnCarBrokenIntoTwoParts(joint2D, wheelCarValues);
         ControlCar.TryTurnOffCheckBooster();
-        // OnCarBrokenIntoTwoParts?.Invoke(joint2D);
-        // _carMass.ChangeMassOnCarBrokenIntoTwoParts();
+        _onCarBrokenIntoTwoPartsReactiveCommand.Execute();
+        _centerMassOffset = new Vector2(1.39f, 0f);
+        _bodyRigidbody2D.centerOfMass += _centerMassOffset;
     }
     private void OnDisable()
     {
@@ -277,6 +284,7 @@ public class CarInLevel : Car
         FuelTank.OnTankEmpty -= StopCar;
         _levelProgressCounter.OnGotPointDestination -= StopCar;
         _coupAnalyzer.Dispose();
+        _onCarBrokenIntoTwoPartsReactiveCommand.Dispose();
         if (Booster != null)
         {
             BoosterDisable();

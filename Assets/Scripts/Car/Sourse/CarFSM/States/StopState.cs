@@ -1,3 +1,4 @@
+using UniRx;
 using UnityEngine;
 
 public class StopState : CarState
@@ -5,15 +6,16 @@ public class StopState : CarState
     private const float STOPSPEED = 0f;
     private const bool USEMOTOR = true;
     private Brakes _brakes;
-    public StopState(WheelJoint2D frontWheelJoint, WheelJoint2D backWheelJoint, PropulsionUnit propulsionUnit, Brakes brakes, Booster booster)
-        : base(frontWheelJoint, backWheelJoint, propulsionUnit, booster)
+    public StopState(WheelJoint2D frontWheelJoint, WheelJoint2D backWheelJoint, PropulsionUnit propulsionUnit,
+        Brakes brakes, Booster booster, ReactiveCommand onCarBrokenIntoTwoParts)
+        : base(frontWheelJoint, backWheelJoint, propulsionUnit, booster, onCarBrokenIntoTwoParts)
     {
         _brakes = brakes;
     }
     public override void Enter()
     {
         SetMotorSpeed(FrontWheelJoint);
-        if (BackWheelJoint != null)
+        if (CarBroken == false)
         {
             SetMotorSpeed(BackWheelJoint);
         }
