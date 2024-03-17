@@ -36,7 +36,7 @@ public class DestructionCar : MonoBehaviour
     [SerializeField, BoxGroup("Wings")] private BackWingRef _backWingRef;
 
     [SerializeField, BoxGroup("Roof"), HorizontalLine(color:EColor.Blue)] private RoofRef _roofRef;
-    
+    [SerializeField, BoxGroup("Cabine"), HorizontalLine(color:EColor.Orange)] private CabineRef _cabineRef;
     
     [SerializeField, BoxGroup("Frame"), HorizontalLine(color:EColor.Black)] private ArmoredFrontFrameRef _armoredFrontFrameRef;
     [SerializeField, BoxGroup("Frame")] private ArmoredBackFrameRef _armoredBackFrameRef;
@@ -54,7 +54,7 @@ public class DestructionCar : MonoBehaviour
     private BoosterDestructionHandler _boosterDestructionHandler;
     private FrontWingDestructionHandler _frontWingDestructionHandler;
     private BackWingDestructionHandler _backWingDestructionHandler;
-    
+    private CabineDestructionHandler _cabineDestructionHandler;
     private GlassDestructionHandler _frontGlassDestructionHandler;
     private GlassDestructionHandler _backGlassDestructionHandler;
     
@@ -79,6 +79,7 @@ public class DestructionCar : MonoBehaviour
         _coupAnalyzer = coupAnalyzer;
         _destructionHandlerContent = new DestructionHandlerContent(speedometer, debrisParent, _canCollisionsLayerMasks, _carDebrisLayer);
         _carMass = carMass;
+        InitCabineHandler();
         TryInitSafetyFrameworkDestructionHandler(debrisParent);
         InitBumpersHandler();
         InitGlassesHandler();
@@ -91,6 +92,13 @@ public class DestructionCar : MonoBehaviour
         InitRoofHandler(carMass, coupAnalyzer);
         InitBottomHandler();
     }
+
+    private void InitCabineHandler()
+    {
+        _cabineDestructionHandler = new CabineDestructionHandler(_cabineRef, _destructionHandlerContent);
+        AddToDispose(_cabineDestructionHandler);
+    }
+
     private void InitBumpersHandler()
     {
         if (_bumpersDestructuonOn == true)
@@ -206,7 +214,7 @@ public class DestructionCar : MonoBehaviour
                 carMass, coupAnalyzer, _armoredBackFrameHandler, 
                 _frontDoorDestructionHandler, _backDoorDestructionHandler,
                 _frontGlassDestructionHandler, _backGlassDestructionHandler,
-                _gunDestructionHandler, _destructionHandlerContent, CalculateStrengthRoof(), _fallingContentLayer,
+                _gunDestructionHandler, _cabineDestructionHandler, _destructionHandlerContent, CalculateStrengthRoof(), _fallingContentLayer,
                 CheckPart(_armoredRoofFrameRef), CheckPart(_safetyFrameworkRef));
             AddToDispose(_roofDestructionHandler);
         }

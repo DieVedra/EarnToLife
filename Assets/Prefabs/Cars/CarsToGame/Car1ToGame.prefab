@@ -3835,7 +3835,7 @@ MonoBehaviour:
   _gyroscopePower: 0.5
   _groundLayerMask:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 196608
   _brakeVolumeCurve:
     serializedVersion: 2
     m_Curve:
@@ -3880,7 +3880,8 @@ MonoBehaviour:
   _hotWheelRef: {fileID: 2981068929045813636}
   _hotWheelRotationSpeed: 12.5
   _bodyRigidbody2D: {fileID: 1695022697006532565}
-  _centerMassOffset: {x: 0.43, y: 0}
+  _centerMassOffset: {x: 0.43, y: -0.13}
+  _centerMassAfterBrokenOffset: {x: 1.3, y: -0.12}
   _corpusTransform: {fileID: 2013505653325737501}
   _currentFuelQuantity: 0
   _currentBoosterFuelQuantity: 0
@@ -3924,6 +3925,7 @@ MonoBehaviour:
   _frontWingRef: {fileID: 2385208045176544964}
   _backWingRef: {fileID: 8118690566937095414}
   _roofRef: {fileID: 508800841631094174}
+  _cabineRef: {fileID: 5844461173767492480}
   _armoredFrontFrameRef: {fileID: 8534425568503780846}
   _armoredBackFrameRef: {fileID: 6560562750424215514}
   _armoredRoofFrameRef: {fileID: 2604111896747433250}
@@ -5422,6 +5424,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2013505654171731794}
+  - component: {fileID: 5844461173767492480}
   m_Layer: 9
   m_Name: Cabine
   m_TagString: Untagged
@@ -5450,6 +5453,20 @@ Transform:
   m_Father: {fileID: 2013505652357141393}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5844461173767492480
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2013505654171731793}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e1e67ec2ceda40c0990d3bdc1001c450, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _helmet: {fileID: 8142443015322206068}
+  _headrest: {fileID: 5544610882355455283}
 --- !u!1 &2013505654199778604
 GameObject:
   m_ObjectHideFlags: 0
@@ -5844,8 +5861,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5544610882355455283}
   - component: {fileID: 6883140343310956193}
-  - component: {fileID: 5975444546537387451}
-  - component: {fileID: 5123256550958263995}
+  - component: {fileID: 7371475162111161737}
   m_Layer: 12
   m_Name: Headrest
   m_TagString: Untagged
@@ -5864,8 +5880,7 @@ Transform:
   m_LocalPosition: {x: 0.637, y: 9.837, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 7021412916864716037}
+  m_Children: []
   m_Father: {fileID: 2013505654171731794}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -5921,45 +5936,35 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!50 &5975444546537387451
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2318930429260459778}
-  m_BodyType: 0
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 0
-  m_Material: {fileID: 6200000, guid: 17d9ae3f8ddfc674a8f884e7144b9185, type: 2}
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 0
---- !u!255 &5123256550958263995
-FixedJoint2D:
+--- !u!60 &7371475162111161737
+PolygonCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2318930429260459778}
   m_Enabled: 1
-  serializedVersion: 4
-  m_EnableCollision: 1
-  m_ConnectedRigidBody: {fileID: 1695022697006532565}
-  m_BreakForce: 1000
-  m_BreakTorque: Infinity
-  m_AutoConfigureConnectedAnchor: 1
-  m_Anchor: {x: 0.039570797, y: -0.26999998}
-  m_ConnectedAnchor: {x: -0.0065431297, y: 0.5401499}
-  m_DampingRatio: 0.1
-  m_Frequency: 50
+  m_Density: 1
+  m_Material: {fileID: 6200000, guid: 17d9ae3f8ddfc674a8f884e7144b9185, type: 2}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 0.17, y: 0.34}
+    newSize: {x: 0.17, y: 0.34}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: 0.035, y: -0.16}
+      - {x: -0.065, y: 0}
+      - {x: 0.005, y: 0.14999999}
+      - {x: 0.065, y: 0}
 --- !u!1 &2325040279250666803
 GameObject:
   m_ObjectHideFlags: 0
@@ -7390,54 +7395,6 @@ Transform:
   m_Father: {fileID: 7665990385682751608}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &3159674114203370472
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 7021412916864716037}
-  - component: {fileID: 1017098189784194131}
-  m_Layer: 12
-  m_Name: Collider
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &7021412916864716037
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3159674114203370472}
-  m_LocalRotation: {x: 0, y: 0, z: 0.038823802, w: 0.99924606}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 5544610882355455283}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 4.45}
---- !u!70 &1017098189784194131
-CapsuleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3159674114203370472}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 6200000, guid: 17d9ae3f8ddfc674a8f884e7144b9185, type: 2}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_Size: {x: 0.14, y: 0.3}
-  m_Direction: 0
 --- !u!1 &3236373621562782418
 GameObject:
   m_ObjectHideFlags: 0
@@ -11149,8 +11106,8 @@ MonoBehaviour:
   _armoredBottom: {fileID: 1221468920182407973}
   _exhaust: {fileID: 9153136211874766378}
   _invisibleWheel: {fileID: 7340951579749063325}
-  _strengthArmoredBottom: 50
-  _strengthBottom: 50
+  _strengthArmoredBottom: 1000
+  _strengthBottom: 2000
 --- !u!1 &6353439164812903221
 GameObject:
   m_ObjectHideFlags: 0

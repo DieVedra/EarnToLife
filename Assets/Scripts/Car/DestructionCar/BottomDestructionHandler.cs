@@ -35,34 +35,39 @@ public class BottomDestructionHandler : DestructionHandler, IDispose
         if (_isArmored == true)
         {
             _collider2DStandart.enabled = false;
-            SubscribeCollider(_bottomRef.ArmoredBottom.GetComponent<Collider2D>(), CheckCollision, TrySwitchMode);
+            _armoredBottom = _bottomRef.ArmoredBottom;
+            SubscribeCollider(_bottomRef.ArmoredBottom.GetComponent<Collider2D>(), CollisionHandling, TrySwitchMode);
         }
         else
         {
-            SubscribeCollider(_collider2DStandart, CheckCollision, TrySwitchMode);
+            SubscribeCollider(_collider2DStandart, CollisionHandling, TrySwitchMode);
         }
     }
-
     public void Dispose()
     {
         CompositeDisposable.Clear();
     }
-
     protected override void TrySwitchMode()
     {
-        Debug.Log("BottomDestruction TrySwitchMode");
         if (ValueNormalImpulse > MaxStrength)
         {
             DestructionMode2();
             RecalculateStrength();
+            Debug.Log($" bottom impulse: {ValueNormalImpulse}");
+
         }
         else if (ValueNormalImpulse > HalfStrength)
         {
             DestructionMode1();
             RecalculateStrength();
-        }else if (ValueNormalImpulse > MinStrength)
+            Debug.Log($" bottom impulse: {ValueNormalImpulse}");
+
+        }
+        else if (ValueNormalImpulse > MinStrength)
         {
             RecalculateStrength();
+            Debug.Log($" bottom impulse: {ValueNormalImpulse}");
+
         }
     }
 
@@ -72,8 +77,6 @@ public class BottomDestructionHandler : DestructionHandler, IDispose
         _backDoorDestructionHandler.TryThrowDoor();
         TryThrowExhaust();
         _destructionMode = DestructionMode.Mode1;
-        Debug.Log("           DestructionMode1");
-
     }
     private void DestructionMode2()
     {
@@ -97,7 +100,6 @@ public class BottomDestructionHandler : DestructionHandler, IDispose
         
         SetParentDebris(_backCar);
         _destructionMode = DestructionMode.Mode2;
-        Debug.Log("    DestructionMode2");
 
     }
 

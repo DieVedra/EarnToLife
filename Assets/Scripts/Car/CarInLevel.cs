@@ -38,6 +38,7 @@ public class CarInLevel : Car
     [HorizontalLine(color:EColor.Orange)]
     [SerializeField, BoxGroup("Settings")] private Rigidbody2D _bodyRigidbody2D;
     [SerializeField, BoxGroup("Settings")] private Vector2 _centerMassOffset;
+    [SerializeField, BoxGroup("Settings")] private Vector2 _centerMassAfterBrokenOffset;
     [SerializeField, BoxGroup("Settings")] private Transform _corpusTransform;
     [SerializeField, BoxGroup("Settings"), ProgressBar("Fuel", 1000, EColor.Green)] private float _currentFuelQuantity;
     [SerializeField, BoxGroup("Settings"), ProgressBar("BoosterFuel", 1000, EColor.Orange)] private float _currentBoosterFuelQuantity;
@@ -162,6 +163,9 @@ public class CarInLevel : Car
         }
         Gizmos.color = Color.green;
         Gizmos.DrawSphere(_bodyRigidbody2D.centerOfMass + _centerMassOffset, 0.1f);
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawSphere(_bodyRigidbody2D.centerOfMass + _centerMassAfterBrokenOffset, 0.1f);
+
     }
 
     private void SubscribeActions()
@@ -275,8 +279,7 @@ public class CarInLevel : Car
         ReinitBackWheelAndSuspensionOnCarBrokenIntoTwoParts(joint2D, wheelCarValues);
         ControlCar.TryTurnOffCheckBooster();
         _onCarBrokenIntoTwoPartsReactiveCommand.Execute();
-        _centerMassOffset = new Vector2(1.39f, 0f);
-        _bodyRigidbody2D.centerOfMass += _centerMassOffset;
+        _bodyRigidbody2D.centerOfMass += _centerMassAfterBrokenOffset;
     }
     private void OnDisable()
     {

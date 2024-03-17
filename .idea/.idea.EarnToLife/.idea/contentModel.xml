@@ -375,6 +375,7 @@
               <e p="BoosterDestructionHandler.cs" t="Include" />
               <e p="BottomDestructionHandler.cs" t="Include" />
               <e p="BumperDestructionHandler.cs" t="Include" />
+              <e p="CabineDestructionHandler.cs" t="Include" />
               <e p="DestructionCar.cs" t="Include" />
               <e p="DestructionHandler.cs" t="Include" />
               <e p="DestructionHandlerContent.cs" t="Include" />

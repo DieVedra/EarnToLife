@@ -14,6 +14,7 @@ public class RoofDestructionHandler : DestructionHandler, IDispose
     private readonly GlassDestructionHandler _backGlassDestructionHandler;
     private readonly ArmoredBackFrameDestructionHandler _armoredBackFrameDestructionHandler;
     private readonly GunDestructionHandler _gunDestructionHandler;
+    private readonly CabineDestructionHandler _cabineDestructionHandler;
     private readonly CoupAnalyzer _coupAnalyzer;
     private readonly CarMass _carMass;
     private readonly Transform _roofNormal;
@@ -42,7 +43,8 @@ public class RoofDestructionHandler : DestructionHandler, IDispose
         CarMass carMass, CoupAnalyzer coupAnalyzer, ArmoredBackFrameDestructionHandler armoredBackFrameDestructionHandler,
         FrontDoorDestructionHandler frontDoorDestructionHandler, BackDoorDestructionHandler backDoorDestructionHandler,
         GlassDestructionHandler frontGlassDestructionHandler, GlassDestructionHandler backGlassDestructionHandler,
-        GunDestructionHandler gunDestructionHandler, DestructionHandlerContent destructionHandlerContent,
+        GunDestructionHandler gunDestructionHandler, CabineDestructionHandler cabineDestructionHandler,
+        DestructionHandlerContent destructionHandlerContent,
         int totalStrengthRoof, int fallingContentLayer, bool isArmored, bool safetyFrameworkInstalled)
         : base(roofRef, destructionHandlerContent, totalStrengthRoof)
     {
@@ -56,6 +58,7 @@ public class RoofDestructionHandler : DestructionHandler, IDispose
         _backGlassDestructionHandler = backGlassDestructionHandler;
         _armoredBackFrameDestructionHandler = armoredBackFrameDestructionHandler;
         _gunDestructionHandler = gunDestructionHandler;
+        _cabineDestructionHandler = cabineDestructionHandler;
         _roofNormal = roofRef.RoofNormal;
         _roofDamaged1 = roofRef.RoofDamaged1;
         _roofDamaged2 = roofRef.RoofDamaged2;
@@ -75,11 +78,11 @@ public class RoofDestructionHandler : DestructionHandler, IDispose
             _frameNormal = armoredRoofFrameRef.FrameNormal;
             _frameDamaged = armoredRoofFrameRef.FrameDamaged;
             _currentFrame = _frameNormal;
-            SubscribeCollider(_frameNormal.GetComponent<Collider2D>(), CheckCollision, TrySwitchMode);
+            SubscribeCollider(_frameNormal.GetComponent<Collider2D>(), CollisionHandling, TrySwitchMode);
         }
         else
         {
-            SubscribeCollider(_roofNormal.GetComponent<Collider2D>(), CheckCollision, TrySwitchMode);
+            SubscribeCollider(_roofNormal.GetComponent<Collider2D>(), CollisionHandling, TrySwitchMode);
         }
     }
 
@@ -152,7 +155,7 @@ public class RoofDestructionHandler : DestructionHandler, IDispose
     private void DestructionMode2AndSubscribe()
     {
         DestructionMode2();
-        SubscribeCollider(_roofDamaged2.GetComponent<Collider2D>(), CheckCollision, TrySwitchMode);
+        SubscribeCollider(_roofDamaged2.GetComponent<Collider2D>(), CollisionHandling, TrySwitchMode);
     }
     private void DestructionMode2()
     {
@@ -208,12 +211,12 @@ public class RoofDestructionHandler : DestructionHandler, IDispose
             // await UniTask.Delay(TimeSpan.FromSeconds(_delay));
         
             //invoke game over driver crushed
-            Debug.Log("game over driver crushed");
+            _cabineDestructionHandler.TryDriverDestruction();
         }
         _destructionMode = DestructionMode.Mode3;
     }
 
-    protected override bool CheckCollision(Collision2D collision)
+    protected override bool CollisionHandling(Collision2D collision)
     {
         bool result = false;
         if (1 << _fallingContentLayer == 1 << collision.gameObject.layer && _isСrushed == false)
@@ -237,7 +240,7 @@ public class RoofDestructionHandler : DestructionHandler, IDispose
         }
         if (_coupAnalyzer.CarIsCoupCurrentValue == true)
         {
-            if (((1 << collision.gameObject.layer & CanCollisionsLayerMasks.value) == 1 << collision.gameObject.layer)
+            if ((base.CheckCollision(collision) == true)
                 && _carHasBeenCoup == false)
             {
                 _carHasBeenCoup = true;
@@ -252,7 +255,7 @@ public class RoofDestructionHandler : DestructionHandler, IDispose
         }
         else
         {
-            if (base.CheckCollision(collision))
+            if (base.CheckCollisionAndMinSpeed(collision) == true)
             {
                 result = true;
             }
@@ -321,18 +324,18 @@ public class RoofDestructionHandler : DestructionHandler, IDispose
     {
         if (_isArmored == true)
         {
-            SubscribeCollider(_frameDamaged.GetComponent<Collider2D>(), CheckCollision, TrySwitchMode);
+            SubscribeCollider(_frameDamaged.GetComponent<Collider2D>(), CollisionHandling, TrySwitchMode);
         }
         else
         {
-            SubscribeCollider(_roofDamaged1.GetComponent<Collider2D>(), CheckCollision, TrySwitchMode);
+            SubscribeCollider(_roofDamaged1.GetComponent<Collider2D>(), CollisionHandling, TrySwitchMode);
         }
     }
     private void SubscribesDestructionMode2()
     {
         if (_coupAnalyzer.CarIsCoupCurrentValue == false)
         {
-            SubscribeCollider(_roofDamaged2.GetComponent<Collider2D>(), CheckCollision, TrySwitchMode);
+            SubscribeCollider(_roofDamaged2.GetComponent<Collider2D>(), CollisionHandling, TrySwitchMode);
         }
     }
 }

@@ -6,7 +6,7 @@ using UnityEngine;
 public abstract class DestructionHandler
 {
     protected readonly int CarDebrisLayer;
-    protected readonly float StrengthForDestruct = 0;
+    // protected readonly float StrengthForDestruct = 0;
     protected readonly float HalfStrengthMultiplier = 0.7f;
     protected readonly float MinStrengthMultiplier = 0.2f;
     protected readonly Transform DebrisParent;
@@ -30,17 +30,14 @@ public abstract class DestructionHandler
         Speedometer = destructionHandlerContent.Speedometer;
         CanCollisionsLayerMasks = destructionHandlerContent.CanCollisionsLayerMasks;
         _monoBehaviour = monoBehaviour;
-        monoBehaviour.OnDestroyAsObservable()
-            .Subscribe(_ =>
-            {
-                Dispose();
-            }).AddTo(monoBehaviour);
+        // monoBehaviour.OnDestroyAsObservable()
+        //     .Subscribe(_ =>
+        //     {
+        //         Dispose();
+        //     }).AddTo(monoBehaviour);
     }
     protected virtual void TrySwitchMode(){}
-    protected void ApplyDamage()
-    {
-        MaxStrength -= ValueNormalImpulse;
-    }
+
     protected virtual void SubscribeCollider(Collider2D collider2D, Predicate<Collision2D> condition = null, Action operation = null)
     {
         collider2D.OnCollisionEnter2DAsObservable()
@@ -51,6 +48,7 @@ public abstract class DestructionHandler
             })
             .AddTo(CompositeDisposable);
     }
+
     protected void SetParentDebris(Transform transform = null)
     {
         if (transform == null)
@@ -62,6 +60,7 @@ public abstract class DestructionHandler
             transform.SetParent(DebrisParent);
         }
     }
+
     protected void SetCarDebrisLayer(Transform transform = null)
     {
         Transform transformCarPart;
@@ -86,10 +85,10 @@ public abstract class DestructionHandler
             transformCarPart.gameObject.layer = CarDebrisLayer;
         }
     }
-    protected virtual bool CheckCollision(Collision2D collision)
+
+    protected virtual bool CollisionHandling(Collision2D collision)
     {
-        if ((1 << collision.gameObject.layer & CanCollisionsLayerMasks.value) == 1 << collision.gameObject.layer
-            && Speedometer.CurrentSpeedFloat >= _minSpeedForDestruct)
+        if (CheckCollisionAndMinSpeed(collision) == true)
         {
             SetImpulseNormal(collision);
             return true;
@@ -99,6 +98,32 @@ public abstract class DestructionHandler
             return false;
         }
     }
+
+    protected bool CheckCollision(Collision2D collision)
+    {
+        if ((1 << collision.gameObject.layer & CanCollisionsLayerMasks.value) == 1 << collision.gameObject.layer)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    protected bool CheckCollisionAndMinSpeed(Collision2D collision)
+    {
+        if ((1 << collision.gameObject.layer & CanCollisionsLayerMasks.value) == 1 << collision.gameObject.layer
+            && Speedometer.CurrentSpeedFloat >= _minSpeedForDestruct)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
     protected void RecalculateStrength()
     {
         CalculateStrength(MaxStrength - ValueNormalImpulse * _reducingStrengthMultiplier);
@@ -123,6 +148,7 @@ public abstract class DestructionHandler
             gameObject.AddComponent<Rigidbody2D>();
         }
     }
+
     private void CalculateStrength(float strength)
     {
         if (strength > 0)
@@ -131,10 +157,5 @@ public abstract class DestructionHandler
             HalfStrength = strength * HalfStrengthMultiplier;
             MinStrength = strength * MinStrengthMultiplier;
         }
-    }
-
-    private void Dispose()
-    {
-        CompositeDisposable.Clear();
     }
 }
