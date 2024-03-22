@@ -7,6 +7,7 @@ public class BackWingDestructionHandler : DestructionHandler, IDispose
     private readonly ArmoredBackFrameDestructionHandler _armoredBackFrameHandler;
     private readonly ArmoredBackFrameRef _armoredBackFrameRef;
     private readonly BumperDestructionHandler _backBumperDestructionHandler;
+    private readonly ExhaustHandler _exhaustHandler;
     private readonly Transform _wingNormal;
     private readonly Transform _wingDamaged1;
     private readonly Transform _wingDamaged2;
@@ -25,13 +26,15 @@ public class BackWingDestructionHandler : DestructionHandler, IDispose
     private bool _isArmored = false;
     private DestructionMode _destructionMode = DestructionMode.ModeDefault;
     public BackWingDestructionHandler(BackWingRef backWingRef, GlassDestructionHandler glassDestructionHandler,
-        ArmoredBackFrameDestructionHandler armoredBackFrameHandler, BumperDestructionHandler backBumperDestructionHandler,
+        ArmoredBackFrameDestructionHandler armoredBackFrameHandler, BumperDestructionHandler backBumperDestructionHandler, 
+        ExhaustHandler exhaustHandler,
         DestructionHandlerContent destructionHandlerContent, int totalStrength, bool isArmored, bool boosterActive)
         :base(backWingRef, destructionHandlerContent, totalStrength)
     {
         _glassDestructionHandler = glassDestructionHandler;
         _armoredBackFrameHandler = armoredBackFrameHandler;
         _backBumperDestructionHandler = backBumperDestructionHandler;
+        _exhaustHandler = exhaustHandler;
         _wingNormal = backWingRef.WingNormal;
         _wingDamaged1 = backWingRef.WingDamaged1;
         _wingDamaged2 = backWingRef.WingDamaged2;
@@ -161,6 +164,7 @@ public class BackWingDestructionHandler : DestructionHandler, IDispose
             SetParentDebris(_wingContent[i]);
             SetCarDebrisLayer(_wingContent[i]);
         }
+        _exhaustHandler.SetPoint2();
     }
     private void TryOffTrunkCovers()
     {

@@ -380,6 +380,7 @@
               <e p="DestructionHandler.cs" t="Include" />
               <e p="DestructionHandlerContent.cs" t="Include" />
               <e p="DestructionMode.cs" t="Include" />
+              <e p="ExhaustHandler.cs" t="Include" />
               <e p="FrontDoorDestructionHandler.cs" t="Include" />
               <e p="FrontWingDestructionHandler.cs" t="Include" />
               <e p="GlassDestructionHandler.cs" t="Include" />
@@ -453,6 +454,11 @@
               </e>
               <e p="Speedometer.cs" t="Include" />
               <e p="Suspension.cs" t="Include" />
+              <e p="WheelGroundInteractions" t="Include">
+                <e p="GasStateWheelGroundInteraction.cs" t="Include" />
+                <e p="StopStateWheelGroundInteraction.cs" t="Include" />
+                <e p="WheelGroundInteraction.cs" t="Include" />
+              </e>
             </e>
           </e>
           <e p="Editor" t="Include">

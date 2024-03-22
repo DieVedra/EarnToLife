@@ -5,12 +5,14 @@ public class StopState : CarState
 {
     private const float STOPSPEED = 0f;
     private const bool USEMOTOR = true;
-    private Brakes _brakes;
+    private readonly StopStateWheelGroundInteraction _stateWheelGroundInteraction;
+    private readonly Brakes _brakes;
     public StopState(WheelJoint2D frontWheelJoint, WheelJoint2D backWheelJoint, PropulsionUnit propulsionUnit,
-        Brakes brakes, Booster booster, ReactiveCommand onCarBrokenIntoTwoParts)
+        Brakes brakes, StopStateWheelGroundInteraction stateWheelGroundInteraction, Booster booster, ReactiveCommand onCarBrokenIntoTwoParts)
         : base(frontWheelJoint, backWheelJoint, propulsionUnit, booster, onCarBrokenIntoTwoParts)
     {
         _brakes = brakes;
+        _stateWheelGroundInteraction = stateWheelGroundInteraction;
     }
     public override void Enter()
     {
@@ -23,6 +25,7 @@ public class StopState : CarState
     }
     public override void Update()
     {
+        _stateWheelGroundInteraction.Update();
         BreakingEngine();
         SoundBrake();
         PropulsionUnit.FuelTank.BurnFuelOnIdling();

@@ -12,6 +12,10 @@ public class FrontWingRef : MonoBehaviour
     [SerializeField, BoxGroup("FrontBottom")] private Transform _bottomDamaged;
     [SerializeField, BoxGroup("Content")] private Transform _lighterWingNormal;
     [SerializeField, BoxGroup("Content")] private Transform _wingFrontDamaged2TrunkCover;
+    
+    
+    [SerializeField, BoxGroup("Particles")] private ParticleSystem _fireParticleSystem;
+    [SerializeField, BoxGroup("Particles")] private ParticleSystem _smokeParticleSystem;
     [SerializeField, BoxGroup("Settings"), Range(1,1000), HorizontalLine(color:EColor.Blue)] private int _strengthWing;
     public Transform WingNormal => _wingNormal;
     public Transform WingDamaged1 => _wingDamaged1;
@@ -20,5 +24,7 @@ public class FrontWingRef : MonoBehaviour
     public Transform BottomDamaged => _bottomDamaged;
     public Transform LighterWingNormal => _lighterWingNormal;
     public Transform WingFrontDamaged2TrunkCover => _wingFrontDamaged2TrunkCover;
+    public ParticleSystem FireParticleSystem => _fireParticleSystem;
+    public ParticleSystem SmokeParticleSystem => _smokeParticleSystem;
     public int StrengthWing => _strengthWing;
 }

@@ -10,7 +10,7 @@ public class Brakes
     private readonly CarAudioHandler _carAudioHandler;
     private readonly AnimationCurve _brakeVolumeCurve;
     private bool _isBrake = false;
-    private bool GroundContact => _groundAnalyzer.CheckGroundContact();
+    private bool GroundContact => _groundAnalyzer.FrontWheelContact || _groundAnalyzer.BackWheelContact;
     public Brakes(CarAudioHandler carAudioHandler, Speedometer speedometer, GroundAnalyzer groundAnalyzer, AnimationCurve brakeVolumeCurve)
     {
         _speedometer = speedometer;

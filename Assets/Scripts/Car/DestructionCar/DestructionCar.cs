@@ -17,6 +17,12 @@ public class DestructionCar : MonoBehaviour
     [SerializeField, BoxGroup("Settings")] private bool _roofDestructuonOn;
     [SerializeField, BoxGroup("Settings")] private bool _bottomDestructionOn;
 
+    [SerializeField, BoxGroup("Exhaust")] private Transform _point1;
+    [SerializeField, BoxGroup("Exhaust")] private Transform _point2;
+    [SerializeField, BoxGroup("Exhaust")] private Transform _point3;
+    [SerializeField, BoxGroup("Exhaust")] private ParticleSystem _particleSystemExhaust;
+
+
     [SerializeField, BoxGroup("Bumpers"), HorizontalLine(color:EColor.Red)] private BumperRef _standartBumperRefFront;
     [SerializeField, BoxGroup("Bumpers")] private BumperRef _standartBumperRefBack;
     [SerializeField, BoxGroup("Bumpers")] private BumperRef _armoredBumperRefFront;
@@ -57,7 +63,7 @@ public class DestructionCar : MonoBehaviour
     private CabineDestructionHandler _cabineDestructionHandler;
     private GlassDestructionHandler _frontGlassDestructionHandler;
     private GlassDestructionHandler _backGlassDestructionHandler;
-    
+    private ExhaustHandler _exhaustHandler;
     private RoofDestructionHandler _roofDestructionHandler;
     private SafetyFrameworkDestructionHandler _safetyFrameworkDestructionHandler;
 
@@ -79,6 +85,7 @@ public class DestructionCar : MonoBehaviour
         _coupAnalyzer = coupAnalyzer;
         _destructionHandlerContent = new DestructionHandlerContent(speedometer, debrisParent, _canCollisionsLayerMasks, _carDebrisLayer);
         _carMass = carMass;
+        _exhaustHandler = new ExhaustHandler(_particleSystemExhaust, _point1, _point2, _point3);
         InitCabineHandler();
         TryInitSafetyFrameworkDestructionHandler(debrisParent);
         InitBumpersHandler();
@@ -181,7 +188,7 @@ public class DestructionCar : MonoBehaviour
         if (_backWingDestructuonOn == true)
         {
             _backWingDestructionHandler = new BackWingDestructionHandler(_backWingRef, _backGlassDestructionHandler, _armoredBackFrameHandler,
-                _backBumperDestructionHandler, _destructionHandlerContent,
+                _backBumperDestructionHandler, _exhaustHandler, _destructionHandlerContent,
                 CalculateStrengthBackWing(), CheckPart(_armoredBackFrameRef), CheckPart(boosterRef));
             AddToDispose(_backWingDestructionHandler);
         }
@@ -249,7 +256,7 @@ public class DestructionCar : MonoBehaviour
             _backCarHandler = new BackCarHandler(_bottomRef, _backWingDestructionHandler);
             _bottomDestructionHandler = new BottomDestructionHandler(_bottomRef,
                 _backCarHandler, _roofDestructionHandler,
-                _frontDoorDestructionHandler, _backDoorDestructionHandler, _destructionHandlerContent,
+                _frontDoorDestructionHandler, _backDoorDestructionHandler, _exhaustHandler, _destructionHandlerContent,
                 CalculateStrengthBottom(), CheckPart(_bottomRef.ArmoredBottom));
             AddToDispose(_bottomDestructionHandler);
             _backCarHandler.OnCarBrokenIntoTwoParts += CarBrokenIntoTwoParts;

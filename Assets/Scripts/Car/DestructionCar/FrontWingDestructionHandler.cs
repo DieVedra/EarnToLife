@@ -6,6 +6,8 @@ public class FrontWingDestructionHandler : DestructionHandler, IDispose
     private readonly GlassDestructionHandler _glassDestructionHandler;
     private readonly HotWheelDestructionHandler _hotWheelDestructionHandler;
     private readonly BumperDestructionHandler _bumperDestructionFrontHandler;
+    private readonly ParticleSystem _fireParticleSystem;
+    private readonly ParticleSystem _smokeParticleSystem;
     private readonly Transform _wingNormal;
     private readonly Transform _lighterWingNormal;
     private readonly Transform _wingDamaged1;
@@ -39,6 +41,8 @@ public class FrontWingDestructionHandler : DestructionHandler, IDispose
         _wingDamaged2 = frontWingRef.WingDamaged2;
         _bottomNormal = frontWingRef.BottomNormal;
         _bottomDamaged = frontWingRef.BottomDamaged;
+        _fireParticleSystem = frontWingRef.FireParticleSystem;
+        _smokeParticleSystem = frontWingRef.SmokeParticleSystem;
         _wingDamaged1Collider = _wingDamaged1.GetComponent<Collider2D>();
         _wingDamaged2Collider = _wingDamaged2.GetComponent<Collider2D>();
         _bottomDamaged.gameObject.SetActive(false);
@@ -130,6 +134,7 @@ public class FrontWingDestructionHandler : DestructionHandler, IDispose
         }
         _glassDestructionHandler?.TryThrowGlass();
         ThrowHood();
+        StartSmoke();
         _destructionMode = DestructionMode.Mode2;
     }
     private void DestructionMode3AndSubscribe()
@@ -139,6 +144,7 @@ public class FrontWingDestructionHandler : DestructionHandler, IDispose
             DestructionMode2();
         }
         _destructionMode = DestructionMode.Mode3;
+        StartFire();
         Debug.Log("       engine broken");
         //engine broken
     }
@@ -182,5 +188,25 @@ public class FrontWingDestructionHandler : DestructionHandler, IDispose
     {
         _bottomNormal.gameObject.SetActive(false);
         _bottomDamaged.gameObject.SetActive(true);
+    }
+
+    private void StartSmoke()
+    {
+        _smokeParticleSystem.gameObject.SetActive(true);
+        _smokeParticleSystem.Play();
+    }
+    private void StopSmoke()
+    {
+        _smokeParticleSystem.gameObject.SetActive(false);
+        _smokeParticleSystem.Stop();
+    }
+    private void StartFire()
+    {
+        if (_smokeParticleSystem.gameObject.activeSelf == true)
+        {
+            StopSmoke();
+        }
+        _fireParticleSystem.gameObject.SetActive(true);
+        _fireParticleSystem.Play();
     }
 }

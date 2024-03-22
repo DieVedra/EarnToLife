@@ -35,7 +35,7 @@ public class RoofDestructionHandler : DestructionHandler, IDispose
     private bool _safetyFrameworkInstalled = false;
     private bool _carHasBeenCoup = false;
     private bool _isCriticalDamaged = false;
-    private bool _isBroken = false;
+    // private bool _isBroken = false;
     private bool _isСrushed = false;
     private DestructionMode _destructionMode = DestructionMode.ModeDefault;
 

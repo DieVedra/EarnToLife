@@ -15,11 +15,12 @@ public class BottomDestructionHandler : DestructionHandler, IDispose
     private readonly SafetyFrameworkDestructionHandler _safetyFrameworkDestructionHandler;
     private readonly FrontDoorDestructionHandler _frontDoorDestructionHandler;
     private readonly BackDoorDestructionHandler _backDoorDestructionHandler;
+    private readonly ExhaustHandler _exhaustHandler;
     private readonly bool _isArmored;
     private bool _exhaustBroken = false;
     private DestructionMode _destructionMode = DestructionMode.ModeDefault;
     public BottomDestructionHandler(BottomRef bottomRef, BackCarHandler backCarHandler, RoofDestructionHandler roofDestructionHandler, 
-        FrontDoorDestructionHandler frontDoorDestructionHandler, BackDoorDestructionHandler backDoorDestructionHandler,
+        FrontDoorDestructionHandler frontDoorDestructionHandler, BackDoorDestructionHandler backDoorDestructionHandler, ExhaustHandler exhaustHandler,
         DestructionHandlerContent destructionHandlerContent, int strength, bool isArmored)
         : base(bottomRef, destructionHandlerContent, strength)
     {
@@ -30,6 +31,7 @@ public class BottomDestructionHandler : DestructionHandler, IDispose
         _roofDestructionHandler = roofDestructionHandler;
         _frontDoorDestructionHandler = frontDoorDestructionHandler;
         _backDoorDestructionHandler = backDoorDestructionHandler;
+        _exhaustHandler = exhaustHandler;
         _collider2DStandart = _bottomRef.GetComponent<Collider2D>();
         _isArmored = isArmored;
         if (_isArmored == true)
@@ -108,6 +110,7 @@ public class BottomDestructionHandler : DestructionHandler, IDispose
         if (_exhaustBroken == false)
         {
             _exhaustBroken = true;
+            _exhaustHandler.SetPoint3();
             TryAddRigidBody(_exhaust.gameObject);
             SetParentDebris(_exhaust);
         }

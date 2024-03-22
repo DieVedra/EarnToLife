@@ -20,7 +20,7 @@ public class CabineDestructionHandler :DestructionHandler, IDispose
 
     public void TryDriverDestruction()
     {
-        if (_isBroken == true)
+        if (_isBroken == false)
         {
             _isBroken = true;
             CompositeDisposable.Clear();

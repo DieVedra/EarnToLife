@@ -23,7 +23,7 @@ public class CarGun
     public event Action OnGunDestruct;
     
     public CarGun(Transform defaultPointAiming,
-        CarAudioHandler carAudioHandler, CarGunDetector carGunDetector, GunGuidance gunGuidance,
+        CarAudioHandler carAudioHandler, CarGunDetector carGunDetector, GunGuidance gunGuidance, ParticleSystem particleSystemShoot,
         int ammo, float rateFireValue, float forceGunValue)
     {
         _defaultPointAiming = defaultPointAiming;
@@ -31,6 +31,7 @@ public class CarGun
         _rateFire = new RateFire(rateFireValue);
         _detector = carGunDetector;
         _gunGuidance = gunGuidance;
+        _particleSystemShoot = particleSystemShoot;
         Ammo = ammo;
         _forceGunValue = forceGunValue;
     }
@@ -82,7 +83,7 @@ public class CarGun
     {
         if (_currentTarget != null && Ammo > 0)
         {
-            _particleSystemShoot?.Play();
+            _particleSystemShoot.Play();
             _carAudioHandler.PlayShotGun();
             _currentTarget.Target.DestructFromShoot(CalculateShootDirectionForce());
             Ammo--;

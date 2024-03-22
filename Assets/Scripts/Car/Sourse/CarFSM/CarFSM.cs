@@ -26,7 +26,6 @@ public class CarFSM : IStateSetter
             CurrentState = extractState;
             CurrentState.Enter();
         }
-        // Debug.Log(CurrentState);
     }
     public void Update()
     {

@@ -1,22 +1,23 @@
 using System;
 using UniRx;
+using UnityEngine;
 
 public class Booster
 {
     private BoosterScrew _boosterScrew;
     private CarAudioHandler _carAudioHandler;
     private CompositeDisposable _compositeDisposable => _boosterScrew.CompositeDisposable;
-    // private ParticleSystem _particleSystemAccelerator;
+    private ParticleSystem _particleSystemBooster;
     private bool _isRun = false;
     public BoosterFuelTank BoosterFuelTank { get; private set; }
     public bool FuelAvailability => BoosterFuelTank.CheckFuel();
     public event Action OnBoosterDisable;
-    public Booster(CarAudioHandler carAudioHandler, BoosterFuelTank boosterFuelTank, BoosterScrew boosterScrew/*, ParticleSystem particleSystemAccelerator*/)
+    public Booster(CarAudioHandler carAudioHandler, BoosterFuelTank boosterFuelTank, BoosterScrew boosterScrew, ParticleSystem particleSystemBooster)
     {
         _carAudioHandler = carAudioHandler;
         BoosterFuelTank = boosterFuelTank;
         _boosterScrew = boosterScrew;
-        /*_particleSystemAccelerator = particleSystemAccelerator;*/
+        _particleSystemBooster = particleSystemBooster;
     }
     public void TryStopBooster()
     {
@@ -31,7 +32,7 @@ public class Booster
         {
             StopBooster();
             _carAudioHandler.PlayBoosterEndFuel();
-            // _particleSystemAccelerator.Stop();
+            _particleSystemBooster.Stop();
         }
     }
     public void RunBooster()
@@ -43,7 +44,7 @@ public class Booster
         {
             _boosterScrew.RotateScrew();
         }).AddTo(_compositeDisposable);
-        /*_particleSystemAccelerator.Play();*/
+        _particleSystemBooster.Play();
     }
     public void BoosterDisable()
     {
@@ -58,7 +59,7 @@ public class Booster
         _carAudioHandler.StopPlayRunBooster();
         _compositeDisposable.Clear();
         _boosterScrew.SetDefaultRotationSpeed();
-        // _particleSystemAccelerator.Stop();
+        _particleSystemBooster.Stop();
         Observable.EveryUpdate().Subscribe(_ =>
         {
             _boosterScrew.SmoothStopScrew();
