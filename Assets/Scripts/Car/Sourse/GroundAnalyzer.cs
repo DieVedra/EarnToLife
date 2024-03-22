@@ -9,7 +9,8 @@ public class GroundAnalyzer
     private readonly LayerMask _asphalt;
     private readonly Collider2D _frontWheelCollider;
     private readonly Collider2D _backWheelCollider;
-    private CompositeDisposable _compositeDisposable = new CompositeDisposable();
+    private readonly CompositeDisposable _frontWheelCompositeDisposable = new CompositeDisposable();
+    private readonly CompositeDisposable _backWheelCompositeDisposable = new CompositeDisposable();
     public Vector2 FrontWheelPointContact { get; private set; }
     public Vector2 BackWheelPointContact { get; private set; }
 
@@ -20,18 +21,20 @@ public class GroundAnalyzer
     public ReactiveProperty<bool> BackWheelOnAsphaltReactiveProperty = new ReactiveProperty<bool>();
     public bool FrontWheelContact { get; private set; } = false;
     public bool BackWheelContact { get; private set; } = false;
-    public GroundAnalyzer(CarWheel frontWheel, CarWheel backWheel, LayerMask ground, LayerMask asphalt)
+    public GroundAnalyzer(CarWheel frontWheel, CarWheel backWheel, ReactiveCommand onCarBrokenIntoTwoParts, LayerMask ground, LayerMask asphalt)
     {
         _ground = ground;
         _asphalt = asphalt;
         _frontWheelCollider = frontWheel.Collider2D;
         _backWheelCollider = backWheel.Collider2D;
-        SubscribeCollider(_frontWheelCollider, CheckCircleFrontWheel);
-        SubscribeCollider(_backWheelCollider, CheckCircleBackWheel);
+        onCarBrokenIntoTwoParts.Subscribe(_ => { CarBrokenIntoTwoParts();});
+        SubscribeCollider(_frontWheelCollider, CheckCircleFrontWheel, _frontWheelCompositeDisposable);
+        SubscribeCollider(_backWheelCollider, CheckCircleBackWheel, _backWheelCompositeDisposable);
     }
     public void Dispose()
     {
-        _compositeDisposable.Clear();
+        _frontWheelCompositeDisposable.Clear();
+        _backWheelCompositeDisposable.Clear();
     }
     private void CheckCircleBackWheel(Collision2D collision2D)
     {
@@ -75,9 +78,9 @@ public class GroundAnalyzer
             FrontWheelContact = false;
         }
         
-        Debug.Log($"FrontWheelOnAsphalt: {FrontWheelOnAsphaltReactiveProperty.Value}    " +
-                  $"FrontWheelOnGround: {FrontWheelOnGroundReactiveProperty.Value}  " +
-                  $"GroundContact: {FrontWheelContact}");
+        // Debug.Log($"FrontWheelOnAsphalt: {FrontWheelOnAsphaltReactiveProperty.Value}    " +
+        //           $"FrontWheelOnGround: {FrontWheelOnGroundReactiveProperty.Value}  " +
+        //           $"GroundContact: {FrontWheelContact}");
     }
     private bool CheckGround(Collision2D collision2D)
     {
@@ -101,10 +104,10 @@ public class GroundAnalyzer
             return false;
         }
     }
-    private void SubscribeCollider(Collider2D collider2D, Action<Collision2D> operation)
+    private void SubscribeCollider(Collider2D collider2D, Action<Collision2D> operation, CompositeDisposable compositeDisposable)
     {
-        collider2D.OnCollisionStay2DAsObservable().Do(operation.Invoke).Subscribe().AddTo(_compositeDisposable);
-        collider2D.OnCollisionExit2DAsObservable().Do(operation.Invoke).Subscribe().AddTo(_compositeDisposable);
+        collider2D.OnCollisionStay2DAsObservable().Do(operation.Invoke).Subscribe().AddTo(compositeDisposable);
+        collider2D.OnCollisionExit2DAsObservable().Do(operation.Invoke).Subscribe().AddTo(compositeDisposable);
     }
     private void SetContactPointFrontWheel(Collision2D collision2D)
     {
@@ -120,15 +123,15 @@ public class GroundAnalyzer
     {
         if (collision2D.contacts.Length > 0)
         {
-            Debug.Log(collision2D.contacts[0].point);
-            // Debug.Log(collision2D.contacts[0].point);
-            // return collision2D.transform.InverseTransformPoint(collision2D.contacts[0].point);
-            return collision2D.transform.InverseTransformDirection(collision2D.contacts[0].point);
-            // return collision2D.transform.InverseTransformDirection(collision2D.contacts[0].point);
+            return collision2D.contacts[0].point;
         }
         else
         {
             return Vector2.zero;
         }
+    }
+    private void CarBrokenIntoTwoParts()
+    {
+        _backWheelCompositeDisposable.Clear();
     }
 }

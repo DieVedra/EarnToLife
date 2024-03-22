@@ -18,7 +18,7 @@ public class GasState : CarState
     public override void Enter()
     {
         Booster?.TryStopBooster();
-        _gasStateWheelGroundInteraction.Init();
+        _gasStateWheelGroundInteraction.Init(CarBroken);
     }
     public override void Update()
     {

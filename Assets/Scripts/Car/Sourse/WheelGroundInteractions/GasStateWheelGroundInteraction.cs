@@ -8,16 +8,20 @@ public class GasStateWheelGroundInteraction : WheelGroundInteraction
     private readonly Transmission _transmission;
     private bool IsMovementForward => _transmission.IsMovementForward;
     public GasStateWheelGroundInteraction(GroundAnalyzer groundAnalyzer, Speedometer speedometer, Transmission transmission,
-        CarWheel frontCarWheel, CarWheel backCarWheel, AnimationCurve particlesSpeedCurve) 
-        : base(groundAnalyzer, speedometer, frontCarWheel, backCarWheel, particlesSpeedCurve)
+        CarWheel frontCarWheel, CarWheel backCarWheel, AnimationCurve particlesSpeedCurve, ReactiveCommand onCarBrokenIntoTwoParts) 
+        : base(groundAnalyzer, speedometer, frontCarWheel, backCarWheel, particlesSpeedCurve, onCarBrokenIntoTwoParts)
     {
         _transmission = transmission;
     }
-    public override void Init()
+    public override void Init(bool carBroken)
     {
-        SubscribeReactiveProperty(GroundAnalyzer.FrontWheelOnGroundReactiveProperty, SetRotation);
-        SubscribeReactiveProperty(GroundAnalyzer.BackWheelOnGroundReactiveProperty, SetRotation);
-        base.Init();
+        SubscribeReactiveProperty(GroundAnalyzer.FrontWheelOnGroundReactiveProperty, SetRotation, CompositeDisposableFrontWheel);
+        if (carBroken == false)
+        {
+            SubscribeReactiveProperty(GroundAnalyzer.BackWheelOnGroundReactiveProperty, SetRotation, CompositeDisposableBackWheel);
+        }
+        SubscribeReactiveProperty(Speedometer.CurrentSpeedReactiveProperty, ChangesParticlesSpeeds, CompositeDisposableFrontWheel);
+        base.Init(carBroken);
     }
     protected override void SetRotation()
     {

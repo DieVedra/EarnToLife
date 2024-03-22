@@ -9,13 +9,15 @@ using UniRx;
 public class CarInLevel : Car
 {
     [SerializeField, BoxGroup("Engine"), HorizontalLine(color:EColor.White)] private AnimationCurve _engineAccelerationCurve;
+    [SerializeField, BoxGroup("Engine")] private ParticleSystem _exhaustParticleSystem;
 
     [SerializeField, Range(0f, 1f), BoxGroup("Gyroscope"), HorizontalLine(color:EColor.Green)] private float _gyroscopePower;
 
     [SerializeField, BoxGroup("WheelGroundInteraction"), HorizontalLine(color:EColor.Yellow)] private LayerMask _groundLayerMask;
     [SerializeField, BoxGroup("WheelGroundInteraction")] private LayerMask _asphaltLayerMask;
     [SerializeField, BoxGroup("WheelGroundInteraction")] private AnimationCurve _brakeVolumeCurve;
-    [SerializeField, BoxGroup("WheelGroundInteraction")] private AnimationCurve _particlesSpeedCurve;
+    [SerializeField, BoxGroup("WheelGroundInteraction")] private AnimationCurve _particlesSpeedCurveGasState;
+    [SerializeField, BoxGroup("WheelGroundInteraction")] private AnimationCurve _particlesSpeedCurveStopState;
 
     [SerializeField, BoxGroup("Gun"), HorizontalLine(color:EColor.Red)] private GunRef _gunRef;
     [SerializeField, BoxGroup("Gun")] private Transform _gunTransformRotate;
@@ -54,6 +56,7 @@ public class CarInLevel : Car
     private DestructionCar _destructionCar;
     private CarFSM _carFsm;
     private Engine _engine;
+    private Exhaust _exhaust;
     private CarAudioHandler _carAudioHandler;
     private CarWheel _frontWheel;
     private CarWheel _backWheel;
@@ -95,10 +98,12 @@ public class CarInLevel : Car
         _coupAnalyzer = new CoupAnalyzer(transform);
         FuelTank = new FuelTank(carConfiguration.FuelQuantity, CarConfiguration.EngineOverclockingMultiplier);
         Speedometer = new Speedometer(_bodyRigidbody2D);
-        _engine = new Engine(_engineAccelerationCurve, _carAudioHandler, CarConfiguration.EngineOverclockingMultiplier);
+        InitExhaust();
+        
+        _engine = new Engine(_engineAccelerationCurve, _carAudioHandler, _exhaust, CarConfiguration.EngineOverclockingMultiplier);
         _propulsionUnit = new PropulsionUnit(_engine, FuelTank, carConfiguration.GearRatio);
         InitWheels();
-        _groundAnalyzer = new GroundAnalyzer(_frontWheel, _backWheel, _groundLayerMask, _asphaltLayerMask);
+        _groundAnalyzer = new GroundAnalyzer(_frontWheel, _backWheel, _onCarBrokenIntoTwoPartsReactiveCommand, _groundLayerMask, _asphaltLayerMask);
         _brakes = new Brakes(_carAudioHandler, Speedometer, _groundAnalyzer, _brakeVolumeCurve);
 
         _controlActive = true;
@@ -107,7 +112,6 @@ public class CarInLevel : Car
         TryInitGun();
         TryInitHotWheel();
         InitCarFSM();
-        InitWheelGroundInteractionHandler();
         Gyroscope = new Gyroscope(_groundAnalyzer, _bodyRigidbody2D, CarMass, _gyroscopePower);
         InitControlCar(carControlMethod);
         InitCarMass();
@@ -155,22 +159,23 @@ public class CarInLevel : Car
     }
     private void OnDrawGizmos()
     {
-        if (Application.isPlaying)
+        if (Application.isEditor)
         {
-            Gizmos.DrawWireSphere(_backWheel.Position, _backWheel.Radius);
-            Gizmos.DrawWireSphere(_frontWheel.Position, _frontWheel.Radius);
-        }
-        if (_gunRef.gameObject.activeSelf == true)
-        {
-            Gizmos.color = Color.red;
-            Gizmos.DrawWireSphere(_gunRef.transform.position, _distanceDetectionValue);
-            Gizmos.DrawWireSphere(_gunRef.transform.position, _deadZoneDetectionValue);
-        }
-        Gizmos.color = Color.green;
-        Gizmos.DrawSphere(_bodyRigidbody2D.centerOfMass + _centerMassOffset, 0.1f);
-        Gizmos.color = Color.yellow;
-        Gizmos.DrawSphere(_bodyRigidbody2D.centerOfMass + _centerMassAfterBrokenOffset, 0.1f);
+            if (Application.isPlaying == false)
+            {
+                Gizmos.color = Color.green;
+                Gizmos.DrawSphere( _bodyRigidbody2D.centerOfMass + _centerMassOffset, 0.1f);
+                Gizmos.color = Color.yellow;
+                Gizmos.DrawSphere(_bodyRigidbody2D.centerOfMass + _centerMassAfterBrokenOffset, 0.1f);
+            }
 
+            if (_gunRef.gameObject.activeSelf == true)
+            {
+                Gizmos.color = Color.red;
+                Gizmos.DrawWireSphere(_gunRef.transform.position, _distanceDetectionValue);
+                Gizmos.DrawWireSphere(_gunRef.transform.position, _deadZoneDetectionValue);
+            }
+        }
     }
 
     private void SubscribeActions()
@@ -223,32 +228,33 @@ public class CarInLevel : Car
             CarGun.OnGunDestruct += GunDestruct;
         }
     }
-
-    private void InitWheelGroundInteractionHandler()
-    {
-        // _wheelGroundInteraction = new WheelGroundInteraction(_carFsm, _groundAnalyzer, Speedometer,
-        //     _propulsionUnit.Transmission, _frontWheel, _backWheel, _particlesSpeedCurve);
-    }
     private void InitCarFSM()
     {
-        StopStateWheelGroundInteraction stopStateWheelGroundInteraction = new StopStateWheelGroundInteraction(_groundAnalyzer, Speedometer, _frontWheel, _backWheel,_particlesSpeedCurve);
-        GasStateWheelGroundInteraction gasStateWheelGroundInteraction = new GasStateWheelGroundInteraction(_groundAnalyzer, Speedometer, _propulsionUnit.Transmission, _frontWheel, _backWheel,_particlesSpeedCurve);
         Dictionary<Type, CarState> dictionaryStates = new Dictionary<Type, CarState>
         {
-            {typeof(GasState), new GasState(FrontWheelJoint, BackWheelJoint, _propulsionUnit, Booster, gasStateWheelGroundInteraction, _onCarBrokenIntoTwoPartsReactiveCommand)},
-            {typeof(StopState), new StopState(FrontWheelJoint, BackWheelJoint, _propulsionUnit, _brakes, stopStateWheelGroundInteraction, Booster, _onCarBrokenIntoTwoPartsReactiveCommand)},
+            {typeof(GasState), new GasState(FrontWheelJoint, BackWheelJoint, _propulsionUnit, Booster, GetGasStateWheelGroundInteraction(), _onCarBrokenIntoTwoPartsReactiveCommand)},
+            {typeof(StopState), new StopState(FrontWheelJoint, BackWheelJoint, _propulsionUnit, _brakes, GetStopStateWheelGroundInteraction(), Booster, _onCarBrokenIntoTwoPartsReactiveCommand)},
             {typeof(RollState), new RollState(FrontWheelJoint, BackWheelJoint, _propulsionUnit, Booster, _onCarBrokenIntoTwoPartsReactiveCommand)},
             {typeof(FlyState), new FlyState(FrontWheelJoint, BackWheelJoint, _propulsionUnit, Booster, _bodyRigidbody2D, _onCarBrokenIntoTwoPartsReactiveCommand, _force)}
         };
         _carFsm = new CarFSM(dictionaryStates);
         _carFsm.SetState<StopState>();
     }
-
+    private StopStateWheelGroundInteraction GetStopStateWheelGroundInteraction()
+    {
+        return new StopStateWheelGroundInteraction(_groundAnalyzer, Speedometer, _frontWheel, _backWheel,
+            _particlesSpeedCurveStopState, _onCarBrokenIntoTwoPartsReactiveCommand);
+    }
+    private GasStateWheelGroundInteraction GetGasStateWheelGroundInteraction()
+    {
+        return new GasStateWheelGroundInteraction(_groundAnalyzer, Speedometer, _propulsionUnit.Transmission, _frontWheel, _backWheel,
+            _particlesSpeedCurveGasState, _onCarBrokenIntoTwoPartsReactiveCommand);
+    }
     private void TryInitDestructionCar(Transform debrisParent)
     {
         if (_destructionActive == true)
         {
-            _destructionCar.Construct(CarGun, _hotWheel ,CarMass, Booster, Speedometer, _coupAnalyzer, _hotWheelRef,
+            _destructionCar.Construct(_exhaust, CarGun, _hotWheel ,CarMass, Booster, Speedometer, _coupAnalyzer, _hotWheelRef,
                 _boosterRef, _gunRef,  debrisParent);
             if (_destructionCar.BottomDestructionOn == true)
             {
@@ -268,6 +274,12 @@ public class CarInLevel : Car
             FrontWheelCarValues.SmokeWheelParticleSystem, FrontWheelCarValues.DirtWheelParticleSystem);
         _backWheel = new CarWheel(BackWheelJoint, BackWheelCarValues.WheelRigidbody2D, _corpusTransform,
             BackWheelCarValues.SmokeWheelParticleSystem, BackWheelCarValues.DirtWheelParticleSystem);
+    }
+
+    private void InitExhaust()
+    {
+        _exhaust = new Exhaust(_exhaustParticleSystem);
+        FuelTank.OnTankEmpty += _exhaust.StopEffect;
     }
     private void TryInitHotWheel()
     {
@@ -303,8 +315,8 @@ public class CarInLevel : Car
     {
         FuelTank.OnTankEmpty -= _notificationsProvider.FuelTankEmpty;
         FuelTank.OnTankEmpty -= StopCar;
+        FuelTank.OnTankEmpty -= _exhaust.StopEffect;
         _levelProgressCounter.OnGotPointDestination -= StopCar;
-        // _wheelGroundInteraction.Dispose();
         _coupAnalyzer.Dispose();
         _groundAnalyzer.Dispose();
         _onCarBrokenIntoTwoPartsReactiveCommand.Dispose();

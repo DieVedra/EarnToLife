@@ -21,6 +21,7 @@ public class StopState : CarState
         {
             SetMotorSpeed(BackWheelJoint);
         }
+        _stateWheelGroundInteraction.Init(CarBroken);
         Booster?.TryStopBooster();
     }
     public override void Update()
@@ -34,6 +35,7 @@ public class StopState : CarState
     public override void Exit()
     {
         _brakes.BrakeSoundOff();
+        _stateWheelGroundInteraction.Dispose();
     }
     protected override void SetMotorSpeed(WheelJoint2D wheelJoint)
     {

@@ -4,28 +4,20 @@ public class ExhaustHandler
 {
     private readonly Transform _point1;
     private readonly Transform _point2;
-    private readonly Transform _point3;
-    private readonly ParticleSystem _exhaustParticleSystem;
-    public ExhaustHandler(ParticleSystem exhaustParticleSystem, Transform point1, Transform point2, Transform point3)
+    private readonly Exhaust _exhaust;
+    public ExhaustHandler(Exhaust exhaust, Transform point1, Transform point2)
     {
         _point1 = point1;
         _point2 = point2;
-        _point3 = point3;
-        _exhaustParticleSystem = exhaustParticleSystem;
-        SetPoint1();
-        _exhaustParticleSystem.Play();
+        _exhaust = exhaust;
     }
 
-    private void SetPoint1()
+    public void SetPoint1()
     {
-        _exhaustParticleSystem.transform.position = _point1.transform.position;
+        _exhaust.EffectTransform.transform.position = _point1.transform.position;
     }
     public void SetPoint2()
     {
-        _exhaustParticleSystem.transform.position = _point2.transform.position;
-    }
-    public void SetPoint3()
-    {
-        _exhaustParticleSystem.transform.position = _point3.transform.position;
+        _exhaust.EffectTransform.transform.position = _point2.transform.position;
     }
 }

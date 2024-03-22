@@ -1,58 +1,69 @@
 ﻿using System;
+using System.Threading;
+using Cysharp.Threading.Tasks;
 using UniRx;
 using UnityEngine;
 
 public class WheelGroundInteraction
 {
     protected readonly GroundAnalyzer GroundAnalyzer;
-    protected readonly CarWheel FrontWheel;
-    protected readonly CarWheel BackWheel;
+    protected readonly CompositeDisposable CompositeDisposableFrontWheel = new CompositeDisposable();
+    protected readonly CompositeDisposable CompositeDisposableBackWheel = new CompositeDisposable();
     protected readonly Speedometer Speedometer;
-    protected readonly CompositeDisposable CompositeDisposable = new CompositeDisposable();
+    private readonly float _timeDelayDisable = 2f;
+    private readonly CarWheel _frontWheel;
+    private readonly CarWheel _backWheel;
     private readonly AnimationCurve _particlesSpeedCurve;
-    
-    private readonly CompositeDisposable _frontWheelDirtEffectDisposable = new CompositeDisposable();
-    private readonly CompositeDisposable _backWheelDirtEffectDisposable = new CompositeDisposable();
-    private readonly CompositeDisposable _frontWheelSmokeEffectDisposable = new CompositeDisposable();
-    private readonly CompositeDisposable _backWheelSmokeEffectDisposable = new CompositeDisposable();
-    protected Transform FrontWheelDirtEffectTransform => FrontWheel.DirtWheelParticleSystem.transform;
-    protected Transform BackWheelDirtEffectTransform => BackWheel.DirtWheelParticleSystem.transform;
-    private Transform _frontWheelSmokeEffectTransform => FrontWheel.SmokeWheelParticleSystem.transform;
-    private Transform _backWheelSmokeEffectTransform => BackWheel.SmokeWheelParticleSystem.transform;
-    // private bool FrontWheelOnGround => GroundAnalyzer.FrontWheelOnGroundReactiveProperty.Value;
-    // private bool BackWheelOnGround => GroundAnalyzer.BackWheelOnGroundReactiveProperty.Value;
-    // private bool FrontWheelOnAsphalt => GroundAnalyzer.FrontWheelOnAsphaltReactiveProperty.Value;
-    // private bool BackWheelOnAsphalt => GroundAnalyzer.BackWheelOnAsphaltReactiveProperty.Value;
-    
-    private ParticleSystem _frontWheelDirtWheelParticleSystem => FrontWheel.DirtWheelParticleSystem;
-    private ParticleSystem _backWheelDirtWheelParticleSystem => BackWheel.DirtWheelParticleSystem;
-    private ParticleSystem _frontWheelSmokeWheelParticleSystem => FrontWheel.SmokeWheelParticleSystem;
-    private ParticleSystem _backWheelSmokeWheelParticleSystem => BackWheel.SmokeWheelParticleSystem;
+    private readonly CancellationTokenSource _cancellationTokenSource = new CancellationTokenSource();
+    private readonly ParticleSystem[] _effects;
+    private readonly ParticleSystem[] _backWheelEffects;
+    private float _evaluatedValue;
+    protected Transform FrontWheelDirtEffectTransform => _frontWheel.DirtWheelParticleSystem.transform;
+    protected Transform BackWheelDirtEffectTransform => _backWheel.DirtWheelParticleSystem.transform;
+    private Transform _frontWheelSmokeEffectTransform => _frontWheel.SmokeWheelParticleSystem.transform;
+    private Transform _backWheelSmokeEffectTransform => _backWheel.SmokeWheelParticleSystem.transform;
+    private ParticleSystem _frontWheelDirtWheelParticleSystem => _frontWheel.DirtWheelParticleSystem;
+    private ParticleSystem _backWheelDirtWheelParticleSystem => _backWheel.DirtWheelParticleSystem;
+    private ParticleSystem _frontWheelSmokeWheelParticleSystem => _frontWheel.SmokeWheelParticleSystem;
+    private ParticleSystem _backWheelSmokeWheelParticleSystem => _backWheel.SmokeWheelParticleSystem;
     protected WheelGroundInteraction(GroundAnalyzer groundAnalyzer, Speedometer speedometer,
-        CarWheel frontWheel, CarWheel backWheel, AnimationCurve particlesSpeedCurve)
+        CarWheel frontWheel, CarWheel backWheel, AnimationCurve particlesSpeedCurve, ReactiveCommand onCarBrokenIntoTwoParts)
     {
         GroundAnalyzer = groundAnalyzer;
-        FrontWheel = frontWheel;
-        BackWheel = backWheel;
+        _frontWheel = frontWheel;
+        _backWheel = backWheel;
         Speedometer = speedometer;
         _particlesSpeedCurve = particlesSpeedCurve;
+        _effects = new[]
+        {
+            _frontWheelDirtWheelParticleSystem, _backWheelDirtWheelParticleSystem, _frontWheelSmokeWheelParticleSystem,
+            _backWheelSmokeWheelParticleSystem
+        };
+        _backWheelEffects = new[]
+        {
+            _backWheelDirtWheelParticleSystem, _backWheelSmokeWheelParticleSystem
+        };
+        onCarBrokenIntoTwoParts.Subscribe(_ => { CarBrokenIntoTwoParts();});
     }
-    public virtual void Init()
-    {
-        SubscribeReactiveProperty(GroundAnalyzer.FrontWheelOnGroundReactiveProperty, PlayEffectFrontWheelOnGround);
-        SubscribeReactiveProperty(GroundAnalyzer.BackWheelOnGroundReactiveProperty, PlayEffectBackWheelOnGround);
-        SubscribeReactiveProperty(GroundAnalyzer.FrontWheelOnAsphaltReactiveProperty, PlayEffectFrontWheelOnAsphalt);
-        SubscribeReactiveProperty(GroundAnalyzer.BackWheelOnAsphaltReactiveProperty, PlayEffectBackWheelOnAsphalt);
 
-        SubscribeReactiveProperty(Speedometer.CurrentSpeedReactiveProperty, ChangesParticlesSpeeds);
+    public virtual void Init(bool carBroken)
+    {
+        SubscribeReactiveProperty(GroundAnalyzer.FrontWheelOnGroundReactiveProperty, PlayEffectFrontWheelOnGround, CompositeDisposableFrontWheel);
+        SubscribeReactiveProperty(GroundAnalyzer.FrontWheelOnAsphaltReactiveProperty, PlayEffectFrontWheelOnAsphalt, CompositeDisposableFrontWheel);
+        if (carBroken == false)
+        {
+            SubscribeReactiveProperty(GroundAnalyzer.BackWheelOnGroundReactiveProperty, PlayEffectBackWheelOnGround, CompositeDisposableBackWheel);
+            SubscribeReactiveProperty(GroundAnalyzer.BackWheelOnAsphaltReactiveProperty, PlayEffectBackWheelOnAsphalt, CompositeDisposableBackWheel);
+        }
+        
+        EnableEffects();
     }
+
     public void Dispose()
     {
-        CompositeDisposable.Clear();
-        _frontWheelDirtWheelParticleSystem.Stop();
-        _backWheelDirtWheelParticleSystem.Stop();
-        _frontWheelSmokeWheelParticleSystem.Stop();
-        _backWheelSmokeWheelParticleSystem.Stop();
+        CompositeDisposableFrontWheel.Clear();
+        CompositeDisposableBackWheel.Clear();
+        StopAndDisableEffects(_effects);
     }
 
     public void Update()
@@ -65,77 +76,91 @@ public class WheelGroundInteraction
 
         if (GroundAnalyzer.BackWheelContact == true)
         {
-            BackWheelDirtEffectTransform.position = GroundAnalyzer.FrontWheelPointContact;
-            _backWheelSmokeEffectTransform.position = GroundAnalyzer.FrontWheelPointContact;
+            BackWheelDirtEffectTransform.position = GroundAnalyzer.BackWheelPointContact;
+            _backWheelSmokeEffectTransform.position = GroundAnalyzer.BackWheelPointContact;
         }
     }
     protected virtual void SetRotation() { }
-    protected void SubscribeReactiveProperty(ReactiveProperty<bool> property, Action operation)
+
+    protected void StopEffects()
+    {
+        foreach (var effect in _effects)
+        {
+            effect.Stop();
+        }
+    }
+    protected virtual void ChangesParticlesSpeeds()
+    {
+        EvaluateCurve();
+        ChangeParticlesSpeed(_frontWheel.DirtWheelParticleSystem, _evaluatedValue);
+        ChangeParticlesSpeed(_frontWheel.SmokeWheelParticleSystem, _evaluatedValue);
+        
+        ChangeParticlesSpeed(_backWheel.DirtWheelParticleSystem, _evaluatedValue);
+        ChangeParticlesSpeed(_backWheel.SmokeWheelParticleSystem, _evaluatedValue);
+    }
+
+    protected void SubscribeReactiveProperty(ReactiveProperty<bool> property, Action operation, CompositeDisposable compositeDisposable)
     {
         property.Subscribe(
             _ =>
             {
                 operation.Invoke();
-            }).AddTo(CompositeDisposable);
+            }).AddTo(compositeDisposable);
     }
-    private void SubscribeReactiveProperty(ReactiveProperty<bool> property, Action<bool> operation)
+
+    protected void SubscribeReactiveProperty(ReactiveProperty<float> property, Action operation, CompositeDisposable compositeDisposable)
+    {
+        property.Subscribe(
+            _ =>
+            {
+                operation.Invoke();
+            }).AddTo(compositeDisposable);
+    }
+
+    private void SubscribeReactiveProperty(ReactiveProperty<bool> property, Action<bool> operation, CompositeDisposable compositeDisposable)
     {
         property.Subscribe(
             _ =>
             {
                 operation.Invoke(property.Value);
-            }).AddTo(CompositeDisposable);
+            }).AddTo(compositeDisposable);
     }
-    private void SubscribeReactiveProperty(ReactiveProperty<float> property, Action operation)
-    {
-        property.Subscribe(
-            _ =>
-            {
-                operation.Invoke();
-            }).AddTo(CompositeDisposable);
-    }
+
     private void PlayEffectFrontWheelOnGround(bool value)
     {
-        TryPlayEffect(_frontWheelDirtWheelParticleSystem, GroundAnalyzer.FrontWheelPointContact, _frontWheelDirtEffectDisposable, value);
+        TryPlayEffect(_frontWheelDirtWheelParticleSystem, value);
     }
 
     private void PlayEffectBackWheelOnGround(bool value)
     {
-        TryPlayEffect(_backWheelDirtWheelParticleSystem, GroundAnalyzer.BackWheelPointContact, _backWheelDirtEffectDisposable, value);
+        TryPlayEffect(_backWheelDirtWheelParticleSystem, value);
     }
 
     private void PlayEffectFrontWheelOnAsphalt(bool value)
     {
-        TryPlayEffect(_frontWheelSmokeWheelParticleSystem, GroundAnalyzer.FrontWheelPointContact, _frontWheelSmokeEffectDisposable, value);
+        TryPlayEffect(_frontWheelSmokeWheelParticleSystem, value);
     }
 
     private void PlayEffectBackWheelOnAsphalt(bool value)
     {
-        TryPlayEffect(_backWheelSmokeWheelParticleSystem, GroundAnalyzer.BackWheelPointContact, _backWheelSmokeEffectDisposable, value);
+        TryPlayEffect(_backWheelSmokeWheelParticleSystem, value);
     }
 
-    private void TryPlayEffect(ParticleSystem particleSystem, Vector2 position, CompositeDisposable effectDisposable, bool value)
+    private void TryPlayEffect(ParticleSystem particleSystem, bool value)
     {
         if (value == true)
         {
-            // particleSystem.transform.localPosition = transformPoint.position;
-            // particleSystem.transform.position = point;
-            SubscribeEffectToUpdate(particleSystem, position, effectDisposable);
             particleSystem.Play();
         }
         else
         {
-            effectDisposable.Clear();
             particleSystem.Stop();
         }
     }
 
-    private void SubscribeEffectToUpdate(ParticleSystem particleSystem, Vector2 position, CompositeDisposable effectDisposable)
+    private void EvaluateCurve()
     {
-        Observable.EveryUpdate().Subscribe(_ =>
-        {
-            particleSystem.transform.position = position;
-        }).AddTo(effectDisposable);
+        _evaluatedValue = _particlesSpeedCurve.Evaluate(Speedometer.CurrentSpeedFloat);
     }
     private void ChangeParticlesSpeed(ParticleSystem particleSystem, float value)
     {
@@ -143,13 +168,31 @@ public class WheelGroundInteraction
         mainModule.startSpeed = value;
     }
 
-    private void ChangesParticlesSpeeds()
+    private void StopAndDisableEffects(ParticleSystem[] effects)
     {
-        float evaluateValue = _particlesSpeedCurve.Evaluate(Speedometer.CurrentSpeedFloat);
-        ChangeParticlesSpeed(FrontWheel.DirtWheelParticleSystem, evaluateValue);
-        ChangeParticlesSpeed(FrontWheel.SmokeWheelParticleSystem, evaluateValue);
-        
-        ChangeParticlesSpeed(BackWheel.DirtWheelParticleSystem, evaluateValue);
-        ChangeParticlesSpeed(BackWheel.SmokeWheelParticleSystem, evaluateValue);
+        foreach (var effect in effects)
+        {
+            StopAndDisableEffectWithDelay(effect).Forget();
+        }
+    }
+
+    private void EnableEffects()
+    {
+        _cancellationTokenSource.Cancel();
+        foreach (var effect in _effects)
+        {
+            effect.gameObject.SetActive(true);
+        }
+    }
+    private async UniTaskVoid StopAndDisableEffectWithDelay(ParticleSystem particleSystem)
+    {
+        particleSystem.Stop();
+        await UniTask.Delay(TimeSpan.FromSeconds(_timeDelayDisable), cancellationToken: _cancellationTokenSource.Token);
+        particleSystem.gameObject.SetActive(false);
+    }
+    private void CarBrokenIntoTwoParts()
+    {
+        CompositeDisposableBackWheel.Clear();
+        StopAndDisableEffects(_backWheelEffects);
     }
 }

@@ -52,7 +52,7 @@ public class CoupAnalyzer
         }
     }
 
-    private async void TryStartTimer()
+    private async UniTaskVoid TryStartTimer()
     {
         if (IsCoup.Value == true && _timerActive == false)
         {

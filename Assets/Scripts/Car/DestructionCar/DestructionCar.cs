@@ -19,8 +19,6 @@ public class DestructionCar : MonoBehaviour
 
     [SerializeField, BoxGroup("Exhaust")] private Transform _point1;
     [SerializeField, BoxGroup("Exhaust")] private Transform _point2;
-    [SerializeField, BoxGroup("Exhaust")] private Transform _point3;
-    [SerializeField, BoxGroup("Exhaust")] private ParticleSystem _particleSystemExhaust;
 
 
     [SerializeField, BoxGroup("Bumpers"), HorizontalLine(color:EColor.Red)] private BumperRef _standartBumperRefFront;
@@ -78,14 +76,14 @@ public class DestructionCar : MonoBehaviour
     private List<IDispose> _disposes = new List<IDispose>();
     public event Action<WheelJoint2D, WheelCarValues> OnCarBrokenIntoTwoParts;
     public bool BottomDestructionOn => _bottomDestructionOn;
-    public void Construct(CarGun carGun, HotWheel hotWheel, CarMass carMass, Booster booster, Speedometer speedometer, CoupAnalyzer coupAnalyzer,
+    public void Construct(Exhaust exhaust, CarGun carGun, HotWheel hotWheel, CarMass carMass, Booster booster, Speedometer speedometer, CoupAnalyzer coupAnalyzer,
         HotWheelRef hotWheelRef, BoosterRef boosterRef, GunRef gunRef,
         Transform debrisParent)
     {
         _coupAnalyzer = coupAnalyzer;
         _destructionHandlerContent = new DestructionHandlerContent(speedometer, debrisParent, _canCollisionsLayerMasks, _carDebrisLayer);
         _carMass = carMass;
-        _exhaustHandler = new ExhaustHandler(_particleSystemExhaust, _point1, _point2, _point3);
+        _exhaustHandler = new ExhaustHandler(exhaust, _point1, _point2);
         InitCabineHandler();
         TryInitSafetyFrameworkDestructionHandler(debrisParent);
         InitBumpersHandler();

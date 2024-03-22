@@ -164,7 +164,7 @@ public class BackWingDestructionHandler : DestructionHandler, IDispose
             SetParentDebris(_wingContent[i]);
             SetCarDebrisLayer(_wingContent[i]);
         }
-        _exhaustHandler.SetPoint2();
+        _exhaustHandler.SetPoint1();
     }
     private void TryOffTrunkCovers()
     {

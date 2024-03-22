@@ -20,39 +20,26 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3af2ac40-862a-4bb0-a04f-e86f35a10e50" name="Default Changelist" comment="roof destruction handler changed">
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Car/DestructionCar/ExhaustHandler.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Car/DestructionCar/ExhaustHandler.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/WheelGroundInteractions.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/WheelGroundInteractions/GasStateWheelGroundInteraction.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/WheelGroundInteractions/GasStateWheelGroundInteraction.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/WheelGroundInteractions/StopStateWheelGroundInteraction.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/WheelGroundInteractions/StopStateWheelGroundInteraction.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/WheelGroundInteractions/WheelGroundInteraction.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/WheelGroundInteractions/WheelGroundInteraction.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/Exhaust.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/Exhaust.cs.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.EarnToLife/.idea/contentModel.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.EarnToLife/.idea/contentModel.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.EarnToLife/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.EarnToLife/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Plugins/UniRx/Scripts/Disposables/DisposableExtensions.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Plugins/UniRx/Scripts/Disposables/DisposableExtensions.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Plugins/UniRx/Scripts/UnityEngineBridge/LifetimeDisposableExtensions.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Plugins/UniRx/Scripts/UnityEngineBridge/LifetimeDisposableExtensions.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Materials/Physics Materials/Wheels3Max.physicsMaterial2D" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Materials/Physics Materials/Wheels3Max.physicsMaterial2D" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Cars/CarsToGame/Car1ToGame.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Cars/CarsToGame/Car1ToGame.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Levels/Level_1_Parts/Part1.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Levels/Level_1_Parts/Part1.unity" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/CarInLevel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Car/CarInLevel.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/DestructionCar/BackWingDestructionHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Car/DestructionCar/BackWingDestructionHandler.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/DestructionCar/BottomDestructionHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Car/DestructionCar/BottomDestructionHandler.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/DestructionCar/CabineDestructionHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Car/DestructionCar/CabineDestructionHandler.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/DestructionCar/DestructionCar.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Car/DestructionCar/DestructionCar.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/DestructionCar/FrontWingDestructionHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Car/DestructionCar/FrontWingDestructionHandler.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/DestructionCar/RoofDestructionHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Car/DestructionCar/RoofDestructionHandler.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/Parts/FrontWingRef.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Car/Parts/FrontWingRef.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/Booster.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/Booster.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/Brakes.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/Brakes.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/CarFSM/CarFSM.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/CarFSM/CarFSM.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/DestructionCar/ExhaustHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Car/DestructionCar/ExhaustHandler.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/CarFSM/States/GasState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/CarFSM/States/GasState.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/CarFSM/States/StopState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/CarFSM/States/StopState.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/CarWheel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/CarWheel.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/CoupAnalyzer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/CoupAnalyzer.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/GroundAnalyzer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/GroundAnalyzer.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/Gun/CarGun.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/Gun/CarGun.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/Speedometer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/Speedometer.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Game/Garage/InGarageCarCustomize/WheelCarValues.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Game/Garage/InGarageCarCustomize/WheelCarValues.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectSettings/TagManager.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/TagManager.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/PropulsionUnit/Engine.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/PropulsionUnit/Engine.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/WheelGroundInteractions/GasStateWheelGroundInteraction.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/WheelGroundInteractions/GasStateWheelGroundInteraction.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/WheelGroundInteractions/StopStateWheelGroundInteraction.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/WheelGroundInteractions/StopStateWheelGroundInteraction.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/WheelGroundInteractions/WheelGroundInteraction.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/WheelGroundInteractions/WheelGroundInteraction.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -69,9 +56,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/Assets/Scripts/Car/DestructionCar/FrontDoorDestructionHandler.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Interfaces/IDispose.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Car/DestructionCar/GunDestructionHandler.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Car/DestructionCar/BoosterDestructionHandler.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Car/DestructionCar/ArmoredBackFrameDestructionHandler.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Car/DestructionCar/GlassDestructionHandler.cs" />
@@ -95,11 +79,7 @@
         <option value="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/Booster.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/Gun/CarGun.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Car/Parts/FrontWingRef.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Car/DestructionCar/ExhaustHandler.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Car/DestructionCar/FrontWingDestructionHandler.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Car/DestructionCar/DestructionCar.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Car/DestructionCar/BottomDestructionHandler.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Car/DestructionCar/BackWingDestructionHandler.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Car/DestructionCar/RoofDestructionHandler.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/WheelGroundHandler.cs" />
         <option value="$PROJECT_DIR$/Assets/Plugins/UniRx/Scripts/Disposables/DisposableExtensions.cs" />
@@ -112,14 +92,21 @@
         <option value="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/WheelGroundInteractions/GasStateWheelGroundInteraction().cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/CarFSM/CarFSM.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/CarWheel.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Car/CarInLevel.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/Brakes.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/CoupAnalyzer.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/CarFSM/States/GasState.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/CarFSM/States/StopState.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/Brakes.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/GroundAnalyzer.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/WheelGroundInteractions/WheelGroundInteraction.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/WheelGroundInteractions/StopStateWheelGroundInteraction.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/WheelGroundInteractions/GasStateWheelGroundInteraction.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/WheelGroundInteractions/WheelGroundInteraction.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/GroundAnalyzer.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/WheelGroundInteractions/StopStateWheelGroundInteraction.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/Exhaust.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Car/DestructionCar/DestructionCar.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Car/DestructionCar/BackWingDestructionHandler.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Car/DestructionCar/BottomDestructionHandler.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Car/CarInLevel.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Car/DestructionCar/ExhaustHandler.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/PropulsionUnit/Engine.cs" />
       </list>
     </option>
   </component>
@@ -173,6 +160,7 @@
       <workItem from="1710854363623" duration="9484000" />
       <workItem from="1710925063134" duration="25346000" />
       <workItem from="1711053081147" duration="13416000" />
+      <workItem from="1711135207648" duration="15626000" />
     </task>
     <task id="LOCAL-00001" summary="Roof Destruction changed&#10;Back Wing Destruction changed">
       <created>1710195340693</created>

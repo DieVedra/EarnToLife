@@ -110,7 +110,7 @@ public class BottomDestructionHandler : DestructionHandler, IDispose
         if (_exhaustBroken == false)
         {
             _exhaustBroken = true;
-            _exhaustHandler.SetPoint3();
+            _exhaustHandler.SetPoint2();
             TryAddRigidBody(_exhaust.gameObject);
             SetParentDebris(_exhaust);
         }
