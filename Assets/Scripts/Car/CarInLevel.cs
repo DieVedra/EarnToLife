@@ -100,11 +100,11 @@ public class CarInLevel : Car
         Speedometer = new Speedometer(_bodyRigidbody2D);
         InitExhaust();
         
-        _engine = new Engine(_engineAccelerationCurve, _carAudioHandler, _exhaust, CarConfiguration.EngineOverclockingMultiplier);
+        _engine = new Engine(_engineAccelerationCurve, _carAudioHandler.EngineAudioHandler, _exhaust, CarConfiguration.EngineOverclockingMultiplier);
         _propulsionUnit = new PropulsionUnit(_engine, FuelTank, carConfiguration.GearRatio);
         InitWheels();
         _groundAnalyzer = new GroundAnalyzer(_frontWheel, _backWheel, _onCarBrokenIntoTwoPartsReactiveCommand, _groundLayerMask, _asphaltLayerMask);
-        _brakes = new Brakes(_carAudioHandler, Speedometer, _groundAnalyzer, _brakeVolumeCurve);
+        _brakes = new Brakes(_carAudioHandler.BrakeAudioHandler, Speedometer, _groundAnalyzer, _brakeVolumeCurve);
 
         _controlActive = true;
         SubscribeActions();
@@ -117,7 +117,7 @@ public class CarInLevel : Car
         InitCarMass();
         TryInitDestructionCar(debrisParent);
         _bodyRigidbody2D.centerOfMass += _centerMassOffset;
-        _carAudioHandler.PlayStartEngine();
+        _carAudioHandler.EngineAudioHandler.PlayStartEngine();
     }
     public void UpdateCar()
     {
@@ -147,8 +147,8 @@ public class CarInLevel : Car
     private void StopCar()
     {
         _controlActive = false;
-        _carAudioHandler.StopPlayEngine();
-        _carAudioHandler.PlaySoundStopEngine();
+        _carAudioHandler.EngineAudioHandler.StopPlayEngine();
+        _carAudioHandler.EngineAudioHandler.PlaySoundStopEngine();
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
@@ -203,7 +203,7 @@ public class CarInLevel : Car
     {
         if (BoosterAvailable)
         {
-            Booster = new Booster(_carAudioHandler,
+            Booster = new Booster(_carAudioHandler.BoosterAudioHandler,
                 new BoosterFuelTank(CarConfiguration.BoosterCountFuelQuantity),
                 new BoosterScrew(_screw, _blade1, _blade2, _rotationSpeed),
                 _boosterParticleSystem);
@@ -221,7 +221,7 @@ public class CarInLevel : Car
     {
         if (GunAvailable)
         {
-            CarGun = new CarGun(_defaultPointAiming, _carAudioHandler,
+            CarGun = new CarGun(_defaultPointAiming, _carAudioHandler.GunAudioHandler,
                 new CarGunDetector(_gunRef.transform, _targetsGunLayerMask, _distanceDetectionValue, _deadZoneDetectionValue),
                 new GunGuidance(_gunTransformRotate, _speedLook), _gunParticleSystem,
                 CarConfiguration.GunCountAmmo, _rateFire, _forceGun);

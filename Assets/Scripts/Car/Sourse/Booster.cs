@@ -5,16 +5,16 @@ using UnityEngine;
 public class Booster
 {
     private BoosterScrew _boosterScrew;
-    private CarAudioHandler _carAudioHandler;
+    private BoosterAudioHandler _boosterAudioHandler;
     private CompositeDisposable _compositeDisposable => _boosterScrew.CompositeDisposable;
     private ParticleSystem _particleSystemBooster;
     private bool _isRun = false;
     public BoosterFuelTank BoosterFuelTank { get; private set; }
     public bool FuelAvailability => BoosterFuelTank.CheckFuel();
     public event Action OnBoosterDisable;
-    public Booster(CarAudioHandler carAudioHandler, BoosterFuelTank boosterFuelTank, BoosterScrew boosterScrew, ParticleSystem particleSystemBooster)
+    public Booster(BoosterAudioHandler boosterAudioHandler, BoosterFuelTank boosterFuelTank, BoosterScrew boosterScrew, ParticleSystem particleSystemBooster)
     {
-        _carAudioHandler = carAudioHandler;
+        _boosterAudioHandler = boosterAudioHandler;
         BoosterFuelTank = boosterFuelTank;
         _boosterScrew = boosterScrew;
         _particleSystemBooster = particleSystemBooster;
@@ -31,14 +31,14 @@ public class Booster
         if (_isRun == true)
         {
             StopBooster();
-            _carAudioHandler.PlayBoosterEndFuel();
+            // _boosterAudioHandler.PlayBoosterEndFuel();
             _particleSystemBooster.Stop();
         }
     }
     public void RunBooster()
     {
         _isRun = true;
-        _carAudioHandler.PlayBoosterRun();
+        _boosterAudioHandler.PlayBoosterRun();
         _compositeDisposable.Clear();
         Observable.EveryUpdate().Subscribe(_ =>
         {
@@ -56,7 +56,7 @@ public class Booster
     private void StopBooster()
     {
         _isRun = false;
-        _carAudioHandler.StopPlayRunBooster();
+        _boosterAudioHandler.StopPlayRunBooster();
         _compositeDisposable.Clear();
         _boosterScrew.SetDefaultRotationSpeed();
         _particleSystemBooster.Stop();

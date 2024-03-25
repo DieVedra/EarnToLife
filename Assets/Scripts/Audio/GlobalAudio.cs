@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using NaughtyAttributes;
+using UniRx;
 using UnityEngine;
 using UnityEngine.Audio;
 using Zenject;
@@ -25,20 +26,29 @@ public class GlobalAudio : MonoBehaviour, ISoundPause, ICarAudio, IAudioSettingS
     public AudioSource AudioSourceUI => _audioSourceUI;
     public AudioSource CarAudioSource1 => _carAudioSource1;
     public AudioSource CarAudioSource2 => _carAudioSource2;
+    private AudioSource[] _audioSources;
 
     public event Action OnSoundChange; 
-    public event Action<bool> OnMusicChange; 
-    public bool SoundOn { get; private set; }
-    public bool MusicOn { get; private set;}
+    public event Action<bool> OnMusicChange;
+    public bool SoundOn => SoundReactiveProperty.Value;
+    public bool MusicOn => MusicReactiveProperty.Value;
+    public ReactiveProperty<bool> SoundReactiveProperty { get; private set; }
+    public ReactiveProperty<bool> MusicReactiveProperty { get; private set; }
 
     public void Construct(bool keySound, bool keyMusic)
     {
-        SoundOn = keySound;
-        MusicOn = keyMusic;
+        SoundReactiveProperty = new ReactiveProperty<bool>();
+        MusicReactiveProperty = new ReactiveProperty<bool>();
+        SoundReactiveProperty.Value = keySound;
+        MusicReactiveProperty.Value = keyMusic;
         if (MusicOn == true)
         {
             PlayBackground();
         }
+        _audioSources = new[]
+        {
+            _audioSourceUI, _carAudioSource1, _carAudioSource2
+        };
     }
     private void PlayBackground()
     {
@@ -51,26 +61,26 @@ public class GlobalAudio : MonoBehaviour, ISoundPause, ICarAudio, IAudioSettingS
     }
     public void SetMusicOff()
     {
-        MusicOn = false;
+        MusicReactiveProperty.Value = false;
         OnMusicChange?.Invoke(MusicOn);
         StopBackground();
     }
     public void SetMusicOn()
     {
-        MusicOn = true;
+        MusicReactiveProperty.Value = true;
         OnMusicChange?.Invoke(MusicOn);
         PlayBackground();
     }
     public void SetSoundsOff()
     {
-        SoundOn = false;
+        SoundReactiveProperty.Value = false;
         OnSoundChange?.Invoke();
         _carAudioSource1.Stop();
         _carAudioSource2.Stop();
     }
     public void SetSoundsOn()
     {
-        SoundOn = true;
+        SoundReactiveProperty.Value = true;
         OnSoundChange?.Invoke();
     }
     private void SetAndPlay()
@@ -78,16 +88,23 @@ public class GlobalAudio : MonoBehaviour, ISoundPause, ICarAudio, IAudioSettingS
         _audioSourceBackground.clip = _audioClipProvider.ClipBackground;
         _audioSourceBackground.Play();
     }
-
     public void SoundOnPause(bool pause)
     {
         if (pause == true)
         {
+            for (int i = 0; i < _audioSources.Length; i++)
+            {
+                _audioSources[i].Pause();
+            }
             _levelMixer.audioMixer.SetFloat(_globalAudioValues.VolumeLevel, _globalAudioValues.VolumeLevelLow);
             _backgroundMixer.audioMixer.SetFloat(_globalAudioValues.VolumeBackgroundMusic, _globalAudioValues.VolumeBackgroundMusicLow);
         }
         else
         {
+            for (int i = 0; i < _audioSources.Length; i++)
+            {
+                _audioSources[i].Play();
+            }
             _levelMixer.audioMixer.SetFloat(_globalAudioValues.VolumeLevel, _globalAudioValues.VolumeNormal);
             _backgroundMixer.audioMixer.SetFloat(_globalAudioValues.VolumeBackgroundMusic, _globalAudioValues.VolumeNormal);
         }

@@ -340,10 +340,8 @@
           <e p="Audio" t="Include">
             <e p="AudioHandlers" t="Include">
               <e p="AudioHandlerUI.cs" t="Include" />
-              <e p="CarAudioHandler.cs" t="Include" />
             </e>
             <e p="AudioSettingSwitch.cs" t="Include" />
-            <e p="CarClips.cs" t="Include" />
             <e p="GlobalAudio.cs" t="Include" />
             <e p="GlobalAudioValues.cs" t="Include" />
             <e p="UIClips.cs" t="Include" />
@@ -365,6 +363,15 @@
             <e p="Vision.cs" t="Include" />
           </e>
           <e p="Car" t="Include">
+            <e p="Audio" t="Include">
+              <e p="AudioPlayer.cs" t="Include" />
+              <e p="BoosterAudioHandler.cs" t="Include" />
+              <e p="BrakeAudioHandler.cs" t="Include" />
+              <e p="CarAudioHandler.cs" t="Include" />
+              <e p="CarClips.cs" t="Include" />
+              <e p="EngineAudioHandler.cs" t="Include" />
+              <e p="GunAudioHandler.cs" t="Include" />
+            </e>
             <e p="Car.cs" t="Include" />
             <e p="CarInLevel.cs" t="Include" />
             <e p="DestructionCar" t="Include">

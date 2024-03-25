@@ -1,0 +1,45 @@
+﻿using System;
+using Cysharp.Threading.Tasks;
+using UniRx;
+using UnityEngine;
+
+public class EngineAudioHandler : AudioPlayer
+{
+    private const float TIME_DELAY_PLAY_START_SOUND = 0.4f;
+    private const float MINTIMEPITCH = 0.85f;
+    private const float MAXTIMEPITCH = 1.45f;
+    private readonly AudioClip _engineStartAudioClip;
+    private readonly AudioClip _engineStopAudioClip;
+    private readonly AudioClip _engineRunAudioClip;
+
+    public EngineAudioHandler(AudioSource audioSource, ReactiveProperty<bool> soundReactiveProperty,
+        AudioClip engineStartAudioClip, AudioClip engineStopAudioClip, AudioClip engineRunAudioClip)
+    : base(audioSource, soundReactiveProperty)
+    {
+        _engineStartAudioClip = engineStartAudioClip;
+        _engineStopAudioClip = engineStopAudioClip;
+        _engineRunAudioClip = engineRunAudioClip;
+    }
+    public async void PlayStartEngine()
+    {
+        TryPlayOneShotClip(_engineStartAudioClip);
+        await UniTask.Delay(TimeSpan.FromSeconds(TIME_DELAY_PLAY_START_SOUND));
+        PlayRun();
+    }
+    public void PitchControl(float value)
+    {
+        AudioSource.pitch = Mathf.LerpUnclamped(MINTIMEPITCH, MAXTIMEPITCH, value);
+    }
+    public void PlaySoundStopEngine()
+    {
+        TryPlayClip(_engineStopAudioClip);
+    }
+    public void StopPlayEngine()
+    {
+        StopPlay();
+    }
+    public void PlayRun()
+    {
+        TryPlayClip(_engineRunAudioClip, true);
+    }
+}

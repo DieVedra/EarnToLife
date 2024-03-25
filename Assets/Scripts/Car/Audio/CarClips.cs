@@ -8,9 +8,10 @@ public class CarClips
      public AudioClip EngineStopAudioClip { get; }
      public AudioClip BoosterRunAudioClip { get; }
      public AudioClip BoosterStopAudioClip { get; }
+     public AudioClip BoosterStartAudioClip { get; }
      public AudioClip ShotGunAudioClip { get; }
      public CarClips(AudioClip engineRunAudioClip, AudioClip brakeAudioClip, AudioClip engineStartAudioClip,
-         AudioClip engineStopAudioClip, AudioClip boosterRunAudioClip, AudioClip boosterStopAudioClip,
+         AudioClip engineStopAudioClip, AudioClip boosterRunAudioClip, AudioClip boosterStopAudioClip, AudioClip boosterStartAudioClip,
          AudioClip shotGunAudioClip)
      {
          EngineRunAudioClip = engineRunAudioClip;
@@ -19,6 +20,7 @@ public class CarClips
          EngineStopAudioClip = engineStopAudioClip;
          BoosterRunAudioClip = boosterRunAudioClip;
          BoosterStopAudioClip = boosterStopAudioClip;
+         BoosterStartAudioClip = boosterStartAudioClip;
          ShotGunAudioClip = shotGunAudioClip;
      }
 }

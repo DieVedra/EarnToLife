@@ -5,15 +5,15 @@ public class Engine
     private readonly float _overclockingMultiplier;
     private readonly float _breakingEngineMultiplier = 3f;
     private readonly AnimationCurve _engineAccelerationCurve;
-    private readonly CarAudioHandler _carAudioHandler;
+    private readonly EngineAudioHandler _engineAudioHandler;
     private readonly Exhaust _exhaust;
     private float _currentTime = 0f;
     public float CurrentEngineSpeed { get; private set; }
-    public Engine(AnimationCurve engineAccelerationCurve, CarAudioHandler carAudioHandler, Exhaust exhaust, float overclockingMultiplier)
+    public Engine(AnimationCurve engineAccelerationCurve, EngineAudioHandler engineAudioHandler, Exhaust exhaust, float overclockingMultiplier)
     {
         _overclockingMultiplier = overclockingMultiplier;
         _engineAccelerationCurve = engineAccelerationCurve;
-        _carAudioHandler = carAudioHandler;
+        _engineAudioHandler = engineAudioHandler;
         _exhaust = exhaust;
     }
     public void AccelerationEngine()
@@ -40,7 +40,7 @@ public class Engine
     }
     private void SetPitch() 
     {
-        _carAudioHandler.PitchControl(CurrentEngineSpeed);
+        _engineAudioHandler.PitchControl(CurrentEngineSpeed);
     }
     private void SetCurrentEngineSpeed()
     {
