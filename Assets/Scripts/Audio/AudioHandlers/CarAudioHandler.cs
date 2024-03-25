@@ -3,18 +3,18 @@ using Cysharp.Threading.Tasks;
 using UnityEngine;
 public class CarAudioHandler : IDisposable
 {
-    private const int TIME_DELAY_PLAY_START_SOUND = 1;
-    private const float MINTIMEPITCH = 1f;
-    private const float MAXTIMEPITCH = 1.8f;
+    private const float TIME_DELAY_PLAY_START_SOUND = 0.4f;
+    private const float MINTIMEPITCH = 0.85f;
+    private const float MAXTIMEPITCH = 1.45f;
     private ICarAudio _globalAudioToCar;
     private AudioSource _carAudioSource1 => _globalAudioToCar.CarAudioSource1;
     private AudioSource _carAudioSource2 => _globalAudioToCar.CarAudioSource2;
     private CarClips _carClips => _globalAudioToCar.CarClips;
     private bool SoundOn => _globalAudioToCar.SoundOn;
     
-    public CarAudioHandler(ICarAudio globalAudioToCarToCar)
+    public CarAudioHandler(ICarAudio globalAudioToCar)
     {
-        _globalAudioToCar = globalAudioToCarToCar;
+        _globalAudioToCar = globalAudioToCar;
         _globalAudioToCar.OnSoundChange += PlayRun;
     }
     public void Dispose()

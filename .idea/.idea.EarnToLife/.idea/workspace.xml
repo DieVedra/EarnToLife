@@ -56,7 +56,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/Assets/Scripts/Car/DestructionCar/BoosterDestructionHandler.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Car/DestructionCar/ArmoredBackFrameDestructionHandler.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Car/DestructionCar/GlassDestructionHandler.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Game/Garage/CarCustomize/CustomizeCar.cs" />
@@ -107,6 +106,7 @@
         <option value="$PROJECT_DIR$/Assets/Scripts/Car/CarInLevel.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Car/DestructionCar/ExhaustHandler.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/PropulsionUnit/Engine.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Audio/AudioHandlers/CarAudioHandler.cs" />
       </list>
     </option>
   </component>
@@ -161,6 +161,7 @@
       <workItem from="1710925063134" duration="25346000" />
       <workItem from="1711053081147" duration="13416000" />
       <workItem from="1711135207648" duration="15626000" />
+      <workItem from="1711369175338" duration="2348000" />
     </task>
     <task id="LOCAL-00001" summary="Roof Destruction changed&#10;Back Wing Destruction changed">
       <created>1710195340693</created>
