@@ -4,20 +4,26 @@ using UnityEngine;
 
 public class Booster
 {
-    private BoosterScrew _boosterScrew;
-    private BoosterAudioHandler _boosterAudioHandler;
-    private CompositeDisposable _compositeDisposable => _boosterScrew.CompositeDisposable;
-    private ParticleSystem _particleSystemBooster;
+    private readonly BoosterScrew _boosterScrew;
+    private readonly BoosterAudioHandler _boosterAudioHandler;
+    private readonly ParticleSystem _particleSystemBooster;
+    private readonly AnimationCurve _increaseBoosterSoundCurve;
+    private readonly AnimationCurve _decreaseBoosterSoundCurve;
     private bool _isRun = false;
     public BoosterFuelTank BoosterFuelTank { get; private set; }
+    private CompositeDisposable _compositeDisposable => _boosterScrew.CompositeDisposable;
     public bool FuelAvailability => BoosterFuelTank.CheckFuel();
     public event Action OnBoosterDisable;
-    public Booster(BoosterAudioHandler boosterAudioHandler, BoosterFuelTank boosterFuelTank, BoosterScrew boosterScrew, ParticleSystem particleSystemBooster)
+    public Booster(BoosterAudioHandler boosterAudioHandler, BoosterFuelTank boosterFuelTank,
+        BoosterScrew boosterScrew, ParticleSystem particleSystemBooster,
+        AnimationCurve increaseBoosterSoundCurve, AnimationCurve decreaseBoosterSoundCurve)
     {
         _boosterAudioHandler = boosterAudioHandler;
         BoosterFuelTank = boosterFuelTank;
         _boosterScrew = boosterScrew;
         _particleSystemBooster = particleSystemBooster;
+        _increaseBoosterSoundCurve = increaseBoosterSoundCurve;
+        _decreaseBoosterSoundCurve = decreaseBoosterSoundCurve;
     }
     public void TryStopBooster()
     {
@@ -38,7 +44,7 @@ public class Booster
     public void RunBooster()
     {
         _isRun = true;
-        _boosterAudioHandler.PlayBoosterRun();
+        _boosterAudioHandler.PlayRunBooster(_increaseBoosterSoundCurve);
         _compositeDisposable.Clear();
         Observable.EveryUpdate().Subscribe(_ =>
         {
@@ -56,7 +62,7 @@ public class Booster
     private void StopBooster()
     {
         _isRun = false;
-        _boosterAudioHandler.StopPlayRunBooster();
+        _boosterAudioHandler.StopPlayRunBooster(_decreaseBoosterSoundCurve);
         _compositeDisposable.Clear();
         _boosterScrew.SetDefaultRotationSpeed();
         _particleSystemBooster.Stop();

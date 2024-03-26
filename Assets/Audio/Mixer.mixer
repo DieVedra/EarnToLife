@@ -40,6 +40,20 @@ AudioMixerGroupController:
   m_Mute: 0
   m_Solo: 0
   m_BypassEffects: 0
+--- !u!244 &-5400504567877570923
+AudioMixerEffectController:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 
+  m_EffectID: 0993e794eed0e394ab7cc36f54cada6f
+  m_EffectName: Attenuation
+  m_MixLevel: 40e1e953127957e438549bc1748aee39
+  m_Parameters: []
+  m_SendTarget: {fileID: 0}
+  m_EnableWetMix: 0
+  m_Bypass: 0
 --- !u!243 &-5398649483476654679
 AudioMixerGroupController:
   m_ObjectHideFlags: 0
@@ -52,6 +66,7 @@ AudioMixerGroupController:
   m_Children:
   - {fileID: 1032103753985440606}
   - {fileID: 6303643098054365712}
+  - {fileID: -1891248009867980017}
   m_Volume: 021af3ca9d9653e408e32c3f9cd86709
   m_Pitch: 002527dd9d133f948bd953ff184957ad
   m_Send: 00000000000000000000000000000000
@@ -94,6 +109,25 @@ AudioMixerGroupController:
   m_Mute: 0
   m_Solo: 0
   m_BypassEffects: 0
+--- !u!243 &-1891248009867980017
+AudioMixerGroupController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Other
+  m_AudioMixer: {fileID: 24100000}
+  m_GroupID: 552d06685d5eefe4a9e7947abc5a3612
+  m_Children: []
+  m_Volume: 6c4b21d602092c346be654c8d72e6ec1
+  m_Pitch: 022486f5d501a7648ac825c07debc86d
+  m_Send: 00000000000000000000000000000000
+  m_Effects:
+  - {fileID: -5400504567877570923}
+  m_UserColorIndex: 0
+  m_Mute: 0
+  m_Solo: 0
+  m_BypassEffects: 0
 --- !u!241 &24100000
 AudioMixerController:
   m_ObjectHideFlags: 0
@@ -126,6 +160,7 @@ AudioMixerController:
     - f52884b573a9f15468015cc0eb4044e8
     - 6112e7619c9f308499e18e4042e690d5
     - de955636194f2a840b0355751d0650b9
+    - 552d06685d5eefe4a9e7947abc5a3612
     name: View
   m_CurrentViewIndex: 0
   m_TargetSnapshot: {fileID: 24500006}
@@ -176,7 +211,7 @@ AudioMixerSnapshotController:
   m_SnapshotID: d8a627d0d5c00934b9f2db618a5e47db
   m_FloatValues:
     d9025dd05378d8e45ae3bcf00e71c9aa: -30
-    8b8edf073346bb649a2743bc932fec32: -7.8940816
+    8b8edf073346bb649a2743bc932fec32: -16
     021af3ca9d9653e408e32c3f9cd86709: -30
     24cf8acc8a3607541b248ebaac5f8189: -6.133707
   m_TransitionOverrides: {}

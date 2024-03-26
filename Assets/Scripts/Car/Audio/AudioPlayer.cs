@@ -28,6 +28,15 @@ public class AudioPlayer
             AudioSource.PlayOneShot(audioClip);
         }
     }
+
+    protected void SetVolume(float volume)
+    {
+        AudioSource.volume = volume;
+    }
+    protected void SetPitch(float pitch)
+    {
+        AudioSource.pitch = pitch;
+    }
     protected void StopPlay()
     {
         AudioSource.Stop();

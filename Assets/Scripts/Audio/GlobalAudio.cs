@@ -12,8 +12,9 @@ public class GlobalAudio : MonoBehaviour, ISoundPause, ICarAudio, IAudioSettingS
 {
     [SerializeField, BoxGroup("AudioSources"), HorizontalLine(color:EColor.White)] private AudioSource _audioSourceBackground;
     [SerializeField, BoxGroup("AudioSources")] private AudioSource _audioSourceUI;
-    [SerializeField, BoxGroup("AudioSources")] private AudioSource _carAudioSource1;
-    [SerializeField, BoxGroup("AudioSources")] private AudioSource _carAudioSource2;
+    [SerializeField, BoxGroup("AudioSources")] private AudioSource _carAudioSourceForEngine;
+    [SerializeField, BoxGroup("AudioSources")] private AudioSource _carAudioSourceForBooster;
+    [SerializeField, BoxGroup("AudioSources")] private AudioSource _carAudioSourceForOther;
     
     [SerializeField, BoxGroup("AudioGroups"), HorizontalLine(color:EColor.Yellow)] private AudioMixerGroup _masterMixer;
     [SerializeField, BoxGroup("AudioGroups")] private AudioMixerGroup _levelMixer;
@@ -24,8 +25,9 @@ public class GlobalAudio : MonoBehaviour, ISoundPause, ICarAudio, IAudioSettingS
     public UIClips UiClips => _audioClipProvider.UiClips;
     public CarClips CarClips => _audioClipProvider.ClipsCar;
     public AudioSource AudioSourceUI => _audioSourceUI;
-    public AudioSource CarAudioSource1 => _carAudioSource1;
-    public AudioSource CarAudioSource2 => _carAudioSource2;
+    public AudioSource CarAudioSourceForEngine => _carAudioSourceForEngine;
+    public AudioSource CarAudioSourceForBooster => _carAudioSourceForBooster;
+    public AudioSource CarAudioSourceForOther => _carAudioSourceForOther;
     private AudioSource[] _audioSources;
 
     public event Action OnSoundChange; 
@@ -47,7 +49,7 @@ public class GlobalAudio : MonoBehaviour, ISoundPause, ICarAudio, IAudioSettingS
         }
         _audioSources = new[]
         {
-            _audioSourceUI, _carAudioSource1, _carAudioSource2
+            _audioSourceUI, _carAudioSourceForEngine, _carAudioSourceForBooster, _carAudioSourceForOther
         };
     }
     private void PlayBackground()
@@ -75,8 +77,8 @@ public class GlobalAudio : MonoBehaviour, ISoundPause, ICarAudio, IAudioSettingS
     {
         SoundReactiveProperty.Value = false;
         OnSoundChange?.Invoke();
-        _carAudioSource1.Stop();
-        _carAudioSource2.Stop();
+        _carAudioSourceForEngine.Stop();
+        _carAudioSourceForBooster.Stop();
     }
     public void SetSoundsOn()
     {

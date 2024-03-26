@@ -1,39 +1,86 @@
 ﻿using System;
 using System.Threading;
 using Cysharp.Threading.Tasks;
+using DG.Tweening;
 using UniRx;
 using UnityEngine;
 
 public class BoosterAudioHandler : AudioPlayer
 {
-    private readonly float _timeDelay = 0.2f;
-    private readonly AudioClip _boosterStartAudioClip;
-    private readonly AudioClip _boosterStopAudioClip;
+    private readonly float _pitchMin = 0.65f;
+    private readonly float _pitchMax = 1.35f;
+    private readonly float _startIncreaseValue = 0f;
+    private readonly float _startDecreaseValue = 1f;
     private readonly AudioClip _boosterRunAudioClip;
-    private readonly CancellationTokenSource _cancellationTokenSource = new CancellationTokenSource();
-    public BoosterAudioHandler(AudioSource audioSource, ReactiveProperty<bool> soundReactiveProperty,
-        AudioClip boosterStartAudioClip, AudioClip boosterStopAudioClip,  AudioClip boosterRunAudioClip)
+    private readonly CompositeDisposable _compositeDisposable = new CompositeDisposable();
+    private AnimationCurve _increaseBoosterSoundCurve;
+    private AnimationCurve _decreaseBoosterSoundCurve;
+    private float _currentAudioValue;
+    private float _currentEvaluateCurveValue;
+    public BoosterAudioHandler(AudioSource audioSource, ReactiveProperty<bool> soundReactiveProperty, AudioClip boosterRunAudioClip)
     :base(audioSource, soundReactiveProperty)
     {
-        _boosterStartAudioClip = boosterStartAudioClip;
-        _boosterStopAudioClip = boosterStopAudioClip;
         _boosterRunAudioClip = boosterRunAudioClip;
     }
-    public async UniTaskVoid PlayBoosterRun()
+    public void PlayRunBooster(AnimationCurve increaseBoosterSoundCurve)
     {
-        StopPlay();
-        TryPlayOneShotClip(_boosterStartAudioClip);
-        await UniTask.Delay(TimeSpan.FromSeconds(_timeDelay), cancellationToken:_cancellationTokenSource.Token);
+        _increaseBoosterSoundCurve = increaseBoosterSoundCurve;
+        _currentAudioValue = _startIncreaseValue;
+        _compositeDisposable.Clear();
         TryPlayClip(_boosterRunAudioClip, true);
+        Observable.EveryUpdate().Subscribe(_ =>
+        {
+            VolumeIncrease();
+        }).AddTo(_compositeDisposable);
     }
-    public void StopPlayRunBooster()
+    public void StopPlayRunBooster(AnimationCurve decreaseBoosterSoundCurve)
     {
-        _cancellationTokenSource.Cancel();
-        StopPlay();
-        PlayBoosterEndFuel();
+        _decreaseBoosterSoundCurve = decreaseBoosterSoundCurve;
+        _currentAudioValue = _startDecreaseValue;
+        _compositeDisposable.Clear();
+        Observable.EveryUpdate().Subscribe(_ =>
+        {
+            VolumeDecrease();
+        }).AddTo(_compositeDisposable);
     }
-    public void PlayBoosterEndFuel()
+
+    private void VolumeIncrease() //++
     {
-        TryPlayOneShotClip(_boosterStopAudioClip);
+        if (_currentAudioValue < _startDecreaseValue)
+        {
+            _currentAudioValue += Time.deltaTime;
+            PitchControl(GetIncreaseValue());
+        }
+        else
+        {
+            _compositeDisposable.Clear();
+        }
+    }
+
+    private void VolumeDecrease() // --
+    {
+        if (_currentAudioValue > _startIncreaseValue)
+        {
+            _currentAudioValue -= Time.deltaTime;
+            PitchControl(GetDecreaseValue());
+        }
+        else
+        {
+            _compositeDisposable.Clear();
+            StopPlay();
+        }
+    }
+
+    private float GetIncreaseValue()
+    {
+        return _increaseBoosterSoundCurve.Evaluate(_currentAudioValue);
+    }
+    private float GetDecreaseValue()
+    {
+        return _decreaseBoosterSoundCurve.Evaluate(_currentAudioValue);
+    }
+    private void PitchControl(float value)
+    {
+        SetPitch(Mathf.LerpUnclamped(_pitchMin, _pitchMax, value));
     }
 }

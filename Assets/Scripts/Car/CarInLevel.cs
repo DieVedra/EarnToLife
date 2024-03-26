@@ -37,6 +37,8 @@ public class CarInLevel : Car
     [SerializeField, BoxGroup("Booster")] private Transform _screw;
     [SerializeField, BoxGroup("Booster")] private SpriteRenderer _blade1;
     [SerializeField, BoxGroup("Booster")] private SpriteRenderer _blade2;
+    [SerializeField, BoxGroup("Booster")] private AnimationCurve _increaseBoosterSoundCurve;
+    [SerializeField, BoxGroup("Booster")] private AnimationCurve _decreaseBoosterSoundCurve;
 
     [SerializeField, BoxGroup("HotWheel"), HorizontalLine(color:EColor.Red)] private HotWheelRef _hotWheelRef;
     [SerializeField, BoxGroup("HotWheel"), Range(1f,50f)] private float _hotWheelRotationSpeed;
@@ -206,7 +208,7 @@ public class CarInLevel : Car
             Booster = new Booster(_carAudioHandler.BoosterAudioHandler,
                 new BoosterFuelTank(CarConfiguration.BoosterCountFuelQuantity),
                 new BoosterScrew(_screw, _blade1, _blade2, _rotationSpeed),
-                _boosterParticleSystem);
+                _boosterParticleSystem, _increaseBoosterSoundCurve, _decreaseBoosterSoundCurve);
             Booster.BoosterFuelTank.OnTankEmpty += _notificationsProvider.BoosterEmpty;
             Booster.BoosterFuelTank.OnTankEmpty += Booster.StopBoosterOnOutFuel;
             Booster.OnBoosterDisable += BoosterDisable;
@@ -254,7 +256,7 @@ public class CarInLevel : Car
     {
         if (_destructionActive == true)
         {
-            _destructionCar.Construct(_exhaust, CarGun, _hotWheel ,CarMass, Booster, Speedometer, _coupAnalyzer, _hotWheelRef,
+            _destructionCar.Construct(_carAudioHandler.DestructionAudioHandler, _exhaust, CarGun, _hotWheel ,CarMass, Booster, Speedometer, _coupAnalyzer, _hotWheelRef,
                 _boosterRef, _gunRef,  debrisParent);
             if (_destructionCar.BottomDestructionOn == true)
             {

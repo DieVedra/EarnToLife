@@ -9,6 +9,12 @@ public class DestructionCar : MonoBehaviour
     [SerializeField] private int _fallingContentLayer;
 
     [SerializeField] private LayerMask _canCollisionsLayerMasks;
+    
+    [SerializeField, BoxGroup("Effects")] private ParticleSystem _glassBrokenEffectPrefab;
+    [SerializeField, BoxGroup("Effects")] private ParticleSystem _hitEffectPrefab;
+    [SerializeField, BoxGroup("Effects")] private ParticleSystem _engineSmokeEffect;
+    [SerializeField, BoxGroup("Effects")] private ParticleSystem _engineBurnEffect;
+    [SerializeField, BoxGroup("Effects")] private Transform _effectsParent;
 
     [SerializeField, BoxGroup("Settings")] private bool _bumpersDestructuonOn;
     [SerializeField, BoxGroup("Settings")] private bool _glassesDestructuonOn;
@@ -49,7 +55,7 @@ public class DestructionCar : MonoBehaviour
     [SerializeField, BoxGroup("Frame")] private BottomRef _bottomRef;
 
 
-
+    private DestructionEffectsHandler _destructionEffectsHandler;
     private CoupAnalyzer _coupAnalyzer;
     private CarMass _carMass;
     private BumperDestructionHandler _frontBumperDestructionHandler;
@@ -76,10 +82,12 @@ public class DestructionCar : MonoBehaviour
     private List<IDispose> _disposes = new List<IDispose>();
     public event Action<WheelJoint2D, WheelCarValues> OnCarBrokenIntoTwoParts;
     public bool BottomDestructionOn => _bottomDestructionOn;
-    public void Construct(Exhaust exhaust, CarGun carGun, HotWheel hotWheel, CarMass carMass, Booster booster, Speedometer speedometer, CoupAnalyzer coupAnalyzer,
+    public void Construct(DestructionAudioHandler destructionAudioHandler, Exhaust exhaust, CarGun carGun, HotWheel hotWheel, CarMass carMass, Booster booster, Speedometer speedometer, CoupAnalyzer coupAnalyzer,
         HotWheelRef hotWheelRef, BoosterRef boosterRef, GunRef gunRef,
         Transform debrisParent)
     {
+        _destructionEffectsHandler = new DestructionEffectsHandler(destructionAudioHandler, _glassBrokenEffectPrefab, _hitEffectPrefab, _engineSmokeEffect, _engineBurnEffect, _effectsParent);
+        _disposes.Add(_destructionEffectsHandler);
         _coupAnalyzer = coupAnalyzer;
         _destructionHandlerContent = new DestructionHandlerContent(speedometer, debrisParent, _canCollisionsLayerMasks, _carDebrisLayer);
         _carMass = carMass;

@@ -22,4 +22,5 @@ MonoBehaviour:
   _engineStopAudioClip: {fileID: 8300000, guid: 14c8ffdc5c65b1345a46e3d84f46c8e3, type: 3}
   _boosterRunAudioClip: {fileID: 8300000, guid: 1427dd41c3bef234eb04e5d75dd4e422, type: 3}
   _boosterStopAudioClip: {fileID: 8300000, guid: 6a3ffafe0e933e140bcab985f043687e, type: 3}
-  _shotGunAudioClip: {fileID: 8300000, guid: cbce949d87a35854ab284713929f9532, type: 3}
+  _boosterStartAudioClip: {fileID: 8300000, guid: 0371db72366c0394fa60df5322ab43c5, type: 3}
+  _shotGunAudioClip: {fileID: 8300000, guid: 2bca117339c30c945897748a35efab8d, type: 3}

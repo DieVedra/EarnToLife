@@ -369,6 +369,7 @@
               <e p="BrakeAudioHandler.cs" t="Include" />
               <e p="CarAudioHandler.cs" t="Include" />
               <e p="CarClips.cs" t="Include" />
+              <e p="DestructionAudioHandler.cs" t="Include" />
               <e p="EngineAudioHandler.cs" t="Include" />
               <e p="GunAudioHandler.cs" t="Include" />
             </e>
@@ -384,6 +385,7 @@
               <e p="BumperDestructionHandler.cs" t="Include" />
               <e p="CabineDestructionHandler.cs" t="Include" />
               <e p="DestructionCar.cs" t="Include" />
+              <e p="DestructionEffectsHandler.cs" t="Include" />
               <e p="DestructionHandler.cs" t="Include" />
               <e p="DestructionHandlerContent.cs" t="Include" />
               <e p="DestructionMode.cs" t="Include" />
@@ -580,6 +582,7 @@
             <e p="ISoundPause.cs" t="Include" />
             <e p="IStateSetter.cs" t="Include" />
           </e>
+          <e p="PoolBase.cs" t="Include" />
           <e p="Ragdoll.cs" t="Include" />
           <e p="SaveService" t="Include">
             <e p="Data" t="Include">

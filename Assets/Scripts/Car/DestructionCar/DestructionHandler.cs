@@ -16,6 +16,7 @@ public abstract class DestructionHandler
     private readonly MonoBehaviour _monoBehaviour;
     private readonly float _minSpeedForDestruct = 10f;
     private readonly float _reducingStrengthMultiplier = 0.7f;
+    protected Vector2 HitPosition;
     protected float MaxStrength;
     protected float HalfStrength;
     protected float MinStrength;
@@ -136,6 +137,7 @@ public abstract class DestructionHandler
             if (ValueNormalImpulse < collision.contacts[i].normalImpulse)
             {
                 ValueNormalImpulse = collision.contacts[i].normalImpulse;
+                SetHitPosition(collision.contacts[i].point);
             }
         }
 
@@ -157,5 +159,10 @@ public abstract class DestructionHandler
             HalfStrength = strength * HalfStrengthMultiplier;
             MinStrength = strength * MinStrengthMultiplier;
         }
+    }
+
+    private void SetHitPosition(Vector2 pos)
+    {
+        HitPosition = pos;
     }
 }
