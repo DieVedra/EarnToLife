@@ -12,15 +12,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c969bd8251065f4b939041a51590e89, type: 3}
   m_Name: AudioProvider
   m_EditorClassIdentifier: 
-  _clipBackground: {fileID: 8300000, guid: 718fe8c6277184a01bed0b783b53802e, type: 3}
-  _clipClick: {fileID: 8300000, guid: 32d4b1811dda14a6cb9e059ee8ad17d2, type: 3}
-  _clipPaySuccess: {fileID: 8300000, guid: 438a140652717a242b2c0eb4092c7a28, type: 3}
-  _clipFailPayAudio: {fileID: 8300000, guid: e2424269381f6c741819faae9177700c, type: 3}
+  _clipBackground: {fileID: 8300000, guid: 36a46b26af550ba4db0aaa4ce5d259e5, type: 3}
+  _clipClick: {fileID: 8300000, guid: 4203ea631bc030a4081aa601ff810a40, type: 3}
+  _clipPaySuccess: {fileID: 8300000, guid: b39c6fe2bf3df834ba8296e06877ac05, type: 3}
+  _clipFailPayAudio: {fileID: 8300000, guid: ad0f6183288eba44c9c4b135b6460e7e, type: 3}
   _engineRunAudioClip: {fileID: 8300000, guid: ebd39e30b3c81f54c9b514e05954fac7, type: 3}
   _brakeAudioClip: {fileID: 8300000, guid: 7e500323d548da04e8608b5e473d0d64, type: 3}
   _engineStartAudioClip: {fileID: 8300000, guid: 8708bfe6d23d050419156b889c3e05d3, type: 3}
   _engineStopAudioClip: {fileID: 8300000, guid: 14c8ffdc5c65b1345a46e3d84f46c8e3, type: 3}
   _boosterRunAudioClip: {fileID: 8300000, guid: 1427dd41c3bef234eb04e5d75dd4e422, type: 3}
-  _boosterStopAudioClip: {fileID: 8300000, guid: 6a3ffafe0e933e140bcab985f043687e, type: 3}
-  _boosterStartAudioClip: {fileID: 8300000, guid: 0371db72366c0394fa60df5322ab43c5, type: 3}
+  _carHotweelAudioClip: {fileID: 8300000, guid: 38c9a817aba061b4c9c9399dfcfb509a, type: 3}
+  _carBurnAudioClip: {fileID: 8300000, guid: 3e2365863be992c49bc44a6460db742a, type: 3}
+  _carHit1AudioClip: {fileID: 8300000, guid: 47fdb6085759a6c48a319278c4c9bbbe, type: 3}
+  _carHit2AudioClip: {fileID: 8300000, guid: 14365712e6ae46e47b83bc22f405be77, type: 3}
+  _glassBreakingAudioClip: {fileID: 8300000, guid: 2065d4de7937bbd4aa2b3158d4e64ff5, type: 3}
+  _metalBendsAudioClip: {fileID: 8300000, guid: 49e1d38e352c76a438dc149d5555bdf1, type: 3}
   _shotGunAudioClip: {fileID: 8300000, guid: 2bca117339c30c945897748a35efab8d, type: 3}

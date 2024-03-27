@@ -15,6 +15,7 @@ public class RoofDestructionHandler : DestructionHandler, IDispose
     private readonly ArmoredBackFrameDestructionHandler _armoredBackFrameDestructionHandler;
     private readonly GunDestructionHandler _gunDestructionHandler;
     private readonly CabineDestructionHandler _cabineDestructionHandler;
+    private readonly Action _effect;
     private readonly CoupAnalyzer _coupAnalyzer;
     private readonly CarMass _carMass;
     private readonly Transform _roofNormal;
@@ -44,9 +45,9 @@ public class RoofDestructionHandler : DestructionHandler, IDispose
         FrontDoorDestructionHandler frontDoorDestructionHandler, BackDoorDestructionHandler backDoorDestructionHandler,
         GlassDestructionHandler frontGlassDestructionHandler, GlassDestructionHandler backGlassDestructionHandler,
         GunDestructionHandler gunDestructionHandler, CabineDestructionHandler cabineDestructionHandler,
-        DestructionHandlerContent destructionHandlerContent,
+        DestructionHandlerContent destructionHandlerContent, Action effect, Action sound,
         int totalStrengthRoof, int fallingContentLayer, bool isArmored, bool safetyFrameworkInstalled)
-        : base(roofRef, destructionHandlerContent, totalStrengthRoof)
+        : base(roofRef, destructionHandlerContent, sound, totalStrengthRoof)
     {
         // Debug.Log($"TotalStrengthRoof: {totalStrengthRoof} | CarMass: {carMass.Mass}");
         _roofRef = roofRef;
@@ -59,6 +60,7 @@ public class RoofDestructionHandler : DestructionHandler, IDispose
         _armoredBackFrameDestructionHandler = armoredBackFrameDestructionHandler;
         _gunDestructionHandler = gunDestructionHandler;
         _cabineDestructionHandler = cabineDestructionHandler;
+        _effect = effect;
         _roofNormal = roofRef.RoofNormal;
         _roofDamaged1 = roofRef.RoofDamaged1;
         _roofDamaged2 = roofRef.RoofDamaged2;
@@ -112,17 +114,20 @@ public class RoofDestructionHandler : DestructionHandler, IDispose
         if (ValueNormalImpulse > MaxStrength)
         {
             Debug.Log("DestructionMode3");
+            _effect.Invoke();
             DestructionMode3();
         }
         else if (ValueNormalImpulse > HalfStrength)
         {
             Debug.Log("DestructionMode2");
+            _effect.Invoke();
             DestructionMode2AndSubscribe();
             RecalculateStrength();
         }
         else if (ValueNormalImpulse > MinStrength)
         {
             Debug.Log("DestructionMode1");
+            _effect.Invoke();
             DestructionMode1AndSubscribe();
             RecalculateStrength();
         }

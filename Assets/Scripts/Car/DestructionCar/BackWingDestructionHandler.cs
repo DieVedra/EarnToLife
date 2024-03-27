@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class BackWingDestructionHandler : DestructionHandler, IDispose
@@ -8,6 +9,7 @@ public class BackWingDestructionHandler : DestructionHandler, IDispose
     private readonly ArmoredBackFrameRef _armoredBackFrameRef;
     private readonly BumperDestructionHandler _backBumperDestructionHandler;
     private readonly ExhaustHandler _exhaustHandler;
+    private readonly Action<Vector2> _effect;
     private readonly Transform _wingNormal;
     private readonly Transform _wingDamaged1;
     private readonly Transform _wingDamaged2;
@@ -27,14 +29,15 @@ public class BackWingDestructionHandler : DestructionHandler, IDispose
     private DestructionMode _destructionMode = DestructionMode.ModeDefault;
     public BackWingDestructionHandler(BackWingRef backWingRef, GlassDestructionHandler glassDestructionHandler,
         ArmoredBackFrameDestructionHandler armoredBackFrameHandler, BumperDestructionHandler backBumperDestructionHandler, 
-        ExhaustHandler exhaustHandler,
+        ExhaustHandler exhaustHandler, Action<Vector2> effect, Action sound,
         DestructionHandlerContent destructionHandlerContent, int totalStrength, bool isArmored, bool boosterActive)
-        :base(backWingRef, destructionHandlerContent, totalStrength)
+        :base(backWingRef, destructionHandlerContent, sound, totalStrength)
     {
         _glassDestructionHandler = glassDestructionHandler;
         _armoredBackFrameHandler = armoredBackFrameHandler;
         _backBumperDestructionHandler = backBumperDestructionHandler;
         _exhaustHandler = exhaustHandler;
+        _effect = effect;
         _wingNormal = backWingRef.WingNormal;
         _wingDamaged1 = backWingRef.WingDamaged1;
         _wingDamaged2 = backWingRef.WingDamaged2;
@@ -52,9 +55,9 @@ public class BackWingDestructionHandler : DestructionHandler, IDispose
             _armoredBackFrameRef = armoredBackFrameHandler.ArmoredBackFrameRef;
             _armoredBackNormal = _armoredBackFrameRef.ArmoredBackNormal;
             _armoredBackDamaged = _armoredBackFrameRef.ArmoredBackDamagedRoofDamaged;
-            SubscribeCollider(_armoredBackNormal.GetComponent<Collider2D>(), CheckCollision, TrySwitchMode);
+            SubscribeCollider(_armoredBackNormal.GetComponent<Collider2D>(), CollisionHandling, TrySwitchMode);
         }
-        SubscribeCollider(_wingNormal.GetComponent<Collider2D>(), CheckCollision, TrySwitchMode);
+        SubscribeCollider(_wingNormal.GetComponent<Collider2D>(), CollisionHandling, TrySwitchMode);
     }
 
     public void Dispose()
@@ -65,15 +68,18 @@ public class BackWingDestructionHandler : DestructionHandler, IDispose
     {
         if (ValueNormalImpulse > MaxStrength)
         {
+            _effect.Invoke(HitPosition);
             DestructionMode3();
         }
         else if (ValueNormalImpulse > HalfStrength)
         {
+            _effect.Invoke(HitPosition);
             RecalculateStrength();
             DestructionMode2AndSubscribe();
         }
         else if (ValueNormalImpulse > MinStrength)
         {
+            _effect.Invoke(HitPosition);
             RecalculateStrength();
             DestructionMode1AndSubscribe();
         }
@@ -83,9 +89,9 @@ public class BackWingDestructionHandler : DestructionHandler, IDispose
         DestructionMode1();
         if (_isArmored == true)
         {
-            SubscribeCollider(_armoredBackFrameHandler.CurrentCollider, CheckCollision, TrySwitchMode);
+            SubscribeCollider(_armoredBackFrameHandler.CurrentCollider, CollisionHandling, TrySwitchMode);
         }
-        SubscribeCollider(_wingDamaged1Collider, CheckCollision, TrySwitchMode);
+        SubscribeCollider(_wingDamaged1Collider, CollisionHandling, TrySwitchMode);
     }
     private void DestructionMode1()
     {
@@ -93,7 +99,7 @@ public class BackWingDestructionHandler : DestructionHandler, IDispose
         _backBumperDestructionHandler.TryThrow().Forget();
         ThrowContent();
         SwitchSprites1();
-        _glassDestructionHandler?.TryBreakGlass();
+        _glassDestructionHandler?.TryBreakGlassFromWings();
         if (_isArmored == true)
         {
             _armoredBackFrameHandler.TryTakeDamageFromBack();
@@ -106,9 +112,9 @@ public class BackWingDestructionHandler : DestructionHandler, IDispose
         DestructionMode2();
         if (_isArmored == true)
         {
-            SubscribeCollider(_armoredBackFrameHandler.CurrentCollider, CheckCollision, TrySwitchMode);
+            SubscribeCollider(_armoredBackFrameHandler.CurrentCollider, CollisionHandling, TrySwitchMode);
         }
-        SubscribeCollider(_wingDamaged2Collider, CheckCollision, TrySwitchMode);
+        SubscribeCollider(_wingDamaged2Collider, CollisionHandling, TrySwitchMode);
     }
     private void DestructionMode2()
     {

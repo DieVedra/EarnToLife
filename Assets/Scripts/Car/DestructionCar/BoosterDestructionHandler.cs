@@ -6,11 +6,14 @@ public class BoosterDestructionHandler : DestructionHandler, IDispose
 {
     private readonly float _switchLayerDelay = 1f;
     private readonly Booster _booster;
+    private readonly Action<Vector2> _effect;
     private readonly BoosterRef _boosterRef;
-    public BoosterDestructionHandler(BoosterRef boosterRef, Booster booster, DestructionHandlerContent destructionHandlerContent) 
-        : base(boosterRef, destructionHandlerContent, boosterRef.StrengthBooster)
+    public BoosterDestructionHandler(BoosterRef boosterRef, Booster booster, DestructionHandlerContent destructionHandlerContent,
+        Action<Vector2> effect, Action sound) 
+        : base(boosterRef, destructionHandlerContent, sound, boosterRef.StrengthBooster)
     {
         _booster = booster;
+        _effect = effect;
         _boosterRef = boosterRef;
         SubscribeColliders();
     }
@@ -24,6 +27,7 @@ public class BoosterDestructionHandler : DestructionHandler, IDispose
     {
         if (ValueNormalImpulse > MaxStrength)
         {
+            _effect.Invoke(HitPosition);
             Destruction();
         }
         else

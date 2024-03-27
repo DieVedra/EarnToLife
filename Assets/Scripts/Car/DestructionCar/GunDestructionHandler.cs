@@ -1,15 +1,18 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 public sealed class GunDestructionHandler : DestructionHandler, IDispose
 {
     private readonly CarGun _carGun;
+    private readonly Action<Vector2> _effect;
     private readonly Transform[] _gunParts;
     private bool _isBroken = false;
-    public GunDestructionHandler(GunRef gunRefs, CarGun carGun, DestructionHandlerContent destructionHandlerContent)
-    :base(gunRefs, destructionHandlerContent, gunRefs.StrengthGun)
+    public GunDestructionHandler(GunRef gunRefs, CarGun carGun, DestructionHandlerContent destructionHandlerContent, Action<Vector2> effect)
+    :base(gunRefs, destructionHandlerContent, maxStrength: gunRefs.StrengthGun)
     {
         _gunParts = gunRefs.GunParts;
         _carGun = carGun;
+        _effect = effect;
         SubscribeCollider(_gunParts[0].GetComponent<Collider2D>(), CheckCollision, TrySwitchMode);
     }
 
@@ -21,6 +24,7 @@ public sealed class GunDestructionHandler : DestructionHandler, IDispose
     {
         if (ValueNormalImpulse > MaxStrength)
         {
+            _effect.Invoke(HitPosition);
             TryDestruct();
         }
         else

@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 public class ArmoredBackFrameDestructionHandler : DestructionHandler
 {
@@ -14,8 +15,8 @@ public class ArmoredBackFrameDestructionHandler : DestructionHandler
     private bool _roofIsDamaged = false;
     private bool _isBroken = false;
     public Collider2D CurrentCollider { get; private set; }
-    public ArmoredBackFrameDestructionHandler(ArmoredBackFrameRef armoredBackFrameRef, DestructionHandlerContent destructionHandlerContent)
-        : base(armoredBackFrameRef, destructionHandlerContent)
+    public ArmoredBackFrameDestructionHandler(ArmoredBackFrameRef armoredBackFrameRef, DestructionHandlerContent destructionHandlerContent, Action sound)
+        : base(armoredBackFrameRef, destructionHandlerContent, sound)
     {
         ArmoredBackFrameRef = armoredBackFrameRef;
         // _armoredBackNormal = armoredBackFrameRef.ArmoredBackNormal;

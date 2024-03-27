@@ -1,17 +1,22 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 public class GlassDestructionHandler : DestructionHandler, IDispose
 {
+    private readonly GlassRef _glassRef;
+    private readonly Action<Vector2> _effect;
     private Transform _glassNormal;
     private Transform _glassDamaged;
     private Transform _currentGlass;
     private bool _isBreaked = false;
     private bool _isBroken = false;
-    public GlassDestructionHandler(GlassRef glassRef, DestructionHandlerContent destructionHandlerContent)
-    :base(glassRef, destructionHandlerContent, glassRef.StrengthGlass)
+    public GlassDestructionHandler(GlassRef glassRef, DestructionHandlerContent destructionHandlerContent, Action<Vector2> effect)
+    :base(glassRef, destructionHandlerContent, maxStrength: glassRef.StrengthGlass)
     {
         TryInitGlasses(glassRef);
-        SubscribeCollider(_glassNormal.GetComponent<Collider2D>(), CheckCollision, TryBreakGlass);
+        _glassRef = glassRef;
+        _effect = effect;
+        SubscribeCollider(_glassNormal.GetComponent<Collider2D>(), CheckCollision, TryBreakGlassFromHit);
     }
 
     public void Dispose()
@@ -24,7 +29,7 @@ public class GlassDestructionHandler : DestructionHandler, IDispose
         if (_isBroken == false)
         {
             _isBroken = true;
-            TryBreakGlass();
+            TryBreakGlassFromHit();
             CompositeDisposable.Clear();
             TryAddRigidBody(_currentGlass.gameObject);
             SetParentDebris();
@@ -33,16 +38,24 @@ public class GlassDestructionHandler : DestructionHandler, IDispose
         }
     }
 
-    public void TryBreakGlass()
+    public void TryBreakGlassFromWings()
+    {
+        TryBreakGlass(_glassRef.transform.position);
+    }
+    public void TryBreakGlassFromHit()
+    {
+        TryBreakGlass(HitPosition);
+    }
+    private void TryBreakGlass(Vector2 position)
     {
         if (_isBreaked == false)
         {
             _isBreaked = true;
+            _effect.Invoke(position);
             CompositeDisposable.Clear();
             TrySwitchSprites();
         }
     }
-
     private void TrySwitchSprites()
     {
         if (_glassDamaged != null)

@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class BumperDestructionHandler : DestructionHandler, IDispose
 {
+    private readonly Action<Vector2> _effect;
     private readonly float _delay = 2f;
     private readonly Transform _bumperNormal;
     private readonly Transform _bumperDamaged;
@@ -15,9 +16,11 @@ public class BumperDestructionHandler : DestructionHandler, IDispose
     private DestructionMode _destructionMode = DestructionMode.ModeDefault;
     private CancellationTokenSource _cancellationTokenSource = new CancellationTokenSource();
     private bool _isBroken = false;
-    public BumperDestructionHandler(BumperRef bumperRef, DestructionHandlerContent destructionHandlerContent)
-    :base(bumperRef, destructionHandlerContent, bumperRef.StrengthBumper)
+    public BumperDestructionHandler(BumperRef bumperRef, DestructionHandlerContent destructionHandlerContent,
+        Action<Vector2> effect, Action sound)
+    :base(bumperRef, destructionHandlerContent, sound, bumperRef.StrengthBumper)
     {
+        _effect = effect;
         _collider2DBumperNormal = bumperRef.BumperNormal.GetComponent<Collider2D>();
         _collider2DBumperDamaged = bumperRef.BumperDamaged.GetComponent<Collider2D>();
         _bumperNormal = bumperRef.BumperNormal;
@@ -27,7 +30,7 @@ public class BumperDestructionHandler : DestructionHandler, IDispose
         _hingeJoint2D = _bumperDamaged.GetComponent<HingeJoint2D>();
         _hingeJoint2D.useMotor = true;
         _currentbumper = _bumperNormal;
-        SubscribeCollider(_collider2DBumperNormal, CheckCollision, TrySwitchMode);
+        SubscribeCollider(_collider2DBumperNormal, CollisionHandling, TrySwitchMode);
     }
 
     public void Dispose()
@@ -37,17 +40,25 @@ public class BumperDestructionHandler : DestructionHandler, IDispose
     }
     protected override void TrySwitchMode()
     {
+        // Debug.Log($"BumperDestructionEnter      ValueNormalImpulse: {ValueNormalImpulse}");
         if (ValueNormalImpulse > MaxStrength)
         {
+            _effect.Invoke(HitPosition);
             DestructionMode3();
+            // Debug.Log($"            BumperDestructionMode1  MaxStrength     ValueNormalImpulse: {ValueNormalImpulse}");
+
         }
         else if (ValueNormalImpulse > HalfStrength)
         {
+            _effect.Invoke(HitPosition);
             RecalculateStrength();
             DestructionMode2();
+            // Debug.Log($"             BumperDestructionMode2  HalfStrength     ValueNormalImpulse: {ValueNormalImpulse}");
+
         }
         else if (ValueNormalImpulse > MinStrength)
         {
+            _effect.Invoke(HitPosition);
             RecalculateStrength();
             if (_destructionMode == DestructionMode.Mode2)
             {
@@ -57,6 +68,12 @@ public class BumperDestructionHandler : DestructionHandler, IDispose
             {
                 DestructionMode1();
             }
+            Debug.Log($"             BumperDestructionMode  MinStrength     ValueNormalImpulse: {ValueNormalImpulse}");
+        }
+        else
+        {
+            RecalculateStrength();
+
         }
     }
     private void DestructionMode1()
@@ -105,6 +122,6 @@ public class BumperDestructionHandler : DestructionHandler, IDispose
     {
         CompositeDisposable.Clear();
         SwitchSprites();
-        SubscribeCollider(_collider2DBumperDamaged, CheckCollision, TrySwitchMode);
+        SubscribeCollider(_collider2DBumperDamaged, CollisionHandling, TrySwitchMode);
     }
 }

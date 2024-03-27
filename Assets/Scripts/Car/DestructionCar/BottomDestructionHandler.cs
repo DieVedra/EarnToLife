@@ -16,13 +16,14 @@ public class BottomDestructionHandler : DestructionHandler, IDispose
     private readonly FrontDoorDestructionHandler _frontDoorDestructionHandler;
     private readonly BackDoorDestructionHandler _backDoorDestructionHandler;
     private readonly ExhaustHandler _exhaustHandler;
+    private readonly Action _effect;
     private readonly bool _isArmored;
     private bool _exhaustBroken = false;
     private DestructionMode _destructionMode = DestructionMode.ModeDefault;
     public BottomDestructionHandler(BottomRef bottomRef, BackCarHandler backCarHandler, RoofDestructionHandler roofDestructionHandler, 
         FrontDoorDestructionHandler frontDoorDestructionHandler, BackDoorDestructionHandler backDoorDestructionHandler, ExhaustHandler exhaustHandler,
-        DestructionHandlerContent destructionHandlerContent, int strength, bool isArmored)
-        : base(bottomRef, destructionHandlerContent, strength)
+        DestructionHandlerContent destructionHandlerContent, Action effect, Action sound,int strength, bool isArmored)
+        : base(bottomRef, destructionHandlerContent, sound, strength)
     {
         _bottomRef = bottomRef;
         _exhaust = bottomRef.Exhaust;
@@ -32,6 +33,7 @@ public class BottomDestructionHandler : DestructionHandler, IDispose
         _frontDoorDestructionHandler = frontDoorDestructionHandler;
         _backDoorDestructionHandler = backDoorDestructionHandler;
         _exhaustHandler = exhaustHandler;
+        _effect = effect;
         _collider2DStandart = _bottomRef.GetComponent<Collider2D>();
         _isArmored = isArmored;
         if (_isArmored == true)
@@ -55,19 +57,21 @@ public class BottomDestructionHandler : DestructionHandler, IDispose
         {
             DestructionMode2();
             RecalculateStrength();
+            _effect.Invoke();
             Debug.Log($" bottom impulse: {ValueNormalImpulse}");
-
         }
         else if (ValueNormalImpulse > HalfStrength)
         {
             DestructionMode1();
             RecalculateStrength();
+            _effect.Invoke();
             Debug.Log($" bottom impulse: {ValueNormalImpulse}");
 
         }
         else if (ValueNormalImpulse > MinStrength)
         {
             RecalculateStrength();
+            _effect.Invoke();
             Debug.Log($" bottom impulse: {ValueNormalImpulse}");
 
         }

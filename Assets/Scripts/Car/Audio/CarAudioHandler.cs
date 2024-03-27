@@ -27,8 +27,10 @@ public class CarAudioHandler : IDisposable
             _globalAudioToCar.CarClips.ShotGunAudioClip);
         DestructionAudioHandler = new DestructionAudioHandler(_globalAudioToCar.CarAudioSourceForOther, _globalAudioToCar.SoundReactiveProperty,
             _globalAudioToCar.CarClips.CarBurnAudioClip,
-            _globalAudioToCar.CarClips.CarHitAudioClip,
-            _globalAudioToCar.CarClips.GlassBreakingAudioClip);
+            _globalAudioToCar.CarClips.CarHit1AudioClip,
+            _globalAudioToCar.CarClips.CarHit2AudioClip,
+            _globalAudioToCar.CarClips.GlassBreakingAudioClip,
+            _globalAudioToCar.CarClips.MetalBendsAudioClip);
         _globalAudioToCar.OnSoundChange += EngineAudioHandler.PlayRun;
     }
     public void Dispose()

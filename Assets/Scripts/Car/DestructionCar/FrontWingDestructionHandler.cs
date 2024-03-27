@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 public class FrontWingDestructionHandler : DestructionHandler, IDispose
 {
@@ -6,8 +7,9 @@ public class FrontWingDestructionHandler : DestructionHandler, IDispose
     private readonly GlassDestructionHandler _glassDestructionHandler;
     private readonly HotWheelDestructionHandler _hotWheelDestructionHandler;
     private readonly BumperDestructionHandler _bumperDestructionFrontHandler;
-    private readonly ParticleSystem _fireParticleSystem;
-    private readonly ParticleSystem _smokeParticleSystem;
+    private readonly Action<Vector2> _effectHit;
+    private readonly Action<DestructionMode> _effectSmoke;
+    private readonly Action _effectBurn;
     private readonly Transform _wingNormal;
     private readonly Transform _lighterWingNormal;
     private readonly Transform _wingDamaged1;
@@ -27,12 +29,16 @@ public class FrontWingDestructionHandler : DestructionHandler, IDispose
     public FrontWingDestructionHandler(FrontWingRef frontWingRef, ArmoredFrontFrameRef armoredFrontFrameRef, 
         GlassDestructionHandler glassDestructionHandler, HotWheelDestructionHandler hotWheelDestructionHandler,
         BumperDestructionHandler bumperDestructionFrontHandler, DestructionHandlerContent destructionHandlerContent,
+        Action<Vector2> effectHit, Action<DestructionMode> effectSmoke, Action effectBurn, Action soundHit2,
         int strength, bool isArmored)
-        :base(frontWingRef, destructionHandlerContent, strength)
+        :base(frontWingRef, destructionHandlerContent, soundHit2, strength)
     {
         _glassDestructionHandler = glassDestructionHandler;
         _hotWheelDestructionHandler = hotWheelDestructionHandler;
         _bumperDestructionFrontHandler = bumperDestructionFrontHandler;
+        _effectHit = effectHit;
+        _effectSmoke = effectSmoke;
+        _effectBurn = effectBurn;
         _wingNormal = frontWingRef.WingNormal;
         _lighterWingNormal = frontWingRef.LighterWingNormal;
         _lighterWingNormal.gameObject.SetActive(false);
@@ -41,8 +47,6 @@ public class FrontWingDestructionHandler : DestructionHandler, IDispose
         _wingDamaged2 = frontWingRef.WingDamaged2;
         _bottomNormal = frontWingRef.BottomNormal;
         _bottomDamaged = frontWingRef.BottomDamaged;
-        _fireParticleSystem = frontWingRef.FireParticleSystem;
-        _smokeParticleSystem = frontWingRef.SmokeParticleSystem;
         _wingDamaged1Collider = _wingDamaged1.GetComponent<Collider2D>();
         _wingDamaged2Collider = _wingDamaged2.GetComponent<Collider2D>();
         _bottomDamaged.gameObject.SetActive(false);
@@ -53,9 +57,9 @@ public class FrontWingDestructionHandler : DestructionHandler, IDispose
             _armoredFrontNormal = armoredFrontFrameRef.ArmoredFrontNormal;
             _armoredFrontDamaged = armoredFrontFrameRef.ArmoredFrontDamaged;
             _armoredFrontDamagedCollider = _armoredFrontDamaged.GetComponent<Collider2D>();
-            SubscribeCollider(_armoredFrontNormal.GetComponent<Collider2D>(), CheckCollision, TrySwitchMode);
+            SubscribeCollider(_armoredFrontNormal.GetComponent<Collider2D>(), CollisionHandling, TrySwitchMode);
         }
-        SubscribeCollider(_wingNormal.GetComponent<Collider2D>(), CheckCollision, TrySwitchMode);
+        SubscribeCollider(_wingNormal.GetComponent<Collider2D>(), CollisionHandling, TrySwitchMode);
     }
 
     public void Dispose()
@@ -64,17 +68,25 @@ public class FrontWingDestructionHandler : DestructionHandler, IDispose
     }
     protected override void TrySwitchMode()
     {
+
         if (ValueNormalImpulse > MaxStrength)
         {
+            _effectHit.Invoke(HitPosition);
             DestructionMode3AndSubscribe();
+            Debug.Log($"                        DestructionMode3");
+
         }
         else if (ValueNormalImpulse > HalfStrength)
         {
+            _effectHit.Invoke(HitPosition);
             RecalculateStrength();
             DestructionMode2AndSubscribe();
+            Debug.Log($"                        DestructionMode2");
+
         }
         else if (ValueNormalImpulse > MinStrength)
         {
+            _effectHit.Invoke(HitPosition);
             RecalculateStrength();
             if (_destructionMode == DestructionMode.Mode2)
             {
@@ -84,6 +96,8 @@ public class FrontWingDestructionHandler : DestructionHandler, IDispose
             {
                 DestructionMode1AndSubscribe();
             }
+            Debug.Log($"                        DestructionMode1");
+
         }
     }
 
@@ -92,9 +106,9 @@ public class FrontWingDestructionHandler : DestructionHandler, IDispose
         DestructionMode1();
         if (_isArmored == true)
         {
-            SubscribeCollider(_armoredFrontDamagedCollider, CheckCollision, TrySwitchMode);
+            SubscribeCollider(_armoredFrontDamagedCollider, CollisionHandling, TrySwitchMode);
         }
-        SubscribeCollider(_wingDamaged1Collider, CheckCollision, TrySwitchMode);
+        SubscribeCollider(_wingDamaged1Collider, CollisionHandling, TrySwitchMode);
     }
     private void DestructionMode1()
     {
@@ -103,14 +117,15 @@ public class FrontWingDestructionHandler : DestructionHandler, IDispose
         ThrowLighter();
         SwitchSprites1();
         TrySwitchSpriteArmoredFrame();
-        _glassDestructionHandler?.TryBreakGlass();
+        _glassDestructionHandler?.TryBreakGlassFromWings();
         _destructionMode = DestructionMode.Mode1;
+        StartSmoke(_destructionMode);
     }
 
     private void DestructionMode2AndSubscribe()
     {
         DestructionMode2();
-        SubscribeCollider(_wingDamaged2Collider, CheckCollision, TrySwitchMode);
+        SubscribeCollider(_wingDamaged2Collider, CollisionHandling, TrySwitchMode);
     }
     private void DestructionMode2()
     {
@@ -134,8 +149,8 @@ public class FrontWingDestructionHandler : DestructionHandler, IDispose
         }
         _glassDestructionHandler?.TryThrowGlass();
         ThrowHood();
-        StartSmoke();
         _destructionMode = DestructionMode.Mode2;
+        StartSmoke(_destructionMode);
     }
     private void DestructionMode3AndSubscribe()
     {
@@ -190,23 +205,12 @@ public class FrontWingDestructionHandler : DestructionHandler, IDispose
         _bottomDamaged.gameObject.SetActive(true);
     }
 
-    private void StartSmoke()
+    private void StartSmoke(DestructionMode destructionMode)
     {
-        _smokeParticleSystem.gameObject.SetActive(true);
-        _smokeParticleSystem.Play();
-    }
-    private void StopSmoke()
-    {
-        _smokeParticleSystem.gameObject.SetActive(false);
-        _smokeParticleSystem.Stop();
+        _effectSmoke.Invoke(destructionMode);
     }
     private void StartFire()
     {
-        if (_smokeParticleSystem.gameObject.activeSelf == true)
-        {
-            StopSmoke();
-        }
-        _fireParticleSystem.gameObject.SetActive(true);
-        _fireParticleSystem.Play();
+        _effectBurn.Invoke();
     }
 }

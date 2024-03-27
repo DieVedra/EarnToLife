@@ -14,6 +14,7 @@ public abstract class DestructionHandler
     protected readonly LayerMask CanCollisionsLayerMasks;
     protected readonly CompositeDisposable CompositeDisposable = new CompositeDisposable();
     private readonly MonoBehaviour _monoBehaviour;
+    private readonly Action _sound;
     private readonly float _minSpeedForDestruct = 10f;
     private readonly float _reducingStrengthMultiplier = 0.7f;
     protected Vector2 HitPosition;
@@ -22,7 +23,7 @@ public abstract class DestructionHandler
     protected float MinStrength;
     protected float ValueNormalImpulse;
 
-    protected DestructionHandler(MonoBehaviour monoBehaviour, DestructionHandlerContent destructionHandlerContent,
+    protected DestructionHandler(MonoBehaviour monoBehaviour, DestructionHandlerContent destructionHandlerContent, Action sound = null,
         int maxStrength = 0)
     {
         CarDebrisLayer = destructionHandlerContent.CarDebrisLayer;
@@ -31,11 +32,7 @@ public abstract class DestructionHandler
         Speedometer = destructionHandlerContent.Speedometer;
         CanCollisionsLayerMasks = destructionHandlerContent.CanCollisionsLayerMasks;
         _monoBehaviour = monoBehaviour;
-        // monoBehaviour.OnDestroyAsObservable()
-        //     .Subscribe(_ =>
-        //     {
-        //         Dispose();
-        //     }).AddTo(monoBehaviour);
+        _sound = sound;
     }
     protected virtual void TrySwitchMode(){}
 
@@ -49,7 +46,6 @@ public abstract class DestructionHandler
             })
             .AddTo(CompositeDisposable);
     }
-
     protected void SetParentDebris(Transform transform = null)
     {
         if (transform == null)
@@ -89,6 +85,7 @@ public abstract class DestructionHandler
 
     protected virtual bool CollisionHandling(Collision2D collision)
     {
+        _sound?.Invoke();
         if (CheckCollisionAndMinSpeed(collision) == true)
         {
             SetImpulseNormal(collision);
@@ -158,6 +155,7 @@ public abstract class DestructionHandler
             MaxStrength = strength;
             HalfStrength = strength * HalfStrengthMultiplier;
             MinStrength = strength * MinStrengthMultiplier;
+            // Debug.Log($"MaxStrength: {MaxStrength}    HalfStrength: {HalfStrength}    MinStrength: {MinStrength}");
         }
     }
 
