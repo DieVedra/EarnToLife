@@ -14,6 +14,7 @@ public class GlobalAudio : MonoBehaviour, ISoundPause, ICarAudio, IAudioSettingS
     [SerializeField, BoxGroup("AudioSources")] private AudioSource _audioSourceUI;
     [SerializeField, BoxGroup("AudioSources")] private AudioSource _carAudioSourceForEngine;
     [SerializeField, BoxGroup("AudioSources")] private AudioSource _carAudioSourceForBooster;
+    [SerializeField, BoxGroup("AudioSources")] private AudioSource _carAudioSourceForDestruction;
     [SerializeField, BoxGroup("AudioSources")] private AudioSource _carAudioSourceForOther;
     
     [SerializeField, BoxGroup("AudioGroups"), HorizontalLine(color:EColor.Yellow)] private AudioMixerGroup _masterMixer;
@@ -27,6 +28,7 @@ public class GlobalAudio : MonoBehaviour, ISoundPause, ICarAudio, IAudioSettingS
     public AudioSource AudioSourceUI => _audioSourceUI;
     public AudioSource CarAudioSourceForEngine => _carAudioSourceForEngine;
     public AudioSource CarAudioSourceForBooster => _carAudioSourceForBooster;
+    public AudioSource CarAudioSourceForDestruction => _carAudioSourceForDestruction;
     public AudioSource CarAudioSourceForOther => _carAudioSourceForOther;
     private AudioSource[] _audioSources;
 

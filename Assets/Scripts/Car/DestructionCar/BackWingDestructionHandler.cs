@@ -9,7 +9,7 @@ public class BackWingDestructionHandler : DestructionHandler, IDispose
     private readonly ArmoredBackFrameRef _armoredBackFrameRef;
     private readonly BumperDestructionHandler _backBumperDestructionHandler;
     private readonly ExhaustHandler _exhaustHandler;
-    private readonly Action<Vector2> _effect;
+    private readonly Action<Vector2, float> _effect;
     private readonly Transform _wingNormal;
     private readonly Transform _wingDamaged1;
     private readonly Transform _wingDamaged2;
@@ -29,9 +29,9 @@ public class BackWingDestructionHandler : DestructionHandler, IDispose
     private DestructionMode _destructionMode = DestructionMode.ModeDefault;
     public BackWingDestructionHandler(BackWingRef backWingRef, GlassDestructionHandler glassDestructionHandler,
         ArmoredBackFrameDestructionHandler armoredBackFrameHandler, BumperDestructionHandler backBumperDestructionHandler, 
-        ExhaustHandler exhaustHandler, Action<Vector2> effect, Action sound,
+        ExhaustHandler exhaustHandler, Action<Vector2, float> effect, Action<float> soundSoftHit,
         DestructionHandlerContent destructionHandlerContent, int totalStrength, bool isArmored, bool boosterActive)
-        :base(backWingRef, destructionHandlerContent, sound, totalStrength)
+        :base(backWingRef, destructionHandlerContent, soundSoftHit, totalStrength)
     {
         _glassDestructionHandler = glassDestructionHandler;
         _armoredBackFrameHandler = armoredBackFrameHandler;
@@ -66,24 +66,34 @@ public class BackWingDestructionHandler : DestructionHandler, IDispose
     }
     protected override void TrySwitchMode()
     {
-        if (ValueNormalImpulse > MaxStrength)
+        if (ImpulseNormalValue > MaxStrength)
         {
-            _effect.Invoke(HitPosition);
+            PlayEffect();
             DestructionMode3();
         }
-        else if (ValueNormalImpulse > HalfStrength)
+        else if (ImpulseNormalValue > HalfStrength)
         {
-            _effect.Invoke(HitPosition);
+            PlayEffect();
             RecalculateStrength();
             DestructionMode2AndSubscribe();
         }
-        else if (ValueNormalImpulse > MinStrength)
+        else if (ImpulseNormalValue > MinStrength)
         {
-            _effect.Invoke(HitPosition);
+            PlayEffect();
             RecalculateStrength();
             DestructionMode1AndSubscribe();
         }
+        else
+        {
+            PlaySoftHitSound();
+        }
     }
+
+    private void PlayEffect()
+    {
+        _effect.Invoke(HitPosition, ImpulseNormalValue);
+    }
+
     private void DestructionMode1AndSubscribe()
     {
         DestructionMode1();

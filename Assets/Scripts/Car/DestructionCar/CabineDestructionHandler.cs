@@ -1,12 +1,15 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 public class CabineDestructionHandler :DestructionHandler, IDispose
 {
-    private CabineRef _cabineRef;
-    private Transform _headrest;
-    private Collider2D _helmetCollider;
-    private Collider2D _headrestCollider;
+    private readonly CabineRef _cabineRef;
+    private readonly Transform _headrest;
+    private readonly Collider2D _helmetCollider;
+    private readonly Collider2D _headrestCollider;
     private bool _isBroken = false;
+    public event Action OnDriverCrushed;
+
     public CabineDestructionHandler(CabineRef cabineRef, DestructionHandlerContent destructionHandlerContent)
         : base(cabineRef, destructionHandlerContent)
     {
@@ -26,6 +29,7 @@ public class CabineDestructionHandler :DestructionHandler, IDispose
             CompositeDisposable.Clear();
             TryAddRigidBody(_headrest.gameObject);
             SetParentDebris(_headrest);
+            OnDriverCrushed?.Invoke();
             Debug.Log("game over driver crushed");
         }
     }

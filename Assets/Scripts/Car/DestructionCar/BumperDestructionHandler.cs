@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class BumperDestructionHandler : DestructionHandler, IDispose
 {
-    private readonly Action<Vector2> _effect;
+    private readonly Action<Vector2, float> _effect;
     private readonly float _delay = 2f;
     private readonly Transform _bumperNormal;
     private readonly Transform _bumperDamaged;
@@ -17,8 +17,8 @@ public class BumperDestructionHandler : DestructionHandler, IDispose
     private CancellationTokenSource _cancellationTokenSource = new CancellationTokenSource();
     private bool _isBroken = false;
     public BumperDestructionHandler(BumperRef bumperRef, DestructionHandlerContent destructionHandlerContent,
-        Action<Vector2> effect, Action sound)
-    :base(bumperRef, destructionHandlerContent, sound, bumperRef.StrengthBumper)
+        Action<Vector2, float> effect, Action<float> soundSoftHit)
+    :base(bumperRef, destructionHandlerContent, soundSoftHit, bumperRef.StrengthBumper)
     {
         _effect = effect;
         _collider2DBumperNormal = bumperRef.BumperNormal.GetComponent<Collider2D>();
@@ -40,25 +40,22 @@ public class BumperDestructionHandler : DestructionHandler, IDispose
     }
     protected override void TrySwitchMode()
     {
-        // Debug.Log($"BumperDestructionEnter      ValueNormalImpulse: {ValueNormalImpulse}");
-        if (ValueNormalImpulse > MaxStrength)
+        if (ImpulseNormalValue > MaxStrength)
         {
-            _effect.Invoke(HitPosition);
+            PlayEffect();
             DestructionMode3();
-            // Debug.Log($"            BumperDestructionMode1  MaxStrength     ValueNormalImpulse: {ValueNormalImpulse}");
 
         }
-        else if (ValueNormalImpulse > HalfStrength)
+        else if (ImpulseNormalValue > HalfStrength)
         {
-            _effect.Invoke(HitPosition);
+            PlayEffect();
             RecalculateStrength();
             DestructionMode2();
-            // Debug.Log($"             BumperDestructionMode2  HalfStrength     ValueNormalImpulse: {ValueNormalImpulse}");
 
         }
-        else if (ValueNormalImpulse > MinStrength)
+        else if (ImpulseNormalValue > MinStrength)
         {
-            _effect.Invoke(HitPosition);
+            PlayEffect();
             RecalculateStrength();
             if (_destructionMode == DestructionMode.Mode2)
             {
@@ -68,13 +65,16 @@ public class BumperDestructionHandler : DestructionHandler, IDispose
             {
                 DestructionMode1();
             }
-            Debug.Log($"             BumperDestructionMode  MinStrength     ValueNormalImpulse: {ValueNormalImpulse}");
         }
         else
         {
-            RecalculateStrength();
-
+            PlaySoftHitSound();
         }
+    }
+
+    private void PlayEffect()
+    {
+        _effect.Invoke(HitPosition, ImpulseNormalValue);
     }
     private void DestructionMode1()
     {
@@ -91,6 +91,7 @@ public class BumperDestructionHandler : DestructionHandler, IDispose
         _hingeJoint2D.useMotor = false;
         _destructionMode = DestructionMode.Mode2;
     }
+
     private void DestructionMode3()
     {
         CompositeDisposable.Clear();
@@ -100,11 +101,13 @@ public class BumperDestructionHandler : DestructionHandler, IDispose
         }
         TryThrow().Forget();
     }
+
     private void SwitchSprites()
     {
         _bumperNormal.gameObject.SetActive(false);
         _bumperDamaged.gameObject.SetActive(true);
     }
+
     public async UniTaskVoid TryThrow()
     {
         if (_isBroken == false)

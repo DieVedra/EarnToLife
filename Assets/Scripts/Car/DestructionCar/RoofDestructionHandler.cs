@@ -15,7 +15,7 @@ public class RoofDestructionHandler : DestructionHandler, IDispose
     private readonly ArmoredBackFrameDestructionHandler _armoredBackFrameDestructionHandler;
     private readonly GunDestructionHandler _gunDestructionHandler;
     private readonly CabineDestructionHandler _cabineDestructionHandler;
-    private readonly Action _effect;
+    private readonly Action<float> _soundBends;
     private readonly CoupAnalyzer _coupAnalyzer;
     private readonly CarMass _carMass;
     private readonly Transform _roofNormal;
@@ -36,18 +36,16 @@ public class RoofDestructionHandler : DestructionHandler, IDispose
     private bool _safetyFrameworkInstalled = false;
     private bool _carHasBeenCoup = false;
     private bool _isCriticalDamaged = false;
-    // private bool _isBroken = false;
     private bool _isСrushed = false;
     private DestructionMode _destructionMode = DestructionMode.ModeDefault;
-
     public RoofDestructionHandler(RoofRef roofRef, ArmoredRoofFrameRef armoredRoofFrameRef, SafetyFrameworkDestructionHandler safetyFrameworkDestructionHandler,
         CarMass carMass, CoupAnalyzer coupAnalyzer, ArmoredBackFrameDestructionHandler armoredBackFrameDestructionHandler,
         FrontDoorDestructionHandler frontDoorDestructionHandler, BackDoorDestructionHandler backDoorDestructionHandler,
         GlassDestructionHandler frontGlassDestructionHandler, GlassDestructionHandler backGlassDestructionHandler,
         GunDestructionHandler gunDestructionHandler, CabineDestructionHandler cabineDestructionHandler,
-        DestructionHandlerContent destructionHandlerContent, Action effect, Action sound,
+        DestructionHandlerContent destructionHandlerContent, Action<float> soundBends, Action<float> soundSoftHit,
         int totalStrengthRoof, int fallingContentLayer, bool isArmored, bool safetyFrameworkInstalled)
-        : base(roofRef, destructionHandlerContent, sound, totalStrengthRoof)
+        : base(roofRef, destructionHandlerContent, soundSoftHit, totalStrengthRoof)
     {
         // Debug.Log($"TotalStrengthRoof: {totalStrengthRoof} | CarMass: {carMass.Mass}");
         _roofRef = roofRef;
@@ -60,7 +58,7 @@ public class RoofDestructionHandler : DestructionHandler, IDispose
         _armoredBackFrameDestructionHandler = armoredBackFrameDestructionHandler;
         _gunDestructionHandler = gunDestructionHandler;
         _cabineDestructionHandler = cabineDestructionHandler;
-        _effect = effect;
+        _soundBends = soundBends;
         _roofNormal = roofRef.RoofNormal;
         _roofDamaged1 = roofRef.RoofDamaged1;
         _roofDamaged2 = roofRef.RoofDamaged2;
@@ -111,26 +109,29 @@ public class RoofDestructionHandler : DestructionHandler, IDispose
     }
     protected override void TrySwitchMode()
     {
-        if (ValueNormalImpulse > MaxStrength)
+        if (ImpulseNormalValue > MaxStrength)
         {
-            Debug.Log("DestructionMode3");
-            _effect.Invoke();
             DestructionMode3();
         }
-        else if (ValueNormalImpulse > HalfStrength)
+        else if (ImpulseNormalValue > HalfStrength)
         {
-            Debug.Log("DestructionMode2");
-            _effect.Invoke();
             DestructionMode2AndSubscribe();
             RecalculateStrength();
         }
-        else if (ValueNormalImpulse > MinStrength)
+        else if (ImpulseNormalValue > MinStrength)
         {
-            Debug.Log("DestructionMode1");
-            _effect.Invoke();
             DestructionMode1AndSubscribe();
             RecalculateStrength();
         }
+        else
+        {
+            PlaySoftHitSound();
+        }
+    }
+
+    private void PlayEffect()
+    {
+        _soundBends.Invoke(ImpulseNormalValue);
     }
 
     private void DestructionMode1AndSubscribe()
@@ -212,10 +213,6 @@ public class RoofDestructionHandler : DestructionHandler, IDispose
             _backDoorDestructionHandler.TryThrowDoor();
             SetParentDebris(_supportRoof);
             TryAddRigidBody(_supportRoof.gameObject);
-            // _isBroken = false;
-            // await UniTask.Delay(TimeSpan.FromSeconds(_delay));
-        
-            //invoke game over driver crushed
             _cabineDestructionHandler.TryDriverDestruction();
         }
         _destructionMode = DestructionMode.Mode3;
@@ -229,7 +226,7 @@ public class RoofDestructionHandler : DestructionHandler, IDispose
             if (collision.gameObject.TryGetComponent(out Rigidbody2D rigidbody2D))
             {
                 SetImpulseNormal(collision);
-                ValueNormalImpulse += rigidbody2D.mass;
+                ImpulseNormalValue += rigidbody2D.mass;
                 if (rigidbody2D.mass > MaxStrength)
                 {
                     _isCriticalDamaged = true;
@@ -250,7 +247,8 @@ public class RoofDestructionHandler : DestructionHandler, IDispose
             {
                 _carHasBeenCoup = true;
                 SetImpulseNormal(collision);
-                ValueNormalImpulse += _carMass.Mass;
+                PlayEffect();
+                ImpulseNormalValue += _carMass.Mass;
                 result = true;
             }
             else

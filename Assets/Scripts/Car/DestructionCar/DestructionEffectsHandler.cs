@@ -48,24 +48,16 @@ public class DestructionEffectsHandler :IDispose
 
     public void TryPlayEngineSmokeEffect(DestructionMode destructionMode)
     {
-        // Debug.Log(111111111111);
-
         _engineSmokeEffect.gameObject.SetActive(true);
         if (destructionMode == DestructionMode.Mode1)
         {
-            if (_engineSmokeEffect.isPlaying == false)
-            {
-                SetSmokeEffectMainModuleType1();
-                _engineSmokeEffect.Play();
-            }
+            SetSmokeEffectMainModuleType1();
+            _engineSmokeEffect.Play();
         }
         else if (destructionMode == DestructionMode.Mode2)
         {
-            if (_engineSmokeEffect.isPlaying == false)
-            {
-                SetSmokeEffectMainModuleType2();
-                _engineSmokeEffect.Play();
-            }
+            SetSmokeEffectMainModuleType2();
+            _engineSmokeEffect.Play();
         }
     }
 
@@ -78,24 +70,14 @@ public class DestructionEffectsHandler :IDispose
             _destructionAudioHandler.PlayEngineBurn();
         }
     }
-
-    // public void TryPlayRoofBendsEffect()
-    // {
-    //     _destructionAudioHandler.PlayRoofBends();
-    // }
-    public void GlassBrokenEffect(Vector2 position)
+    public void GlassBrokenEffect(Vector2 position, float force)
     {
         PlayEffect(_glassEffects, () => { _destructionAudioHandler.PlayGlassBreak();}, position);
     }
 
-    public void HitBrokenEffect(Vector2 position)
+    public void HitBrokenEffect(Vector2 position, float force)
     {
-        PlayEffect(_hitEffects, () => { HitSoundPlay();}, position);
-    }
-
-    public void HitSoundPlay()
-    {
-        _destructionAudioHandler.PlayHit1();
+        PlayEffect(_hitEffects, () => { _destructionAudioHandler.PlayHardHit(force);}, position);
     }
     private ParticleSystem PreloadGlassEffect()
     {

@@ -7,7 +7,7 @@ public class FrontWingDestructionHandler : DestructionHandler, IDispose
     private readonly GlassDestructionHandler _glassDestructionHandler;
     private readonly HotWheelDestructionHandler _hotWheelDestructionHandler;
     private readonly BumperDestructionHandler _bumperDestructionFrontHandler;
-    private readonly Action<Vector2> _effectHit;
+    private readonly Action<Vector2, float> _effectHit;
     private readonly Action<DestructionMode> _effectSmoke;
     private readonly Action _effectBurn;
     private readonly Transform _wingNormal;
@@ -25,13 +25,14 @@ public class FrontWingDestructionHandler : DestructionHandler, IDispose
     private Transform _damaged2Hood;
     private DestructionMode _destructionMode = DestructionMode.ModeDefault;
     private bool _lighterBroken;
+    public event Action OnEngineBroken;
 
     public FrontWingDestructionHandler(FrontWingRef frontWingRef, ArmoredFrontFrameRef armoredFrontFrameRef, 
         GlassDestructionHandler glassDestructionHandler, HotWheelDestructionHandler hotWheelDestructionHandler,
         BumperDestructionHandler bumperDestructionFrontHandler, DestructionHandlerContent destructionHandlerContent,
-        Action<Vector2> effectHit, Action<DestructionMode> effectSmoke, Action effectBurn, Action soundHit2,
+        Action<Vector2, float> effectHit, Action<DestructionMode> effectSmoke, Action effectBurn, Action<float> soundSoftHitHit2,
         int strength, bool isArmored)
-        :base(frontWingRef, destructionHandlerContent, soundHit2, strength)
+        :base(frontWingRef, destructionHandlerContent, soundSoftHitHit2, strength)
     {
         _glassDestructionHandler = glassDestructionHandler;
         _hotWheelDestructionHandler = hotWheelDestructionHandler;
@@ -69,24 +70,22 @@ public class FrontWingDestructionHandler : DestructionHandler, IDispose
     protected override void TrySwitchMode()
     {
 
-        if (ValueNormalImpulse > MaxStrength)
+        if (ImpulseNormalValue > MaxStrength)
         {
-            _effectHit.Invoke(HitPosition);
+            PlayEffect();
             DestructionMode3AndSubscribe();
-            Debug.Log($"                        DestructionMode3");
 
         }
-        else if (ValueNormalImpulse > HalfStrength)
+        else if (ImpulseNormalValue > HalfStrength)
         {
-            _effectHit.Invoke(HitPosition);
+            PlayEffect();
             RecalculateStrength();
             DestructionMode2AndSubscribe();
-            Debug.Log($"                        DestructionMode2");
 
         }
-        else if (ValueNormalImpulse > MinStrength)
+        else if (ImpulseNormalValue > MinStrength)
         {
-            _effectHit.Invoke(HitPosition);
+            PlayEffect();
             RecalculateStrength();
             if (_destructionMode == DestructionMode.Mode2)
             {
@@ -96,9 +95,16 @@ public class FrontWingDestructionHandler : DestructionHandler, IDispose
             {
                 DestructionMode1AndSubscribe();
             }
-            Debug.Log($"                        DestructionMode1");
-
         }
+        else
+        {
+            PlaySoftHitSound();
+        }
+    }
+
+    private void PlayEffect()
+    {
+        _effectHit.Invoke(HitPosition, ImpulseNormalValue);
     }
 
     private void DestructionMode1AndSubscribe()
@@ -160,8 +166,7 @@ public class FrontWingDestructionHandler : DestructionHandler, IDispose
         }
         _destructionMode = DestructionMode.Mode3;
         StartFire();
-        Debug.Log("       engine broken");
-        //engine broken
+        OnEngineBroken?.Invoke();
     }
     private void SwitchSprites1()
     {

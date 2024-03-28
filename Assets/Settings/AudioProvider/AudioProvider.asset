@@ -23,8 +23,8 @@ MonoBehaviour:
   _boosterRunAudioClip: {fileID: 8300000, guid: 1427dd41c3bef234eb04e5d75dd4e422, type: 3}
   _carHotweelAudioClip: {fileID: 8300000, guid: 38c9a817aba061b4c9c9399dfcfb509a, type: 3}
   _carBurnAudioClip: {fileID: 8300000, guid: 3e2365863be992c49bc44a6460db742a, type: 3}
-  _carHit1AudioClip: {fileID: 8300000, guid: 47fdb6085759a6c48a319278c4c9bbbe, type: 3}
-  _carHit2AudioClip: {fileID: 8300000, guid: 14365712e6ae46e47b83bc22f405be77, type: 3}
+  _carCarHardHitAudioClip: {fileID: 8300000, guid: 47fdb6085759a6c48a319278c4c9bbbe, type: 3}
+  _carSoftHitAudioClip: {fileID: 8300000, guid: 14365712e6ae46e47b83bc22f405be77, type: 3}
   _glassBreakingAudioClip: {fileID: 8300000, guid: 2065d4de7937bbd4aa2b3158d4e64ff5, type: 3}
   _metalBendsAudioClip: {fileID: 8300000, guid: 49e1d38e352c76a438dc149d5555bdf1, type: 3}
   _shotGunAudioClip: {fileID: 8300000, guid: 2bca117339c30c945897748a35efab8d, type: 3}

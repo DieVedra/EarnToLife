@@ -4,10 +4,10 @@ using UnityEngine;
 public sealed class GunDestructionHandler : DestructionHandler, IDispose
 {
     private readonly CarGun _carGun;
-    private readonly Action<Vector2> _effect;
+    private readonly Action<Vector2, float> _effect;
     private readonly Transform[] _gunParts;
     private bool _isBroken = false;
-    public GunDestructionHandler(GunRef gunRefs, CarGun carGun, DestructionHandlerContent destructionHandlerContent, Action<Vector2> effect)
+    public GunDestructionHandler(GunRef gunRefs, CarGun carGun, DestructionHandlerContent destructionHandlerContent, Action<Vector2, float> effect)
     :base(gunRefs, destructionHandlerContent, maxStrength: gunRefs.StrengthGun)
     {
         _gunParts = gunRefs.GunParts;
@@ -22,16 +22,18 @@ public sealed class GunDestructionHandler : DestructionHandler, IDispose
     }
     protected override void TrySwitchMode()
     {
-        if (ValueNormalImpulse > MaxStrength)
+        if (ImpulseNormalValue > MaxStrength)
         {
-            _effect.Invoke(HitPosition);
+            PlayEffect();
             TryDestruct();
         }
         else
         {
             RecalculateStrength();
+            PlaySoftHitSound();
         }
     }
+
     public void TryDestruct()
     {
         if (_isBroken == false)
@@ -47,5 +49,10 @@ public sealed class GunDestructionHandler : DestructionHandler, IDispose
             SetParentDebris();
             SetCarDebrisLayer();
         }
+    }
+
+    private void PlayEffect()
+    {
+        _effect.Invoke(HitPosition, ImpulseNormalValue);
     }
 }

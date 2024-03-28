@@ -13903,9 +13903,33 @@ MonoBehaviour:
   _engineSmokeEffect: {fileID: 6775915201014375143}
   _engineBurnEffect: {fileID: 2930233060385082606}
   _effectsParent: {fileID: 8225461660231625086}
+  _soundsCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0.01
+      inSlope: 0.0099
+      outSlope: 0.0099
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 100
+      value: 1
+      inSlope: 0.0099
+      outSlope: 0.0099
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
   _bumpersDestructuonOn: 1
-  _glassesDestructuonOn: 1
-  _frontWingDestructuonOn: 1
+  _glassesDestructuonOn: 0
+  _frontWingDestructuonOn: 0
   _backWingDestructuonOn: 0
   _roofDestructuonOn: 0
   _bottomDestructionOn: 0

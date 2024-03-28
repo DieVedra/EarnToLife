@@ -96,6 +96,8 @@ public class CarInLevel : Car
         CustomizeCar.Construct(carConfiguration);
         _notificationsProvider = notificationsProvider;
         _carAudioHandler = carAudioHandler;
+        _carAudioHandler.BoosterAudioHandler.Init(_increaseBoosterSoundCurve, _decreaseBoosterSoundCurve);
+        
         _levelProgressCounter = levelProgressCounter;
         _coupAnalyzer = new CoupAnalyzer(transform);
         FuelTank = new FuelTank(carConfiguration.FuelQuantity, CarConfiguration.EngineOverclockingMultiplier);
@@ -109,7 +111,6 @@ public class CarInLevel : Car
         _brakes = new Brakes(_carAudioHandler.BrakeAudioHandler, Speedometer, _groundAnalyzer, _brakeVolumeCurve);
 
         _controlActive = true;
-        SubscribeActions();
         TryInitBooster();
         TryInitGun();
         TryInitHotWheel();
@@ -118,6 +119,7 @@ public class CarInLevel : Car
         InitControlCar(carControlMethod);
         InitCarMass();
         TryInitDestructionCar(debrisParent);
+        SubscribeActions();
         _bodyRigidbody2D.centerOfMass += _centerMassOffset;
         _carAudioHandler.EngineAudioHandler.PlayStartEngine();
     }
@@ -151,6 +153,14 @@ public class CarInLevel : Car
         _controlActive = false;
         _carAudioHandler.EngineAudioHandler.StopPlayEngine();
         _carAudioHandler.EngineAudioHandler.PlaySoundStopEngine();
+        _exhaust.StopEffect();
+    }
+
+    private void SoftStopCar()
+    {
+        _controlActive = false;
+        _carAudioHandler.EngineAudioHandler.StopPlayEngine();
+        _carAudioHandler.EngineAudioHandler.PlaySoundSoftStopEngine();
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
@@ -185,6 +195,17 @@ public class CarInLevel : Car
         FuelTank.OnTankEmpty += _notificationsProvider.FuelTankEmpty;
         FuelTank.OnTankEmpty += StopCar;
         _levelProgressCounter.OnGotPointDestination += StopCar;
+        if (_destructionCar.FrontWingDestructionHandler != null)
+        {
+            _destructionCar.FrontWingDestructionHandler.OnEngineBroken += StopCar;
+            _destructionCar.FrontWingDestructionHandler.OnEngineBroken += _notificationsProvider.EngineBroken;
+        }
+        if (_destructionCar.CabineDestructionHandler != null)
+        {
+            _destructionCar.CabineDestructionHandler.OnDriverCrushed += StopCar;
+            _destructionCar.CabineDestructionHandler.OnDriverCrushed += _notificationsProvider.DriverCrushed;
+        }
+        
     }
 
     private void InitControlCar(CarControlMethod carControlMethod)
@@ -208,7 +229,7 @@ public class CarInLevel : Car
             Booster = new Booster(_carAudioHandler.BoosterAudioHandler,
                 new BoosterFuelTank(CarConfiguration.BoosterCountFuelQuantity),
                 new BoosterScrew(_screw, _blade1, _blade2, _rotationSpeed),
-                _boosterParticleSystem, _increaseBoosterSoundCurve, _decreaseBoosterSoundCurve);
+                _boosterParticleSystem);
             Booster.BoosterFuelTank.OnTankEmpty += _notificationsProvider.BoosterEmpty;
             Booster.BoosterFuelTank.OnTankEmpty += Booster.StopBoosterOnOutFuel;
             Booster.OnBoosterDisable += BoosterDisable;
@@ -319,6 +340,16 @@ public class CarInLevel : Car
         FuelTank.OnTankEmpty -= StopCar;
         FuelTank.OnTankEmpty -= _exhaust.StopEffect;
         _levelProgressCounter.OnGotPointDestination -= StopCar;
+        if (_destructionCar.FrontWingDestructionHandler != null)
+        {
+            _destructionCar.FrontWingDestructionHandler.OnEngineBroken -= StopCar;
+            _destructionCar.FrontWingDestructionHandler.OnEngineBroken -= _notificationsProvider.EngineBroken;
+        }
+        if (_destructionCar.CabineDestructionHandler != null)
+        {
+            _destructionCar.CabineDestructionHandler.OnDriverCrushed -= StopCar;
+            _destructionCar.CabineDestructionHandler.OnDriverCrushed -= _notificationsProvider.DriverCrushed;
+        }
         _coupAnalyzer.Dispose();
         _groundAnalyzer.Dispose();
         _onCarBrokenIntoTwoPartsReactiveCommand.Dispose();

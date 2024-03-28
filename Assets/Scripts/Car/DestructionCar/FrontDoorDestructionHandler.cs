@@ -5,7 +5,7 @@ public class FrontDoorDestructionHandler : DestructionHandler
 {
     public readonly int StrengthDoor;
     private readonly DoorRef _doorRef;
-    private readonly Action<Vector2> _effect;
+    private readonly Action<Vector2, float> _effect;
     private readonly Transform _doorNormal;
     private readonly Transform _doorDamaged1;
     private readonly Transform _doorDamaged2;
@@ -13,7 +13,7 @@ public class FrontDoorDestructionHandler : DestructionHandler
     private Transform _activePart;
     private Transform _rearviewMirror;
     private bool _isBroken = false;
-    public FrontDoorDestructionHandler(DoorRef doorRef, DestructionHandlerContent destructionHandlerContent, Action<Vector2> effect,
+    public FrontDoorDestructionHandler(DoorRef doorRef, DestructionHandlerContent destructionHandlerContent, Action<Vector2, float> effect,
         bool isArmored = false)
         : base(doorRef, destructionHandlerContent)
     {
@@ -32,7 +32,7 @@ public class FrontDoorDestructionHandler : DestructionHandler
     {
         if (_isBroken == false)
         {
-            _effect.Invoke(_doorRef.PointEffect.position);
+            PlayEffect();
             _doorNormal.gameObject.SetActive(false);
             _doorDamaged1.gameObject.SetActive(true);
             _activePart = _doorDamaged1;
@@ -65,5 +65,10 @@ public class FrontDoorDestructionHandler : DestructionHandler
             _activePart.gameObject.AddComponent<Rigidbody2D>();
             SetParentDebris(_doorRef.transform);
         }
+    }
+
+    private void PlayEffect()
+    {
+        _effect.Invoke(_doorRef.PointEffect.position, ImpulseNormalValue);
     }
 }

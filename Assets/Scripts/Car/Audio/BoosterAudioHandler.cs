@@ -22,9 +22,14 @@ public class BoosterAudioHandler : AudioPlayer
     {
         _boosterRunAudioClip = boosterRunAudioClip;
     }
-    public void PlayRunBooster(AnimationCurve increaseBoosterSoundCurve)
+
+    public void Init(AnimationCurve increaseBoosterSoundCurve, AnimationCurve decreaseBoosterSoundCurve)
     {
         _increaseBoosterSoundCurve = increaseBoosterSoundCurve;
+        _decreaseBoosterSoundCurve = decreaseBoosterSoundCurve;
+    }
+    public void PlayRunBooster()
+    {
         _currentAudioValue = _startIncreaseValue;
         _compositeDisposable.Clear();
         TryPlayClip(_boosterRunAudioClip, true);
@@ -33,9 +38,8 @@ public class BoosterAudioHandler : AudioPlayer
             VolumeIncrease();
         }).AddTo(_compositeDisposable);
     }
-    public void StopPlayRunBooster(AnimationCurve decreaseBoosterSoundCurve)
+    public void StopPlayRunBooster()
     {
-        _decreaseBoosterSoundCurve = decreaseBoosterSoundCurve;
         _currentAudioValue = _startDecreaseValue;
         _compositeDisposable.Clear();
         Observable.EveryUpdate().Subscribe(_ =>

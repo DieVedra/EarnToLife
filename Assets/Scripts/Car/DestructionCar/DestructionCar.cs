@@ -15,6 +15,7 @@ public class DestructionCar : MonoBehaviour
     [SerializeField, BoxGroup("Effects")] private ParticleSystem _engineSmokeEffect;
     [SerializeField, BoxGroup("Effects")] private ParticleSystem _engineBurnEffect;
     [SerializeField, BoxGroup("Effects")] private Transform _effectsParent;
+    [SerializeField, BoxGroup("Effects")] private AnimationCurve _soundsCurve;    //time 0 - 200
 
     [SerializeField, BoxGroup("Settings")] private bool _bumpersDestructuonOn;
     [SerializeField, BoxGroup("Settings")] private bool _glassesDestructuonOn;
@@ -63,9 +64,7 @@ public class DestructionCar : MonoBehaviour
     private BumperDestructionHandler _backBumperDestructionHandler;
     private GunDestructionHandler _gunDestructionHandler;
     private BoosterDestructionHandler _boosterDestructionHandler;
-    private FrontWingDestructionHandler _frontWingDestructionHandler;
     private BackWingDestructionHandler _backWingDestructionHandler;
-    private CabineDestructionHandler _cabineDestructionHandler;
     private GlassDestructionHandler _frontGlassDestructionHandler;
     private GlassDestructionHandler _backGlassDestructionHandler;
     private ExhaustHandler _exhaustHandler;
@@ -74,13 +73,16 @@ public class DestructionCar : MonoBehaviour
 
     private FrontDoorDestructionHandler _frontDoorDestructionHandler;
     private BackDoorDestructionHandler _backDoorDestructionHandler;
-    
+
     private HotWheelDestructionHandler _hotWheelDestructionHandler;
     private ArmoredBackFrameDestructionHandler _armoredBackFrameHandler;
     private BottomDestructionHandler _bottomDestructionHandler;
     private BackCarHandler _backCarHandler;
     private DestructionHandlerContent _destructionHandlerContent;
     private List<IDispose> _disposes = new List<IDispose>();
+    public FrontWingDestructionHandler FrontWingDestructionHandler { get; private set; }
+    public CabineDestructionHandler CabineDestructionHandler { get; private set; }
+
     public event Action<WheelJoint2D, WheelCarValues> OnCarBrokenIntoTwoParts;
     public bool BottomDestructionOn => _bottomDestructionOn;
     public void Construct(DestructionAudioHandler destructionAudioHandler, Exhaust exhaust, CarGun carGun, HotWheel hotWheel, CarMass carMass, Booster booster, Speedometer speedometer, CoupAnalyzer coupAnalyzer,
@@ -88,6 +90,7 @@ public class DestructionCar : MonoBehaviour
         Transform debrisParent)
     {
         _destructionAudioHandler = destructionAudioHandler;
+        _destructionAudioHandler.Init(_soundsCurve);
         InitDestructionEffectsHandler();
         _coupAnalyzer = coupAnalyzer;
         _destructionHandlerContent = new DestructionHandlerContent(speedometer, debrisParent, _canCollisionsLayerMasks, _carDebrisLayer);
@@ -114,8 +117,8 @@ public class DestructionCar : MonoBehaviour
     }
     private void InitCabineHandler()
     {
-        _cabineDestructionHandler = new CabineDestructionHandler(_cabineRef, _destructionHandlerContent);
-        AddToDispose(_cabineDestructionHandler);
+        CabineDestructionHandler = new CabineDestructionHandler(_cabineRef, _destructionHandlerContent);
+        AddToDispose(CabineDestructionHandler);
     }
 
     private void InitBumpersHandler()
@@ -125,25 +128,25 @@ public class DestructionCar : MonoBehaviour
             if (CheckPart(_standartBumperRefFront))
             {
                 _frontBumperDestructionHandler = new BumperDestructionHandler(_standartBumperRefFront, _destructionHandlerContent,
-                    _destructionEffectsHandler.HitBrokenEffect, _destructionAudioHandler.PlayHit2);
+                    _destructionEffectsHandler.HitBrokenEffect, _destructionAudioHandler.PlaySoftHit);
             }
 
             if (CheckPart(_standartBumperRefBack))
             {
                 _backBumperDestructionHandler = new BumperDestructionHandler(_standartBumperRefBack, _destructionHandlerContent,
-                    _destructionEffectsHandler.HitBrokenEffect, _destructionAudioHandler.PlayHit2);
+                    _destructionEffectsHandler.HitBrokenEffect, _destructionAudioHandler.PlaySoftHit);
             }
 
             if (CheckPart(_armoredBumperRefFront))
             {
                 _frontBumperDestructionHandler = new BumperDestructionHandler(_armoredBumperRefFront, _destructionHandlerContent,
-                    _destructionEffectsHandler.HitBrokenEffect, _destructionAudioHandler.PlayHit2);
+                    _destructionEffectsHandler.HitBrokenEffect, _destructionAudioHandler.PlaySoftHit);
             }
 
             if (CheckPart(_armoredBumperRefBack))
             {
                 _backBumperDestructionHandler = new BumperDestructionHandler(_armoredBumperRefBack, _destructionHandlerContent,
-                    _destructionEffectsHandler.HitBrokenEffect, _destructionAudioHandler.PlayHit2);
+                    _destructionEffectsHandler.HitBrokenEffect, _destructionAudioHandler.PlaySoftHit);
             }
             AddToDispose(_frontBumperDestructionHandler);
             AddToDispose(_backBumperDestructionHandler);
@@ -180,7 +183,7 @@ public class DestructionCar : MonoBehaviour
     {
         if (CheckPart(boosterRef))
         {
-            _boosterDestructionHandler = new BoosterDestructionHandler(boosterRef, booster, _destructionHandlerContent, _destructionEffectsHandler.HitBrokenEffect, _destructionAudioHandler.PlayHit2);
+            _boosterDestructionHandler = new BoosterDestructionHandler(boosterRef, booster, _destructionHandlerContent, _destructionEffectsHandler.HitBrokenEffect, _destructionAudioHandler.PlaySoftHit);
             AddToDispose(_boosterDestructionHandler);
         }
     }
@@ -196,17 +199,17 @@ public class DestructionCar : MonoBehaviour
     {
         if (_frontWingDestructuonOn == true)
         {
-            _frontWingDestructionHandler = new FrontWingDestructionHandler(_frontWingRef, _armoredFrontFrameRef,_frontGlassDestructionHandler,
+            FrontWingDestructionHandler = new FrontWingDestructionHandler(_frontWingRef, _armoredFrontFrameRef,_frontGlassDestructionHandler,
                 _hotWheelDestructionHandler, _frontBumperDestructionHandler, _destructionHandlerContent, 
                 _destructionEffectsHandler.HitBrokenEffect, _destructionEffectsHandler.TryPlayEngineSmokeEffect,
-                _destructionEffectsHandler.TryPlayEngineBurnEffect, _destructionAudioHandler.PlayHit2,
+                _destructionEffectsHandler.TryPlayEngineBurnEffect, _destructionAudioHandler.PlaySoftHit,
                 CalculateStrengthFrontWing(), CheckPart(_armoredFrontFrameRef));
-            AddToDispose(_frontWingDestructionHandler);
+            AddToDispose(FrontWingDestructionHandler);
         }
         if (_backWingDestructuonOn == true)
         {
             _backWingDestructionHandler = new BackWingDestructionHandler(_backWingRef, _backGlassDestructionHandler, _armoredBackFrameHandler,
-                _backBumperDestructionHandler, _exhaustHandler, _destructionEffectsHandler.HitBrokenEffect, _destructionAudioHandler.PlayHit2, _destructionHandlerContent, 
+                _backBumperDestructionHandler, _exhaustHandler, _destructionEffectsHandler.HitBrokenEffect, _destructionAudioHandler.PlaySoftHit, _destructionHandlerContent, 
                 CalculateStrengthBackWing(), CheckPart(_armoredBackFrameRef), CheckPart(boosterRef));
             AddToDispose(_backWingDestructionHandler);
         }
@@ -239,7 +242,7 @@ public class DestructionCar : MonoBehaviour
                 carMass, coupAnalyzer, _armoredBackFrameHandler, 
                 _frontDoorDestructionHandler, _backDoorDestructionHandler,
                 _frontGlassDestructionHandler, _backGlassDestructionHandler,
-                _gunDestructionHandler, _cabineDestructionHandler, _destructionHandlerContent, _destructionAudioHandler.PlayRoofBends, _destructionAudioHandler.PlayHit2, CalculateStrengthRoof(), _fallingContentLayer,
+                _gunDestructionHandler, CabineDestructionHandler, _destructionHandlerContent, _destructionAudioHandler.PlayRoofBends, _destructionAudioHandler.PlaySoftHit, CalculateStrengthRoof(), _fallingContentLayer,
                 CheckPart(_armoredRoofFrameRef), CheckPart(_safetyFrameworkRef));
             AddToDispose(_roofDestructionHandler);
         }
@@ -255,7 +258,7 @@ public class DestructionCar : MonoBehaviour
     {
         if (CheckPart(_armoredBackFrameRef))
         {
-            _armoredBackFrameHandler = new ArmoredBackFrameDestructionHandler(_armoredBackFrameRef, _destructionHandlerContent, _destructionAudioHandler.PlayHit2);
+            _armoredBackFrameHandler = new ArmoredBackFrameDestructionHandler(_armoredBackFrameRef, _destructionHandlerContent, _destructionAudioHandler.PlaySoftHit);
         }
     }
 
@@ -275,7 +278,7 @@ public class DestructionCar : MonoBehaviour
             _bottomDestructionHandler = new BottomDestructionHandler(_bottomRef,
                 _backCarHandler, _roofDestructionHandler,
                 _frontDoorDestructionHandler, _backDoorDestructionHandler, _exhaustHandler,
-                _destructionHandlerContent, _destructionAudioHandler.PlayHit1, _destructionAudioHandler.PlayHit2,
+                _destructionHandlerContent, _destructionAudioHandler.PlayHardHit, _destructionAudioHandler.PlaySoftHit,
                 CalculateStrengthBottom(), CheckPart(_bottomRef.ArmoredBottom));
             AddToDispose(_bottomDestructionHandler);
             _backCarHandler.OnCarBrokenIntoTwoParts += CarBrokenIntoTwoParts;

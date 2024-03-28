@@ -6,11 +6,11 @@ public class BoosterDestructionHandler : DestructionHandler, IDispose
 {
     private readonly float _switchLayerDelay = 1f;
     private readonly Booster _booster;
-    private readonly Action<Vector2> _effect;
+    private readonly Action<Vector2, float> _effect;
     private readonly BoosterRef _boosterRef;
     public BoosterDestructionHandler(BoosterRef boosterRef, Booster booster, DestructionHandlerContent destructionHandlerContent,
-        Action<Vector2> effect, Action sound) 
-        : base(boosterRef, destructionHandlerContent, sound, boosterRef.StrengthBooster)
+        Action<Vector2, float> effect, Action<float> soundSoftHit) 
+        : base(boosterRef, destructionHandlerContent, soundSoftHit, boosterRef.StrengthBooster)
     {
         _booster = booster;
         _effect = effect;
@@ -25,15 +25,21 @@ public class BoosterDestructionHandler : DestructionHandler, IDispose
 
     protected override void TrySwitchMode()
     {
-        if (ValueNormalImpulse > MaxStrength)
+        if (ImpulseNormalValue > MaxStrength)
         {
-            _effect.Invoke(HitPosition);
+            PlayEffect();
             Destruction();
         }
         else
         {
+            PlaySoftHitSound();
             RecalculateStrength();
         }
+    }
+
+    private void PlayEffect()
+    {
+        _effect.Invoke(HitPosition, ImpulseNormalValue);
     }
 
     private void SubscribeColliders()

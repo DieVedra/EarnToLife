@@ -3,32 +3,38 @@ using UnityEngine;
 
 public class DestructionAudioHandler : AudioPlayer
 {
+    private readonly float _defaultVolume = 1f;
     private readonly AudioClip _carBurnAudioClip;
-    private readonly AudioClip _carHit1AudioClip;
-    private readonly AudioClip _carHit2AudioClip;
+    private readonly AudioClip _carHardHitAudioClip;
+    private readonly AudioClip _carSoftHitAudioClip;
     private readonly AudioClip _glassBreakingAudioClip;
     private readonly AudioClip _metalBendsAudioClip;
-    
+    private AnimationCurve _destructionAudioCurve;
+
     public DestructionAudioHandler(AudioSource audioSource, ReactiveProperty<bool> soundReactiveProperty,
-        AudioClip carBurnAudioClip, AudioClip carHit1AudioClip, AudioClip carHit2AudioClip,AudioClip glassBreakingAudioClip, AudioClip metalBendsAudioClip)
+        AudioClip carBurnAudioClip, AudioClip carHardHitAudioClip, AudioClip carSoftHitAudioClip,AudioClip glassBreakingAudioClip, AudioClip metalBendsAudioClip)
         : base(audioSource, soundReactiveProperty)
     {
         _carBurnAudioClip = carBurnAudioClip;
-        _carHit1AudioClip = carHit1AudioClip;
-        _carHit2AudioClip = carHit2AudioClip;
+        _carHardHitAudioClip = carHardHitAudioClip;
+        _carSoftHitAudioClip = carSoftHitAudioClip;
         _glassBreakingAudioClip = glassBreakingAudioClip;
-        _metalBendsAudioClip = metalBendsAudioClip;
+        _metalBendsAudioClip = metalBendsAudioClip; 
     }
 
-    public void PlayHit1()
+    public void Init(AnimationCurve destructionAudioCurve)
     {
-        TryPlayOneShotClip(_carHit1AudioClip);
-        // Debug.Log($"                PlayHit1");
+        _destructionAudioCurve = destructionAudioCurve;
     }
-    public void PlayHit2()
+    public void PlayHardHit(float force)
     {
-        TryPlayOneShotClip(_carHit2AudioClip);
-        // Debug.Log($"                PlayHit2");
+        SetVolume(_destructionAudioCurve.Evaluate(force));
+        TryPlayOneShotClip(_carHardHitAudioClip);
+    }
+    public void PlaySoftHit(float force)
+    {
+        SetVolume(_destructionAudioCurve.Evaluate(force));
+        TryPlayOneShotClip(_carSoftHitAudioClip);
     }
     public void PlayGlassBreak()
     {
@@ -37,11 +43,13 @@ public class DestructionAudioHandler : AudioPlayer
     }
     public void PlayEngineBurn()
     {
-        TryPlayClip(_carBurnAudioClip);
+        SetVolume(_defaultVolume);
+        TryPlayClip(_carBurnAudioClip, true);
     }
 
-    public void PlayRoofBends()
+    public void PlayRoofBends(float force)
     {
+        SetVolume(_destructionAudioCurve.Evaluate(force));
         TryPlayClip(_metalBendsAudioClip);
     }
     public void StopPlayEngineBurn()

@@ -25,10 +25,10 @@ public class CarAudioHandler : IDisposable
         GunAudioHandler = new GunAudioHandler(_globalAudioToCar.CarAudioSourceForOther,
             _globalAudioToCar.SoundReactiveProperty,
             _globalAudioToCar.CarClips.ShotGunAudioClip);
-        DestructionAudioHandler = new DestructionAudioHandler(_globalAudioToCar.CarAudioSourceForOther, _globalAudioToCar.SoundReactiveProperty,
+        DestructionAudioHandler = new DestructionAudioHandler(_globalAudioToCar.CarAudioSourceForDestruction, _globalAudioToCar.SoundReactiveProperty,
             _globalAudioToCar.CarClips.CarBurnAudioClip,
-            _globalAudioToCar.CarClips.CarHit1AudioClip,
-            _globalAudioToCar.CarClips.CarHit2AudioClip,
+            _globalAudioToCar.CarClips.CarHardHitAudioClip,
+            _globalAudioToCar.CarClips.CarSoftHitAudioClip,
             _globalAudioToCar.CarClips.GlassBreakingAudioClip,
             _globalAudioToCar.CarClips.MetalBendsAudioClip);
         _globalAudioToCar.OnSoundChange += EngineAudioHandler.PlayRun;
