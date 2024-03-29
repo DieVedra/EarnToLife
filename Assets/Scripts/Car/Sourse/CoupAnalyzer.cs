@@ -6,70 +6,73 @@ using UnityEngine;
 
 public class CoupAnalyzer
 {
-    private readonly float _minAngle = 140f;
-    private readonly float _maxAngle = 220f;
-    private readonly float _timeDelay = 10f;
+    private readonly float _maxDotProduct = 0.7f;
+    private readonly float _timeDelay = 4f;
     private readonly Transform _carTransform;
     public bool CarIsCoupCurrentValue => IsCoup.Value;
     public ReactiveProperty<bool> IsCoup = new ReactiveProperty<bool>();
     private CompositeDisposable _compositeDisposable = new CompositeDisposable();
-    private CancellationTokenSource _cancellationTokenSource = new CancellationTokenSource();
+    private float _time;
     private bool _timerActive = false;
     private float _angleZ => _carTransform.eulerAngles.z;
+    public event Action OnCarCouped;
     public CoupAnalyzer(Transform carTransform)
     {
         _carTransform = carTransform;
-        // IsCoup.Subscribe(_ =>
-        // {
-        //     TryStartTimer();
-        //     TryStopTimer();
-        // }).AddTo(_compositeDisposable);
+        IsCoup.Subscribe(_ =>
+        {
+            TryStartTimer();
+            TryStopTimer();
+        }).AddTo(_compositeDisposable);
     }
 
     public void Dispose()
     {
         _compositeDisposable.Clear();
         _timerActive = false;
-        _cancellationTokenSource.Cancel();
     }
     public void Update()
     {
-        if (_angleZ >= _minAngle && _angleZ <= _maxAngle)
+        if (Vector3.Dot(_carTransform.up, Vector3.down) > _maxDotProduct)
         {
-            // if (_isCoup.Value == false)
-            // {
-            //     _isCoup.Value = true;
-            // }
             IsCoup.Value = true;
         }
         else
         {
-            // if (_isCoup.Value == true)
-            // {
-            //     _isCoup.Value = false;
-            // }
             IsCoup.Value = false;
+        }
+
+        if (_timerActive == true)
+        {
+            _time -= Time.deltaTime;
+            Debug.Log($"time:   {_time}");
+            if (_time <= 0f)
+            {
+                OnCarCouped?.Invoke();
+                StopTimer();
+            }
         }
     }
 
-    private async UniTaskVoid TryStartTimer()
+    private void TryStartTimer()
     {
         if (IsCoup.Value == true && _timerActive == false)
         {
             _timerActive = true;
-            await UniTask.Delay(TimeSpan.FromSeconds(_timeDelay), cancellationToken: _cancellationTokenSource.Token);
-            if (_timerActive == true)
-            {
-                //invoke game over
-            }
+            _time = _timeDelay;
         }
     }
     private void TryStopTimer()
     {
         if (IsCoup.Value == false)
         {
-            _timerActive = false;
-            _cancellationTokenSource.Cancel();
+            StopTimer();
         }
+    }
+
+    private void StopTimer()
+    {
+        _timerActive = false;
+        _time = _timeDelay;
     }
 }

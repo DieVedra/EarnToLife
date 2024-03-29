@@ -7,17 +7,15 @@ using Cysharp.Threading.Tasks;
 
 public class ResultsLevelProvider
 {
-    //private const string TANK_EMPTY_REASON = "Out of fuel";
-    //private const string GOT_POINT_DESTINATION_REASON = "Have arrived!";
-    private const float MILISECONDS_MULTIPLIER = 1000f;
-    //private GameData _gameData;
-    private Wallet _wallet;
-    private PlayerDataHandler _playerDataHandler;
+    private readonly float _timePauseOnEndLevel;
+    private readonly float _timeDelayOnEndLevelOnDriverCrushed = 3f;
+    private readonly float _timeDelayOnEndLevelOnEngineBurn = 3f;
+    private readonly Wallet _wallet;
+    private readonly PlayerDataHandler _playerDataHandler;
+    private readonly float _priceTagForTheWayMeter;
+    private readonly float _priceTagForTheMurder;
     private ResultsLevel _resultsLevel;
-    private float _priceTagForTheMurder;
-    private float _priceTagForTheWayMeter;
     private int _totalCash = 0;
-    private int _timePauseOnEndLevel;
     private bool _gameEnd = false;
     public LevelProgressCounter LevelProgressCounter { get; private set; }
     public KillsCount KillsCount { get; private set; }
@@ -35,34 +33,64 @@ public class ResultsLevelProvider
         _playerDataHandler = playerDataHandler;
         NotificationsProvider = notificationsProvider;
         LevelProgressCounter = levelProgressCounter;
-        _timePauseOnEndLevel = (int)(timePauseOnEndLevel * MILISECONDS_MULTIPLIER);
+        _timePauseOnEndLevel = timePauseOnEndLevel;
         NotificationsProvider.OnFueltankEmpty += GameOverBecauseTankEmpty;
         NotificationsProvider.OnGotPointDestination += GameOverBecauseGotPointDestination;
+        NotificationsProvider.OnEngineBroken += GameOverBecauseEngineBroken;
+        NotificationsProvider.OnDriverCrushed += GameOverBecauseDriverCrushed;
     }
 
-    private async void GameOverBecauseTankEmpty(string reason)
+    public void Dispose()
+    {
+        NotificationsProvider.OnFueltankEmpty -= GameOverBecauseTankEmpty;
+        NotificationsProvider.OnGotPointDestination -= GameOverBecauseGotPointDestination;
+        NotificationsProvider.OnEngineBroken -= GameOverBecauseEngineBroken;
+        NotificationsProvider.OnDriverCrushed -= GameOverBecauseDriverCrushed;
+    }
+    private void GameOverBecauseTankEmpty(string reason)
+    {
+        GameOver(false, true, reason, _timePauseOnEndLevel);
+    }
+
+    private void GameOverBecauseGotPointDestination(string reason)
+    {
+        GameOver(true, false, reason, _timePauseOnEndLevel);
+    }
+
+    private void GameOverBecauseEngineBroken(string reason)
+    {
+        GameOver(false, true, reason, _timeDelayOnEndLevelOnEngineBurn);
+    }
+    private void GameOverBecauseDriverCrushed(string reason)
+    {
+        GameOver(false, true, reason, _timeDelayOnEndLevelOnDriverCrushed);
+    }
+
+    private async void GameOver(bool openNextLevel, bool availabilityResultLevel, string reason, float delay)
     {
         if (CheckGameStatus())
         {
             CalculateResults();
-            await UniTask.Delay(_timePauseOnEndLevel);
+            await UniTask.Delay(TimeSpan.FromSeconds(delay));
             CreateAndSend(reason);
-            _playerDataHandler.SetResultsLevel(_resultsLevel);
             _playerDataHandler.AddDay();
-            _playerDataHandler.LevelWasNotPassed();
-        }
-    }
+            if (openNextLevel == true)
+            {
+                _playerDataHandler.OpenNextLevel();
+            }
+            else
+            {
+                _playerDataHandler.LevelWasNotPassed();
+            }
 
-    private async void GameOverBecauseGotPointDestination(string reason)
-    {
-        if (CheckGameStatus())
-        {
-            CalculateResults();
-            await UniTask.Delay(_timePauseOnEndLevel);
-            CreateAndSend(reason);
-            _playerDataHandler.SetResultsLevel(null);
-            _playerDataHandler.AddDay();
-            _playerDataHandler.OpenNextLevel();
+            if (availabilityResultLevel == true)
+            {
+                _playerDataHandler.SetResultsLevel(_resultsLevel);
+            }
+            else
+            {
+                _playerDataHandler.SetResultsLevel();
+            }
         }
     }
     private void CalculateResults()

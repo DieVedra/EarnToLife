@@ -23,6 +23,9 @@ public class AudioClipProvider : ScriptableObject
     [SerializeField, BoxGroup("SoundsCar")] private AudioClip _metalBendsAudioClip;
     [SerializeField, BoxGroup("SoundsCar")] private AudioClip _shotGunAudioClip;
     
+    [SerializeField, BoxGroup("SoundsCar")] private AudioClip _engineClapAudioClip;
+    [SerializeField, BoxGroup("SoundsCar")] private AudioClip _driverNeckBrokeAudioClip;
+    
     public AudioClip ClipBackground => _clipBackground;
     public UIClips UiClips { get; private set; }
     public CarClips ClipsCar { get; private set;}
@@ -31,6 +34,7 @@ public class AudioClipProvider : ScriptableObject
         UiClips = new UIClips(_clipClick, _clipPaySuccess, _clipFailPayAudio);
         ClipsCar = new CarClips(_engineRunAudioClip, _brakeAudioClip, _engineStartAudioClip,
             _engineStopAudioClip, _boosterRunAudioClip, _shotGunAudioClip, _carHotweelAudioClip, _carBurnAudioClip,
-            _carCarHardHitAudioClip, _carSoftHitAudioClip, _glassBreakingAudioClip, _metalBendsAudioClip);
+            _carCarHardHitAudioClip, _carSoftHitAudioClip, _glassBreakingAudioClip, _metalBendsAudioClip,
+            _engineClapAudioClip, _driverNeckBrokeAudioClip);
     }
 }

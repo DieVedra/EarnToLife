@@ -5,9 +5,9 @@ using UnityEngine;
 public class DestructionEffectsHandler :IDispose
 {
     private readonly int _preloadCount = 4;
-    private readonly ParticleSystem.MinMaxCurve _smokeEffectMainModuleType2StartSize = new ParticleSystem.MinMaxCurve(5f,3f);
+    private readonly ParticleSystem.MinMaxCurve _smokeEffectMainModuleType2StartSize = new ParticleSystem.MinMaxCurve(2f,3f);
     private readonly Color _smokeEffectMainModuleType2StartColor = new Color(1f,1f,1f,0.9f);
-    private readonly ParticleSystem.MinMaxCurve _smokeEffectMainModuleType2StartLifetime  = new ParticleSystem.MinMaxCurve(3f,5f);
+    private readonly ParticleSystem.MinMaxCurve _smokeEffectMainModuleType2StartLifetime  = new ParticleSystem.MinMaxCurve(2f,3f);
     
     
     private readonly float _smokeEffectMainModuleType1StartSize = 1f;

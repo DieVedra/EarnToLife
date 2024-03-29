@@ -11,7 +11,6 @@ public class BackDoorDestructionHandler : DestructionHandler
     private readonly Transform _doorDamaged2;
     private readonly Transform[] _parts;
     private bool _isBroken = false;
-    private DestructionMode _destructionMode = DestructionMode.ModeDefault;
 
     public BackDoorDestructionHandler(DoorRef doorRef, DestructionHandlerContent destructionHandlerContent, Action<Vector2, float> effect) 
         : base(doorRef, destructionHandlerContent, maxStrength: doorRef.StrengthDoors)
@@ -31,20 +30,20 @@ public class BackDoorDestructionHandler : DestructionHandler
             PlayEffect();
             _doorNormal.gameObject.SetActive(false);
             _doorDamaged1.gameObject.SetActive(true);
-            _destructionMode = DestructionMode.Mode1;
+            DestructionMode = DestructionMode.Mode1;
         }
     }
     public void TryDestructionMode2()
     {
         if (_isBroken == false)
         {
-            if (_destructionMode == DestructionMode.ModeDefault)
+            if (DestructionMode == DestructionMode.ModeDefault)
             {
                 DestructionMode1();
             }
             _doorDamaged1.gameObject.SetActive(false);
             _doorDamaged2.gameObject.SetActive(true);
-            _destructionMode = DestructionMode.Mode2;
+            DestructionMode = DestructionMode.Mode2;
         }
     }
     public void TryThrowDoor()

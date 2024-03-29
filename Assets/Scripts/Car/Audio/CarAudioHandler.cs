@@ -30,7 +30,10 @@ public class CarAudioHandler : IDisposable
             _globalAudioToCar.CarClips.CarHardHitAudioClip,
             _globalAudioToCar.CarClips.CarSoftHitAudioClip,
             _globalAudioToCar.CarClips.GlassBreakingAudioClip,
-            _globalAudioToCar.CarClips.MetalBendsAudioClip);
+            _globalAudioToCar.CarClips.MetalBendsAudioClip,
+            _globalAudioToCar.CarClips.EngineClapAudioClip,
+            _globalAudioToCar.CarClips.DriverNeckBrokeAudioClip
+        );
         _globalAudioToCar.OnSoundChange += EngineAudioHandler.PlayRun;
     }
     public void Dispose()

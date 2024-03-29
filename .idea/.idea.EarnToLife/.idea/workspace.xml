@@ -52,21 +52,11 @@
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.cysharp.unitask@66de0d3a58/Runtime/UniTaskCompletionSource.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/44EB8A48-9200-44DB-A0E4-4D8431223846/7e/0a11ae0d/ForceMode2D.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/testcoup.cs" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/WheelGroundInteractionHandler.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/StopStateWheelGroundInteraction.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/WheelGroundInteractions/GasStateWheelGroundInteraction().cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/CarFSM/CarFSM.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/CarWheel.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/CoupAnalyzer.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/CarFSM/States/GasState.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/CarFSM/States/StopState.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/WheelGroundInteractions/GasStateWheelGroundInteraction.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/WheelGroundInteractions/WheelGroundInteraction.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/GroundAnalyzer.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/WheelGroundInteractions/StopStateWheelGroundInteraction.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/Exhaust.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Car/DestructionCar/ExhaustHandler.cs" />
@@ -83,30 +73,41 @@
         <option value="$PROJECT_DIR$/Assets/Scripts/PoolBase.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Audio/GlobalAudio.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Interfaces/ICarAudio.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Car/Audio/CarAudioHandler.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Car/Audio/BoosterAudioHandler.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/Booster.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Car/DestructionCar/ArmoredBackFrameDestructionHandler.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Car/DestructionCar/GlassDestructionHandler.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Car/DestructionCar/DestructionEffectsHandler.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Car/Audio/EngineAudioHandler.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Game/Level/NotificationsProvider.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Car/DestructionCar/CabineDestructionHandler.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Car/DestructionCar/DestructionCar.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Car/CarInLevel.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/ScriptableObjectScripts/Providers/AudioClipProvider.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Car/Audio/CarClips.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Car/DestructionCar/BottomDestructionHandler.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Car/DestructionCar/DestructionHandler.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Car/DestructionCar/BumperDestructionHandler.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Car/DestructionCar/BackDoorDestructionHandler.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Car/DestructionCar/BackWingDestructionHandler.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Car/DestructionCar/BoosterDestructionHandler.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Car/DestructionCar/FrontDoorDestructionHandler.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Car/DestructionCar/FrontWingDestructionHandler.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Car/DestructionCar/GunDestructionHandler.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Car/DestructionCar/RoofDestructionHandler.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Car/DestructionCar/BackDoorDestructionHandler.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Car/DestructionCar/BottomDestructionHandler.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Car/DestructionCar/DestructionEffectsHandler.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Game/Game.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Game/Player/PlayerDataHandler.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Car/DestructionCar/BackWingDestructionHandler.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Car/DestructionCar/FrontWingDestructionHandler.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Car/DestructionCar/BoosterDestructionHandler.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/PropulsionUnit/PropulsionUnit.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Interfaces/IMovementForward.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/PropulsionUnit/Transmission.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/Speedometer.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Car/DestructionCar/CabineDestructionHandler.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Game/Level/ResultsLevelProvider.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Car/Audio/CarClips.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/ScriptableObjectScripts/Providers/AudioClipProvider.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Car/Audio/CarAudioHandler.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Car/DestructionCar/DestructionHandler.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Car/Audio/DestructionAudioHandler.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Car/DestructionCar/BumperDestructionHandler.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Car/DestructionCar/DestructionCar.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Car/DestructionCar/RoofDestructionHandler.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/UI/UILevelScene/Model/NotificationsHandler.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/UI/UILevelScene/Model/ResultsLevelHandler.cs" />
+        <option value="$PROJECT_DIR$/Assets/testcoup.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Car/CarInLevel.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/CoupAnalyzer.cs" />
       </list>
     </option>
   </component>
@@ -167,6 +168,7 @@
       <workItem from="1711480735690" duration="3363000" />
       <workItem from="1711527488150" duration="14065000" />
       <workItem from="1711616832375" duration="11479000" />
+      <workItem from="1711693469735" duration="23062000" />
     </task>
     <task id="LOCAL-00001" summary="Roof Destruction changed&#10;Back Wing Destruction changed">
       <created>1710195340693</created>

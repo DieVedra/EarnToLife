@@ -9,6 +9,7 @@ using UniRx;
 
 public class NotificationsHandler
 {
+    private readonly float _duration = 2f;
     private Queue<string> _operations;
     private TextMeshProUGUI _notificationsText;
     private NotificationsProvider _notificationsProvider;
@@ -42,7 +43,7 @@ public class NotificationsHandler
 
         _notificationsText.alpha = 1f;
         _notificationsText.text = _operations.Dequeue();
-        await _notificationsText.DOFade(0f, 1f).ToUniTask();
+        await _notificationsText.DOFade(0f, _duration).ToUniTask();
         if (_operations.Count > 0)
         {
             ShowNotifications();

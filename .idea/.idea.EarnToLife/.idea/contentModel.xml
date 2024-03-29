@@ -577,6 +577,7 @@
             <e p="IDispose.cs" t="Include" />
             <e p="IExplodable.cs" t="Include" />
             <e p="IKnockable.cs" t="Include" />
+            <e p="IMovementForward.cs" t="Include" />
             <e p="IPlayerData.cs" t="Include" />
             <e p="IShotable.cs" t="Include" />
             <e p="ISoundPause.cs" t="Include" />
@@ -707,6 +708,7 @@
             <e p="SimpleFolderIcon.asmdef" t="Include" />
           </e>
         </e>
+        <e p="testcoup.cs" t="Include" />
       </e>
       <e p="EarnToLife.sln" t="IncludeFlat" />
       <e p="obj" t="ExcludeRecursive" />

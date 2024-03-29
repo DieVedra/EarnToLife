@@ -7,12 +7,16 @@ using UnityEngine;
 public class Speedometer
 {
     private readonly float _speedMultiplier = 2.5f;
+    private readonly IMovementForward _movementForward;
     private Rigidbody2D _rigidbody;
     public ReactiveProperty<float> CurrentSpeedReactiveProperty = new ReactiveProperty<float>();
     public int CurrentSpeedInt { get; private set; } = 0;
     public float CurrentSpeedFloat => CurrentSpeedReactiveProperty.Value;
-    public Speedometer(Rigidbody2D rigidbody2D)
+    public bool IsMovementForward => _movementForward.IsMovementForward;
+
+    public Speedometer(IMovementForward transmission, Rigidbody2D rigidbody2D)
     {
+        _movementForward = transmission;
         _rigidbody = rigidbody2D;
     }
     public void Update()

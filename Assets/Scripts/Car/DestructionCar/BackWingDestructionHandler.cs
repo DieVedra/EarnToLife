@@ -26,7 +26,6 @@ public class BackWingDestructionHandler : DestructionHandler, IDispose
     private IReadOnlyList<Transform> _trunkCovers;
     private bool _boosterActive;
     private bool _isArmored = false;
-    private DestructionMode _destructionMode = DestructionMode.ModeDefault;
     public BackWingDestructionHandler(BackWingRef backWingRef, GlassDestructionHandler glassDestructionHandler,
         ArmoredBackFrameDestructionHandler armoredBackFrameHandler, BumperDestructionHandler backBumperDestructionHandler, 
         ExhaustHandler exhaustHandler, Action<Vector2, float> effect, Action<float> soundSoftHit,
@@ -68,17 +67,20 @@ public class BackWingDestructionHandler : DestructionHandler, IDispose
     {
         if (ImpulseNormalValue > MaxStrength)
         {
+            Debug.Log($"BackWing                                    DestructionMode3    ImpulseNormalValue: {ImpulseNormalValue}  MaxStrength: {MaxStrength}");
             PlayEffect();
             DestructionMode3();
         }
         else if (ImpulseNormalValue > HalfStrength)
         {
+            Debug.Log($"BackWing              DestructionMode2    ImpulseNormalValue: {ImpulseNormalValue}  HalfStrength: {HalfStrength}");
             PlayEffect();
             RecalculateStrength();
             DestructionMode2AndSubscribe();
         }
         else if (ImpulseNormalValue > MinStrength)
         {
+            Debug.Log($"BackWing                  DestructionMode1    ImpulseNormalValue: {ImpulseNormalValue}  MinStrength: {MinStrength}");
             PlayEffect();
             RecalculateStrength();
             DestructionMode1AndSubscribe();
@@ -114,7 +116,7 @@ public class BackWingDestructionHandler : DestructionHandler, IDispose
         {
             _armoredBackFrameHandler.TryTakeDamageFromBack();
         }
-        _destructionMode = DestructionMode.Mode1;
+        DestructionMode = DestructionMode.Mode1;
     }
 
     private void DestructionMode2AndSubscribe()
@@ -129,7 +131,7 @@ public class BackWingDestructionHandler : DestructionHandler, IDispose
     private void DestructionMode2()
     {
         CompositeDisposable.Clear();
-        if (_destructionMode == DestructionMode.ModeDefault)
+        if (DestructionMode == DestructionMode.ModeDefault)
         {
             DestructionMode1();
         }
@@ -149,12 +151,12 @@ public class BackWingDestructionHandler : DestructionHandler, IDispose
                 SetParentDebris(_armoredBackFrameRef.transform);
             }
         }
-        _destructionMode = DestructionMode.Mode2;
+        DestructionMode = DestructionMode.Mode2;
     }
     private void DestructionMode3()
     {
         CompositeDisposable.Clear();
-        if (_destructionMode != DestructionMode.Mode2)
+        if (DestructionMode != DestructionMode.Mode2)
         {
             DestructionMode2();
         }

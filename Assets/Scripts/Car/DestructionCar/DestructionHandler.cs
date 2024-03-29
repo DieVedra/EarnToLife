@@ -5,18 +5,19 @@ using UnityEngine;
 
 public abstract class DestructionHandler
 {
-    protected readonly int CarDebrisLayer;
-    // protected readonly float StrengthForDestruct = 0;
-    protected readonly float HalfStrengthMultiplier = 0.7f;
-    protected readonly float MinStrengthMultiplier = 0.2f;
-    protected readonly Transform DebrisParent;
-    protected readonly Speedometer Speedometer;
-    protected readonly LayerMask CanCollisionsLayerMasks;
     protected readonly CompositeDisposable CompositeDisposable = new CompositeDisposable();
+    private readonly int _carDebrisLayer;
+    private readonly float _backwardMoveDamageMultiplier = 0.42f;
+    private readonly float _halfStrengthMultiplier = 0.7f;
+    private readonly float _minStrengthMultiplier = 0.2f;
+    private readonly Transform _debrisParent;
+    private readonly Speedometer _speedometer;
+    private readonly LayerMask _canCollisionsLayerMasks;
     private readonly MonoBehaviour _monoBehaviour;
     private readonly Action<float> _soundSoftHit;
     private readonly float _minSpeedForDestruct = 10f;
     private readonly float _reducingStrengthMultiplier = 0.7f;
+    protected DestructionMode DestructionMode = DestructionMode.ModeDefault;
     protected Vector2 HitPosition;
     protected float MaxStrength;
     protected float HalfStrength;
@@ -26,11 +27,11 @@ public abstract class DestructionHandler
     protected DestructionHandler(MonoBehaviour monoBehaviour, DestructionHandlerContent destructionHandlerContent, Action<float> soundSoftHit = null,
         int maxStrength = 0)
     {
-        CarDebrisLayer = destructionHandlerContent.CarDebrisLayer;
+        _carDebrisLayer = destructionHandlerContent.CarDebrisLayer;
         CalculateStrength(maxStrength);
-        DebrisParent = destructionHandlerContent.DebrisParent;
-        Speedometer = destructionHandlerContent.Speedometer;
-        CanCollisionsLayerMasks = destructionHandlerContent.CanCollisionsLayerMasks;
+        _debrisParent = destructionHandlerContent.DebrisParent;
+        _speedometer = destructionHandlerContent.Speedometer;
+        _canCollisionsLayerMasks = destructionHandlerContent.CanCollisionsLayerMasks;
         _monoBehaviour = monoBehaviour;
         _soundSoftHit = soundSoftHit;
     }
@@ -45,7 +46,7 @@ public abstract class DestructionHandler
     {
         if (CheckCollisionAndMinSpeed(collision) == true)
         {
-            SetImpulseNormal(collision);
+            ImpulseNormalValue = SetImpulseNormalAndHitPosition(collision);
             return true;
         }
         else
@@ -70,11 +71,11 @@ public abstract class DestructionHandler
     {
         if (transform == null)
         {
-            _monoBehaviour.transform.SetParent(DebrisParent);
+            _monoBehaviour.transform.SetParent(_debrisParent);
         }
         else
         {
-            transform.SetParent(DebrisParent);
+            transform.SetParent(_debrisParent);
         }
     }
 
@@ -94,18 +95,18 @@ public abstract class DestructionHandler
         {
             for (int i = 0; i < transformCarPart.childCount; i++)
             {
-                transformCarPart.GetChild(i).gameObject.layer = CarDebrisLayer;
+                transformCarPart.GetChild(i).gameObject.layer = _carDebrisLayer;
             }
         }
         else
         {
-            transformCarPart.gameObject.layer = CarDebrisLayer;
+            transformCarPart.gameObject.layer = _carDebrisLayer;
         }
     }
 
     protected bool CheckCollision(Collision2D collision)
     {
-        if ((1 << collision.gameObject.layer & CanCollisionsLayerMasks.value) == 1 << collision.gameObject.layer)
+        if ((1 << collision.gameObject.layer & _canCollisionsLayerMasks.value) == 1 << collision.gameObject.layer)
         {
             return true;
         }
@@ -117,8 +118,8 @@ public abstract class DestructionHandler
 
     protected bool CheckCollisionAndMinSpeed(Collision2D collision)
     {
-        if ((1 << collision.gameObject.layer & CanCollisionsLayerMasks.value) == 1 << collision.gameObject.layer
-            && Speedometer.CurrentSpeedFloat >= _minSpeedForDestruct)
+        if ((1 << collision.gameObject.layer & _canCollisionsLayerMasks.value) == 1 << collision.gameObject.layer
+            && _speedometer.CurrentSpeedFloat >= _minSpeedForDestruct)
         {
             return true;
         }
@@ -133,17 +134,23 @@ public abstract class DestructionHandler
         CalculateStrength(MaxStrength - ImpulseNormalValue * _reducingStrengthMultiplier);
     }
 
-    protected void SetImpulseNormal(Collision2D collision)
+    protected float SetImpulseNormalAndHitPosition(Collision2D collision)
     {
+        float result = 0;
         for (int i = 0; i < collision.contacts.Length; i++)
         {
-            if (ImpulseNormalValue < collision.contacts[i].normalImpulse)
+            if (result < collision.contacts[i].normalImpulse)
             {
-                ImpulseNormalValue = collision.contacts[i].normalImpulse;
+                result = collision.contacts[i].normalImpulse;
                 SetHitPosition(collision.contacts[i].point);
             }
         }
 
+        if (_speedometer.IsMovementForward == false)
+        {
+            result *= _backwardMoveDamageMultiplier;
+        }
+        return result;
     }
 
     protected void TryAddRigidBody(GameObject gameObject)
@@ -159,8 +166,8 @@ public abstract class DestructionHandler
         if (strength > 0)
         {
             MaxStrength = strength;
-            HalfStrength = strength * HalfStrengthMultiplier;
-            MinStrength = strength * MinStrengthMultiplier;
+            HalfStrength = strength * _halfStrengthMultiplier;
+            MinStrength = strength * _minStrengthMultiplier;
             // Debug.Log($"MaxStrength: {MaxStrength}    HalfStrength: {HalfStrength}    MinStrength: {MinStrength}");
         }
     }

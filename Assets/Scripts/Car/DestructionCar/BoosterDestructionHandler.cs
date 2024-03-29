@@ -27,6 +27,7 @@ public class BoosterDestructionHandler : DestructionHandler, IDispose
     {
         if (ImpulseNormalValue > MaxStrength)
         {
+            Debug.Log($"Booster                  ImpulseNormalValue: {ImpulseNormalValue}  MaxStrength: {MaxStrength}");
             PlayEffect();
             Destruction();
         }
@@ -46,7 +47,7 @@ public class BoosterDestructionHandler : DestructionHandler, IDispose
     {
         for (int i = 0; i < _boosterRef.BoosterParts.Length; i++)
         {
-            SubscribeCollider(_boosterRef.BoosterParts[i].GetComponent<Collider2D>(), CheckCollision, TrySwitchMode);
+            SubscribeCollider(_boosterRef.BoosterParts[i].GetComponent<Collider2D>(), CollisionHandling, TrySwitchMode);
         }
     }
 

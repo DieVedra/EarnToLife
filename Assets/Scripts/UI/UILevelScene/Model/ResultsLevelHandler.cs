@@ -47,6 +47,8 @@ public class ResultsLevelHandler
         {
             _levelProgressLastResults.gameObject.SetActive(false);
         }
+
+        _levelProgressResults.value = 0f;
         _levelProgressResults.DOValue(results.DistanceToDisplayOnSliderInScorePanel, 1f);
     }
 }

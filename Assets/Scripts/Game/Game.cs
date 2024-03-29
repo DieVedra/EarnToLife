@@ -146,4 +146,9 @@ public class Game : MonoBehaviour
             _saveService.SetPlayerDataToSaving(_playerDataHandler.PlayerData);
         }
     }
+
+    private void OnDisable()
+    {
+        _resultsLevelProvider.Dispose();
+    }
 }

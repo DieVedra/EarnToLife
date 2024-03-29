@@ -19,7 +19,6 @@ public class BottomDestructionHandler : DestructionHandler, IDispose
     private readonly Action<float> _soundHardHit;
     private readonly bool _isArmored;
     private bool _exhaustBroken = false;
-    private DestructionMode _destructionMode = DestructionMode.ModeDefault;
     public BottomDestructionHandler(BottomRef bottomRef, BackCarHandler backCarHandler, RoofDestructionHandler roofDestructionHandler, 
         FrontDoorDestructionHandler frontDoorDestructionHandler, BackDoorDestructionHandler backDoorDestructionHandler, ExhaustHandler exhaustHandler,
         DestructionHandlerContent destructionHandlerContent, Action<float> soundHardHit, Action<float> soundSoftHit,int strength, bool isArmored)
@@ -82,11 +81,11 @@ public class BottomDestructionHandler : DestructionHandler, IDispose
         _frontDoorDestructionHandler.TryThrowDoor();
         _backDoorDestructionHandler.TryThrowDoor();
         TryThrowExhaust();
-        _destructionMode = DestructionMode.Mode1;
+        DestructionMode = DestructionMode.Mode1;
     }
     private void DestructionMode2()
     {
-        if (_destructionMode != DestructionMode.Mode1)
+        if (DestructionMode != DestructionMode.Mode1)
         {
             DestructionMode1();
         }
@@ -105,7 +104,7 @@ public class BottomDestructionHandler : DestructionHandler, IDispose
         
         
         SetParentDebris(_backCar);
-        _destructionMode = DestructionMode.Mode2;
+        DestructionMode = DestructionMode.Mode2;
 
     }
 

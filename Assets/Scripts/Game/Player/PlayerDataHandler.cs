@@ -45,7 +45,7 @@ public class PlayerDataHandler
             return _playerData.ResultsLevel;
         }
     }
-    public void SetResultsLevel(ResultsLevel resultsLevel)
+    public void SetResultsLevel(ResultsLevel resultsLevel = null)
     {
         _playerData.ResultsLevel = resultsLevel;
     }

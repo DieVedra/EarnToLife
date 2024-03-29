@@ -16,6 +16,7 @@ public class RoofDestructionHandler : DestructionHandler, IDispose
     private readonly GunDestructionHandler _gunDestructionHandler;
     private readonly CabineDestructionHandler _cabineDestructionHandler;
     private readonly Action<float> _soundBends;
+    private readonly Action<float> _soundHardHit;
     private readonly CoupAnalyzer _coupAnalyzer;
     private readonly CarMass _carMass;
     private readonly Transform _roofNormal;
@@ -37,16 +38,16 @@ public class RoofDestructionHandler : DestructionHandler, IDispose
     private bool _carHasBeenCoup = false;
     private bool _isCriticalDamaged = false;
     private bool _isСrushed = false;
-    private DestructionMode _destructionMode = DestructionMode.ModeDefault;
     public RoofDestructionHandler(RoofRef roofRef, ArmoredRoofFrameRef armoredRoofFrameRef, SafetyFrameworkDestructionHandler safetyFrameworkDestructionHandler,
         CarMass carMass, CoupAnalyzer coupAnalyzer, ArmoredBackFrameDestructionHandler armoredBackFrameDestructionHandler,
         FrontDoorDestructionHandler frontDoorDestructionHandler, BackDoorDestructionHandler backDoorDestructionHandler,
         GlassDestructionHandler frontGlassDestructionHandler, GlassDestructionHandler backGlassDestructionHandler,
         GunDestructionHandler gunDestructionHandler, CabineDestructionHandler cabineDestructionHandler,
-        DestructionHandlerContent destructionHandlerContent, Action<float> soundBends, Action<float> soundSoftHit,
+        DestructionHandlerContent destructionHandlerContent, Action<float> soundBends, Action<float> soundHardHit, Action<float> soundSoftHit,
         int totalStrengthRoof, int fallingContentLayer, bool isArmored, bool safetyFrameworkInstalled)
         : base(roofRef, destructionHandlerContent, soundSoftHit, totalStrengthRoof)
     {
+        _soundHardHit = soundHardHit;
         // Debug.Log($"TotalStrengthRoof: {totalStrengthRoof} | CarMass: {carMass.Mass}");
         _roofRef = roofRef;
         _coupAnalyzer = coupAnalyzer;
@@ -104,22 +105,26 @@ public class RoofDestructionHandler : DestructionHandler, IDispose
         }
         TryAddRigidBody(_supportRoof.gameObject);
         TryAddRigidBody(_currentRoof.gameObject);
-
+        PlaySoundHardHit();
+        PlaySoundBends();
         SetParentDebris(_roofRef.transform);
     }
     protected override void TrySwitchMode()
     {
         if (ImpulseNormalValue > MaxStrength)
         {
+            PlaySoundHardHit();
             DestructionMode3();
         }
         else if (ImpulseNormalValue > HalfStrength)
         {
+            PlaySoundHardHit();
             DestructionMode2AndSubscribe();
             RecalculateStrength();
         }
         else if (ImpulseNormalValue > MinStrength)
         {
+            PlaySoundHardHit();
             DestructionMode1AndSubscribe();
             RecalculateStrength();
         }
@@ -129,7 +134,11 @@ public class RoofDestructionHandler : DestructionHandler, IDispose
         }
     }
 
-    private void PlayEffect()
+    private void PlaySoundHardHit()
+    {
+        _soundHardHit.Invoke(ImpulseNormalValue);
+    }
+    private void PlaySoundBends()
     {
         _soundBends.Invoke(ImpulseNormalValue);
     }
@@ -155,7 +164,7 @@ public class RoofDestructionHandler : DestructionHandler, IDispose
             _frameDamaged.gameObject.SetActive(true);
             _currentFrame = _frameDamaged;
         }
-        _destructionMode = DestructionMode.Mode1;
+        DestructionMode = DestructionMode.Mode1;
     }
 
     private void DestructionMode2AndSubscribe()
@@ -165,7 +174,7 @@ public class RoofDestructionHandler : DestructionHandler, IDispose
     }
     private void DestructionMode2()
     {
-        if (_destructionMode == DestructionMode.ModeDefault)
+        if (DestructionMode == DestructionMode.ModeDefault)
         {
             DestructionMode1();
         }
@@ -189,12 +198,12 @@ public class RoofDestructionHandler : DestructionHandler, IDispose
             _armoredBackFrameDestructionHandler?.TryThrow();
             _isArmored = false;
         }
-        _destructionMode = DestructionMode.Mode2;
+        DestructionMode = DestructionMode.Mode2;
     }
 
     private /*async*/ void DestructionMode3()
     {
-        if (_destructionMode != DestructionMode.Mode2 )
+        if (DestructionMode != DestructionMode.Mode2 )
         {
             DestructionMode2();
         }
@@ -215,7 +224,7 @@ public class RoofDestructionHandler : DestructionHandler, IDispose
             TryAddRigidBody(_supportRoof.gameObject);
             _cabineDestructionHandler.TryDriverDestruction();
         }
-        _destructionMode = DestructionMode.Mode3;
+        DestructionMode = DestructionMode.Mode3;
     }
 
     protected override bool CollisionHandling(Collision2D collision)
@@ -225,7 +234,7 @@ public class RoofDestructionHandler : DestructionHandler, IDispose
         {
             if (collision.gameObject.TryGetComponent(out Rigidbody2D rigidbody2D))
             {
-                SetImpulseNormal(collision);
+                SetImpulseNormalAndHitPosition(collision);
                 ImpulseNormalValue += rigidbody2D.mass;
                 if (rigidbody2D.mass > MaxStrength)
                 {
@@ -246,8 +255,8 @@ public class RoofDestructionHandler : DestructionHandler, IDispose
                 && _carHasBeenCoup == false)
             {
                 _carHasBeenCoup = true;
-                SetImpulseNormal(collision);
-                PlayEffect();
+                SetImpulseNormalAndHitPosition(collision);
+                PlaySoundBends();
                 ImpulseNormalValue += _carMass.Mass;
                 result = true;
             }
@@ -260,10 +269,14 @@ public class RoofDestructionHandler : DestructionHandler, IDispose
         {
             if (base.CheckCollisionAndMinSpeed(collision) == true)
             {
+                SetImpulseNormalAndHitPosition(collision);
+                PlaySoundHardHit();
                 result = true;
             }
             else
             {
+                SetImpulseNormalAndHitPosition(collision);
+                PlaySoftHitSound();
                 result = false;
             }
         }
@@ -309,7 +322,7 @@ public class RoofDestructionHandler : DestructionHandler, IDispose
         {
             _carHasBeenCoup = false;
             _disposableCoupAnalyze.Clear();
-            switch (_destructionMode)
+            switch (DestructionMode)
             {
                 case DestructionMode.Mode1:
                     SubscribesDestructionMode1();

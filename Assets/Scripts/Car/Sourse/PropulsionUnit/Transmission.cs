@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Transmission
+public class Transmission : IMovementForward
 {
     private float _multiplier = 2000f;
     private float _gearRatio;

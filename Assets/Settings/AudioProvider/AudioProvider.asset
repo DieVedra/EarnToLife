@@ -28,3 +28,5 @@ MonoBehaviour:
   _glassBreakingAudioClip: {fileID: 8300000, guid: 2065d4de7937bbd4aa2b3158d4e64ff5, type: 3}
   _metalBendsAudioClip: {fileID: 8300000, guid: 49e1d38e352c76a438dc149d5555bdf1, type: 3}
   _shotGunAudioClip: {fileID: 8300000, guid: 2bca117339c30c945897748a35efab8d, type: 3}
+  _engineClapAudioClip: {fileID: 8300000, guid: 31ae5272be32e4c40a98d937d4ce9514, type: 3}
+  _driverNeckBrokeAudioClip: {fileID: 8300000, guid: 216b89c41ecf8b2428111c34f91ffe9c, type: 3}

@@ -46,7 +46,7 @@ public class CarInLevel : Car
     [HorizontalLine(color:EColor.Orange)]
     [SerializeField, BoxGroup("Settings")] private Rigidbody2D _bodyRigidbody2D;
     [SerializeField, BoxGroup("Settings")] private Vector2 _centerMassOffset;
-    [SerializeField, BoxGroup("Settings")] private Vector2 _centerMassAfterBrokenOffset;
+    [SerializeField, BoxGroup("Settings")] private Vector2 _centerMassAfterOnCarBrokenOffset;
     [SerializeField, BoxGroup("Settings")] private Transform _corpusTransform;
     [SerializeField, BoxGroup("Settings"), ProgressBar("Fuel", 1000, EColor.Green)] private float _currentFuelQuantity;
     [SerializeField, BoxGroup("Settings"), ProgressBar("BoosterFuel", 1000, EColor.Orange)] private float _currentBoosterFuelQuantity;
@@ -58,6 +58,7 @@ public class CarInLevel : Car
     private DestructionCar _destructionCar;
     private CarFSM _carFsm;
     private Engine _engine;
+    private Transmission _transmission;
     private Exhaust _exhaust;
     private CarAudioHandler _carAudioHandler;
     private CarWheel _frontWheel;
@@ -101,11 +102,12 @@ public class CarInLevel : Car
         _levelProgressCounter = levelProgressCounter;
         _coupAnalyzer = new CoupAnalyzer(transform);
         FuelTank = new FuelTank(carConfiguration.FuelQuantity, CarConfiguration.EngineOverclockingMultiplier);
-        Speedometer = new Speedometer(_bodyRigidbody2D);
+        _transmission = new Transmission(carConfiguration.GearRatio);
+        Speedometer = new Speedometer(_transmission, _bodyRigidbody2D);
         InitExhaust();
         
         _engine = new Engine(_engineAccelerationCurve, _carAudioHandler.EngineAudioHandler, _exhaust, CarConfiguration.EngineOverclockingMultiplier);
-        _propulsionUnit = new PropulsionUnit(_engine, FuelTank, carConfiguration.GearRatio);
+        _propulsionUnit = new PropulsionUnit(_engine, _transmission, FuelTank);
         InitWheels();
         _groundAnalyzer = new GroundAnalyzer(_frontWheel, _backWheel, _onCarBrokenIntoTwoPartsReactiveCommand, _groundLayerMask, _asphaltLayerMask);
         _brakes = new Brakes(_carAudioHandler.BrakeAudioHandler, Speedometer, _groundAnalyzer, _brakeVolumeCurve);
@@ -178,7 +180,11 @@ public class CarInLevel : Car
                 Gizmos.color = Color.green;
                 Gizmos.DrawSphere( _bodyRigidbody2D.centerOfMass + _centerMassOffset, 0.1f);
                 Gizmos.color = Color.yellow;
-                Gizmos.DrawSphere(_bodyRigidbody2D.centerOfMass + _centerMassAfterBrokenOffset, 0.1f);
+                Gizmos.DrawSphere(_bodyRigidbody2D.centerOfMass + _centerMassAfterOnCarBrokenOffset, 0.1f);
+            }else
+            {
+                Gizmos.color = Color.green;
+                Gizmos.DrawSphere( transform.TransformPoint(_bodyRigidbody2D.centerOfMass), 0.1f);
             }
 
             if (_gunRef.gameObject.activeSelf == true)
@@ -195,6 +201,8 @@ public class CarInLevel : Car
         FuelTank.OnTankEmpty += _notificationsProvider.FuelTankEmpty;
         FuelTank.OnTankEmpty += StopCar;
         _levelProgressCounter.OnGotPointDestination += StopCar;
+        _coupAnalyzer.OnCarCouped += _notificationsProvider.CarTurnOver;
+        _coupAnalyzer.OnCarCouped +=StopCar;
         if (_destructionCar.FrontWingDestructionHandler != null)
         {
             _destructionCar.FrontWingDestructionHandler.OnEngineBroken += StopCar;
@@ -332,7 +340,7 @@ public class CarInLevel : Car
         ReinitBackWheelAndSuspensionOnCarBrokenIntoTwoParts(joint2D, wheelCarValues);
         ControlCar.TryTurnOffCheckBooster();
         _onCarBrokenIntoTwoPartsReactiveCommand.Execute();
-        _bodyRigidbody2D.centerOfMass += _centerMassAfterBrokenOffset;
+        _bodyRigidbody2D.centerOfMass += _centerMassAfterOnCarBrokenOffset;
     }
     private void OnDisable()
     {
@@ -340,6 +348,8 @@ public class CarInLevel : Car
         FuelTank.OnTankEmpty -= StopCar;
         FuelTank.OnTankEmpty -= _exhaust.StopEffect;
         _levelProgressCounter.OnGotPointDestination -= StopCar;
+        _coupAnalyzer.OnCarCouped += _notificationsProvider.CarTurnOver;
+        _coupAnalyzer.OnCarCouped +=StopCar;
         if (_destructionCar.FrontWingDestructionHandler != null)
         {
             _destructionCar.FrontWingDestructionHandler.OnEngineBroken -= StopCar;

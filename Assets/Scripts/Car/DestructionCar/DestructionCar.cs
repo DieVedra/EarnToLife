@@ -112,12 +112,13 @@ public class DestructionCar : MonoBehaviour
 
     private void InitDestructionEffectsHandler()
     {
-        _destructionEffectsHandler = new DestructionEffectsHandler(_destructionAudioHandler, _glassBrokenEffectPrefab, _hitEffectPrefab, _engineSmokeEffect, _engineBurnEffect, _effectsParent);
+        _destructionEffectsHandler = new DestructionEffectsHandler(_destructionAudioHandler, _glassBrokenEffectPrefab, _hitEffectPrefab,
+            _engineSmokeEffect, _engineBurnEffect, _effectsParent);
         _disposes.Add(_destructionEffectsHandler);
     }
     private void InitCabineHandler()
     {
-        CabineDestructionHandler = new CabineDestructionHandler(_cabineRef, _destructionHandlerContent);
+        CabineDestructionHandler = new CabineDestructionHandler(_cabineRef, _destructionHandlerContent, _destructionAudioHandler.PlayDriverNeckBroke);
         AddToDispose(CabineDestructionHandler);
     }
 
@@ -242,7 +243,8 @@ public class DestructionCar : MonoBehaviour
                 carMass, coupAnalyzer, _armoredBackFrameHandler, 
                 _frontDoorDestructionHandler, _backDoorDestructionHandler,
                 _frontGlassDestructionHandler, _backGlassDestructionHandler,
-                _gunDestructionHandler, CabineDestructionHandler, _destructionHandlerContent, _destructionAudioHandler.PlayRoofBends, _destructionAudioHandler.PlaySoftHit, CalculateStrengthRoof(), _fallingContentLayer,
+                _gunDestructionHandler, CabineDestructionHandler, _destructionHandlerContent,
+                _destructionAudioHandler.PlayRoofBends, _destructionAudioHandler.PlayHardHit, _destructionAudioHandler.PlaySoftHit, CalculateStrengthRoof(), _fallingContentLayer,
                 CheckPart(_armoredRoofFrameRef), CheckPart(_safetyFrameworkRef));
             AddToDispose(_roofDestructionHandler);
         }

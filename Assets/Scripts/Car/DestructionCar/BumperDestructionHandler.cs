@@ -13,7 +13,6 @@ public class BumperDestructionHandler : DestructionHandler, IDispose
     private readonly Collider2D _collider2DBumperDamaged;
     private HingeJoint2D _hingeJoint2D;
     private Transform _currentbumper;
-    private DestructionMode _destructionMode = DestructionMode.ModeDefault;
     private CancellationTokenSource _cancellationTokenSource = new CancellationTokenSource();
     private bool _isBroken = false;
     public BumperDestructionHandler(BumperRef bumperRef, DestructionHandlerContent destructionHandlerContent,
@@ -44,20 +43,18 @@ public class BumperDestructionHandler : DestructionHandler, IDispose
         {
             PlayEffect();
             DestructionMode3();
-
         }
         else if (ImpulseNormalValue > HalfStrength)
         {
             PlayEffect();
             RecalculateStrength();
             DestructionMode2();
-
         }
         else if (ImpulseNormalValue > MinStrength)
         {
             PlayEffect();
             RecalculateStrength();
-            if (_destructionMode == DestructionMode.Mode2)
+            if (DestructionMode == DestructionMode.Mode2)
             {
                 DestructionMode2();
             }
@@ -79,23 +76,23 @@ public class BumperDestructionHandler : DestructionHandler, IDispose
     private void DestructionMode1()
     {
         SubscribeColliderAndSwitchSprites();
-        _destructionMode = DestructionMode.Mode1;
+        DestructionMode = DestructionMode.Mode1;
     }
 
     private void DestructionMode2()
     {
-        if (_destructionMode == DestructionMode.ModeDefault)
+        if (DestructionMode == DestructionMode.ModeDefault)
         {
             DestructionMode1();
         }
         _hingeJoint2D.useMotor = false;
-        _destructionMode = DestructionMode.Mode2;
+        DestructionMode = DestructionMode.Mode2;
     }
 
     private void DestructionMode3()
     {
         CompositeDisposable.Clear();
-        if (_destructionMode != DestructionMode.Mode2)
+        if (DestructionMode != DestructionMode.Mode2)
         {
             DestructionMode2();
         }
@@ -125,6 +122,6 @@ public class BumperDestructionHandler : DestructionHandler, IDispose
     {
         CompositeDisposable.Clear();
         SwitchSprites();
-        SubscribeCollider(_collider2DBumperDamaged, CollisionHandling, TrySwitchMode);
+        // SubscribeCollider(_collider2DBumperDamaged, CollisionHandling, TrySwitchMode);
     }
 }

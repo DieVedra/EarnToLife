@@ -14,9 +14,12 @@ public class CarClips
      public AudioClip CarSoftHitAudioClip { get; }
      public AudioClip GlassBreakingAudioClip { get; }
      public AudioClip MetalBendsAudioClip { get; }
+     public AudioClip EngineClapAudioClip { get; }
+     public AudioClip DriverNeckBrokeAudioClip { get; }
      public CarClips(AudioClip engineRunAudioClip, AudioClip brakeAudioClip, AudioClip engineStartAudioClip,
          AudioClip engineStopAudioClip, AudioClip boosterRunAudioClip, AudioClip shotGunAudioClip, AudioClip carHotweelAudioClip,
-         AudioClip carBurnAudioClip, AudioClip carHardHitAudioClip, AudioClip carSoftHitAudioClip,AudioClip glassBreakingAudioClip, AudioClip metalBendsAudioClip)
+         AudioClip carBurnAudioClip, AudioClip carHardHitAudioClip, AudioClip carSoftHitAudioClip,AudioClip glassBreakingAudioClip,
+         AudioClip metalBendsAudioClip, AudioClip engineClapAudioClip, AudioClip driverNeckBrokeAudioClip)
      {
          EngineRunAudioClip = engineRunAudioClip;
          BrakeAudioClip = brakeAudioClip;
@@ -30,5 +33,7 @@ public class CarClips
          CarSoftHitAudioClip = carSoftHitAudioClip;
          GlassBreakingAudioClip = glassBreakingAudioClip;
          MetalBendsAudioClip = metalBendsAudioClip;
+         EngineClapAudioClip = engineClapAudioClip;
+         DriverNeckBrokeAudioClip = driverNeckBrokeAudioClip;
      }
 }
