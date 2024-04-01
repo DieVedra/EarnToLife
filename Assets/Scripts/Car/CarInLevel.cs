@@ -130,13 +130,13 @@ public class CarInLevel : Car
         if (_controlActive == true)
         {
             ControlCar.Update();
-            _carFsm.Update();
             _coupAnalyzer.Update();
         }
         else
         {
             _carFsm.SetState<StopState>();
         }
+        _carFsm.Update();
         if (Booster != null)
         {
             _currentBoosterFuelQuantity = Booster.BoosterFuelTank.FuelQuantity;

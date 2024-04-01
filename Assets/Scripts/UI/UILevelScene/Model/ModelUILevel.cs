@@ -22,7 +22,7 @@ public class ModelUILevel
     {
         TryInitButtonsControl(viewUILevel, carInLevel, carControlMethod);
         _pausePanelButtonsHandler = new PausePanelButtonsHandler(viewUILevel.PanelPause);
-        _resultsLevelHandler = new ResultsLevelHandler(viewUILevel);
+        _resultsLevelHandler = new ResultsLevelHandler(viewUILevel.PanelScore);
         _audioSettingSwitch = new AudioSettingSwitch(globalAudio,
             viewUILevel.PanelPause.TextOnOffButtonMusic,
             viewUILevel.PanelPause.TextOnOffButtonSound);

@@ -12,7 +12,7 @@ public class NotificationsProvider
     private const string DRIVER_CRUSHED = "Driver crushed!";
     private const string CAR_STUCK = "Сar is stuck...";
     private const string CAR_TURNED_OVER = "Turned over.";
-    private const string DAY = "Day: ";
+    private const string DAY = "Day ";
     public event Action<string> OnShowNotification;
     public event Action<string> OnGotPointDestination;
     public event Action<string> OnFueltankEmpty;
@@ -53,11 +53,11 @@ public class NotificationsProvider
     public void CarStuck()
     {
         OnShowNotification?.Invoke(CAR_STUCK);
-        OnDriverCrushed?.Invoke(CAR_STUCK);
+        OnCarStuck?.Invoke(CAR_STUCK);
     }
     public void CarTurnOver()
     {
         OnShowNotification?.Invoke(CAR_TURNED_OVER);
-        OnDriverCrushed?.Invoke(CAR_TURNED_OVER);
+        OnCarTurnOver?.Invoke(CAR_TURNED_OVER);
     }
 }

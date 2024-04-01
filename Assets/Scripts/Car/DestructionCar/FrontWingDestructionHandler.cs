@@ -71,20 +71,17 @@ public class FrontWingDestructionHandler : DestructionHandler, IDispose
 
         if (ImpulseNormalValue > MaxStrength)
         {
-            Debug.Log($"FrontWing                  DestructionMode3    ImpulseNormalValue: {ImpulseNormalValue}  MaxStrength: {MaxStrength}");
             PlayEffect();
             DestructionMode3AndSubscribe();
         }
         else if (ImpulseNormalValue > HalfStrength)
         {
-            Debug.Log($"FrontWing                  DestructionMode2    ImpulseNormalValue: {ImpulseNormalValue}  HalfStrength: {HalfStrength}");
             PlayEffect();
             RecalculateStrength();
             DestructionMode2AndSubscribe();
         }
         else if (ImpulseNormalValue > MinStrength)
         {
-            Debug.Log($"FrontWing                  DestructionMode1    ImpulseNormalValue: {ImpulseNormalValue}  MinStrength: {MinStrength}");
             PlayEffect();
             RecalculateStrength();
             if (DestructionMode == DestructionMode.Mode2)

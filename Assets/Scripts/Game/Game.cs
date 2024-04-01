@@ -9,6 +9,10 @@ using Zenject;
 public class Game : MonoBehaviour
 {
     [SerializeField] private CinemachineVirtualCamera _cinemachineVirtualCamera;
+    [SerializeField] private LimitRideBack _limitRideBack;
+    
+    
+    
     // [SerializeField] private Pool _pool;
     [SerializeField] private GameObject _buildingsParent;
     [Space]
@@ -17,6 +21,7 @@ public class Game : MonoBehaviour
     [SerializeField, BoxGroup("Level Settings")] private Transform _endLevelPoint;
     [SerializeField, BoxGroup("Level Settings"), HorizontalLine(color:EColor.White)] private float _timeWaitingOnEndLevel = 1f;
     [SerializeField, BoxGroup("Level Settings"), HorizontalLine(color:EColor.White)] private SliderSectionValues _sliderSectionValue;
+    [SerializeField, BoxGroup("Level Settings"), HorizontalLine(color:EColor.White)] private bool _limitRideBackIsOn;
     // private Bot[] _botsWithAK;
     // private Tower[] _towers;
     [Inject] private SaveService _saveService;
@@ -62,6 +67,7 @@ public class Game : MonoBehaviour
         _factory = new Factory(_instantiator);
         _notificationsProvider = new NotificationsProvider();
         InitCar();
+        _limitRideBack.Init(_limitRideBackIsOn);
         InitViewUILevel();
         _gamePause = new GamePause(_globalAudio);
         _killsCount = new KillsCount();

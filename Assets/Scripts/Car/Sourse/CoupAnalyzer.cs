@@ -6,15 +6,14 @@ using UnityEngine;
 
 public class CoupAnalyzer
 {
+    public readonly ReactiveProperty<bool> IsCoup = new ReactiveProperty<bool>();
     private readonly float _maxDotProduct = 0.7f;
     private readonly float _timeDelay = 4f;
     private readonly Transform _carTransform;
+    private readonly CompositeDisposable _compositeDisposable = new CompositeDisposable();
     public bool CarIsCoupCurrentValue => IsCoup.Value;
-    public ReactiveProperty<bool> IsCoup = new ReactiveProperty<bool>();
-    private CompositeDisposable _compositeDisposable = new CompositeDisposable();
     private float _time;
     private bool _timerActive = false;
-    private float _angleZ => _carTransform.eulerAngles.z;
     public event Action OnCarCouped;
     public CoupAnalyzer(Transform carTransform)
     {
@@ -45,7 +44,6 @@ public class CoupAnalyzer
         if (_timerActive == true)
         {
             _time -= Time.deltaTime;
-            Debug.Log($"time:   {_time}");
             if (_time <= 0f)
             {
                 OnCarCouped?.Invoke();

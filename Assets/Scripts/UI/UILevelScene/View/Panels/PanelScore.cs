@@ -13,7 +13,9 @@ public class PanelScore : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _textDay;
     [SerializeField] private TextMeshProUGUI _textReason;
     [SerializeField] private TextMeshProUGUI _textDistance;
+    [SerializeField] private TextMeshProUGUI _textMoneyDistance;
     [SerializeField] private TextMeshProUGUI _textKills;
+    [SerializeField] private TextMeshProUGUI _textMoneyKills;
     [SerializeField] private TextMeshProUGUI _textCash;
     public RectTransform RectTransform => _rectTransform;
     public Button ButtonGarage => _buttonGarage;
@@ -24,4 +26,7 @@ public class PanelScore : MonoBehaviour
     public TextMeshProUGUI TextDistance => _textDistance;
     public TextMeshProUGUI TextKills => _textKills;
     public TextMeshProUGUI TextCash => _textCash;
+    
+    public TextMeshProUGUI TextMoneyDistance => _textMoneyDistance;
+    public TextMeshProUGUI TextMoneyKills => _textMoneyKills;
 }

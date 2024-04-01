@@ -10,12 +10,15 @@ public class ResultsLevelProvider
     private readonly float _timePauseOnEndLevel;
     private readonly float _timeDelayOnEndLevelOnDriverCrushed = 3f;
     private readonly float _timeDelayOnEndLevelOnEngineBurn = 3f;
+    private readonly float _timeDelayOnEndLevelDefault = 3f;
     private readonly Wallet _wallet;
     private readonly PlayerDataHandler _playerDataHandler;
     private readonly float _priceTagForTheWayMeter;
     private readonly float _priceTagForTheMurder;
     private ResultsLevel _resultsLevel;
     private int _totalCash = 0;
+    private int _distanceMoney = 0;
+    private int _killsMoney = 0;
     private bool _gameEnd = false;
     public LevelProgressCounter LevelProgressCounter { get; private set; }
     public KillsCount KillsCount { get; private set; }
@@ -38,6 +41,8 @@ public class ResultsLevelProvider
         NotificationsProvider.OnGotPointDestination += GameOverBecauseGotPointDestination;
         NotificationsProvider.OnEngineBroken += GameOverBecauseEngineBroken;
         NotificationsProvider.OnDriverCrushed += GameOverBecauseDriverCrushed;
+        NotificationsProvider.OnCarTurnOver += GameOverBecauseTurnOver;
+        NotificationsProvider.OnCarStuck += GameOverBecauseCarStuck;
     }
 
     public void Dispose()
@@ -46,6 +51,8 @@ public class ResultsLevelProvider
         NotificationsProvider.OnGotPointDestination -= GameOverBecauseGotPointDestination;
         NotificationsProvider.OnEngineBroken -= GameOverBecauseEngineBroken;
         NotificationsProvider.OnDriverCrushed -= GameOverBecauseDriverCrushed;
+        NotificationsProvider.OnCarTurnOver -= GameOverBecauseTurnOver;
+        NotificationsProvider.OnCarStuck -= GameOverBecauseCarStuck;
     }
     private void GameOverBecauseTankEmpty(string reason)
     {
@@ -65,14 +72,21 @@ public class ResultsLevelProvider
     {
         GameOver(false, true, reason, _timeDelayOnEndLevelOnDriverCrushed);
     }
+    private void GameOverBecauseTurnOver(string reason)
+    {
+        GameOver(false, true, reason, _timeDelayOnEndLevelDefault);
+    }
+    private void GameOverBecauseCarStuck(string reason)
+    {
+        GameOver(false, true, reason, _timeDelayOnEndLevelDefault);
+    }
 
     private async void GameOver(bool openNextLevel, bool availabilityResultLevel, string reason, float delay)
     {
         if (CheckGameStatus())
         {
-            CalculateResults();
             await UniTask.Delay(TimeSpan.FromSeconds(delay));
-            CreateAndSend(reason);
+            CalculateResultsAndSend(reason);
             _playerDataHandler.AddDay();
             if (openNextLevel == true)
             {
@@ -95,19 +109,24 @@ public class ResultsLevelProvider
     }
     private void CalculateResults()
     {
-        CalculateDistance(LevelProgressCounter.GetFinalDistance());
-        CalculateKills(KillsCount.Kills);
+        _distanceMoney = CalculateDistanceMoney();
+        _killsMoney = CalculateKillsMoney();
+        _totalCash += _distanceMoney + _killsMoney;
         _wallet.AddCash(_totalCash);
     }
-    private void CalculateDistance(float distance)
+    private int CalculateDistanceMoney()
     {
-        _totalCash += (int)(distance * _priceTagForTheWayMeter);
+        return (int)(LevelProgressCounter.GetFinalDistance() * _priceTagForTheWayMeter);
     }
-    private void CalculateKills(float kills)
+    private int CalculateKillsMoney()
     {
-        if (kills > 0)
+        if (KillsCount.Kills > 0)
         {
-            _totalCash += (int)(kills * _priceTagForTheMurder);
+            return (int)(KillsCount.Kills * _priceTagForTheMurder);
+        }
+        else
+        {
+            return 0;
         }
     }
     private bool CheckGameStatus()
@@ -122,18 +141,20 @@ public class ResultsLevelProvider
             return false;
         }
     }
-    private void CreateAndSend(string reason)
+    private void CalculateResultsAndSend(string reason)
     {
         _resultsLevel = CreateResults(reason);
         OnOutCalculateResultsLevel?.Invoke(_resultsLevel, _playerDataHandler.TryGetResultLevel());
     }
     private ResultsLevel CreateResults(string reason)
     {
+        CalculateResults();
         return new ResultsLevel(
             KillsCount.Kills, _playerDataHandler.PlayerData.Days,
             LevelProgressCounter.GetFinalDistance(),
             LevelProgressCounter.GetFinalDistanceToDisplayOnSliderInScorePanel(),
-            _totalCash, reason, 
+            _totalCash, _killsMoney, _distanceMoney,
+            reason, 
             LevelProgressCounter.GetCarDistanceForDisplaySlider());
     }
     private void OpenNextLevel()

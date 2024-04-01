@@ -130,6 +130,7 @@ public class PanelsHandler
         _panelScore.ButtonGarage.onClick.AddListener(DeactivateScorePanelAndLoadGarage);
         _panelScore.gameObject.SetActive(true);
         _sceneSwitch.StartLoadGarage();
+        _resultsLevelHandler.DisplayOutResultsLevel(results, lastResults); //send token
         await MoveAndFadePanelWhenAll(
             _panelScore.RectTransform.DOAnchorPos(
                 _valuesPanelHandler.EndPositionPanel,
@@ -137,8 +138,6 @@ public class PanelsHandler
             _frameBackground.DOFade(
                 _valuesPanelHandler.DarkenedFrameBackground,
                 _valuesPanelHandler.FrameBackgroundDurationFade).ToUniTask());
-        
-        _resultsLevelHandler.DisplayOutResultsLevel(results, lastResults); //send token
     }
 
     private async void DeactivateScorePanelAndLoadGarage()

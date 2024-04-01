@@ -27,7 +27,6 @@ public class BoosterDestructionHandler : DestructionHandler, IDispose
     {
         if (ImpulseNormalValue > MaxStrength)
         {
-            Debug.Log($"Booster                  ImpulseNormalValue: {ImpulseNormalValue}  MaxStrength: {MaxStrength}");
             PlayEffect();
             Destruction();
         }

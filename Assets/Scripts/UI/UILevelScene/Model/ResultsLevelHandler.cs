@@ -8,21 +8,22 @@ using System.Text;
 
 public class ResultsLevelHandler
 {
-    private const string DAY = "Day: ";
-    private const string DISTANCE = "Distance: ";
-    private const string KILLS = "Kills: ";
-    private const string MONEY = "Total money: ";
+    private const string DAY = "Day ";
+    private const string COMPLETE = " Complete";
+    private const string METERS = " Meters";
     private PanelScore _panelScore;
     private Slider _levelProgressResults;
     private Slider _levelProgressLastResults;
     private TextMeshProUGUI _textDay;
     private TextMeshProUGUI _textReason;
     private TextMeshProUGUI _textDistance;
+    private TextMeshProUGUI _textMoneyForDistance;
     private TextMeshProUGUI _textKills;
+    private TextMeshProUGUI _textMoneyForKills;
     private TextMeshProUGUI _textCash;
-    public ResultsLevelHandler(ViewUILevel viewUILevel)
+    public ResultsLevelHandler(PanelScore panelScore)
     {
-        _panelScore = viewUILevel.PanelScore;
+        _panelScore = panelScore;
         _levelProgressResults = _panelScore.LevelProgressResults;
         _levelProgressLastResults = _panelScore.LevelProgressLastResults;
         _textDay = _panelScore.TextDay;
@@ -30,14 +31,18 @@ public class ResultsLevelHandler
         _textDistance = _panelScore.TextDistance;
         _textKills = _panelScore.TextKills;
         _textCash = _panelScore.TextCash;
+        _textMoneyForDistance = _panelScore.TextMoneyDistance;
+        _textMoneyForKills = _panelScore.TextMoneyKills;
     }
     public void DisplayOutResultsLevel(ResultsLevel results, ResultsLevel lastResults)
     {
-        _textDay.text = BuildString.GetString( new string[] { DAY, results.Day.ToString() });
+        _textDay.text = BuildString.GetString( new string[] { DAY, results.Day.ToString(), COMPLETE});
         _textReason.text = results.ReasonGameOver;
-        _textDistance.text = BuildString.GetString(new string[] { DISTANCE, results.Distance.ToString() });
-        _textKills.text = BuildString.GetString(new string[] { KILLS, results.Kills.ToString() });
-        _textCash.text = BuildString.GetString(new string[] { MONEY, results.TotalMoney.ToString() });
+        _textKills.text = results.Kills.ToString();
+        _textDistance.text = BuildString.GetString( new string[] { results.Distance.ToString(), METERS});
+        _textMoneyForDistance.text = results.Distance.ToString();   
+        _textCash.text = results.TotalMoney.ToString();
+        _textMoneyForKills.text = results.MoneyForKills.ToString();
 
         if (lastResults != null)
         {

@@ -20,18 +20,19 @@ public class Brakes
     }
     public void BrakeSoundOn()
     {
+        _isBrake = true;
+        _brakeAudioHandler.PlayBrake();
+    }
+
+    public void Update()
+    {
         if (GroundContact && CheckSpeed())
         {
-            if (_isBrake == false)
-            {
-                _isBrake = true;
-                _brakeAudioHandler.PlayBrake();
-            }
             _brakeAudioHandler.SetVolumeBrake(_brakeVolumeCurve.Evaluate(_speedometer.CurrentSpeedFloat));
         }
         else
         {
-            BrakeSoundOff();
+            _brakeAudioHandler.SetMuteVolumeBrake();
         }
     }
     public void BrakeSoundOff()

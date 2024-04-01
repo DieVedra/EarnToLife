@@ -9119,7 +9119,7 @@ MonoBehaviour:
   _glassesDestructuonOn: 1
   _frontWingDestructuonOn: 1
   _backWingDestructuonOn: 1
-  _roofDestructuonOn: 0
+  _roofDestructuonOn: 1
   _bottomDestructionOn: 1
   _point1: {fileID: 518746808778073614}
   _point2: {fileID: 5450153556466632901}

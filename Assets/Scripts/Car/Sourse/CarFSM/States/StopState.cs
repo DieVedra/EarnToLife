@@ -23,12 +23,14 @@ public class StopState : CarState
         }
         _stateWheelGroundInteraction.Init(CarBroken);
         Booster?.TryStopBooster();
+        _brakes.BrakeSoundOn();
+
     }
     public override void Update()
     {
         _stateWheelGroundInteraction.Update();
         BreakingEngine();
-        SoundBrake();
+        _brakes.Update();
         PropulsionUnit.FuelTank.BurnFuelOnIdling();
     }
 
@@ -49,10 +51,5 @@ public class StopState : CarState
     private void BreakingEngine()
     {
         PropulsionUnit.Engine.BreakingEngine();
-    }
-
-    private void SoundBrake()
-    {
-        _brakes.BrakeSoundOn();
     }
 }
