@@ -67,20 +67,17 @@ public class BackWingDestructionHandler : DestructionHandler, IDispose
     {
         if (ImpulseNormalValue > MaxStrength)
         {
-            Debug.Log($"BackWing                                    DestructionMode3    ImpulseNormalValue: {ImpulseNormalValue}  MaxStrength: {MaxStrength}");
             PlayEffect();
             DestructionMode3();
         }
         else if (ImpulseNormalValue > HalfStrength)
         {
-            Debug.Log($"BackWing              DestructionMode2    ImpulseNormalValue: {ImpulseNormalValue}  HalfStrength: {HalfStrength}");
             PlayEffect();
             RecalculateStrength();
             DestructionMode2AndSubscribe();
         }
         else if (ImpulseNormalValue > MinStrength)
         {
-            Debug.Log($"BackWing                  DestructionMode1    ImpulseNormalValue: {ImpulseNormalValue}  MinStrength: {MinStrength}");
             PlayEffect();
             RecalculateStrength();
             DestructionMode1AndSubscribe();
@@ -141,7 +138,7 @@ public class BackWingDestructionHandler : DestructionHandler, IDispose
         {
             _trunkCoverWingDamaged2.gameObject.AddComponent<Rigidbody2D>();
             SetParentDebris(_trunkCoverWingDamaged2);
-            SetCarDebrisLayer(_trunkCoverWingDamaged2);
+            SetCarDebrisLayerInteractableWithCar(_trunkCoverWingDamaged2);
         }
         if (_isArmored == true)
         {
@@ -149,6 +146,7 @@ public class BackWingDestructionHandler : DestructionHandler, IDispose
             if (_armoredBackFrameHandler.TryThrow() == true)
             {
                 SetParentDebris(_armoredBackFrameRef.transform);
+                SetCarDebrisLayerNonInteractableWithCar(_armoredBackFrameRef.transform);
             }
         }
         DestructionMode = DestructionMode.Mode2;
@@ -180,7 +178,7 @@ public class BackWingDestructionHandler : DestructionHandler, IDispose
             _contentColliders[i].enabled = true;
             TryAddRigidBody(_wingContent[i].gameObject);
             SetParentDebris(_wingContent[i]);
-            SetCarDebrisLayer(_wingContent[i]);
+            SetCarDebrisLayerNonInteractableWithCar(_wingContent[i]);
         }
         _exhaustHandler.SetPoint1();
     }

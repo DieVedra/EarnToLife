@@ -9082,10 +9082,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _carDebrisLayer: 20
+  _carDebrisInteractingWithCar: 21
   _fallingContentLayer: 24
+  _limitRideBack: 26
   _canCollisionsLayerMasks:
     serializedVersion: 2
-    m_Bits: 22478848
+    m_Bits: 24576000
   _glassBrokenEffectPrefab: {fileID: 6928945955730111512, guid: f504b60a68fb95448b531a8efe40a98c, type: 3}
   _hitEffectPrefab: {fileID: 7162352459235145121, guid: a97ee402aefc51e49bccd6495937e542, type: 3}
   _engineSmokeEffect: {fileID: 6775915201014375143}

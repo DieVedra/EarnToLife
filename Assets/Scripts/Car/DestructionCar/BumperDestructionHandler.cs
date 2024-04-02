@@ -114,7 +114,7 @@ public class BumperDestructionHandler : DestructionHandler, IDispose
             _hingeJoint2D.enabled = false;
             SetParentDebris();
             await UniTask.Delay(TimeSpan.FromSeconds(_delay), cancellationToken: _cancellationTokenSource.Token);
-            SetCarDebrisLayer();
+            SetCarDebrisLayerNonInteractableWithCar();
         }
     }
 
@@ -122,6 +122,5 @@ public class BumperDestructionHandler : DestructionHandler, IDispose
     {
         CompositeDisposable.Clear();
         SwitchSprites();
-        // SubscribeCollider(_collider2DBumperDamaged, CollisionHandling, TrySwitchMode);
     }
 }

@@ -48,7 +48,6 @@ public class RoofDestructionHandler : DestructionHandler, IDispose
         : base(roofRef, destructionHandlerContent, soundSoftHit, totalStrengthRoof)
     {
         _soundHardHit = soundHardHit;
-        // Debug.Log($"TotalStrengthRoof: {totalStrengthRoof} | CarMass: {carMass.Mass}");
         _roofRef = roofRef;
         _coupAnalyzer = coupAnalyzer;
         _carMass = carMass;
@@ -102,12 +101,14 @@ public class RoofDestructionHandler : DestructionHandler, IDispose
         {
             TryAddRigidBody(_currentFrame.gameObject);
             SetParentDebris(_armoredRoofFrameRef.transform);
+            SetCarDebrisLayerNonInteractableWithCar(_armoredRoofFrameRef.transform);
         }
         TryAddRigidBody(_supportRoof.gameObject);
         TryAddRigidBody(_currentRoof.gameObject);
         PlaySoundHardHit();
         PlaySoundBends();
         SetParentDebris(_roofRef.transform);
+        SetCarDebrisLayerInteractableWithCar(_roofRef.transform);
     }
     protected override void TrySwitchMode()
     {
@@ -195,13 +196,14 @@ public class RoofDestructionHandler : DestructionHandler, IDispose
             _frameDamaged.gameObject.SetActive(true);
             TryAddRigidBody(_frameDamaged.gameObject);
             SetParentDebris(_armoredRoofFrameRef.transform);
+            SetCarDebrisLayerNonInteractableWithCar(_armoredRoofFrameRef.transform);
             _armoredBackFrameDestructionHandler?.TryThrow();
             _isArmored = false;
         }
         DestructionMode = DestructionMode.Mode2;
     }
 
-    private /*async*/ void DestructionMode3()
+    private void DestructionMode3()
     {
         if (DestructionMode != DestructionMode.Mode2 )
         {
@@ -222,6 +224,7 @@ public class RoofDestructionHandler : DestructionHandler, IDispose
             _backDoorDestructionHandler.TryThrowDoor();
             SetParentDebris(_supportRoof);
             TryAddRigidBody(_supportRoof.gameObject);
+            SetCarDebrisLayerNonInteractableWithCar(_supportRoof);
             _cabineDestructionHandler.TryDriverDestruction();
         }
         DestructionMode = DestructionMode.Mode3;

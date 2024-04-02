@@ -52,6 +52,7 @@ public class BackDoorDestructionHandler : DestructionHandler
         {
             _isBroken = true;
             SetParentDebris();
+            SetCarDebrisLayerNonInteractableWithCar();
             for (int i = 0; i < _parts.Length; i++)
             {
                 if (_parts[i].gameObject.activeSelf == true)

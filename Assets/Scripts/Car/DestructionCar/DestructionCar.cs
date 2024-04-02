@@ -5,9 +5,10 @@ using UnityEngine;
 
 public class DestructionCar : MonoBehaviour
 {
-    [SerializeField] private int _carDebrisLayer;
+    [SerializeField] private int _carDebrisLayerNONInteractionWithCar;
+    [SerializeField] private int _carDebrisInteractingWithCar;
     [SerializeField] private int _fallingContentLayer;
-
+    [SerializeField] private int _limitRideBack;
     [SerializeField] private LayerMask _canCollisionsLayerMasks;
     
     [SerializeField, BoxGroup("Effects")] private ParticleSystem _glassBrokenEffectPrefab;
@@ -93,7 +94,7 @@ public class DestructionCar : MonoBehaviour
         _destructionAudioHandler.Init(_soundsCurve);
         InitDestructionEffectsHandler();
         _coupAnalyzer = coupAnalyzer;
-        _destructionHandlerContent = new DestructionHandlerContent(speedometer, debrisParent, _canCollisionsLayerMasks, _carDebrisLayer);
+        _destructionHandlerContent = new DestructionHandlerContent(speedometer, debrisParent, _canCollisionsLayerMasks, _carDebrisLayerNONInteractionWithCar, _carDebrisInteractingWithCar);
         _carMass = carMass;
         _exhaustHandler = new ExhaustHandler(exhaust, _point1, _point2);
         InitCabineHandler();
@@ -253,7 +254,7 @@ public class DestructionCar : MonoBehaviour
     {
         if (CheckPart(hotWheelRef))
         {
-            _hotWheelDestructionHandler = new HotWheelDestructionHandler(hotWheelRef, hotWheel);
+            _hotWheelDestructionHandler = new HotWheelDestructionHandler(hotWheelRef, hotWheel, _destructionHandlerContent);
         }
     }
     private void InitArmoredBackFrameHandler()
@@ -268,7 +269,7 @@ public class DestructionCar : MonoBehaviour
     {
         if (CheckPart(_safetyFrameworkRef))
         {
-            _safetyFrameworkDestructionHandler = new SafetyFrameworkDestructionHandler(_safetyFrameworkRef, debrisParent);
+            _safetyFrameworkDestructionHandler = new SafetyFrameworkDestructionHandler(_safetyFrameworkRef, debrisParent, _carDebrisLayerNONInteractionWithCar);
         }
     }
 
@@ -276,7 +277,7 @@ public class DestructionCar : MonoBehaviour
     {
         if (_bottomDestructionOn == true)
         {
-            _backCarHandler = new BackCarHandler(_bottomRef, _backWingDestructionHandler);
+            _backCarHandler = new BackCarHandler(_bottomRef);
             _bottomDestructionHandler = new BottomDestructionHandler(_bottomRef,
                 _backCarHandler, _roofDestructionHandler,
                 _frontDoorDestructionHandler, _backDoorDestructionHandler, _exhaustHandler,

@@ -9,11 +9,10 @@ public class LimitRideBack : MonoBehaviour
     [SerializeField] private BoxCollider2D _collider2D;
     [SerializeField] private CinemachineVirtualCamera _cinemachineVirtualCamera;
     [SerializeField] private Transform _pointContinuationPursuit;
-    [SerializeField] private float _offset;
     private Camera _camera;
     private Transform _transform;
     private Transform _targetTransform;
-    private float _previosPosX;
+    private float _previousPosX;
     private float _leftBorderPosX;
     private CompositeDisposable _compositeDisposable = new CompositeDisposable();
     private bool _targetFall = false; 
@@ -41,13 +40,15 @@ public class LimitRideBack : MonoBehaviour
     {
         if (_targetFall == false)
         {
-            if (_previosPosX > _targetTransform.position.x)
+            if (_previousPosX > _targetTransform.position.x)
             {
                 _cinemachineVirtualCamera.Follow = null;
                 _targetFall = true;
-                return;
             }
-            SetPreviousPosition();
+            else
+            {
+                SetPreviousPosition();
+            }
         }
         else
         {
@@ -61,14 +62,14 @@ public class LimitRideBack : MonoBehaviour
 
     private void SetPreviousPosition()
     {
-        _previosPosX = _targetTransform.position.x;
+        _previousPosX = _targetTransform.position.x;
     }
     private void SetColliderOffset()
     {
         _camera = Camera.main;
         Rect rect = _camera.pixelRect;
         Vector2 pos1 = _camera.ScreenToWorldPoint(rect.min);
-        Vector2 pos2 = transform.InverseTransformPoint(pos1);
+        Vector2 pos2 = _transform.InverseTransformPoint(pos1);
         float posX = pos2.x - _collider2D.size.x * 0.5f;
         _collider2D.offset = new Vector2 (posX, _collider2D.offset.y);
     }

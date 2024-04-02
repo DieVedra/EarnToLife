@@ -56,6 +56,9 @@ TagManager:
   - name: Car
     uniqueID: 157630223
     locked: 0
+  - name: LevelContent
+    uniqueID: 3988333031
+    locked: 0
   - name: Canvas
     uniqueID: 1797723625
     locked: 0

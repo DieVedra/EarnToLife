@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class EngineAudioHandler : AudioPlayer
 {
-    private const float TIME_DELAY_PLAY_START_SOUND = 0.4f;
     private const float MINTIMEPITCH = 0.85f;
     private const float MAXTIMEPITCH = 1.45f;
     private readonly AudioClip _engineStartAudioClip;
@@ -25,7 +24,7 @@ public class EngineAudioHandler : AudioPlayer
     public async void PlayStartEngine()
     {
         TryPlayOneShotClip(_engineStartAudioClip);
-        await UniTask.Delay(TimeSpan.FromSeconds(TIME_DELAY_PLAY_START_SOUND));
+        await UniTask.Delay(TimeSpan.FromSeconds(_engineStartAudioClip.length));
         PlayRun();
     }
     public void PitchControl(float value)

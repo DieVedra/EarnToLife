@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class BoosterDestructionHandler : DestructionHandler, IDispose
 {
-    private readonly float _switchLayerDelay = 1f;
     private readonly Booster _booster;
     private readonly Action<Vector2, float> _effect;
     private readonly BoosterRef _boosterRef;
@@ -50,7 +49,7 @@ public class BoosterDestructionHandler : DestructionHandler, IDispose
         }
     }
 
-    private async void Destruction()
+    private void Destruction()
     {
         CompositeDisposable.Clear();
         _booster.BoosterDisable();
@@ -60,7 +59,6 @@ public class BoosterDestructionHandler : DestructionHandler, IDispose
             SetParentDebris(_boosterRef.BoosterParts[i]);
         }
         SetParentDebris();
-        await UniTask.Delay(TimeSpan.FromSeconds(_switchLayerDelay));
-        SetCarDebrisLayer();
+        SetCarDebrisLayerNonInteractableWithCar();
     }
 }

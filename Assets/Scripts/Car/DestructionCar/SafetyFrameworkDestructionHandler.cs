@@ -4,14 +4,16 @@ public class SafetyFrameworkDestructionHandler
 {
     private readonly Vector3 _scaleSupport1SafetyFrameworkAfterHit = new Vector3(1f, 0.7f,1f);
     private readonly Vector3 _scaleSupport2SafetyFrameworkAfterHit = new Vector3(1f, 0.62f,1f);
+    private readonly int _debrisLayer;
     private readonly Transform _debrisParent;
-    public readonly SafetyFrameworkRef SafetyFrameworkRef;
+    private readonly SafetyFrameworkRef _safetyFrameworkRef;
     private bool _isBroken;
     
-    public SafetyFrameworkDestructionHandler(SafetyFrameworkRef safetyFrameworkRef, Transform debrisParent)
+    public SafetyFrameworkDestructionHandler(SafetyFrameworkRef safetyFrameworkRef, Transform debrisParent, int debrisLayer)
     {
-        SafetyFrameworkRef = safetyFrameworkRef;
+        _safetyFrameworkRef = safetyFrameworkRef;
         _debrisParent = debrisParent;
+        _debrisLayer = debrisLayer;
     }
 
     public void TryThrow()
@@ -19,17 +21,18 @@ public class SafetyFrameworkDestructionHandler
         if (_isBroken == false)
         {
             _isBroken = true;
-            SafetyFrameworkRef.Support1.gameObject.AddComponent<Rigidbody2D>();
-            SafetyFrameworkRef.Support2.gameObject.AddComponent<Rigidbody2D>();
-            SafetyFrameworkRef.transform.SetParent(_debrisParent);
+            _safetyFrameworkRef.Support1.gameObject.AddComponent<Rigidbody2D>();
+            _safetyFrameworkRef.Support2.gameObject.AddComponent<Rigidbody2D>();
+            _safetyFrameworkRef.transform.SetParent(_debrisParent);
+            _safetyFrameworkRef.gameObject.layer = _debrisLayer;
         }
     }
     public void ChangeScale()
     {
         if (_isBroken == false)
         {
-            SafetyFrameworkRef.Support1.localScale = _scaleSupport1SafetyFrameworkAfterHit;
-            SafetyFrameworkRef.Support2.localScale = _scaleSupport2SafetyFrameworkAfterHit;
+            _safetyFrameworkRef.Support1.localScale = _scaleSupport1SafetyFrameworkAfterHit;
+            _safetyFrameworkRef.Support2.localScale = _scaleSupport2SafetyFrameworkAfterHit;
         }
     }
     

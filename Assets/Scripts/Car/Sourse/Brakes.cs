@@ -9,7 +9,6 @@ public class Brakes
     private readonly Speedometer _speedometer;
     private readonly BrakeAudioHandler _brakeAudioHandler;
     private readonly AnimationCurve _brakeVolumeCurve;
-    private bool _isBrake = false;
     private bool GroundContact => _groundAnalyzer.FrontWheelContact || _groundAnalyzer.BackWheelContact;
     public Brakes(BrakeAudioHandler brakeAudioHandler, Speedometer speedometer, GroundAnalyzer groundAnalyzer, AnimationCurve brakeVolumeCurve)
     {
@@ -20,7 +19,7 @@ public class Brakes
     }
     public void BrakeSoundOn()
     {
-        _isBrake = true;
+        _brakeAudioHandler.SetMuteVolumeBrake();
         _brakeAudioHandler.PlayBrake();
     }
 
@@ -37,7 +36,6 @@ public class Brakes
     }
     public void BrakeSoundOff()
     {
-        _isBrake = false;
         _brakeAudioHandler.StopPlayBrake();
     }
     private bool CheckSpeed()

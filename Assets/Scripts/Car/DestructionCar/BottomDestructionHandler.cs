@@ -72,7 +72,6 @@ public class BottomDestructionHandler : DestructionHandler, IDispose
             RecalculateStrength();
             _soundHardHit.Invoke(ImpulseNormalValue);
             Debug.Log($" bottom impulse: {ImpulseNormalValue}");
-
         }
     }
 
@@ -104,6 +103,7 @@ public class BottomDestructionHandler : DestructionHandler, IDispose
         
         
         SetParentDebris(_backCar);
+        SetCarDebrisLayerInteractableWithCar(_backCar);
         DestructionMode = DestructionMode.Mode2;
 
     }
@@ -116,11 +116,13 @@ public class BottomDestructionHandler : DestructionHandler, IDispose
             _exhaustHandler.SetPoint2();
             TryAddRigidBody(_exhaust.gameObject);
             SetParentDebris(_exhaust);
+            SetCarDebrisLayerNonInteractableWithCar(_exhaust);
         }
     }
     private void ThrowArmor()
     {
         TryAddRigidBody(_armoredBottom.gameObject);
         SetParentDebris(_armoredBottom);
+        SetCarDebrisLayerNonInteractableWithCar(_armoredBottom);
     }
 }

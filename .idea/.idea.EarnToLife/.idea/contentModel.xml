@@ -509,6 +509,10 @@
               <e p="Level.cs" t="Include" />
               <e p="LevelConfig.cs" t="Include" />
               <e p="LevelContent" t="Include">
+                <e p="Beam1.cs" t="Include" />
+                <e p="Beam2.cs" t="Include" />
+                <e p="Coil1.cs" t="Include" />
+                <e p="DestructibleObject.cs" t="Include" />
                 <e p="Trap.cs" t="Include" />
               </e>
               <e p="LevelEditor" t="Include">
@@ -565,6 +569,7 @@
               <e p="SaveServiceInstaller.cs" t="Include" />
             </e>
             <e p="LevelScenesInstallers" t="Include">
+              <e p="DebriesParentInstaller.cs" t="Include" />
               <e p="LevelContentInstaller.cs" t="Include" />
             </e>
           </e>

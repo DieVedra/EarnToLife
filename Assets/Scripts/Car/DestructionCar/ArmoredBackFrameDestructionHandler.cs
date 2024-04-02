@@ -19,7 +19,6 @@ public class ArmoredBackFrameDestructionHandler : DestructionHandler
         : base(armoredBackFrameRef, destructionHandlerContent, soundSoftHit)
     {
         ArmoredBackFrameRef = armoredBackFrameRef;
-        // _armoredBackNormal = armoredBackFrameRef.ArmoredBackNormal;
         _armoredBackDamagedRoofDamaged = armoredBackFrameRef.ArmoredBackDamagedRoofDamaged;
         _armoredBackNormalRoofDamaged = armoredBackFrameRef.ArmoredBackNormalRoofDamaged;
         _armoredBackDamagedRoofNotDamaged = armoredBackFrameRef.ArmoredBackDamagedRoofNotDamaged;
@@ -67,6 +66,8 @@ public class ArmoredBackFrameDestructionHandler : DestructionHandler
         {
             _isBroken = true;
             _currentActive.gameObject.AddComponent<Rigidbody2D>();
+            SetParentDebris();
+            SetCarDebrisLayerNonInteractableWithCar();
             return true;
         }
         else

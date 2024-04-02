@@ -47,7 +47,7 @@ public sealed class GunDestructionHandler : DestructionHandler, IDispose
                 SetParentDebris(_gunParts[i]);
             }
             SetParentDebris();
-            SetCarDebrisLayer();
+            SetCarDebrisLayerInteractableWithCar();
         }
     }
 

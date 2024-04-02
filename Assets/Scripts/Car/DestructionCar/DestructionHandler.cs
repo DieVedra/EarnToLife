@@ -6,7 +6,8 @@ using UnityEngine;
 public abstract class DestructionHandler
 {
     protected readonly CompositeDisposable CompositeDisposable = new CompositeDisposable();
-    private readonly int _carDebrisLayer;
+    private int _carDebrisLayerNonInteractionWithCar;
+    private int _carDebrisInteractingWithCar;
     private readonly float _backwardMoveDamageMultiplier = 0.42f;
     private readonly float _halfStrengthMultiplier = 0.7f;
     private readonly float _minStrengthMultiplier = 0.2f;
@@ -27,7 +28,8 @@ public abstract class DestructionHandler
     protected DestructionHandler(MonoBehaviour monoBehaviour, DestructionHandlerContent destructionHandlerContent, Action<float> soundSoftHit = null,
         int maxStrength = 0)
     {
-        _carDebrisLayer = destructionHandlerContent.CarDebrisLayer;
+        _carDebrisLayerNonInteractionWithCar = destructionHandlerContent.CarDebrisLayerNonInteractionWithCar;
+        _carDebrisInteractingWithCar = destructionHandlerContent.CarDebrisInteractingWithCar;
         CalculateStrength(maxStrength);
         _debrisParent = destructionHandlerContent.DebrisParent;
         _speedometer = destructionHandlerContent.Speedometer;
@@ -78,30 +80,13 @@ public abstract class DestructionHandler
             transform.SetParent(_debrisParent);
         }
     }
-
-    protected void SetCarDebrisLayer(Transform transform = null)
+    protected void SetCarDebrisLayerNonInteractableWithCar(Transform transform = null)
     {
-        Transform transformCarPart;
-        if (transform == null)
-        {
-            transformCarPart = _monoBehaviour.transform;
-        }
-        else
-        {
-            transformCarPart = transform;
-        }
-
-        if (transformCarPart.childCount > 0)
-        {
-            for (int i = 0; i < transformCarPart.childCount; i++)
-            {
-                transformCarPart.GetChild(i).gameObject.layer = _carDebrisLayer;
-            }
-        }
-        else
-        {
-            transformCarPart.gameObject.layer = _carDebrisLayer;
-        }
+        SetCarDebrisLayer(_carDebrisLayerNonInteractionWithCar, transform);
+    }
+    protected void SetCarDebrisLayerInteractableWithCar(Transform transform = null)
+    {
+        SetCarDebrisLayer(_carDebrisInteractingWithCar, transform);
     }
 
     protected bool CheckCollision(Collision2D collision)
@@ -175,5 +160,39 @@ public abstract class DestructionHandler
     private void SetHitPosition(Vector2 pos)
     {
         HitPosition = pos;
+    }
+
+    private void SetCarDebrisLayer(int layer, Transform transform)
+    {
+        Transform transformCarPart;
+        if (transform == null)
+        {
+            transformCarPart = _monoBehaviour.transform;
+        }
+        else
+        {
+            transformCarPart = transform;
+        }
+
+        if (transformCarPart.childCount > 0)
+        {
+            for (int i = 0; i < transformCarPart.childCount; i++)
+            {
+                transformCarPart.GetChild(i).gameObject.layer = layer;
+            }
+        }
+        else
+        {
+            transformCarPart.gameObject.layer = layer;
+        }
+    }
+
+    private void SetCarDebrisLayerNonInteractableWithCar()
+    {
+        
+    }
+    private void SetCarDebrisLayerInteractableWithCar()
+    {
+        
     }
 }

@@ -40,6 +40,7 @@ public class FrontDoorDestructionHandler : DestructionHandler
             {
                 _rearviewMirror.gameObject.AddComponent<Rigidbody2D>();
                 SetParentDebris(_rearviewMirror);
+                SetCarDebrisLayerNonInteractableWithCar(_rearviewMirror);
             }
         }
     }
@@ -64,6 +65,7 @@ public class FrontDoorDestructionHandler : DestructionHandler
             _isBroken = true;
             _activePart.gameObject.AddComponent<Rigidbody2D>();
             SetParentDebris(_doorRef.transform);
+            SetCarDebrisLayerNonInteractableWithCar(_doorRef.transform);
         }
     }
 

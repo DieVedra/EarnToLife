@@ -33,8 +33,7 @@ public class GlassDestructionHandler : DestructionHandler, IDispose
             CompositeDisposable.Clear();
             TryAddRigidBody(_currentGlass.gameObject);
             SetParentDebris();
-            SetCarDebrisLayer();
-            
+            SetCarDebrisLayerInteractableWithCar();
         }
     }
 
@@ -42,7 +41,8 @@ public class GlassDestructionHandler : DestructionHandler, IDispose
     {
         TryBreakGlass(_glassRef.transform.position, ImpulseNormalValue);
     }
-    public void TryBreakGlassFromHit()
+
+    private void TryBreakGlassFromHit()
     {
         TryBreakGlass(HitPosition, ImpulseNormalValue);
     }

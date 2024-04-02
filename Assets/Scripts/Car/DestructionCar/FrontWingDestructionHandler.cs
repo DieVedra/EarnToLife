@@ -144,11 +144,11 @@ public class FrontWingDestructionHandler : DestructionHandler, IDispose
         {
             TryAddRigidBody(_armoredFrontDamaged.gameObject);
             SetParentDebris(_armoredFrontFrameRef.transform);
+            SetCarDebrisLayerNonInteractableWithCar(_armoredFrontFrameRef.transform);
         }
         if (_hotWheelDestructionHandler != null)
         {
             _hotWheelDestructionHandler.Destruct();
-            SetParentDebris(_hotWheelDestructionHandler.HotWheelRef.transform);
         }
         _glassDestructionHandler?.TryThrowGlass();
         ThrowHood();
@@ -192,6 +192,7 @@ public class FrontWingDestructionHandler : DestructionHandler, IDispose
             _lighterWingNormal.gameObject.SetActive(true);
             TryAddRigidBody(_lighterWingNormal.gameObject);
             SetParentDebris(_lighterWingNormal);
+            SetCarDebrisLayerNonInteractableWithCar(_lighterWingNormal);
         }
     }
 
@@ -199,7 +200,7 @@ public class FrontWingDestructionHandler : DestructionHandler, IDispose
     {
         TryAddRigidBody(_damaged2Hood.gameObject);
         SetParentDebris(_damaged2Hood);
-        SetCarDebrisLayer(_damaged2Hood);
+        SetCarDebrisLayerNonInteractableWithCar(_damaged2Hood);
     }
     private void SwitchBottom()
     {
