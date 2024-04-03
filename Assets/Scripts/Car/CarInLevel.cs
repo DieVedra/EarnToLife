@@ -166,9 +166,12 @@ public class CarInLevel : Car
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        Debug.Log($"Car Collision Detected");
         if (collision.gameObject.TryGetComponent(out IKnockable knockable))
         {
             knockable.Destruct(Speedometer.CurrentSpeedFloat * CarMass.Mass);
+            Debug.Log($"Is knokable");
+
         }
     }
     private void OnDrawGizmos()

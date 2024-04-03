@@ -53,6 +53,7 @@
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Game/Level/LevelContent/Coil1.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.cysharp.unitask@66de0d3a58/Runtime/UniTaskCompletionSource.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Installers/LevelScenesInstallers/DebriesParentInstaller.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ugui@1.0.0/Runtime/UI/Core/VertexModifiers/PositionAsUV1.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/2A3B1FC1-40AE-44E9-A447-6E34A2A29726/04/0ad46d37/Transform.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Game/Level/LevelContent/Beam2.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.dbrizov.naughtyattributes@8a8fa5a965/Scripts/Editor/Utility/ReflectionUtility.cs" root0="SKIP_HIGHLIGHTING" />
@@ -86,7 +87,6 @@
         <option value="$PROJECT_DIR$/Assets/Scripts/Game/Game.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Car/Audio/BrakeAudioHandler.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/CarFSM/States/StopState.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Car/CarInLevel.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Game/Level/LimitRideBack.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/Brakes.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Car/Audio/EngineAudioHandler.cs" />
@@ -114,6 +114,7 @@
         <option value="$PROJECT_DIR$/Assets/Scripts/Game/Level/LevelContent/Coil1.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Installers/LevelScenesInstallers/DebriesParentInstaller.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Game/Level/LevelContent/DestructibleObject.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Car/CarInLevel.cs" />
       </list>
     </option>
   </component>
@@ -181,6 +182,7 @@
       <workItem from="1712047307033" duration="11753000" />
       <workItem from="1712077913190" duration="235000" />
       <workItem from="1712078354574" duration="7694000" />
+      <workItem from="1712156592017" duration="3115000" />
     </task>
     <task id="LOCAL-00001" summary="Roof Destruction changed&#10;Back Wing Destruction changed">
       <created>1710195340693</created>

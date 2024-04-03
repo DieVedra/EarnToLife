@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3067977971346346987}
   - component: {fileID: 5130212302456115226}
   - component: {fileID: 4698922806914872163}
-  m_Layer: 22
+  m_Layer: 25
   m_Name: Part7
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -126,7 +126,7 @@ GameObject:
   - component: {fileID: 8640642286225419808}
   - component: {fileID: 4437547650258595319}
   - component: {fileID: 2128216725143441962}
-  m_Layer: 22
+  m_Layer: 25
   m_Name: Part4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -241,7 +241,7 @@ GameObject:
   - component: {fileID: 2091033156110475633}
   - component: {fileID: 7065259042363212461}
   - component: {fileID: 5885914668626253721}
-  m_Layer: 22
+  m_Layer: 25
   m_Name: Part1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -355,7 +355,6 @@ GameObject:
   m_Component:
   - component: {fileID: 6723186707526024240}
   - component: {fileID: 8800103370586541578}
-  - component: {fileID: 5718624159248211565}
   - component: {fileID: 4766775606851912808}
   m_Layer: 22
   m_Name: Box4
@@ -431,27 +430,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!50 &5718624159248211565
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2932340932056182526}
-  m_BodyType: 0
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 40
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 1
-  m_Material: {fileID: 0}
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 0
 --- !u!60 &4766775606851912808
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -461,7 +439,7 @@ PolygonCollider2D:
   m_GameObject: {fileID: 2932340932056182526}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 2151713eab0114248a49f9453a47db44, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
@@ -490,6 +468,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1725355010066440685}
+  - component: {fileID: 5126355141789054422}
+  - component: {fileID: 5888554536852239749}
   m_Layer: 22
   m_Name: Box4
   m_TagString: Untagged
@@ -514,6 +494,42 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5126355141789054422
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3776372763566575950}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e35dc64717aa442e94bdd7029f71e72a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _debris: {fileID: 5419118119937484615}
+  _wholeObjectTransform: {fileID: 6723186707526024240}
+  _hardness: 12
+--- !u!50 &5888554536852239749
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3776372763566575950}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 6200000, guid: 2151713eab0114248a49f9453a47db44, type: 2}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1 &4969548375035290325
 GameObject:
   m_ObjectHideFlags: 0
@@ -525,7 +541,7 @@ GameObject:
   - component: {fileID: 1015543580473742325}
   - component: {fileID: 9193828352195399809}
   - component: {fileID: 6043550014512754242}
-  m_Layer: 22
+  m_Layer: 25
   m_Name: Part3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -640,7 +656,7 @@ GameObject:
   - component: {fileID: 7637222538885958038}
   - component: {fileID: 4943945417060943108}
   - component: {fileID: 3120470437170885778}
-  m_Layer: 22
+  m_Layer: 25
   m_Name: Part2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -754,7 +770,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5419118119937484615}
-  m_Layer: 22
+  m_Layer: 25
   m_Name: Debris
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -794,7 +810,7 @@ GameObject:
   - component: {fileID: 6509344949774677724}
   - component: {fileID: 6506269977249980665}
   - component: {fileID: 7121023037887550889}
-  m_Layer: 22
+  m_Layer: 25
   m_Name: Part5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -911,7 +927,7 @@ GameObject:
   - component: {fileID: 4420863490897760691}
   - component: {fileID: 836253430608762844}
   - component: {fileID: 7812423104204337308}
-  m_Layer: 22
+  m_Layer: 25
   m_Name: Part6
   m_TagString: Untagged
   m_Icon: {fileID: 0}

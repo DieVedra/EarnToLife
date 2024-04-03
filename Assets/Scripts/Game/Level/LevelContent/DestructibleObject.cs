@@ -10,6 +10,7 @@ public class DestructibleObject : MonoBehaviour, IKnockable
     [Inject(Id = "DebrisParent")] private Transform _debrisParentForDestroy;
     public void Destruct(float bodyImpulse)
     {
+        Debug.Log($"bodyImpulse: {bodyImpulse}   _hardness: {_hardness}");
         if (bodyImpulse > _hardness)
         {
             _wholeObjectTransform.gameObject.SetActive(false);
