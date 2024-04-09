@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8cb039e41f0acdf48b60b38acf28c696, type: 3}
+  m_Name: CarAudioClipProvider
+  m_EditorClassIdentifier: 
+  _engineRunAudioClip: {fileID: 8300000, guid: ebd39e30b3c81f54c9b514e05954fac7, type: 3}
+  _brakeAudioClip: {fileID: 8300000, guid: 7e500323d548da04e8608b5e473d0d64, type: 3}
+  _engineStartAudioClip: {fileID: 8300000, guid: 8708bfe6d23d050419156b889c3e05d3, type: 3}
+  _engineStopAudioClip: {fileID: 8300000, guid: 14c8ffdc5c65b1345a46e3d84f46c8e3, type: 3}
+  _boosterRunAudioClip: {fileID: 8300000, guid: 1427dd41c3bef234eb04e5d75dd4e422, type: 3}
+  _carHotweelAudioClip: {fileID: 8300000, guid: 38c9a817aba061b4c9c9399dfcfb509a, type: 3}
+  _carBurnAudioClip: {fileID: 8300000, guid: 3e2365863be992c49bc44a6460db742a, type: 3}
+  _carHardHitAudioClip: {fileID: 8300000, guid: 47fdb6085759a6c48a319278c4c9bbbe, type: 3}
+  _carSoftHitAudioClip: {fileID: 8300000, guid: 14365712e6ae46e47b83bc22f405be77, type: 3}
+  _glassBreakingAudioClip: {fileID: 8300000, guid: 2065d4de7937bbd4aa2b3158d4e64ff5, type: 3}
+  _metalBendsAudioClip: {fileID: 8300000, guid: 49e1d38e352c76a438dc149d5555bdf1, type: 3}
+  _shotGunAudioClip: {fileID: 8300000, guid: 2bca117339c30c945897748a35efab8d, type: 3}
+  _engineClapAudioClip: {fileID: 8300000, guid: 31ae5272be32e4c40a98d937d4ce9514, type: 3}
+  _driverNeckBrokeAudioClip: {fileID: 8300000, guid: 216b89c41ecf8b2428111c34f91ffe9c, type: 3}

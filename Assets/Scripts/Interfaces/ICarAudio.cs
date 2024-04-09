@@ -4,7 +4,7 @@ using UnityEngine;
 
 public interface ICarAudio
 {
-    public CarClips CarClips { get; }
+    public CarAudioClipProvider CarAudioClipProvider { get; }
     public AudioSource CarAudioSourceForEngine { get; }
     public AudioSource CarAudioSourceForBooster { get; }
     public AudioSource CarAudioSourceForDestruction { get; }

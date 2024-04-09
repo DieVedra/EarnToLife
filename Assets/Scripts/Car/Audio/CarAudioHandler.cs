@@ -13,26 +13,26 @@ public class CarAudioHandler : IDisposable
         _globalAudioToCar = globalAudioToCar;
         EngineAudioHandler = new EngineAudioHandler(_globalAudioToCar.CarAudioSourceForEngine,
             _globalAudioToCar.SoundReactiveProperty,
-            _globalAudioToCar.CarClips.EngineStartAudioClip,
-            _globalAudioToCar.CarClips.EngineStopAudioClip,
-            _globalAudioToCar.CarClips.EngineRunAudioClip);
+            _globalAudioToCar.CarAudioClipProvider.EngineStartAudioClip,
+            _globalAudioToCar.CarAudioClipProvider.EngineStopAudioClip,
+            _globalAudioToCar.CarAudioClipProvider.EngineRunAudioClip);
         BoosterAudioHandler = new BoosterAudioHandler(_globalAudioToCar.CarAudioSourceForBooster,
             _globalAudioToCar.SoundReactiveProperty,
-            _globalAudioToCar.CarClips.BoosterRunAudioClip);
+            _globalAudioToCar.CarAudioClipProvider.BoosterRunAudioClip);
         BrakeAudioHandler = new BrakeAudioHandler(_globalAudioToCar.CarAudioSourceForOther,
             _globalAudioToCar.SoundReactiveProperty,
-            _globalAudioToCar.CarClips.BrakeAudioClip);
+            _globalAudioToCar.CarAudioClipProvider.BrakeAudioClip);
         GunAudioHandler = new GunAudioHandler(_globalAudioToCar.CarAudioSourceForOther,
             _globalAudioToCar.SoundReactiveProperty,
-            _globalAudioToCar.CarClips.ShotGunAudioClip);
+            _globalAudioToCar.CarAudioClipProvider.ShotGunAudioClip);
         DestructionAudioHandler = new DestructionAudioHandler(_globalAudioToCar.CarAudioSourceForDestruction, _globalAudioToCar.SoundReactiveProperty,
-            _globalAudioToCar.CarClips.CarBurnAudioClip,
-            _globalAudioToCar.CarClips.CarHardHitAudioClip,
-            _globalAudioToCar.CarClips.CarSoftHitAudioClip,
-            _globalAudioToCar.CarClips.GlassBreakingAudioClip,
-            _globalAudioToCar.CarClips.MetalBendsAudioClip,
-            _globalAudioToCar.CarClips.EngineClapAudioClip,
-            _globalAudioToCar.CarClips.DriverNeckBrokeAudioClip
+            _globalAudioToCar.CarAudioClipProvider.CarBurnAudioClip,
+            _globalAudioToCar.CarAudioClipProvider.CarHardHitAudioClip,
+            _globalAudioToCar.CarAudioClipProvider.CarSoftHitAudioClip,
+            _globalAudioToCar.CarAudioClipProvider.GlassBreakingAudioClip,
+            _globalAudioToCar.CarAudioClipProvider.MetalBendsAudioClip,
+            _globalAudioToCar.CarAudioClipProvider.EngineClapAudioClip,
+            _globalAudioToCar.CarAudioClipProvider.DriverNeckBrokeAudioClip
         );
         _globalAudioToCar.OnSoundChange += EngineAudioHandler.PlayRun;
     }

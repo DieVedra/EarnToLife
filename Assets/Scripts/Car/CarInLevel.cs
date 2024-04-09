@@ -166,11 +166,24 @@ public class CarInLevel : Car
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        Debug.Log($"Car Collision Detected");
-        if (collision.gameObject.TryGetComponent(out IKnockable knockable))
+        TryKnock(collision);
+    }
+
+    private void TryKnock(Collision2D collision)
+    {
+        if (collision.gameObject.TryGetComponent(out IHitable hitable))
         {
-            knockable.Destruct(Speedometer.CurrentSpeedFloat * CarMass.Mass);
-            Debug.Log($"Is knokable");
+            var points = collision.contacts;
+            float normalImpulse = 0f;
+            for (int i = 0; i < points.Length; i++)
+            {
+                if (normalImpulse < points[i].normalImpulse)
+                {
+                    normalImpulse = points[i].normalImpulse;
+                }
+            }
+            hitable.TryBreakOnImpact(normalImpulse);
+            Debug.Log($"Car Is knokable  normalImpulse: {normalImpulse} ");
 
         }
     }

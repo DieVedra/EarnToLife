@@ -5,7 +5,7 @@ using UnityEngine.U2D.IK;
 using System;
 using NaughtyAttributes;
 
-public class Bot : MonoBehaviour, IKnockable, IShotable, IExplodable
+public class Bot : MonoBehaviour, IHitable, IShotable, IExplodable
 {
     private const float DEATH_VALUE = 50f;
     [SerializeField, BoxGroup("Vision")] private LayerMask _visionLayer;
@@ -162,19 +162,34 @@ public class Bot : MonoBehaviour, IKnockable, IShotable, IExplodable
             return true;
         }
     }
-    public void Destruct(float bodyImpulse)
+
+    public Vector2 Position { get; }
+    public bool IsBroken { get; }
+    public IReadOnlyList<DebrisFragment> DebrisFragments { get; }
+
+    public bool TryBreakOnImpact(float forceHit)
     {
+        bool result;
         if ((CheckLive() == false))
         {
-            return;
+            result = false;
         }
         else 
         {
-            if (bodyImpulse > DEATH_VALUE)
+            if (forceHit > DEATH_VALUE)
             {
                 KillByCar();
+                result = true;
             }
+            result = false;
         }
+
+        return result;
+    }
+
+    public void AddForce(Vector2 force)
+    {
+        
     }
 
     public void DestructFromShoot(Vector2 force)

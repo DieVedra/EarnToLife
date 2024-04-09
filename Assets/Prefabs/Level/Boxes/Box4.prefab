@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3067977971346346987}
   - component: {fileID: 5130212302456115226}
   - component: {fileID: 4698922806914872163}
-  m_Layer: 25
+  m_Layer: 21
   m_Name: Part7
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -126,7 +126,7 @@ GameObject:
   - component: {fileID: 8640642286225419808}
   - component: {fileID: 4437547650258595319}
   - component: {fileID: 2128216725143441962}
-  m_Layer: 25
+  m_Layer: 21
   m_Name: Part4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -241,7 +241,7 @@ GameObject:
   - component: {fileID: 2091033156110475633}
   - component: {fileID: 7065259042363212461}
   - component: {fileID: 5885914668626253721}
-  m_Layer: 25
+  m_Layer: 21
   m_Name: Part1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -468,7 +468,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1725355010066440685}
-  - component: {fileID: 5126355141789054422}
+  - component: {fileID: 8272071510792561160}
   - component: {fileID: 5888554536852239749}
   m_Layer: 22
   m_Name: Box4
@@ -485,7 +485,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3776372763566575950}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 27.119, y: 15.665, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -494,7 +494,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5126355141789054422
+--- !u!114 &8272071510792561160
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -503,12 +503,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 3776372763566575950}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e35dc64717aa442e94bdd7029f71e72a, type: 3}
+  m_Script: {fileID: 11500000, guid: ba001216160940f283e99b04c99bf2bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _debris: {fileID: 5419118119937484615}
+  _layerDebris: 20
+  _debrisParent: {fileID: 5419118119937484615}
   _wholeObjectTransform: {fileID: 6723186707526024240}
-  _hardness: 12
+  _hardness: 20
 --- !u!50 &5888554536852239749
 Rigidbody2D:
   serializedVersion: 4
@@ -521,7 +522,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1
+  m_Mass: 25
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 1
@@ -541,7 +542,7 @@ GameObject:
   - component: {fileID: 1015543580473742325}
   - component: {fileID: 9193828352195399809}
   - component: {fileID: 6043550014512754242}
-  m_Layer: 25
+  m_Layer: 21
   m_Name: Part3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -656,7 +657,7 @@ GameObject:
   - component: {fileID: 7637222538885958038}
   - component: {fileID: 4943945417060943108}
   - component: {fileID: 3120470437170885778}
-  m_Layer: 25
+  m_Layer: 21
   m_Name: Part2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -770,7 +771,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5419118119937484615}
-  m_Layer: 25
+  m_Layer: 21
   m_Name: Debris
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -810,7 +811,7 @@ GameObject:
   - component: {fileID: 6509344949774677724}
   - component: {fileID: 6506269977249980665}
   - component: {fileID: 7121023037887550889}
-  m_Layer: 25
+  m_Layer: 21
   m_Name: Part5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -927,7 +928,7 @@ GameObject:
   - component: {fileID: 4420863490897760691}
   - component: {fileID: 836253430608762844}
   - component: {fileID: 7812423104204337308}
-  m_Layer: 25
+  m_Layer: 21
   m_Name: Part6
   m_TagString: Untagged
   m_Icon: {fileID: 0}

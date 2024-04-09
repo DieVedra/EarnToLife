@@ -1,14 +1,11 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.IO;
 using NaughtyAttributes;
 using UniRx;
 using UnityEngine;
 using UnityEngine.Audio;
 using Zenject;
 
-public class GlobalAudio : MonoBehaviour, ISoundPause, ICarAudio, IAudioSettingSwitch
+public class GlobalAudio : MonoBehaviour, ISoundPause, ICarAudio, ILevelAudio, IAudioSettingSwitch
 {
     [SerializeField, BoxGroup("AudioSources"), HorizontalLine(color:EColor.White)] private AudioSource _audioSourceBackground;
     [SerializeField, BoxGroup("AudioSources")] private AudioSource _audioSourceUI;
@@ -16,6 +13,7 @@ public class GlobalAudio : MonoBehaviour, ISoundPause, ICarAudio, IAudioSettingS
     [SerializeField, BoxGroup("AudioSources")] private AudioSource _carAudioSourceForBooster;
     [SerializeField, BoxGroup("AudioSources")] private AudioSource _carAudioSourceForDestruction;
     [SerializeField, BoxGroup("AudioSources")] private AudioSource _carAudioSourceForOther;
+    [SerializeField, BoxGroup("AudioSources")] private AudioSource _levelAudioSource;
     
     [SerializeField, BoxGroup("AudioGroups"), HorizontalLine(color:EColor.Yellow)] private AudioMixerGroup _masterMixer;
     [SerializeField, BoxGroup("AudioGroups")] private AudioMixerGroup _levelMixer;
@@ -23,14 +21,17 @@ public class GlobalAudio : MonoBehaviour, ISoundPause, ICarAudio, IAudioSettingS
     [Inject] private AudioClipProvider _audioClipProvider;
     private GlobalAudioValues _globalAudioValues = new GlobalAudioValues();
 
-    public UIClips UiClips => _audioClipProvider.UiClips;
-    public CarClips CarClips => _audioClipProvider.ClipsCar;
+    public UIAudioClipProvider UIAudioClipProvider => _audioClipProvider.UIAudioClipProvider;
+    public CarAudioClipProvider CarAudioClipProvider => _audioClipProvider.CarAudioClipProvider;
+    public LevelAudioClipProvider LevelAudioClipProvider => _audioClipProvider.LevelAudioClipProvider;
     public AudioSource AudioSourceUI => _audioSourceUI;
     public AudioSource CarAudioSourceForEngine => _carAudioSourceForEngine;
     public AudioSource CarAudioSourceForBooster => _carAudioSourceForBooster;
     public AudioSource CarAudioSourceForDestruction => _carAudioSourceForDestruction;
     public AudioSource CarAudioSourceForOther => _carAudioSourceForOther;
+    public AudioSource LevelAudioSource => _levelAudioSource;
     private AudioSource[] _audioSources;
+    private ILevelAudio _levelAudioImplementation;
 
     public event Action OnSoundChange; 
     public event Action<bool> OnMusicChange;
@@ -51,7 +52,8 @@ public class GlobalAudio : MonoBehaviour, ISoundPause, ICarAudio, IAudioSettingS
         }
         _audioSources = new[]
         {
-            _audioSourceUI, _carAudioSourceForEngine, _carAudioSourceForBooster, _carAudioSourceForOther
+            _audioSourceUI, _carAudioSourceForEngine, _carAudioSourceForBooster,
+            _carAudioSourceForOther, _levelAudioSource
         };
     }
     private void PlayBackground()

@@ -344,7 +344,6 @@
             <e p="AudioSettingSwitch.cs" t="Include" />
             <e p="GlobalAudio.cs" t="Include" />
             <e p="GlobalAudioValues.cs" t="Include" />
-            <e p="UIClips.cs" t="Include" />
           </e>
           <e p="Bot" t="Include">
             <e p="Bot.cs" t="Include" />
@@ -368,7 +367,6 @@
               <e p="BoosterAudioHandler.cs" t="Include" />
               <e p="BrakeAudioHandler.cs" t="Include" />
               <e p="CarAudioHandler.cs" t="Include" />
-              <e p="CarClips.cs" t="Include" />
               <e p="DestructionAudioHandler.cs" t="Include" />
               <e p="EngineAudioHandler.cs" t="Include" />
               <e p="GunAudioHandler.cs" t="Include" />
@@ -505,13 +503,26 @@
               <e p="UpgradeParkingLot.cs" t="Include" />
             </e>
             <e p="Level" t="Include">
+              <e p="Audio" t="Include">
+                <e p="BarrelAudioHandler.cs" t="Include" />
+                <e p="LevelAudioHandler.cs" t="Include" />
+                <e p="WoodDestructibleAudioHandler.cs" t="Include" />
+              </e>
               <e p="KillsCount.cs" t="Include" />
               <e p="Level.cs" t="Include" />
               <e p="LevelConfig.cs" t="Include" />
               <e p="LevelContent" t="Include">
+                <e p="Barrel" t="Include">
+                  <e p="Barrel.cs" t="Include" />
+                  <e p="BlastWave.cs" t="Include" />
+                </e>
                 <e p="Beam1.cs" t="Include" />
                 <e p="Beam2.cs" t="Include" />
+                <e p="Boxes" t="Include">
+                  <e p="Box.cs" t="Include" />
+                </e>
                 <e p="Coil1.cs" t="Include" />
+                <e p="DebrisFragment.cs" t="Include" />
                 <e p="DestructibleObject.cs" t="Include" />
                 <e p="Trap.cs" t="Include" />
               </e>
@@ -582,7 +593,8 @@
             <e p="IDamageble.cs" t="Include" />
             <e p="IDispose.cs" t="Include" />
             <e p="IExplodable.cs" t="Include" />
-            <e p="IKnockable.cs" t="Include" />
+            <e p="IHitable.cs" t="Include" />
+            <e p="ILevelAudio.cs" t="Include" />
             <e p="IMovementForward.cs" t="Include" />
             <e p="IPlayerData.cs" t="Include" />
             <e p="IShotable.cs" t="Include" />
@@ -610,7 +622,12 @@
             <e p="GarageData.cs" t="Include" />
             <e p="ParkingLotConfiguration.cs" t="Include" />
             <e p="Providers" t="Include">
-              <e p="AudioClipProvider.cs" t="Include" />
+              <e p="AudioClipsProviders" t="Include">
+                <e p="AudioClipProvider.cs" t="Include" />
+                <e p="CarAudioClipProvider.cs" t="Include" />
+                <e p="LevelAudioClipProvider.cs" t="Include" />
+                <e p="UIAudioClipProvider.cs" t="Include" />
+              </e>
               <e p="PlayerDataProvider.cs" t="Include" />
               <e p="PrefabsProviders" t="Include">
                 <e p="GaragePrefabsProvider.cs" t="Include" />

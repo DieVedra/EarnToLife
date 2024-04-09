@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4664e4de3f70f6642b2b28afd898ac8b, type: 3}
+  m_Name: LevelAudioClipProvider
+  m_EditorClassIdentifier: 
+  _woodBreaking1AudioClip: {fileID: 8300000, guid: 6e39727faf317554ca1f4cff4785f25c, type: 3}
+  _woodBreaking2AudioClip: {fileID: 8300000, guid: 3598bb991e6815d47a5ee3e17463ef19, type: 3}
+  _woodBreaking3AudioClip: {fileID: 0}
+  _hitWood1AudioClip: {fileID: 8300000, guid: 09e9ddc3117ae2f42b092f7ba9f6c1f7, type: 3}
+  _hitWood2AudioClip: {fileID: 8300000, guid: d13fce52ec730634ca1f7265760c4447, type: 3}
+  _hitWood3AudioClip: {fileID: 8300000, guid: 8b9355d6558f765478caae0ec86718ee, type: 3}

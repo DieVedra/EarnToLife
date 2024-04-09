@@ -10,5 +10,6 @@ public class LevelContentInstaller : MonoInstaller
     {
         Container.Bind<LevelPrefabsProvider>().FromInstance(_levelPrefabsProvider).AsSingle();
         Container.BindInterfacesAndSelfTo<CarAudioHandler>().AsSingle();
+        Container.BindInterfacesAndSelfTo<LevelAudioHandler>().AsSingle();
     }
 }

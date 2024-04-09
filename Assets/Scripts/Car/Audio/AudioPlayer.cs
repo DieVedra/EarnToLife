@@ -28,7 +28,15 @@ public class AudioPlayer
             AudioSource.PlayOneShot(audioClip);
         }
     }
-
+    protected void TryPlayOneShotClipWithRandomSectionVolumeAndPitch(AudioClip audioClip, Vector2 volumeSection, Vector2 pitchSection)
+    {
+        if (_soundOn == true)
+        {
+            SetPitch(GetRandomFloatValue(pitchSection.x, pitchSection.y));
+            SetVolume(GetRandomFloatValue(volumeSection.x, volumeSection.y));
+            AudioSource.PlayOneShot(audioClip);
+        }
+    }
     protected void SetVolume(float volume)
     {
         AudioSource.volume = volume;
@@ -42,8 +50,31 @@ public class AudioPlayer
         AudioSource.Stop();
         AudioSource.loop = false;
     }
+    protected AudioClip GetRandomAudioClip(AudioClip[] clips)
+    {
+        int value = GetRandomIntValue(0, clips.Length);
+        AudioClip result = null;
+        for (int i = 0; i < clips.Length; i++)
+        {
+            if (value == i)
+            {
+                result = clips[i];
+                break;
+            }
+        }
+        return result;
+    }
     private void SetSoundStatus(bool value)
     {
         _soundOn = value;
+    }
+
+    private int GetRandomIntValue(int min, int max)
+    {
+        return Random.Range(min, max);
+    }
+    private float GetRandomFloatValue(float min, float max)
+    {
+        return Random.Range(min, max);
     }
 }

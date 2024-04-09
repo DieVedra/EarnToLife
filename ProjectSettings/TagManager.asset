@@ -25,12 +25,12 @@ TagManager:
   - Underground
   - Bridges/Asphalt
   - Zombie
-  - CarDebris
-  - CarDebrisInteractingWithCar
+  - Debris
+  - DebrisInteractingWithCar
   - LevelContent
   - PhysicalLevelContent
   - FallingContent
-  - DebrisLevel
+  - 
   - LimitRideBack
   - 
   - 

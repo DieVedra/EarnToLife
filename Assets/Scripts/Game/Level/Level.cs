@@ -7,6 +7,5 @@ public class Level : MonoBehaviour
     [SerializeField] private Transform _debrisParent;
     
     
-    
     public Transform DebrisParent => _debrisParent;
 }

@@ -13,15 +13,15 @@ public class AudioHandlerUI: IClickAudio
     }
     public void PlayClick()
     {
-        TryPlayOneShot(_audioSource, _globalAudio.UiClips.ClipClick);
+        TryPlayOneShot(_audioSource, _globalAudio.UIAudioClipProvider.ClipClick);
     }
     public void PlayBuySuccess()
     {
-        TryPlayOneShot(_audioSource, _globalAudio.UiClips.ClipPaySuccess);
+        TryPlayOneShot(_audioSource, _globalAudio.UIAudioClipProvider.ClipPaySuccess);
     }
     public void PlayBuyFail()
     {
-        TryPlayOneShot(_audioSource, _globalAudio.UiClips.ClipFailPayAudio);
+        TryPlayOneShot(_audioSource, _globalAudio.UIAudioClipProvider.ClipFailPayAudio);
     }
     private void TryPlayOneShot(AudioSource audioSource, AudioClip clip)
     {

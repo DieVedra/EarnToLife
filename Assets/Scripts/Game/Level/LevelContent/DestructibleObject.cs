@@ -1,46 +1,93 @@
-﻿using UnityEngine;
+﻿using System;
+using System.Collections.Generic;
+using UnityEngine;
 using Zenject;
 
-public class DestructibleObject : MonoBehaviour, IKnockable
+public class DestructibleObject : MonoBehaviour
 {
-    [SerializeField] private Transform _debris;
+    private readonly float _delayChangeLayer = 1f;
+    [SerializeField] private int _layerDebris;
+    [SerializeField] private Transform _debrisParent;
     [SerializeField] private Transform _wholeObjectTransform;
     [SerializeField] private float _hardness;
-    
     [Inject(Id = "DebrisParent")] private Transform _debrisParentForDestroy;
-    public void Destruct(float bodyImpulse)
+    protected List<DebrisFragment> DebrisFragments;
+    protected bool ObjectIsBroken;
+    
+    protected event Action OnDestruct;
+    protected event Action OnDestructFail;
+    protected event Action OnDebrisHit;
+    protected bool TryDestruct(float normalImpulse)
     {
-        Debug.Log($"bodyImpulse: {bodyImpulse}   _hardness: {_hardness}");
-        if (bodyImpulse > _hardness)
+        if (normalImpulse > _hardness)
         {
             _wholeObjectTransform.gameObject.SetActive(false);
-            AddRigidBodiesToDebris();
+            _debrisParent.gameObject.SetActive(true);
+            AddRigidBodiesToDebrisAndSubscribeDebrisForHitSound();
+            ObjectIsBroken = true;
+            OnDestruct?.Invoke();
+            return true;
+        }
+        else
+        {
+            OnDestructFail?.Invoke();
+            return false;
         }
     }
-    private void AddRigidBodiesToDebris()
+    private void AddRigidBodiesToDebrisAndSubscribeDebrisForHitSound()
     {
-        EnumerateChilds(_debris);
+        AddRigidBodiesToDebrisAndSetParents();
+        SubscribeDebrisForHitSound();
     }
-
-    private void EnumerateChilds(Transform debris)
+    private void AddRigidBodiesToDebrisAndSetParents()
+    {
+        for (int i = 0; i < DebrisFragments.Count; i++)
+        {
+            AddRigidBodyTo(DebrisFragments[i]);
+            // SetDebrisParent(_debris[i].FragmentTransform);
+        }
+    }
+    private void CollectDebrisChilds(Transform debris)
     {
         for (int i = 0; i < debris.childCount; i++)
         {
             if (debris.GetChild(i).childCount > 0)
             {
-                EnumerateChilds(debris.GetChild(i));
+                CollectDebrisChilds(debris.GetChild(i));
             }
-            AddRigidBodyTo(debris.GetChild(i));
-            SetDebrisParent(debris.GetChild(i));
+            DebrisFragments.Add(new DebrisFragment(debris.GetChild(i)));
         }
     }
-    private void AddRigidBodyTo(Transform chip)
+    private void AddRigidBodyTo(DebrisFragment fragment)
     {
-        chip.gameObject.AddComponent<Rigidbody2D>();
+        fragment.InitRigidBody();
     }
-
     private void SetDebrisParent(Transform chip)
     {
         chip.SetParent(_debrisParentForDestroy);
+    }
+    private void SubscribeDebrisForHitSound()
+    {
+        for (int i = 0; i < DebrisFragments.Count; i++)
+        {
+            DebrisFragments[i].SubscribeFragment(DebrisHit, _layerDebris, _delayChangeLayer);
+        }
+    }
+    private void DebrisHit()
+    {
+        OnDebrisHit?.Invoke();
+    }
+    protected void OnEnable()
+    {
+        ObjectIsBroken = false;
+        DebrisFragments = new List<DebrisFragment>();
+        CollectDebrisChilds(_debrisParent);
+    }
+    protected void OnDisable()
+    {
+        for (int i = 0; i < DebrisFragments.Count; i++)
+        {
+            DebrisFragments[i].Dispose();
+        }
     }
 }
