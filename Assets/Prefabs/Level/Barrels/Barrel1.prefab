@@ -389,7 +389,7 @@ MonoBehaviour:
   _layerDebris: 20
   _debrisParent: {fileID: 8844812032683728171}
   _wholeObjectTransform: {fileID: 2967043129396640925}
-  _hardness: 30
+  Hardness: 20
   _force: 700
   _radiusShockWave: 5
   _extinctionBlastWaveCurve:
@@ -433,7 +433,7 @@ Rigidbody2D:
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 2151713eab0114248a49f9453a47db44, type: 2}
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0

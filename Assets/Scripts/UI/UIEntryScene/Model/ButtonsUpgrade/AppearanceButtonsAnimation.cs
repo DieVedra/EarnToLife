@@ -4,14 +4,15 @@ using UnityEngine;
 using DG.Tweening;
 using System.Threading;
 using Cysharp.Threading.Tasks;
+using UnityEngine.UI;
 
 public class AppearanceButtonsAnimation
 {
-    private readonly Vector2 _openPos = new Vector2(0f,-377f);
-    private readonly Vector2 _hidePos = new Vector2(0f,-700f);
+    private readonly Vector2 _openPos = new Vector2(0f,0f);
+    private readonly Vector2 _hidePos = new Vector2(0f,-270f);
     private readonly float _hideValue = 0f;
     private readonly float _unhideValue = 1f;
-    private readonly float _duration = 0.6f;
+    private readonly float _duration = 0.3f;
     private RectTransform _parentRectTransformButtonsUpgrade;
     private IReadOnlyList<CanvasGroup> _canvasGroupsButtonsUpgrade;
     private List<UniTask> _tasks;
@@ -22,7 +23,7 @@ public class AppearanceButtonsAnimation
     }
     public void Unhide()
     {
-        _parentRectTransformButtonsUpgrade.localPosition = _hidePos;
+        _parentRectTransformButtonsUpgrade.anchoredPosition = _hidePos;
         _parentRectTransformButtonsUpgrade.gameObject.SetActive(true);
         for (int i = 0; i < _canvasGroupsButtonsUpgrade.Count; i++)
         {
@@ -38,12 +39,12 @@ public class AppearanceButtonsAnimation
     public async UniTask Hide()
     {
         _tasks = new List<UniTask>();
-        _tasks.Add(_parentRectTransformButtonsUpgrade.DOAnchorPos(_hidePos, _duration).SetEase(Ease.InOutBack).ToUniTask());
+        _tasks.Add(_parentRectTransformButtonsUpgrade.DOAnchorPos(_hidePos, _duration).SetEase(Ease.OutExpo).ToUniTask());
         for (int i = 0; i < _canvasGroupsButtonsUpgrade.Count; i++)
         {
-            _tasks.Add(_canvasGroupsButtonsUpgrade[i].DOFade(_hideValue, _duration).SetEase(Ease.OutQuart).ToUniTask());
+            _tasks.Add(_canvasGroupsButtonsUpgrade[i].DOFade(_hideValue, _duration).SetEase(Ease.OutExpo).ToUniTask());
         }
         await UniTask.WhenAll(_tasks);
-        _parentRectTransformButtonsUpgrade.gameObject.SetActive(true);
+        _parentRectTransformButtonsUpgrade.gameObject.SetActive(false);
     }
 }

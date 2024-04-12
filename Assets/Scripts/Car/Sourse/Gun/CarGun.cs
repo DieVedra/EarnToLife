@@ -39,8 +39,9 @@ public class CarGun
     {
         if (_currentTarget is null)
         {
-            if (TrySetCurrentTarget() == true)
+            if (_detector.TryFindTarget() == true)
             {
+                SetCurrentTargetOnIndex();
                 GuidanceToTarget();
             }
             else
@@ -64,7 +65,6 @@ public class CarGun
         {
             Shoot();
         }
-        
     }
     private void GuidanceDefault()
     {
@@ -98,41 +98,72 @@ public class CarGun
     }
     public void ChangeIndex()
     {
-        TrySetCurrentTarget();
-        if (_detector.GetCurrentCountTargetsAfterSorted > 0)
+        if (_detector.TryFindTarget() == true)
         {
-            if (_detector.GetCurrentCountTargetsAfterSorted - 1 > _currentIndexTarget)
-            {
-                _currentIndexTarget++;
-                SetCurrentTargetOnIndex(_currentIndexTarget);
-            }
-            else if (_detector.GetCurrentCountTargetsAfterSorted - 1 == _currentIndexTarget)
+            Debug.Log(11111111111111);
+
+            Debug.Log($"CurrentIndex:  {_currentIndexTarget}");
+
+            if (_currentIndexTarget > _detector.GetMaxIndexTargets)
             {
                 _currentIndexTarget = 0;
-                SetCurrentTargetOnIndex(_currentIndexTarget);
+
             }
+            else if (_currentIndexTarget < _detector.GetMaxIndexTargets)
+            {
+                Debug.Log($"MaxIndexTargets {_detector.GetMaxIndexTargets} > {_currentIndexTarget} currentIndexTarget  Index++");
+
+                _currentIndexTarget++;
+            }
+            else if (_currentIndexTarget == _detector.GetMaxIndexTargets)
+            {
+                Debug.Log($"MaxIndexTargets {_detector.GetMaxIndexTargets} == {_currentIndexTarget} currentIndexTarget Index 0");
+            
+                _currentIndexTarget = 0;
+            }
+            SetCurrentTargetOnIndex();
         }
+        
+        
+        // if (_detector.GetCurrentCountTargetsAfterSorted > 0)
+        // {
+        //     if (_detector.GetCurrentCountTargetsAfterSorted - 1 > _currentIndexTarget)
+        //     {
+        //         _currentIndexTarget++;
+        //         SetCurrentTargetOnIndex(_currentIndexTarget);
+        //     }
+        //     else if (_detector.GetCurrentCountTargetsAfterSorted - 1 == _currentIndexTarget)
+        //     {
+        //         _currentIndexTarget = 0;
+        //         SetCurrentTargetOnIndex(_currentIndexTarget);
+        //     }
+        // }
     }
 
     public void GunDisableFromDestruct()
     {
         OnGunDestruct?.Invoke();
     }
-    private bool TrySetCurrentTarget()
+    // private bool TrySetCurrentTarget()
+    // {
+    //     if (_detector.TryFindTarget() == true)
+    //     {
+    //         SetCurrentTargetOnIndex(_currentIndexTarget);
+    //         return true;
+    //     }
+    //     else
+    //     {
+    //         return false;
+    //     }
+    // }
+    private void SetCurrentTargetOnIndex()
     {
-        if (_detector.TryFindTarget() == true)
-        {
-            SetCurrentTargetOnIndex(_currentIndexTarget);
-            return true;
-        }
-        else
-        {
-            return false;
-        }
-    }
-    private void SetCurrentTargetOnIndex(int index)
-    {
-        _currentTarget = _detector.GetSortedTarget(_currentIndexTarget);
+        Debug.Log($"CountTargets: {_detector.GetCurrentCountTargets}");
+        Debug.Log($"_currentIndexTarget: {_currentIndexTarget}");
+
+        Debug.Log(2222222222222);
+
+        _currentTarget = _detector.GetTarget(_currentIndexTarget);
     }
     private void LoseCurrentTarget()
     {

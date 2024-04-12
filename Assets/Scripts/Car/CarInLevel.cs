@@ -13,8 +13,9 @@ public class CarInLevel : Car
 
     [SerializeField, Range(0f, 1f), BoxGroup("Gyroscope"), HorizontalLine(color:EColor.Green)] private float _gyroscopePower;
 
-    [SerializeField, BoxGroup("WheelGroundInteraction"), HorizontalLine(color:EColor.Yellow)] private LayerMask _groundLayerMask;
-    [SerializeField, BoxGroup("WheelGroundInteraction")] private LayerMask _asphaltLayerMask;
+    [SerializeField, BoxGroup("WheelGroundInteraction"), HorizontalLine(color:EColor.Yellow)] private LayerMask _groundsLayerMask;
+    [SerializeField, BoxGroup("WheelGroundInteraction")] private int _asphaltLayer;
+    [SerializeField, BoxGroup("WheelGroundInteraction")] private int _groundLayer;
     [SerializeField, BoxGroup("WheelGroundInteraction")] private AnimationCurve _brakeVolumeCurve;
     [SerializeField, BoxGroup("WheelGroundInteraction")] private AnimationCurve _particlesSpeedCurveGasState;
     [SerializeField, BoxGroup("WheelGroundInteraction")] private AnimationCurve _particlesSpeedCurveStopState;
@@ -109,7 +110,7 @@ public class CarInLevel : Car
         _engine = new Engine(_engineAccelerationCurve, _carAudioHandler.EngineAudioHandler, _exhaust, CarConfiguration.EngineOverclockingMultiplier);
         _propulsionUnit = new PropulsionUnit(_engine, _transmission, FuelTank);
         InitWheels();
-        _groundAnalyzer = new GroundAnalyzer(_frontWheel, _backWheel, _onCarBrokenIntoTwoPartsReactiveCommand, _groundLayerMask, _asphaltLayerMask);
+        _groundAnalyzer = new GroundAnalyzer(_frontWheel, _backWheel, _onCarBrokenIntoTwoPartsReactiveCommand, _groundsLayerMask, _asphaltLayer, _groundLayer);
         _brakes = new Brakes(_carAudioHandler.BrakeAudioHandler, Speedometer, _groundAnalyzer, _brakeVolumeCurve);
 
         _controlActive = true;
@@ -142,7 +143,7 @@ public class CarInLevel : Car
             _currentBoosterFuelQuantity = Booster.BoosterFuelTank.FuelQuantity;
         }
         CarGun?.Update();
-        // Debug.Log(Speedometer.CurrentSpeedInt);
+        _groundAnalyzer.Update();
         FrontSuspension.Calculate();
         BackSuspension.Calculate();
         _currentFuelQuantity = FuelTank.FuelQuantity;
@@ -183,7 +184,7 @@ public class CarInLevel : Car
                 }
             }
             hitable.TryBreakOnImpact(normalImpulse);
-            Debug.Log($"Car Is knokable  normalImpulse: {normalImpulse} ");
+            // Debug.Log($"Car Is knokable  normalImpulse: {normalImpulse} ");
 
         }
     }
@@ -197,10 +198,14 @@ public class CarInLevel : Car
                 Gizmos.DrawSphere( _bodyRigidbody2D.centerOfMass + _centerMassOffset, 0.1f);
                 Gizmos.color = Color.yellow;
                 Gizmos.DrawSphere(_bodyRigidbody2D.centerOfMass + _centerMassAfterOnCarBrokenOffset, 0.1f);
+                
             }else
             {
                 Gizmos.color = Color.green;
                 Gizmos.DrawSphere( transform.TransformPoint(_bodyRigidbody2D.centerOfMass), 0.1f);
+                Gizmos.color = Color.blue;
+                Gizmos.DrawWireSphere(_frontWheel.Position, _frontWheel.Radius);
+                Gizmos.DrawWireSphere(_backWheel.Position, _backWheel.Radius);
             }
 
             if (_gunRef.gameObject.activeSelf == true)
@@ -377,7 +382,6 @@ public class CarInLevel : Car
             _destructionCar.CabineDestructionHandler.OnDriverCrushed -= _notificationsProvider.DriverCrushed;
         }
         _coupAnalyzer.Dispose();
-        _groundAnalyzer.Dispose();
         _onCarBrokenIntoTwoPartsReactiveCommand.Dispose();
         if (Booster != null)
         {

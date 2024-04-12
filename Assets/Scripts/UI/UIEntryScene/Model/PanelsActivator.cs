@@ -145,29 +145,20 @@ public class PanelsActivator
     {
         _garagePanel.ButtonBackToMap.onClick.RemoveAllListeners();
         _garagePanel.ButtonGO.onClick.RemoveAllListeners();
-        await Deactivate();
+        await MoveAndFadeWhenAll(_garageUI.DeactivateUpgradeButtons(), Deactivate());
         _garageUI.Deactivate();
-        _garagePanel.gameObject.SetActive(false);
-    }
-
-    private async UniTask DeactivateGaragePanelToLoad()
-    {
-        _garagePanel.ButtonBackToMap.onClick.RemoveAllListeners();
-        _garagePanel.ButtonGO.onClick.RemoveAllListeners();
-        await Deactivate();
-        _garageUI.DeactivateOnLoad();
         _garagePanel.gameObject.SetActive(false);
     }
     private async void LoadGame()
     {
         _sceneSwitch.StartLoadLastLevel();
-        await DeactivateGaragePanelToLoad();
+        await DeactivateGaragePanel();
         _sceneSwitch.EndLoadingSceneAsync();
     }
     private async void ActivateSettingsPanel()
     {
         _settingsPanel.FrameBackground.raycastTarget = true;
-        _rectTransformPanelSettings.transform.localPosition = _valuesPanelActivator.StartPositionPanelSettings;
+        _rectTransformPanelSettings.anchoredPosition = _valuesPanelActivator.StartPositionPanelSettings;
         _settingsPanel.gameObject.SetActive(true);
         _settingsPanel.FrameBackground.gameObject.SetActive(true);
         _settingsPanel.FrameBackground.color  = _valuesPanelActivator.DefaultColorMinAlpha;
@@ -188,7 +179,7 @@ public class PanelsActivator
             _audioSettingSwitch.SoundSwitch();
             _audioHandlerUI.PlayClick();
         });
-        await MoveAndFadePanelWhenAll(_rectTransformPanelSettings.DOAnchorPos(_valuesPanelActivator.MediumPositionPanelSettings, _valuesPanelActivator.DefaultDurationFade, false).SetEase(Ease.InOutQuint).ToUniTask(),
+        await MoveAndFadeWhenAll(_rectTransformPanelSettings.DOAnchorPos(_valuesPanelActivator.MediumPositionPanelSettings, _valuesPanelActivator.DefaultDurationFade, false).SetEase(Ease.InOutQuint).ToUniTask(),
             _settingsPanel.FrameBackground.DOFade(_valuesPanelActivator.ValueDarkenedBackground, _valuesPanelActivator.DefaultDurationFade).ToUniTask());
     }
     private async void DeactivateSettingsPanel()
@@ -197,7 +188,7 @@ public class PanelsActivator
         _settingsPanel.ButtonMusic.onClick.RemoveAllListeners();
         _settingsPanel.ButtonSound.onClick.RemoveAllListeners();
         _settingsPanel.FrameBackground.gameObject.GetComponent<Image>().raycastTarget = false;
-        await MoveAndFadePanelWhenAll(_rectTransformPanelSettings.DOAnchorPos(_valuesPanelActivator.EndPositionPanelSettings, _valuesPanelActivator.DefaultDurationFade, false)
+        await MoveAndFadeWhenAll(_rectTransformPanelSettings.DOAnchorPos(_valuesPanelActivator.EndPositionPanelSettings, _valuesPanelActivator.DefaultDurationFade, false)
                 .SetEase(Ease.InOutQuint)
                 .OnComplete((
                     () =>
@@ -215,18 +206,6 @@ public class PanelsActivator
                     () => { _settingsPanel.FrameBackground.gameObject.SetActive(false);}))
                 .ToUniTask());
     }
-
-    // private void StartLoadGame()
-    // {
-    //     _sceneSwitch.StartLoadLastLevel();
-    // }
-
-    // private async void EngageLoadedGame()
-    // {
-    //     await DeactivateGaragePanel();
-    //     _sceneSwitch.aaa();
-    //     // _sceneSwitch.EndLoadSceneAsync();
-    // }
     private async void SwitchStartMenuToMap()
     {
         await DeactivateStartMenuPanel();
@@ -303,7 +282,7 @@ public class PanelsActivator
         return _background.DOFade(_valuesPanelActivator.ValueFadeBlackBackground, CalculateDuration(_background.color.a)).ToUniTask();
     }
 
-    private UniTask MoveAndFadePanelWhenAll(UniTask movePanel, UniTask fadeFrame)
+    private UniTask MoveAndFadeWhenAll(UniTask movePanel, UniTask fadeFrame)
     {
         UniTask[] tasks = {movePanel, fadeFrame};
         UniTask whenAll = UniTask.WhenAll(tasks);

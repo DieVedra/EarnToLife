@@ -516,12 +516,15 @@
                   <e p="Barrel.cs" t="Include" />
                   <e p="BlastWave.cs" t="Include" />
                 </e>
-                <e p="Beam1.cs" t="Include" />
-                <e p="Beam2.cs" t="Include" />
+                <e p="Beam" t="Include">
+                  <e p="Beam.cs" t="Include" />
+                  <e p="Beam1.cs" t="Include" />
+                  <e p="Beam2.cs" t="Include" />
+                </e>
                 <e p="Boxes" t="Include">
                   <e p="Box.cs" t="Include" />
                 </e>
-                <e p="Coil1.cs" t="Include" />
+                <e p="Coil.cs" t="Include" />
                 <e p="DebrisFragment.cs" t="Include" />
                 <e p="DestructibleObject.cs" t="Include" />
                 <e p="Trap.cs" t="Include" />

@@ -8869,12 +8869,11 @@ MonoBehaviour:
     m_RotationOrder: 4
   _exhaustParticleSystem: {fileID: 929571869933985420}
   _gyroscopePower: 0.5
-  _groundLayerMask:
+  _groundsLayerMask:
     serializedVersion: 2
-    m_Bits: 196608
-  _asphaltLayerMask:
-    serializedVersion: 2
-    m_Bits: 262144
+    m_Bits: 458752
+  _asphaltLayer: 18
+  _groundLayer: 16
   _brakeVolumeCurve:
     serializedVersion: 2
     m_Curve:
@@ -8965,7 +8964,7 @@ MonoBehaviour:
   _deadZoneDetectionValue: 2.2
   _targetsGunLayerMask:
     serializedVersion: 2
-    m_Bits: 524288
+    m_Bits: 4718592
   _rateFire: 1
   _forceGun: 100
   _boosterRef: {fileID: 9042794177794335303}
@@ -9081,7 +9080,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 15a705d7d83c4596b2a302070def5e28, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _carDebrisLayer: 20
+  _carDebrisLayerNONInteractionWithCar: 0
   _carDebrisInteractingWithCar: 21
   _fallingContentLayer: 24
   _limitRideBack: 26

@@ -5,34 +5,22 @@ using Zenject;
 
 public class DestructibleObject : MonoBehaviour
 {
+    protected readonly float ForceMultiplierWholeObject = 3f;
     private readonly float _delayChangeLayer = 1f;
     [SerializeField] private int _layerDebris;
     [SerializeField] private Transform _debrisParent;
     [SerializeField] private Transform _wholeObjectTransform;
-    [SerializeField] private float _hardness;
+    [SerializeField] protected float Hardness;
     [Inject(Id = "DebrisParent")] private Transform _debrisParentForDestroy;
-    protected List<DebrisFragment> DebrisFragments;
+    protected List<DebrisFragment> FragmentsDebris;
     protected bool ObjectIsBroken;
-    
-    protected event Action OnDestruct;
-    protected event Action OnDestructFail;
     protected event Action OnDebrisHit;
-    protected bool TryDestruct(float normalImpulse)
+    protected void Destruct()
     {
-        if (normalImpulse > _hardness)
-        {
-            _wholeObjectTransform.gameObject.SetActive(false);
-            _debrisParent.gameObject.SetActive(true);
-            AddRigidBodiesToDebrisAndSubscribeDebrisForHitSound();
-            ObjectIsBroken = true;
-            OnDestruct?.Invoke();
-            return true;
-        }
-        else
-        {
-            OnDestructFail?.Invoke();
-            return false;
-        }
+        _wholeObjectTransform.gameObject.SetActive(false);
+        _debrisParent.gameObject.SetActive(true);
+        AddRigidBodiesToDebrisAndSubscribeDebrisForHitSound();
+        ObjectIsBroken = true;
     }
     private void AddRigidBodiesToDebrisAndSubscribeDebrisForHitSound()
     {
@@ -41,9 +29,9 @@ public class DestructibleObject : MonoBehaviour
     }
     private void AddRigidBodiesToDebrisAndSetParents()
     {
-        for (int i = 0; i < DebrisFragments.Count; i++)
+        for (int i = 0; i < FragmentsDebris.Count; i++)
         {
-            AddRigidBodyTo(DebrisFragments[i]);
+            AddRigidBodyTo(FragmentsDebris[i]);
             // SetDebrisParent(_debris[i].FragmentTransform);
         }
     }
@@ -55,7 +43,7 @@ public class DestructibleObject : MonoBehaviour
             {
                 CollectDebrisChilds(debris.GetChild(i));
             }
-            DebrisFragments.Add(new DebrisFragment(debris.GetChild(i)));
+            FragmentsDebris.Add(new DebrisFragment(debris.GetChild(i)));
         }
     }
     private void AddRigidBodyTo(DebrisFragment fragment)
@@ -68,9 +56,9 @@ public class DestructibleObject : MonoBehaviour
     }
     private void SubscribeDebrisForHitSound()
     {
-        for (int i = 0; i < DebrisFragments.Count; i++)
+        for (int i = 0; i < FragmentsDebris.Count; i++)
         {
-            DebrisFragments[i].SubscribeFragment(DebrisHit, _layerDebris, _delayChangeLayer);
+            FragmentsDebris[i].SubscribeFragment(DebrisHit, _layerDebris, _delayChangeLayer);
         }
     }
     private void DebrisHit()
@@ -80,14 +68,14 @@ public class DestructibleObject : MonoBehaviour
     protected void OnEnable()
     {
         ObjectIsBroken = false;
-        DebrisFragments = new List<DebrisFragment>();
+        FragmentsDebris = new List<DebrisFragment>();
         CollectDebrisChilds(_debrisParent);
     }
     protected void OnDisable()
     {
-        for (int i = 0; i < DebrisFragments.Count; i++)
+        for (int i = 0; i < FragmentsDebris.Count; i++)
         {
-            DebrisFragments[i].Dispose();
+            FragmentsDebris[i].Dispose();
         }
     }
 }

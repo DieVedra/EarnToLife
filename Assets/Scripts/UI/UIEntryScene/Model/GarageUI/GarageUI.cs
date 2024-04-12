@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Cysharp.Threading.Tasks;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -31,20 +32,15 @@ public class GarageUI
     }
     public void Deactivate()
     {
-        _garage.Deactivate();
-        _buttonsUpgradeCar.DeactivateButtons();
-        _switchingArrows.Deactivate();
         _garage.Wallet.OnTakeCashSuccess -= DisplayCashValue;
         _garage.Wallet.OnAddCashSuccess -= DisplayCashValue;
+        _switchingArrows.Deactivate();
+        _garage.Deactivate();
     }
 
-    public void DeactivateOnLoad()
+    public async UniTask DeactivateUpgradeButtons()
     {
-        _garage.Deactivate();
-        _buttonsUpgradeCar.DeactivateButtonsOnLoadGame();
-        _switchingArrows.Deactivate();
-        _garage.Wallet.OnTakeCashSuccess -= DisplayCashValue;
-        _garage.Wallet.OnAddCashSuccess -= DisplayCashValue;
+        await _buttonsUpgradeCar.DeactivateButtons();
     }
     private void DisplayCashValue(int cash)
     {

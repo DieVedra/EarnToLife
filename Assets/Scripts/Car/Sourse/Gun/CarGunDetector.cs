@@ -1,16 +1,20 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class CarGunDetector
 {
     private readonly float _radiusDetection;
     private readonly float _deadZoneDetectionValue;
+    private readonly float _delay = 0.12f;
     private Transform _visionPointTransform;
     private LayerMask _layerMask;
-    private Collider2D[] _hitCollidersAfterSphereCast;
-    private List<CarGunTarget> _targetsAfterSorting;
-    public int GetCurrentCountTargetsAfterSorted => _targetsAfterSorting?.Count ?? 0;
+    private Collider2D[] _hitColliders;
+    private List<Collider2D> _colliders = new List<Collider2D>();
+    private List<CarGunTarget> _targets;
+    public int GetCurrentCountTargets => _targets?.Count ?? 0;
+    public int GetMaxIndexTargets => _targets.Count - 1;
 
     public CarGunDetector(Transform viewPoint, LayerMask layerMask, float distanceDetection, float deadZoneDetectionValue)
     {
@@ -21,58 +25,31 @@ public class CarGunDetector
     }
     public bool TryFindTarget()
     {
-        if (TryCastSphere())
-        {
-            if (SortingTargets())
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
-        else
-        {
-            return false;
-        }
-    }
-    public CarGunTarget GetSortedTarget(int currentTargetIndex)
-    {
-        if (_targetsAfterSorting.Count - 1 < currentTargetIndex)
-        {
-            return _targetsAfterSorting[_targetsAfterSorting.Count - 1];
-        }
-        else
-        {
-            return _targetsAfterSorting[currentTargetIndex];
-        }
-    }
-    private bool SortingTargets()
-    {
-        _targetsAfterSorting = new List<CarGunTarget>(_hitCollidersAfterSphereCast.Length);
-        for (int i = 0; i < _hitCollidersAfterSphereCast.Length; i++)
-        {
-            if (_hitCollidersAfterSphereCast[i].gameObject.TryGetComponent(out IShotable shotable))
-            {
-                AddTarget(new CarGunTarget(shotable, _hitCollidersAfterSphereCast[i]));
-            }
-        }
-        if (_targetsAfterSorting.Count > 0)
+        if (CreateTargets())
         {
             return true;
         }
         else
         {
-            _targetsAfterSorting = null;
             return false;
+        }
+    }
+    public CarGunTarget GetTarget(int currentTargetIndex)
+    {
+        if (_targets.Count - 1 < currentTargetIndex)
+        {
+            return _targets[_targets.Count - 1];
+        }
+        else
+        {
+            return _targets[currentTargetIndex];
         }
     }
     private void AddTarget(CarGunTarget carGunTarget)
     {
         if (CheckRelevanceTarget(carGunTarget.Target))
         {
-            _targetsAfterSorting.Add(carGunTarget);
+            _targets.Add(carGunTarget);
         }
     }
     public bool CheckRelevanceTarget(IShotable target)
@@ -86,12 +63,30 @@ public class CarGunDetector
             return false;
         }
     }
-    private bool TryCastSphere()
+    private bool CreateTargets()
     {
-        _hitCollidersAfterSphereCast = Physics2D.OverlapCircleAll(_visionPointTransform.position, _radiusDetection, _layerMask.value);
-        if (_hitCollidersAfterSphereCast.Length > 0)
+        ContactFilter2D a = new ContactFilter2D();
+        a.layerMask = _layerMask.value;
+        if (Physics2D.OverlapCircle(_visionPointTransform.position, _radiusDetection, a, _colliders) > 0)
         {
-            return true;
+            _targets = new List<CarGunTarget>();
+            for (int i = 0; i < _colliders.Count; i++)
+            {
+                if (_colliders[i].transform.parent.gameObject.TryGetComponent(out IShotable shotable))
+                {
+                    AddTarget(new CarGunTarget(shotable, _colliders[i]));
+                }
+            }
+            _targets = SortByDistance(_targets);
+            if (_targets.Count > 0)
+            {
+                return true;
+            }
+            else
+            {
+                _targets = null;
+                return false;
+            }
         }
         else
         {
@@ -99,6 +94,10 @@ public class CarGunDetector
         }
     }
 
+    private List<CarGunTarget> SortByDistance(List<CarGunTarget> targets)
+    {
+        return targets.OrderBy(obj => Vector2.Distance(obj.TargetCollider.transform.position, _visionPointTransform.position)).ToList();
+    }
     private bool CheckDistance(float targetCoordX)
     {
         if (_visionPointTransform.position.x + _deadZoneDetectionValue < targetCoordX 

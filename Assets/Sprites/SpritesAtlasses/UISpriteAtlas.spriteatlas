@@ -44,80 +44,100 @@ SpriteAtlas:
     secondaryTextureSettings: {}
     variantMultiplier: 1
     packables:
-    - {fileID: 2800000, guid: 6c6e4700437ed5d498cd631c112d8c82, type: 3}
-    - {fileID: 2800000, guid: af26a9336c87a0d438a8df9b26255724, type: 3}
-    - {fileID: 2800000, guid: 1ebe36a5b75050d4f95abe94d9a1cd0f, type: 3}
-    - {fileID: 2800000, guid: c2fb00652a8f9d347a63d29239aa49f5, type: 3}
-    - {fileID: 2800000, guid: 80fd1dc19409c2044ba683d40d72d39e, type: 3}
-    - {fileID: 2800000, guid: 8a87e217497645f4ea6872b2a7bf8fa4, type: 3}
-    - {fileID: 2800000, guid: f7d328c0398783b4683a8d099cead4ce, type: 3}
-    - {fileID: 2800000, guid: 2ec794cf89b8ad342ae7eb82377e0a58, type: 3}
-    - {fileID: 2800000, guid: 28834ed8d7d78ba499c8e0f2b079d135, type: 3}
-    - {fileID: 2800000, guid: 4a652a24eb7ca4041ae13a7dabf2fd20, type: 3}
-    - {fileID: 2800000, guid: 0aa63dfe92c652c44a338ca229b0db2a, type: 3}
-    - {fileID: 2800000, guid: a497aa5368a09d741a4efd3bc818e2fb, type: 3}
-    - {fileID: 2800000, guid: 1c8631f377e4c284cb3bab218f8d19e5, type: 3}
+    - {fileID: 102900000, guid: e1fe6884f5c7a7e46ad9cdf4dbf3e92f, type: 3}
     bindAsDefault: 1
     isAtlasV2: 0
     cachedData: {fileID: 0}
   m_MasterAtlas: {fileID: 0}
   m_PackedSprites:
-  - {fileID: -1089829755, guid: 6c6e4700437ed5d498cd631c112d8c82, type: 3}
-  - {fileID: 399955941, guid: 6c6e4700437ed5d498cd631c112d8c82, type: 3}
-  - {fileID: -1040720032, guid: 6c6e4700437ed5d498cd631c112d8c82, type: 3}
-  - {fileID: -616028013, guid: 6c6e4700437ed5d498cd631c112d8c82, type: 3}
-  - {fileID: -214649825, guid: 6c6e4700437ed5d498cd631c112d8c82, type: 3}
-  - {fileID: 605793494, guid: 6c6e4700437ed5d498cd631c112d8c82, type: 3}
-  - {fileID: 867759680, guid: 6c6e4700437ed5d498cd631c112d8c82, type: 3}
-  - {fileID: 611831273, guid: 6c6e4700437ed5d498cd631c112d8c82, type: 3}
-  - {fileID: 453854413, guid: 6c6e4700437ed5d498cd631c112d8c82, type: 3}
-  - {fileID: 1787644829, guid: 6c6e4700437ed5d498cd631c112d8c82, type: 3}
-  - {fileID: -1151600948, guid: 6c6e4700437ed5d498cd631c112d8c82, type: 3}
-  - {fileID: -1585034628, guid: 6c6e4700437ed5d498cd631c112d8c82, type: 3}
-  - {fileID: -1106171950, guid: 6c6e4700437ed5d498cd631c112d8c82, type: 3}
-  - {fileID: -1642550760, guid: 6c6e4700437ed5d498cd631c112d8c82, type: 3}
-  - {fileID: 489907547, guid: 6c6e4700437ed5d498cd631c112d8c82, type: 3}
-  - {fileID: -917237435, guid: 6c6e4700437ed5d498cd631c112d8c82, type: 3}
-  - {fileID: 21300000, guid: f7d328c0398783b4683a8d099cead4ce, type: 3}
-  - {fileID: 21300000, guid: 80fd1dc19409c2044ba683d40d72d39e, type: 3}
+  - {fileID: 21300000, guid: 88325070faf9ca64ca3a19fd60ca7d2d, type: 3}
+  - {fileID: 21300000, guid: cae6a9d003705934188f6d849d9e9a54, type: 3}
+  - {fileID: 21300000, guid: dc46fad0ab753c14e810ccaa79a6b13c, type: 3}
+  - {fileID: 21300000, guid: 6259b241ec581a741b1ef77a99d4d196, type: 3}
+  - {fileID: 21300000, guid: eaf73b51cf8fb4f449fe2cfbcb0ce321, type: 3}
+  - {fileID: 21300000, guid: 69a09a71a76349f4293d15f58867b2fa, type: 3}
+  - {fileID: 21300000, guid: 257a3bc25a408544b85c198a796fb43a, type: 3}
+  - {fileID: 21300000, guid: dcc87bf21fc8e394db8c091210fd1c2d, type: 3}
   - {fileID: 21300000, guid: af26a9336c87a0d438a8df9b26255724, type: 3}
   - {fileID: 21300000, guid: a497aa5368a09d741a4efd3bc818e2fb, type: 3}
   - {fileID: 21300000, guid: 1c8631f377e4c284cb3bab218f8d19e5, type: 3}
-  - {fileID: 21300000, guid: 4a652a24eb7ca4041ae13a7dabf2fd20, type: 3}
-  - {fileID: 21300000, guid: c2fb00652a8f9d347a63d29239aa49f5, type: 3}
+  - {fileID: 21300000, guid: 91cfffa4612661445a659df21b5b9989, type: 3}
   - {fileID: 21300000, guid: 1ebe36a5b75050d4f95abe94d9a1cd0f, type: 3}
+  - {fileID: 21300000, guid: 460910561d3f0c043b0d5511f414c6f8, type: 3}
+  - {fileID: 21300000, guid: 3cb7a466a7e8eaa4a8e1a4e252978b80, type: 3}
+  - {fileID: 21300000, guid: b480896699a39244385d2dda38213473, type: 3}
+  - {fileID: 21300000, guid: f7b4d176033378247b75325f0cdec923, type: 3}
+  - {fileID: 21300000, guid: 836732a68f5fd654c990862141bb7029, type: 3}
+  - {fileID: 21300000, guid: 7497eea6e67594c48adfe9d2f704c765, type: 3}
+  - {fileID: 21300000, guid: 74452307c2649c74686a9989e11d0a4f, type: 3}
   - {fileID: 21300000, guid: 8a87e217497645f4ea6872b2a7bf8fa4, type: 3}
+  - {fileID: 21300000, guid: 04ec353752373cb42942367abfb82ffa, type: 3}
+  - {fileID: 21300000, guid: b9e2e737115fdc84882f8f0ef3f741ca, type: 3}
+  - {fileID: 21300000, guid: 9b9f13e7ce8d30d44a424db2f4aab948, type: 3}
   - {fileID: 21300000, guid: 28834ed8d7d78ba499c8e0f2b079d135, type: 3}
+  - {fileID: 21300000, guid: 1dde65496f2bd41489ec3452a85aa957, type: 3}
+  - {fileID: 21300000, guid: 89026c1a110f70d4fa09d788c4e3a4f0, type: 3}
+  - {fileID: 21300000, guid: 18c30ecada4dbfb43a02c777dc7096d4, type: 3}
+  - {fileID: 21300000, guid: 3fa1720bebde39f4c84648a8e3d68240, type: 3}
+  - {fileID: 21300000, guid: a4d6586b0273dbf46af8066a753d9a4e, type: 3}
+  - {fileID: 21300000, guid: 0f506a7bae0e7464c92f1676862df73b, type: 3}
+  - {fileID: 21300000, guid: ab4ab56c68a8ff14b9a7a57742f3b912, type: 3}
+  - {fileID: 21300000, guid: 0478899c4e192f14c95b948f2275423b, type: 3}
+  - {fileID: 21300000, guid: bf9096cccecc393478a6d77381f24a34, type: 3}
+  - {fileID: 21300000, guid: 5aabdb2d62d8b2747a7a196f33156538, type: 3}
+  - {fileID: 21300000, guid: f70aebfd289b5264394f13fa0ec9123c, type: 3}
+  - {fileID: 21300000, guid: 9cbbe42e539eb844e849b01cb40b9814, type: 3}
+  - {fileID: 21300000, guid: 443ed88e1f202e94a80ab0e81b2aef24, type: 3}
+  - {fileID: 21300000, guid: 25be298ed2305f049b1acb76a49d56ca, type: 3}
   - {fileID: 21300000, guid: 0aa63dfe92c652c44a338ca229b0db2a, type: 3}
+  - {fileID: 21300000, guid: c249ea1f35899854585fcab0633eb20d, type: 3}
+  - {fileID: 21300000, guid: 6c23c05f2a3dd3b458113af641bad797, type: 3}
+  - {fileID: 21300000, guid: 14f71a9fd7b2e5b458cad4c0780b2404, type: 3}
   - {fileID: 21300000, guid: 2ec794cf89b8ad342ae7eb82377e0a58, type: 3}
   m_PackedSpriteNamesToIndex:
-  - Atlas2_9
-  - Atlas2_8
-  - Atlas2_7
-  - Atlas2_6
-  - Atlas2_5
-  - Atlas2_4
-  - Atlas2_3
-  - Atlas2_2
-  - Atlas2_1
-  - Atlas2_0
-  - Atlas2_12
-  - Atlas2_13
-  - Atlas2_10
-  - Atlas2_11
-  - Atlas2_14
-  - Atlas2_15
-  - DevicePanel
-  - Button2
+  - DialSpeed
+  - Bottle
+  - DialPart2
+  - Icon1
+  - Line3
+  - DialPart3
+  - Flag
+  - Dial
   - ArrowBack
   - LightOff
   - LightOn
-  - Panel1
-  - Button1
+  - Slider
   - ArrowSwipe
+  - ArrowCircle
+  - Panel
+  - Line1
+  - ArrowLine
+  - ArrowRotate
+  - Background1
+  - Icon2
   - Button3
+  - Icon3
+  - Ball3
+  - Background2
   - Lock
+  - FuelIcon
+  - Panel3
+  - Ball1
+  - Pedal1
+  - SliderBackground
+  - "\u0421\u043B\u043E\u0439 2"
+  - Pedal2
+  - "\u0420\u0435\u0441\u0443\u0440\u0441 67"
+  - Boost
+  - Ball
+  - GunIcon 1
+  - ButtonBackground
+  - Arrow4
+  - Line2
   - Panel2
+  - DialPart1
+  - Aim
+  - CarIcon
   - TextPanel
   m_RenderDataMap: {}
   m_Tag: UISpriteAtlas

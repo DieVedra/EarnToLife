@@ -10,8 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4129061258457970754}
   - component: {fileID: 7752915574784575310}
-  - component: {fileID: 4129061258457970752}
-  - component: {fileID: 6069095264948033136}
+  - component: {fileID: 2784460502421744776}
   m_Layer: 22
   m_Name: Beam1
   m_TagString: Untagged
@@ -26,11 +25,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4129061258457970755}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 6960929882116302711}
   - {fileID: 3723734724087198669}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -47,17 +47,75 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5aac61715ff643b9a61199fdfb2e3ae1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _sprite: {fileID: 4129061258457970752}
+  _layerDebris: 20
+  _debrisParent: {fileID: 3723734724087198669}
+  _wholeObjectTransform: {fileID: 6960929882116302711}
+  Hardness: 20
+  _sprite: {fileID: 7604037518833707625}
   _spriteFragment1: {fileID: 8291457196404356086}
   _spriteFragment2: {fileID: 7716670098436952874}
   _offsetSizeFragment: 0.085
---- !u!212 &4129061258457970752
-SpriteRenderer:
+--- !u!50 &2784460502421744776
+Rigidbody2D:
+  serializedVersion: 4
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4129061258457970755}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 10
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
+--- !u!1 &5600485181452583765
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6960929882116302711}
+  - component: {fileID: 7604037518833707625}
+  - component: {fileID: 345448490920257963}
+  m_Layer: 22
+  m_Name: WholeObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6960929882116302711
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5600485181452583765}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4129061258457970754}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!212 &7604037518833707625
+SpriteRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5600485181452583765}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -103,13 +161,13 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!60 &6069095264948033136
+--- !u!60 &345448490920257963
 PolygonCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4129061258457970755}
+  m_GameObject: {fileID: 5600485181452583765}
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 6200000, guid: 2151713eab0114248a49f9453a47db44, type: 2}
@@ -143,7 +201,7 @@ GameObject:
   - component: {fileID: 8828124248500624000}
   - component: {fileID: 8291457196404356086}
   - component: {fileID: 2579721195364917019}
-  m_Layer: 0
+  m_Layer: 20
   m_Name: Part1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -203,8 +261,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -82694975
+  m_SortingLayer: 2
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 60da683255b632d4a9b3fffa26aa498f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -255,13 +313,13 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3723734724087198669}
-  m_Layer: 22
+  m_Layer: 20
   m_Name: Debris
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &3723734724087198669
 Transform:
   m_ObjectHideFlags: 0
@@ -277,7 +335,7 @@ Transform:
   - {fileID: 8828124248500624000}
   - {fileID: 860702908841410483}
   m_Father: {fileID: 4129061258457970754}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8411497886280294641
 GameObject:
@@ -290,7 +348,7 @@ GameObject:
   - component: {fileID: 860702908841410483}
   - component: {fileID: 7716670098436952874}
   - component: {fileID: 2467474616138935950}
-  m_Layer: 0
+  m_Layer: 20
   m_Name: Part2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -350,8 +408,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -82694975
+  m_SortingLayer: 2
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: fb33d0e73e9a2634f8f30a50ef997e16, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

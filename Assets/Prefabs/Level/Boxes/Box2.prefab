@@ -2556,7 +2556,7 @@ MonoBehaviour:
   _layerDebris: 20
   _debrisParent: {fileID: 1780133172329617626}
   _wholeObjectTransform: {fileID: 1066596884714242989}
-  _hardness: 20
+  Hardness: 20
 --- !u!50 &756928842254279190
 Rigidbody2D:
   serializedVersion: 4

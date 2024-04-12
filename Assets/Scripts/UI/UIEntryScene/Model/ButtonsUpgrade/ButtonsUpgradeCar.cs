@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -59,7 +60,7 @@ public class ButtonsUpgradeCar
         SetColorsPricesButtons();
         _appearanceButtonsAnimation.Unhide();
     }
-    public async void DeactivateButtons()
+    public async UniTask DeactivateButtons()
     {
         _confirmationUpgrade.OnUpgradePricesUpdate -= SetPrices;
         _confirmationUpgrade.OnUpgradePricesUpdate -= SetColorsPricesButtons;
@@ -74,12 +75,6 @@ public class ButtonsUpgradeCar
             _upgradeButtons[i].ResetIndicator();
             _upgradeButtons[i].ResetIcon();
         }
-    }
-
-    public void DeactivateButtonsOnLoadGame()
-    {
-        _confirmationUpgrade.OnUpgradePricesUpdate -= SetPrices;
-        _confirmationUpgrade.OnUpgradePricesUpdate -= SetColorsPricesButtons;
     }
     private void SetPrices()
     {

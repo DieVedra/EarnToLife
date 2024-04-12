@@ -6,6 +6,7 @@ public class KeyboardInputMethod : InputMethod
 {
     private bool _boosterAvailable;
     private bool _gunAvailable;
+    private bool _previousKeyPressNextTarget = false;
     public KeyboardInputMethod(bool boosterAvailable, bool gunAvailable)
     {
         _boosterAvailable = boosterAvailable;
@@ -86,10 +87,19 @@ public class KeyboardInputMethod : InputMethod
     {
         if (_gunAvailable == true && Input.GetKey(KeyCode.C))
         {
-            return true;
+            if (_previousKeyPressNextTarget == false)
+            {
+                _previousKeyPressNextTarget = true;
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
         else
         {
+            _previousKeyPressNextTarget = false;
             return false;
         }
     }

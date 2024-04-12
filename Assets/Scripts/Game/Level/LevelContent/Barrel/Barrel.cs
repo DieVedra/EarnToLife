@@ -5,7 +5,7 @@ using UnityEngine;
 using Zenject;
 
 [RequireComponent(typeof(Rigidbody2D))]
-public class Barrel : DestructibleObject, IHitable
+public class Barrel : DestructibleObject, IHitable, IShotable
 {
     [SerializeField] private float _force;
     [SerializeField] private float _radiusShockWave;
@@ -14,18 +14,31 @@ public class Barrel : DestructibleObject, IHitable
     private Rigidbody2D _rigidbody2D;
     private BlastWave _blastWave;
     private BarrelAudioHandler _barrelAudioHandler;
-    public new IReadOnlyList<DebrisFragment> DebrisFragments => base.DebrisFragments;
+    private Transform _transform;
+    public IReadOnlyList<DebrisFragment> DebrisFragments => base.FragmentsDebris;
 
-    public Vector2 Position { get; }
+    public Vector2 Position => _transform.position;
     public bool IsBroken => base.ObjectIsBroken;
+
+    public bool IsLive => base.ObjectIsBroken ?  false : true ;
+    public Transform TargetTransform => _transform;
 
     [Inject]
     private void Construct(LevelAudioHandler levelAudioHandler)
     {
         _barrelAudioHandler = levelAudioHandler.BarrelAudioHandler;
-        // _transform = transform;
+        _transform = transform;
         _rigidbody2D = GetComponent<Rigidbody2D>();
         _blastWave = new BlastWave(transform, _extinctionBlastWaveCurve, _radiusShockWave, _force);
+    }
+
+    public void DestructFromShoot(Vector2 force)
+    {
+        if (IsLive == true)
+        {
+            Destruct();
+            Explosion();
+        }
     }
 
     public bool TryBreakOnImpact(float forceHit)
@@ -33,13 +46,15 @@ public class Barrel : DestructibleObject, IHitable
         bool result;
         if (IsBroken == false)
         {
-            if (TryDestruct(forceHit) == true)
+            if (forceHit > Hardness)
             {
-                Explosion();
+                _barrelAudioHandler.PlayBarrelExplosionSound();
+                Destruct();
                 result = true;
             }
             else
             {
+                _barrelAudioHandler.PlayBarrelFailBreakingSound();
                 result = false;
             }
         }
@@ -54,16 +69,19 @@ public class Barrel : DestructibleObject, IHitable
     {
         _rigidbody2D.AddForce(force);
     }
+
     [Button("Explosion")]
     private void a()
     {
         TryBreakOnImpact(100);
     }
+
     private void Explosion()
     {
         _blastWave.InteractWithBlastWave(DebrisFragments);
         // _explodeEffect?.Play();
     }
+
     private void OnDrawGizmos()
     {
         if (Application.isEditor)
@@ -75,8 +93,6 @@ public class Barrel : DestructibleObject, IHitable
 
     private new void OnEnable()
     {
-        OnDestruct += _barrelAudioHandler.PlayBarrelExplosionSound;
-        OnDestructFail += _barrelAudioHandler.PlayBarrelFailBreakingSound;
         OnDebrisHit += _barrelAudioHandler.PlayBarrelHitSound;
         base.OnEnable();
 
@@ -84,8 +100,6 @@ public class Barrel : DestructibleObject, IHitable
 
     private new void OnDisable()
     {
-        OnDestruct -= _barrelAudioHandler.PlayBarrelExplosionSound;
-        OnDestructFail -= _barrelAudioHandler.PlayBarrelFailBreakingSound;
         OnDebrisHit -= _barrelAudioHandler.PlayBarrelHitSound;
         base.OnDisable();
 

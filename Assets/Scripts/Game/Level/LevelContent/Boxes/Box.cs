@@ -6,12 +6,13 @@ using Zenject;
 [RequireComponent(typeof(Rigidbody2D))]
 public class Box : DestructibleObject, IHitable
 {
+    private readonly float _forceMultiplier = 3f;
     private Transform _transform;
     private Rigidbody2D _rigidbody2D;
     private WoodDestructibleAudioHandler _woodDestructibleAudioHandler;
     public Vector2 Position => _transform.position;
     public bool IsBroken => base.ObjectIsBroken;
-    public new IReadOnlyList<DebrisFragment> DebrisFragments => base.DebrisFragments;
+    public IReadOnlyList<DebrisFragment> DebrisFragments => base.FragmentsDebris;
 
     [Inject]
     private void Construct(LevelAudioHandler levelAudioHandler)
@@ -26,32 +27,37 @@ public class Box : DestructibleObject, IHitable
         bool result;
         if (IsBroken == false)
         {
-            result = TryDestruct(forceHit);
+            if (forceHit > Hardness)
+            {
+                _woodDestructibleAudioHandler.PlayWoodBreakingSound();
+                Destruct();
+                result = true;
+            }
+            else
+            {
+                _woodDestructibleAudioHandler.PlayWoodNotBreakingSound();
+                result = false;
+            }
         }
         else
         {
             result = false;
         }
-        // Debug.Log($"Box TryBreakOnImpact: {result}   forceHit: {forceHit} ");
         return result;
     }
 
     public void AddForce(Vector2 force)
     {
-        _rigidbody2D.AddForce(force);
+        _rigidbody2D.AddForce(force * _forceMultiplier);
     }
     private new void OnEnable()
     {
-        OnDestruct += _woodDestructibleAudioHandler.PlayWoodBreakingSound;
-        OnDestructFail += _woodDestructibleAudioHandler.PlayWoodNotBreakingSound;
         OnDebrisHit += _woodDestructibleAudioHandler.PlayHitWoodSound;
         base.OnEnable();
     }
 
     private new void OnDisable()
     {
-        OnDestruct -= _woodDestructibleAudioHandler.PlayWoodBreakingSound;
-        OnDestructFail -= _woodDestructibleAudioHandler.PlayWoodNotBreakingSound;
         OnDebrisHit -= _woodDestructibleAudioHandler.PlayHitWoodSound;
         base.OnDisable();
     }

@@ -1,16 +1,22 @@
 ﻿using System;
+using System.Collections.Generic;
 using UniRx;
 using UniRx.Triggers;
 using UnityEngine;
 
 public class GroundAnalyzer
 {
-    private readonly LayerMask _ground;
-    private readonly LayerMask _asphalt;
-    private readonly Collider2D _frontWheelCollider;
-    private readonly Collider2D _backWheelCollider;
-    private readonly CompositeDisposable _frontWheelCompositeDisposable = new CompositeDisposable();
-    private readonly CompositeDisposable _backWheelCompositeDisposable = new CompositeDisposable();
+    private readonly int _asphaltLayer;
+    private readonly int _groundLayer;
+    private readonly float _distance = 0.1f;
+    private readonly float _delay = 0.12f;
+    private readonly CarWheel _frontWheel;
+    private readonly CarWheel _backWheel;
+    private readonly LayerMask _contactMask;
+    private bool _carBrokenIntoTwoParts = false;
+    private RaycastHit2D _frontWheelHit;
+    private RaycastHit2D _backWheelHit;
+    private float _time = 0f;
     public Vector2 FrontWheelPointContact { get; private set; }
     public Vector2 BackWheelPointContact { get; private set; }
 
@@ -21,117 +27,97 @@ public class GroundAnalyzer
     public ReactiveProperty<bool> BackWheelOnAsphaltReactiveProperty = new ReactiveProperty<bool>();
     public bool FrontWheelContact { get; private set; } = false;
     public bool BackWheelContact { get; private set; } = false;
-    public GroundAnalyzer(CarWheel frontWheel, CarWheel backWheel, ReactiveCommand onCarBrokenIntoTwoParts, LayerMask ground, LayerMask asphalt)
+    public GroundAnalyzer(CarWheel frontWheel, CarWheel backWheel, ReactiveCommand onCarBrokenIntoTwoParts,
+        LayerMask contactMask, int asphaltLayer, int groundLayer)
     {
-        _ground = ground;
-        _asphalt = asphalt;
-        _frontWheelCollider = frontWheel.Collider2D;
-        _backWheelCollider = backWheel.Collider2D;
+        _frontWheel = frontWheel;
+        _backWheel = backWheel;
+        _contactMask = contactMask;
+        _asphaltLayer = asphaltLayer;
+        _groundLayer = groundLayer;
         onCarBrokenIntoTwoParts.Subscribe(_ => { CarBrokenIntoTwoParts();});
-        SubscribeCollider(_frontWheelCollider, CheckCircleFrontWheel, _frontWheelCompositeDisposable);
-        SubscribeCollider(_backWheelCollider, CheckCircleBackWheel, _backWheelCompositeDisposable);
     }
-    public void Dispose()
+
+    public void Update()
     {
-        _frontWheelCompositeDisposable.Clear();
-        _backWheelCompositeDisposable.Clear();
-    }
-    private void CheckCircleBackWheel(Collision2D collision2D)
-    {
-        if (CheckGround(collision2D) == true)
+        if (_time <= 0f)
         {
-            BackWheelOnGroundReactiveProperty.Value = true;
-            BackWheelOnAsphaltReactiveProperty.Value = false;
-            SetContactPointBackWheel(collision2D);
-        }
-        else if(CheckAsphalt(collision2D) == true)
-        {
-            BackWheelOnGroundReactiveProperty.Value = false;
-            BackWheelOnAsphaltReactiveProperty.Value = true;
-            SetContactPointBackWheel(collision2D);
+            _time = _delay;
+            CheckCircleFrontWheel();
+            if (_carBrokenIntoTwoParts == false)
+            {
+                CheckCircleBackWheel();
+            }
         }
         else
         {
-            BackWheelOnGroundReactiveProperty.Value = false;
-            BackWheelOnAsphaltReactiveProperty.Value = false;
-            BackWheelContact = false;
+            _time -= Time.deltaTime;
         }
     }
-    private void CheckCircleFrontWheel(Collision2D collision2D)
+    private void CheckCircleFrontWheel()
     {
-        if (CheckGround(collision2D) == true)
+        _frontWheelHit = Physics2D.CircleCast(_frontWheel.Position, _frontWheel.Radius,
+            Vector2.down, _distance, _contactMask.value);
+        if (_frontWheelHit != null)
         {
-            FrontWheelOnGroundReactiveProperty.Value = true;
-            FrontWheelOnAsphaltReactiveProperty.Value = false;
-            SetContactPointFrontWheel(collision2D);
+            CheckLayer(FrontWheelOnGroundReactiveProperty, FrontWheelOnAsphaltReactiveProperty, _frontWheelHit,
+            SetContactPointFrontWheelAndSetKeyTrue,SetKeyFalseFrontWheelContact);
         }
-        else if(CheckAsphalt(collision2D) == true)
+    }
+    private void CheckCircleBackWheel()
+    {
+        _backWheelHit = Physics2D.CircleCast(_backWheel.Position, _backWheel.Radius,
+            Vector2.down, _distance, _contactMask.value);
+        if (_backWheelHit != null)
         {
-            FrontWheelOnGroundReactiveProperty.Value = false;
-            FrontWheelOnAsphaltReactiveProperty.Value = true;
-            SetContactPointFrontWheel(collision2D);
+            CheckLayer(BackWheelOnGroundReactiveProperty, BackWheelOnAsphaltReactiveProperty, _backWheelHit,
+                SetContactPointBackWheelAndSetKeyTrue, SetKeyFalseBackWheelContact);
+        }
+    }
+
+    private void CheckLayer(ReactiveProperty<bool> wheelOnGroundReactiveProperty,
+        ReactiveProperty<bool> wheelOnAsphaltReactiveProperty, RaycastHit2D hit,
+        Action<RaycastHit2D> setContactPointWheel, Action setKeyFalseContact)
+    {
+        if (hit.transform.gameObject.layer == _groundLayer)
+        {
+            wheelOnGroundReactiveProperty.Value = true;
+            wheelOnAsphaltReactiveProperty.Value = false;
+            setContactPointWheel(hit);
+        }
+        else if (hit.transform.gameObject.layer == _asphaltLayer)
+        {
+            wheelOnGroundReactiveProperty.Value = false;
+            wheelOnAsphaltReactiveProperty.Value = true;
+            setContactPointWheel(hit);
         }
         else
         {
-            FrontWheelOnGroundReactiveProperty.Value = false;
-            FrontWheelOnAsphaltReactiveProperty.Value = false;
-            FrontWheelContact = false;
-        }
-        
-        // Debug.Log($"FrontWheelOnAsphalt: {FrontWheelOnAsphaltReactiveProperty.Value}    " +
-        //           $"FrontWheelOnGround: {FrontWheelOnGroundReactiveProperty.Value}  " +
-        //           $"GroundContact: {FrontWheelContact}");
-    }
-    private bool CheckGround(Collision2D collision2D)
-    {
-        if ((1 << collision2D.gameObject.layer & _ground.value) == 1 << collision2D.gameObject.layer)
-        {
-            return true;
-        }
-        else
-        {
-            return false;
+            wheelOnGroundReactiveProperty.Value = false;
+            wheelOnAsphaltReactiveProperty.Value = false;
+            setKeyFalseContact?.Invoke();
         }
     }
-    private bool CheckAsphalt(Collision2D collision2D)
-    {
-        if((1 << collision2D.gameObject.layer & _asphalt.value) == 1 << collision2D.gameObject.layer)
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
-    }
-    private void SubscribeCollider(Collider2D collider2D, Action<Collision2D> operation, CompositeDisposable compositeDisposable)
-    {
-        collider2D.OnCollisionStay2DAsObservable().Do(operation.Invoke).Subscribe().AddTo(compositeDisposable);
-        collider2D.OnCollisionExit2DAsObservable().Do(operation.Invoke).Subscribe().AddTo(compositeDisposable);
-    }
-    private void SetContactPointFrontWheel(Collision2D collision2D)
+    private void SetContactPointFrontWheelAndSetKeyTrue(RaycastHit2D wheelHit)
     {
         FrontWheelContact = true;
-        FrontWheelPointContact = GetContactPoint(collision2D);
+        FrontWheelPointContact = wheelHit.point;
     }
-    private void SetContactPointBackWheel(Collision2D collision2D)
+    private void SetContactPointBackWheelAndSetKeyTrue(RaycastHit2D wheelHit)
     {
         BackWheelContact = true;
-        BackWheelPointContact = GetContactPoint(collision2D);
+        BackWheelPointContact = wheelHit.point;
     }
-    private Vector2 GetContactPoint(Collision2D collision2D)
+    private void SetKeyFalseFrontWheelContact()
     {
-        if (collision2D.contacts.Length > 0)
-        {
-            return collision2D.contacts[0].point;
-        }
-        else
-        {
-            return Vector2.zero;
-        }
+        FrontWheelContact = false;
+    }
+    private void SetKeyFalseBackWheelContact()
+    {
+        BackWheelContact = false;
     }
     private void CarBrokenIntoTwoParts()
     {
-        _backWheelCompositeDisposable.Clear();
+        _carBrokenIntoTwoParts = true;
     }
 }

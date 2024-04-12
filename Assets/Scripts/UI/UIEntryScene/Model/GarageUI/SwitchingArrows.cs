@@ -50,7 +50,7 @@ public class SwitchingArrows
         _audioHandlerUI.PlayClick();
         _switchGarageLot.SwitchLotRight();
         _lockLotIndicator.CheckStatus();
-        _buttonsUpgradeCar.DeactivateButtons();
+        _buttonsUpgradeCar.DeactivateButtons().Forget();
         ButtonsNotCanPush();
         await _animationSwitchArrows.SwitchRight();
         CheckActiveButtons();
@@ -61,7 +61,7 @@ public class SwitchingArrows
         _audioHandlerUI.PlayClick();
         _switchGarageLot.SwitchLotLeft();
         _lockLotIndicator.CheckStatus();
-        _buttonsUpgradeCar.DeactivateButtons();
+        _buttonsUpgradeCar.DeactivateButtons().Forget();
         ButtonsNotCanPush();
         await _animationSwitchArrows.SwitchLeft();
         CheckActiveButtons();
