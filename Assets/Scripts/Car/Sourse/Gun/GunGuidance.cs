@@ -11,7 +11,7 @@ public class GunGuidance
     private float _angleInRadians;
     private float _angleInDegrees;
     private float _speedLook;
-    public bool IsGuidanence { get; set; } = true;
+    public bool FreezedGuidanenceAfterShoot { get; set; } = false;
     public GunGuidance(Transform gunRotation, float speedLook)
     {
         _gunRotation = gunRotation;
@@ -19,7 +19,7 @@ public class GunGuidance
     }
     public void Update(Transform target)
     {
-        if (IsGuidanence == true)
+        if (FreezedGuidanenceAfterShoot == false)
         {
             CalculateRotation(target.position);
             GunRotate(_angleInDegrees);

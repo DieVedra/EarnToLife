@@ -12,6 +12,7 @@ public class GlobalAudio : MonoBehaviour, ISoundPause, ICarAudio, ILevelAudio, I
     [SerializeField, BoxGroup("AudioSources")] private AudioSource _carAudioSourceForEngine;
     [SerializeField, BoxGroup("AudioSources")] private AudioSource _carAudioSourceForBooster;
     [SerializeField, BoxGroup("AudioSources")] private AudioSource _carAudioSourceForDestruction;
+    [SerializeField, BoxGroup("AudioSources")] private AudioSource _carAudioSourceForHotWheels;
     [SerializeField, BoxGroup("AudioSources")] private AudioSource _carAudioSourceForOther;
     [SerializeField, BoxGroup("AudioSources")] private AudioSource _levelAudioSource;
     
@@ -28,6 +29,7 @@ public class GlobalAudio : MonoBehaviour, ISoundPause, ICarAudio, ILevelAudio, I
     public AudioSource CarAudioSourceForEngine => _carAudioSourceForEngine;
     public AudioSource CarAudioSourceForBooster => _carAudioSourceForBooster;
     public AudioSource CarAudioSourceForDestruction => _carAudioSourceForDestruction;
+    public AudioSource CarAudioSourceForHotWheels => _carAudioSourceForHotWheels;
     public AudioSource CarAudioSourceForOther => _carAudioSourceForOther;
     public AudioSource LevelAudioSource => _levelAudioSource;
     private AudioSource[] _audioSources;

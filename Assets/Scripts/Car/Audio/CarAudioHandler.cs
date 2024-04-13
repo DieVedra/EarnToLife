@@ -6,6 +6,7 @@ public class CarAudioHandler : IDisposable
     public readonly BrakeAudioHandler BrakeAudioHandler;
     public readonly GunAudioHandler GunAudioHandler;
     public readonly DestructionAudioHandler DestructionAudioHandler;
+    public readonly HotWheelAudioHandler HotWheelAudioHandler;
     private readonly ICarAudio _globalAudioToCar;
     
     public CarAudioHandler(ICarAudio globalAudioToCar)
@@ -34,11 +35,15 @@ public class CarAudioHandler : IDisposable
             _globalAudioToCar.CarAudioClipProvider.EngineClapAudioClip,
             _globalAudioToCar.CarAudioClipProvider.DriverNeckBrokeAudioClip
         );
+        HotWheelAudioHandler = new HotWheelAudioHandler(_globalAudioToCar.CarAudioSourceForHotWheels, _globalAudioToCar.CarAudioSourceForOther, _globalAudioToCar.SoundReactiveProperty,
+            _globalAudioToCar.CarAudioClipProvider.CarHotweelAudioClip,
+            _globalAudioToCar.CarAudioClipProvider.CarHotweelSlitAudioClip);
         _globalAudioToCar.OnSoundChange += EngineAudioHandler.PlayRun;
     }
     public void Dispose()
     {
         _globalAudioToCar.OnSoundChange -= EngineAudioHandler.PlayRun;
         _globalAudioToCar.SoundReactiveProperty.Dispose();
+        HotWheelAudioHandler.Dispose();
     }
 }

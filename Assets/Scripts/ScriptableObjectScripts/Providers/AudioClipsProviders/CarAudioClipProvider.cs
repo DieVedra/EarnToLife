@@ -12,6 +12,7 @@ public class CarAudioClipProvider : ScriptableObject
     [SerializeField, BoxGroup("SoundsCar")] private AudioClip _engineStopAudioClip;
     [SerializeField, BoxGroup("SoundsCar")] private AudioClip _boosterRunAudioClip;
     [SerializeField, BoxGroup("SoundsCar")] private AudioClip _carHotweelAudioClip;
+    [SerializeField, BoxGroup("SoundsCar")] private AudioClip _carHotweelSlitAudioClip;
     [SerializeField, BoxGroup("SoundsCar")] private AudioClip _carBurnAudioClip;
     [SerializeField, BoxGroup("SoundsCar")] private AudioClip _carHardHitAudioClip;
     [SerializeField, BoxGroup("SoundsCar")] private AudioClip _carSoftHitAudioClip;
@@ -28,6 +29,7 @@ public class CarAudioClipProvider : ScriptableObject
     public AudioClip BoosterRunAudioClip => _boosterRunAudioClip;
     public AudioClip ShotGunAudioClip => _shotGunAudioClip;
     public AudioClip CarHotweelAudioClip => _carHotweelAudioClip;
+    public AudioClip CarHotweelSlitAudioClip => _carHotweelSlitAudioClip;
     public AudioClip CarBurnAudioClip => _carBurnAudioClip;
     public AudioClip CarHardHitAudioClip => _carHardHitAudioClip;
     public AudioClip CarSoftHitAudioClip => _carSoftHitAudioClip;

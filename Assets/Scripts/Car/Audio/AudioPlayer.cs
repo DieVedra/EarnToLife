@@ -5,6 +5,7 @@ public class AudioPlayer
 {
     protected readonly AudioSource AudioSource;
     private bool _soundOn;
+    protected bool SoundOn => _soundOn;
 
     protected AudioPlayer(AudioSource audioSource, ReactiveProperty<bool> soundReactiveProperty)
     {

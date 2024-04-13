@@ -5,7 +5,7 @@ using UnityEngine;
 using Zenject;
 
 [RequireComponent(typeof(Rigidbody2D))]
-public class Beam1 : Beam, IHitable
+public class Beam1 : Beam, IHitable, ICutable
 {
     private float _halfBeamLength;
     private Transform _transform;
@@ -22,6 +22,14 @@ public class Beam1 : Beam, IHitable
         _transform = transform;
         SetPositionsFragments();
         SetSizeToFragments();
+    }
+    public void DestructFromCut()
+    {
+        if (IsBroken == false)
+        {
+            WoodDestructibleAudioHandler.PlayWoodBreakingSound();
+            Destruct();
+        }
     }
     public bool TryBreakOnImpact(float forceHit)
     {

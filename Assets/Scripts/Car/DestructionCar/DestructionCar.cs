@@ -8,7 +8,7 @@ public class DestructionCar : MonoBehaviour
     [SerializeField] private int _carDebrisLayerNONInteractionWithCar;
     [SerializeField] private int _carDebrisInteractingWithCar;
     [SerializeField] private int _fallingContentLayer;
-    [SerializeField] private int _limitRideBack;
+    // [SerializeField] private int _limitRideBack;
     [SerializeField] private LayerMask _canCollisionsLayerMasks;
     
     [SerializeField, BoxGroup("Effects")] private ParticleSystem _glassBrokenEffectPrefab;

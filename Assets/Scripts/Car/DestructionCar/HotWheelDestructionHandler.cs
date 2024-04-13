@@ -14,9 +14,7 @@ public class HotWheelDestructionHandler : DestructionHandler
 
     public void Destruct()
     {
-        _hotWheel.Dispose();
-        HotWheelRef.Wheel1.gameObject.AddComponent<Rigidbody2D>();
-        HotWheelRef.Wheel2.gameObject.AddComponent<Rigidbody2D>();
+        _hotWheel.Destruct();
         SetParentDebris();
         SetCarDebrisLayerNonInteractableWithCar();
     }

@@ -71,9 +71,7 @@ public class CarInLevel : Car
     private CoupAnalyzer _coupAnalyzer;
     private HotWheel _hotWheel;
     private GroundAnalyzer _groundAnalyzer;
-    // private WheelGroundInteraction _wheelGroundInteraction;
     public CarConfiguration CarConfiguration { get; private set; }
-    // public CompositeDisposable CompositeDisposable { get; private set; } = new CompositeDisposable();
     public CarMass CarMass { get; private set; }
 
     public ControlCar ControlCar { get; private set; }
@@ -85,7 +83,6 @@ public class CarInLevel : Car
     public CarGun CarGun { get; private set; }
     public bool BoosterAvailable => CarConfiguration.BoosterCountFuelQuantity > 0f ? true : false;
     public bool GunAvailable => CarConfiguration.GunCountAmmo > 0 ? true : false;
-    // private ReactiveProperty<bool> _carBrokenIntoTwoParts = new ReactiveProperty<bool>();
     private ReactiveCommand _onCarBrokenIntoTwoPartsReactiveCommand = new ReactiveCommand();
     public void Construct(CarConfiguration carConfiguration, NotificationsProvider notificationsProvider,
         CarAudioHandler carAudioHandler, LevelProgressCounter levelProgressCounter, Transform debrisParent, CarControlMethod carControlMethod)
@@ -116,7 +113,7 @@ public class CarInLevel : Car
         _controlActive = true;
         TryInitBooster();
         TryInitGun();
-        TryInitHotWheel();
+        TryInitHotWheel(carAudioHandler.HotWheelAudioHandler);
         InitCarFSM();
         Gyroscope = new Gyroscope(_groundAnalyzer, _bodyRigidbody2D, CarMass, _gyroscopePower);
         InitControlCar(carControlMethod);
@@ -167,6 +164,7 @@ public class CarInLevel : Car
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        Debug.Log(6587);
         TryKnock(collision);
     }
 
@@ -333,11 +331,11 @@ public class CarInLevel : Car
         _exhaust = new Exhaust(_exhaustParticleSystem);
         FuelTank.OnTankEmpty += _exhaust.StopEffect;
     }
-    private void TryInitHotWheel()
+    private void TryInitHotWheel(HotWheelAudioHandler hotWheelAudioHandler)
     {
         if (_hotWheelRef.gameObject.activeSelf == true)
         {
-            _hotWheel = new HotWheel(_hotWheelRef, _hotWheelRotationSpeed);
+            _hotWheel = new HotWheel(_hotWheelRef, hotWheelAudioHandler, _hotWheelRotationSpeed);
         } 
     }
 

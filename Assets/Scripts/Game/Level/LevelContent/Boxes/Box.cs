@@ -4,7 +4,7 @@ using UnityEngine;
 using Zenject;
 
 [RequireComponent(typeof(Rigidbody2D))]
-public class Box : DestructibleObject, IHitable
+public class Box : DestructibleObject, IHitable, ICutable
 {
     private readonly float _forceMultiplier = 3f;
     private Transform _transform;
@@ -22,8 +22,20 @@ public class Box : DestructibleObject, IHitable
         _transform = transform;
     }
 
+    public void DestructFromCut()
+    {
+        if (ObjectIsBroken == false)
+        {
+            _woodDestructibleAudioHandler.PlayWoodBreakingSound();
+            Destruct();
+        }
+        Debug.Log($"Cut");
+    }
+
     public bool TryBreakOnImpact(float forceHit)
     {
+        Debug.Log($"Hit");
+
         bool result;
         if (IsBroken == false)
         {
@@ -50,6 +62,7 @@ public class Box : DestructibleObject, IHitable
     {
         _rigidbody2D.AddForce(force * _forceMultiplier);
     }
+
     private new void OnEnable()
     {
         OnDebrisHit += _woodDestructibleAudioHandler.PlayHitWoodSound;

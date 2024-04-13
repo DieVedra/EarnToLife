@@ -18,6 +18,7 @@ MonoBehaviour:
   _engineStopAudioClip: {fileID: 8300000, guid: 14c8ffdc5c65b1345a46e3d84f46c8e3, type: 3}
   _boosterRunAudioClip: {fileID: 8300000, guid: 1427dd41c3bef234eb04e5d75dd4e422, type: 3}
   _carHotweelAudioClip: {fileID: 8300000, guid: 38c9a817aba061b4c9c9399dfcfb509a, type: 3}
+  _carHotweelSlitAudioClip: {fileID: 8300000, guid: 1ab0d2f57e347744282ba3338f82a74b, type: 3}
   _carBurnAudioClip: {fileID: 8300000, guid: 3e2365863be992c49bc44a6460db742a, type: 3}
   _carHardHitAudioClip: {fileID: 8300000, guid: 47fdb6085759a6c48a319278c4c9bbbe, type: 3}
   _carSoftHitAudioClip: {fileID: 8300000, guid: 14365712e6ae46e47b83bc22f405be77, type: 3}

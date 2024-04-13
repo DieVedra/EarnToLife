@@ -5,7 +5,7 @@ using UnityEngine;
 using Zenject;
 
 [RequireComponent(typeof(Rigidbody2D))]
-public class Beam2 : Beam, IHitable
+public class Beam2 : Beam, IHitable, ICutable
 {
         [SerializeField, BoxGroup("Debris")] private SpriteRenderer _spriteFragment3;
         // [SerializeField, BoxGroup("Settings"), Range(-1f, 1f), InfoBox("Offset size fragment 0.33 / offset position medium -0.03", EInfoBoxType.Normal)] protected float _offsetPositionMediumFragment = 1f;
@@ -18,6 +18,7 @@ public class Beam2 : Beam, IHitable
         public Vector2 Position => _transform.position;
         public bool IsBroken => ObjectIsBroken;
         public IReadOnlyList<DebrisFragment> DebrisFragments => base.FragmentsDebris;
+
         [Inject]
         private void Construct(LevelAudioHandler levelAudioHandler)
         {
@@ -27,6 +28,16 @@ public class Beam2 : Beam, IHitable
                 SetPositionsFragments();
                 SetSizeToFragments();
         }
+
+        public void DestructFromCut()
+        {
+                if (IsBroken == false)
+                {
+                        WoodDestructibleAudioHandler.PlayWoodBreakingSound();
+                        Destruct();
+                }
+        }
+
         public bool TryBreakOnImpact(float forceHit)
         {
                 bool result;
@@ -50,10 +61,12 @@ public class Beam2 : Beam, IHitable
                 }
                 return result;
         }
+
         public void AddForce(Vector2 force)
         {
                 _rigidbody2D.AddForce(force * ForceMultiplierWholeObject);
         }
+
         protected override void SetSizeToFragments()
         {
                 CalculateOneThirdBeamLength();
@@ -61,22 +74,26 @@ public class Beam2 : Beam, IHitable
                 SetSizeToFragment(_spriteFragment2, _oneThirdLength);
                 SetSizeToFragment(_spriteFragment3, _oneThirdLength);
         }
+
         protected override void SetPositionsFragments()
         {
                 SetPositionFragment(_spriteFragment1, GetFirstPositionFragment());
                 SetPositionFragment(_spriteFragment2, GetMediumPositionFragment());
                 SetPositionFragment(_spriteFragment3, GetEndPositionFragment());
         }
+
         private void CalculateOneThirdBeamLength()
         {
                 _oneThirdLength = _sprite.size.x * _oneThirdMultiplier  + _offsetSizeFragment;
         }
+
         private Vector3 GetMediumPositionFragment()
         {
                 // Vector2 newPos = _sprite.transform.position;
                 // newPos.x += _sprite.size.x * HalfWidthMultiplier + _offsetPositionMediumFragment;
                 return CalculatePosition(_sprite.size.x * HalfWidthMultiplier );
         }
+
         private new void OnEnable()
         {
                 OnDebrisHit += WoodDestructibleAudioHandler.PlayHitWoodSound;

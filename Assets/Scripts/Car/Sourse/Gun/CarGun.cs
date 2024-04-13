@@ -6,6 +6,7 @@ public class CarGun
 {
     private readonly float _timeFreezeRotationAfterShoot = 0.2f;
     private readonly float _forceGunValue;
+    private readonly float _delayValue = 0.06f;
     private readonly Transform _defaultPointAiming;
     private readonly GunAudioHandler _gunAudioHandler;
     private readonly RateFire _rateFire;
@@ -14,9 +15,12 @@ public class CarGun
     private Transform _visionPointTransform;
     private CarGunTarget _currentTarget;
     private ParticleSystem _particleSystemShoot;
+    private Vector3 _positionCrosshair;
     private int _currentIndexTarget;
     private float _speedLook;
+    private float _time = 0f;
     private bool _isShooting = false;
+    private bool _isShowCrosshair = false;
     public int Ammo { get; private set; }
     public event Action<bool, Vector3> OnUpdateTargetTracking;
     public event Action<int> OnAmmoUpdate;
@@ -37,47 +41,63 @@ public class CarGun
     }
     public void Update()
     {
-        if (_currentTarget is null)
+        if (_time <= 0f)
         {
-            if (_detector.TryFindTarget() == true)
+            _time = _delayValue;
+            if (_currentTarget is null)
             {
-                SetCurrentTargetOnIndex();
-                GuidanceToTarget();
+                if (_detector.TryFindTarget() == true)
+                {
+                    SetCurrentTargetOnIndex();
+                    SetGuidanceToTarget();
+                }
+                else
+                {
+                    SetGuidanceDefault();
+                }
             }
             else
             {
-                GuidanceDefault();
+                if (_detector.CheckRelevanceTarget(_currentTarget.Target) == false)
+                {
+                    LoseCurrentTarget();
+                    SetGuidanceDefault();
+                }
+                else
+                {
+                    SetGuidanceToTarget();
+                }
             }
         }
         else
         {
-            if (_detector.CheckRelevanceTarget(_currentTarget.Target) == false)
-            {
-                LoseCurrentTarget();
-                GuidanceDefault();
-            }
-            else
-            {
-                GuidanceToTarget();
-            }
+            _time -= Time.deltaTime;
         }
+
+        if (_currentTarget is null)
+        {
+            _gunGuidance.Update(_defaultPointAiming);
+        }
+        else
+        {
+            _gunGuidance.Update(_currentTarget.Target.TargetTransform);
+        }
+
+        TargetTracking();
         if (_isShooting == true && _rateFire.CanShoot == true)
         {
             Shoot();
         }
     }
-    private void GuidanceDefault()
+    private void SetGuidanceDefault()
     {
-        Guidance(_defaultPointAiming, Vector3.zero, false);
+        _positionCrosshair = _defaultPointAiming.position;
+        _isShowCrosshair = false;
     }
-    private void GuidanceToTarget()
+    private void SetGuidanceToTarget()
     {
-        Guidance(_currentTarget.Target.TargetTransform, _currentTarget.Target.TargetTransform.position, true);
-    }
-    private void Guidance(Transform carGunTarget, Vector3 position, bool key)
-    {
-        _gunGuidance.Update(carGunTarget);
-        OnUpdateTargetTracking?.Invoke(key, position);
+        _positionCrosshair = _currentTarget.Target.TargetTransform.position;
+        _isShowCrosshair = true;
     }
     private void Shoot()
     {
@@ -100,10 +120,6 @@ public class CarGun
     {
         if (_detector.TryFindTarget() == true)
         {
-            Debug.Log(11111111111111);
-
-            Debug.Log($"CurrentIndex:  {_currentIndexTarget}");
-
             if (_currentIndexTarget > _detector.GetMaxIndexTargets)
             {
                 _currentIndexTarget = 0;
@@ -111,58 +127,27 @@ public class CarGun
             }
             else if (_currentIndexTarget < _detector.GetMaxIndexTargets)
             {
-                Debug.Log($"MaxIndexTargets {_detector.GetMaxIndexTargets} > {_currentIndexTarget} currentIndexTarget  Index++");
-
                 _currentIndexTarget++;
             }
             else if (_currentIndexTarget == _detector.GetMaxIndexTargets)
             {
-                Debug.Log($"MaxIndexTargets {_detector.GetMaxIndexTargets} == {_currentIndexTarget} currentIndexTarget Index 0");
-            
                 _currentIndexTarget = 0;
             }
             SetCurrentTargetOnIndex();
         }
-        
-        
-        // if (_detector.GetCurrentCountTargetsAfterSorted > 0)
-        // {
-        //     if (_detector.GetCurrentCountTargetsAfterSorted - 1 > _currentIndexTarget)
-        //     {
-        //         _currentIndexTarget++;
-        //         SetCurrentTargetOnIndex(_currentIndexTarget);
-        //     }
-        //     else if (_detector.GetCurrentCountTargetsAfterSorted - 1 == _currentIndexTarget)
-        //     {
-        //         _currentIndexTarget = 0;
-        //         SetCurrentTargetOnIndex(_currentIndexTarget);
-        //     }
-        // }
     }
 
     public void GunDisableFromDestruct()
     {
         OnGunDestruct?.Invoke();
     }
-    // private bool TrySetCurrentTarget()
-    // {
-    //     if (_detector.TryFindTarget() == true)
-    //     {
-    //         SetCurrentTargetOnIndex(_currentIndexTarget);
-    //         return true;
-    //     }
-    //     else
-    //     {
-    //         return false;
-    //     }
-    // }
+
+    private void TargetTracking()
+    {
+        OnUpdateTargetTracking?.Invoke(_isShowCrosshair, _positionCrosshair);
+    }
     private void SetCurrentTargetOnIndex()
     {
-        Debug.Log($"CountTargets: {_detector.GetCurrentCountTargets}");
-        Debug.Log($"_currentIndexTarget: {_currentIndexTarget}");
-
-        Debug.Log(2222222222222);
-
         _currentTarget = _detector.GetTarget(_currentIndexTarget);
     }
     private void LoseCurrentTarget()
@@ -175,8 +160,8 @@ public class CarGun
     }
     private async UniTask FreezeRotationAfterShoot()
     {
-        _gunGuidance.IsGuidanence = false;
+        _gunGuidance.FreezedGuidanenceAfterShoot = true;
         await UniTask.Delay(TimeSpan.FromSeconds(_timeFreezeRotationAfterShoot));
-        _gunGuidance.IsGuidanence = true;
+        _gunGuidance.FreezedGuidanenceAfterShoot = false;
     }
 }

@@ -5,7 +5,7 @@ using UnityEngine;
 using Zenject;
 
 [RequireComponent(typeof(Rigidbody2D))]
-public class Barrel : DestructibleObject, IHitable, IShotable
+public class Barrel : DestructibleObject, IHitable, IShotable, ICutable
 {
     [SerializeField] private float _force;
     [SerializeField] private float _radiusShockWave;
@@ -32,6 +32,15 @@ public class Barrel : DestructibleObject, IHitable, IShotable
         _blastWave = new BlastWave(transform, _extinctionBlastWaveCurve, _radiusShockWave, _force);
     }
 
+    public void DestructFromCut()
+    {
+        if (ObjectIsBroken == false)
+        {
+            Destruct();
+            Explosion();
+        }
+    }
+
     public void DestructFromShoot(Vector2 force)
     {
         if (IsLive == true)
@@ -48,8 +57,8 @@ public class Barrel : DestructibleObject, IHitable, IShotable
         {
             if (forceHit > Hardness)
             {
-                _barrelAudioHandler.PlayBarrelExplosionSound();
                 Destruct();
+                Explosion();
                 result = true;
             }
             else
@@ -78,6 +87,7 @@ public class Barrel : DestructibleObject, IHitable, IShotable
 
     private void Explosion()
     {
+        _barrelAudioHandler.PlayBarrelExplosionSound();
         _blastWave.InteractWithBlastWave(DebrisFragments);
         // _explodeEffect?.Play();
     }

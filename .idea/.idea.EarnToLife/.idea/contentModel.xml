@@ -370,6 +370,7 @@
               <e p="DestructionAudioHandler.cs" t="Include" />
               <e p="EngineAudioHandler.cs" t="Include" />
               <e p="GunAudioHandler.cs" t="Include" />
+              <e p="HotWheelAudioHandler.cs" t="Include" />
             </e>
             <e p="Car.cs" t="Include" />
             <e p="CarInLevel.cs" t="Include" />
@@ -735,6 +736,37 @@
           </e>
         </e>
         <e p="testcoup.cs" t="Include" />
+        <e p="UnityTechnologies" t="Include">
+          <e p="EffectExamples" t="Include">
+            <e p="Editor" t="Include">
+              <e p="PackageManagerAssembly" t="Include">
+                <e p="PackageImportList.txt" t="Include" />
+              </e>
+            </e>
+            <e p="Shared" t="Include">
+              <e p="Scripts" t="Include">
+                <e p="DecalDestroyer.cs" t="Include" />
+                <e p="ExtinguishableFire.cs" t="Include" />
+                <e p="GunAim.cs" t="Include" />
+                <e p="GunShoot.cs" t="Include" />
+                <e p="ParticleCollision.cs" t="Include" />
+                <e p="ParticleExamples.cs" t="Include" />
+                <e p="ParticleMenu.cs" t="Include" />
+              </e>
+              <e p="Shaders" t="Include">
+                <e p="SurfaceShader_VC.shader" t="Include" />
+              </e>
+            </e>
+            <e p="TutorialInfo" t="Include">
+              <e p="Scripts" t="Include">
+                <e p="Editor" t="Include">
+                  <e p="ReadmeEditor.cs" t="Include" />
+                </e>
+                <e p="Readme.cs" t="Include" />
+              </e>
+            </e>
+          </e>
+        </e>
       </e>
       <e p="EarnToLife.sln" t="IncludeFlat" />
       <e p="obj" t="ExcludeRecursive" />

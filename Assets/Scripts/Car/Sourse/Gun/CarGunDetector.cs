@@ -7,10 +7,9 @@ public class CarGunDetector
 {
     private readonly float _radiusDetection;
     private readonly float _deadZoneDetectionValue;
-    private readonly float _delay = 0.12f;
-    private Transform _visionPointTransform;
-    private LayerMask _layerMask;
-    private Collider2D[] _hitColliders;
+    private readonly Transform _visionPointTransform;
+    private readonly LayerMask _layerMask;
+    private readonly ContactFilter2D _contactFilter2D;
     private List<Collider2D> _colliders = new List<Collider2D>();
     private List<CarGunTarget> _targets;
     public int GetCurrentCountTargets => _targets?.Count ?? 0;
@@ -22,6 +21,8 @@ public class CarGunDetector
         _layerMask = layerMask;
         _radiusDetection = distanceDetection;
         _deadZoneDetectionValue = deadZoneDetectionValue;
+        _contactFilter2D = new ContactFilter2D();
+        _contactFilter2D.SetLayerMask(_layerMask);
     }
     public bool TryFindTarget()
     {
@@ -36,9 +37,9 @@ public class CarGunDetector
     }
     public CarGunTarget GetTarget(int currentTargetIndex)
     {
-        if (_targets.Count - 1 < currentTargetIndex)
+        if (GetMaxIndexTargets < currentTargetIndex)
         {
-            return _targets[_targets.Count - 1];
+            return _targets[GetMaxIndexTargets];
         }
         else
         {
@@ -65,9 +66,7 @@ public class CarGunDetector
     }
     private bool CreateTargets()
     {
-        ContactFilter2D a = new ContactFilter2D();
-        a.layerMask = _layerMask.value;
-        if (Physics2D.OverlapCircle(_visionPointTransform.position, _radiusDetection, a, _colliders) > 0)
+        if (Physics2D.OverlapCircle(_visionPointTransform.position, _radiusDetection, _contactFilter2D, _colliders) > 0)
         {
             _targets = new List<CarGunTarget>();
             for (int i = 0; i < _colliders.Count; i++)
@@ -77,9 +76,9 @@ public class CarGunDetector
                     AddTarget(new CarGunTarget(shotable, _colliders[i]));
                 }
             }
-            _targets = SortByDistance(_targets);
             if (_targets.Count > 0)
             {
+                _targets = SortByDistance(_targets);
                 return true;
             }
             else
