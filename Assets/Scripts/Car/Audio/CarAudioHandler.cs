@@ -20,10 +20,10 @@ public class CarAudioHandler : IDisposable
         BoosterAudioHandler = new BoosterAudioHandler(_globalAudioToCar.CarAudioSourceForBooster,
             _globalAudioToCar.SoundReactiveProperty,
             _globalAudioToCar.CarAudioClipProvider.BoosterRunAudioClip);
-        BrakeAudioHandler = new BrakeAudioHandler(_globalAudioToCar.CarAudioSourceForOther,
+        BrakeAudioHandler = new BrakeAudioHandler(_globalAudioToCar.CarAudioSourceForBrakes,
             _globalAudioToCar.SoundReactiveProperty,
             _globalAudioToCar.CarAudioClipProvider.BrakeAudioClip);
-        GunAudioHandler = new GunAudioHandler(_globalAudioToCar.CarAudioSourceForOther,
+        GunAudioHandler = new GunAudioHandler(_globalAudioToCar.CarAudioSourceForBrakes,
             _globalAudioToCar.SoundReactiveProperty,
             _globalAudioToCar.CarAudioClipProvider.ShotGunAudioClip);
         DestructionAudioHandler = new DestructionAudioHandler(_globalAudioToCar.CarAudioSourceForDestruction, _globalAudioToCar.SoundReactiveProperty,
@@ -35,7 +35,7 @@ public class CarAudioHandler : IDisposable
             _globalAudioToCar.CarAudioClipProvider.EngineClapAudioClip,
             _globalAudioToCar.CarAudioClipProvider.DriverNeckBrokeAudioClip
         );
-        HotWheelAudioHandler = new HotWheelAudioHandler(_globalAudioToCar.CarAudioSourceForHotWheels, _globalAudioToCar.CarAudioSourceForOther, _globalAudioToCar.SoundReactiveProperty,
+        HotWheelAudioHandler = new HotWheelAudioHandler(_globalAudioToCar.CarAudioSourceForHotWheels1, _globalAudioToCar.CarAudioSourceForHotWheels2, _globalAudioToCar.SoundReactiveProperty,
             _globalAudioToCar.CarAudioClipProvider.CarHotweelAudioClip,
             _globalAudioToCar.CarAudioClipProvider.CarHotweelSlitAudioClip);
         _globalAudioToCar.OnSoundChange += EngineAudioHandler.PlayRun;

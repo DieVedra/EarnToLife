@@ -24,6 +24,15 @@ public class Factory
         return _spawner.Spawn(prefab);
         // return _instantiator.InstantiatePrefabForComponent<ViewUILevel>(prefab);
     }
+
+    public ParticleSystem CreateEffect(ParticleSystem prefab, Transform transform)
+    {
+        return _spawner.Spawn(prefab, transform, transform);
+    }
+    public DebrisBarrelEffect CreateEffect(DebrisBarrelEffect prefab, Transform transform)
+    {
+        return _spawner.Spawn(prefab, transform, transform);
+    }
     // public class UnitFactory
     // {
     //     readonly DiContainer _container;

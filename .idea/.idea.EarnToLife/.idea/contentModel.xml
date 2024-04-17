@@ -470,6 +470,7 @@
               </e>
             </e>
           </e>
+          <e p="DebrisBarrelEffect.cs" t="Include" />
           <e p="Editor" t="Include">
             <e p="LoadScene.cs" t="Include" />
           </e>
@@ -535,6 +536,10 @@
                 <e p="test.cs" t="Include" />
               </e>
               <e p="LevelPart.cs" t="Include" />
+              <e p="LevelPool" t="Include">
+                <e p="BarrelPool.cs" t="Include" />
+                <e p="LevelPool.cs" t="Include" />
+              </e>
               <e p="LevelProgressCounter.cs" t="Include" />
               <e p="LevelProgressSliderSectionsValuesProvider.cs" t="Include" />
               <e p="LimitRideBack.cs" t="Include" />
@@ -584,8 +589,8 @@
               <e p="SaveServiceInstaller.cs" t="Include" />
             </e>
             <e p="LevelScenesInstallers" t="Include">
-              <e p="DebriesParentInstaller.cs" t="Include" />
               <e p="LevelContentInstaller.cs" t="Include" />
+              <e p="LevelInstaller.cs" t="Include" />
             </e>
           </e>
           <e p="Interfaces" t="Include">
@@ -598,6 +603,7 @@
             <e p="IDispose.cs" t="Include" />
             <e p="IExplodable.cs" t="Include" />
             <e p="IHitable.cs" t="Include" />
+            <e p="ILevel.cs" t="Include" />
             <e p="ILevelAudio.cs" t="Include" />
             <e p="IMovementForward.cs" t="Include" />
             <e p="IPlayerData.cs" t="Include" />
@@ -635,7 +641,10 @@
               <e p="PlayerDataProvider.cs" t="Include" />
               <e p="PrefabsProviders" t="Include">
                 <e p="GaragePrefabsProvider.cs" t="Include" />
-                <e p="LevelPrefabsProvider.cs" t="Include" />
+                <e p="LevelPrefabs" t="Include">
+                  <e p="LevelParticlesProvider.cs" t="Include" />
+                  <e p="LevelPrefabsProvider.cs" t="Include" />
+                </e>
               </e>
             </e>
             <e p="UpgradeButtonsGarageContent.cs" t="Include" />

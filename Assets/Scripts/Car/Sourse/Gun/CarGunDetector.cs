@@ -8,7 +8,6 @@ public class CarGunDetector
     private readonly float _radiusDetection;
     private readonly float _deadZoneDetectionValue;
     private readonly Transform _visionPointTransform;
-    private readonly LayerMask _layerMask;
     private readonly ContactFilter2D _contactFilter2D;
     private List<Collider2D> _colliders = new List<Collider2D>();
     private List<CarGunTarget> _targets;
@@ -18,11 +17,10 @@ public class CarGunDetector
     public CarGunDetector(Transform viewPoint, LayerMask layerMask, float distanceDetection, float deadZoneDetectionValue)
     {
         _visionPointTransform = viewPoint;
-        _layerMask = layerMask;
         _radiusDetection = distanceDetection;
         _deadZoneDetectionValue = deadZoneDetectionValue;
         _contactFilter2D = new ContactFilter2D();
-        _contactFilter2D.SetLayerMask(_layerMask);
+        _contactFilter2D.SetLayerMask(layerMask);
     }
     public bool TryFindTarget()
     {

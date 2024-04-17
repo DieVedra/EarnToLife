@@ -17,7 +17,7 @@ public class BrakeAudioHandler : AudioPlayer
     }
     public void SetVolumeBrake(float volume)
     {
-        AudioSource.volume = volume;
+        SetVolume(volume);
     }
     public void SetMuteVolumeBrake()
     {

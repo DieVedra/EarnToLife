@@ -6,30 +6,35 @@ public class BlastWave
     private readonly float _pointReference = 0f;
     private readonly float _force;
     private readonly float _radiusShockWave;
+    private readonly float _radiusBurnWave;
+    private readonly BarrelPool _barrelPool;
     private readonly Transform _transformPointReference;
     private readonly AnimationCurve _extinctionBlastWaveCurve;
+    private readonly ContactFilter2D _contactFilter = new ContactFilter2D();
     private float _forceShockWaveInRadius;
-    private Collider2D[] _hitCollidersAfterSphereCast;
-
-    public BlastWave(Transform transformPointReference, AnimationCurve extinctionBlastWaveCurve,
-        float radiusShockWave, float force)
+    private List<Collider2D> _hitCollidersAfterSphereCast = new List<Collider2D>(200);
+    public BlastWave(BarrelPool barrelPool, Transform transformPointReference, AnimationCurve extinctionBlastWaveCurve, LayerMask blastWaveMask,
+        float radiusShockWave, float radiusBurnWave, float force)
     {
+        _barrelPool = barrelPool;
         _transformPointReference = transformPointReference;
         _extinctionBlastWaveCurve = extinctionBlastWaveCurve;
         _radiusShockWave = radiusShockWave;
+        _radiusBurnWave = radiusBurnWave;
         _force = force;
+        _contactFilter.SetLayerMask(blastWaveMask);
     }
 
-    public void InteractWithBlastWave(IReadOnlyList<DebrisFragment> debrisFragmentsThisObject)
+    public void InteractWithBlastWave()
     {
         if (TryCastSphere())
         {
-            for (int i = 0; i < _hitCollidersAfterSphereCast.Length; i++)
+            for (int i = 0; i < _hitCollidersAfterSphereCast.Count; i++)
             {
 
                 if (TryHitableInteract(_hitCollidersAfterSphereCast[i]) == false)
                 {
-                    TryInteractOther(_hitCollidersAfterSphereCast[i]);
+                    TryInteractOther(_hitCollidersAfterSphereCast[i]); 
                 }
             }
         }
@@ -47,9 +52,7 @@ public class BlastWave
                 }
                 else
                 {
-                    var a = CalculateDirectionBlastWave(hitable.Position, _transformPointReference.position) *
-                            _forceShockWaveInRadius;
-                    AddForceBlastWaveToWholeObject(hitable, a);
+                    AddForceBlastWaveToWholeObject(hitable);
                 }
             }
 
@@ -65,9 +68,11 @@ public class BlastWave
     {
         if (collider2D.TryGetComponent(out Rigidbody2D rigidbody2D))
         {
-            var a = CalculateDirectionBlastWave(rigidbody2D.position, _transformPointReference.position)
+            var force = CalculateDirectionBlastWave(rigidbody2D.position, _transformPointReference.position)
                     * CalculateForceShockWaveInRadius(rigidbody2D.position);
-            rigidbody2D.AddForce(a);
+            rigidbody2D.AddForce(force);
+            
+            TryAddEffectToDebrisPiece(rigidbody2D.transform);
         }
     }
     private void AddForceBlastWaveToDebris(IReadOnlyList<DebrisFragment> debrisFragments)
@@ -77,19 +82,27 @@ public class BlastWave
             debrisFragments[i].TryAddForce(
                 CalculateDirectionBlastWave(debrisFragments[i].FragmentTransform.position, _transformPointReference.position)
                 * CalculateForceShockWaveInRadius(debrisFragments[i].FragmentTransform.position));
+            TryAddEffectToDebrisPiece(debrisFragments[i].FragmentTransform);
         }
     }
-
-    private void AddForceBlastWaveToWholeObject(IHitable hitable, Vector2 force)
+    
+    private void TryAddEffectToDebrisPiece(Transform transform)
+    {
+        float distance = CalculateDistance(transform.position);
+        if (transform.childCount < 1 && distance < _radiusBurnWave)
+        {
+            _barrelPool.GetDebrisBarrelEffect(transform).PlayEffect(CalculateIntensitySmoke(distance));
+        }
+    }
+    private void AddForceBlastWaveToWholeObject(IHitable hitable)
     {
         hitable.AddForce(
             CalculateDirectionBlastWave(hitable.Position, _transformPointReference.position)
-            * CalculateForceShockWaveInRadius(hitable.Position));
+            * _forceShockWaveInRadius);
     }
     private bool TryCastSphere()
     {
-        _hitCollidersAfterSphereCast = Physics2D.OverlapCircleAll(_transformPointReference.position, _radiusShockWave);
-        if (_hitCollidersAfterSphereCast.Length > 0)
+        if (Physics2D.OverlapCircle(_transformPointReference.position, _radiusShockWave, _contactFilter, _hitCollidersAfterSphereCast) > 0)
         {
             return true;
         }
@@ -100,13 +113,21 @@ public class BlastWave
     }
     private float CalculateForceShockWaveInRadius(Vector2 positionHit)
     {
-        float distance = Vector2.Distance(_transformPointReference.position, positionHit);
+        float distance = CalculateDistance(positionHit);
         float valueForCurve = Mathf.InverseLerp(_radiusShockWave, _pointReference, distance);
         float forceMultiplier = _extinctionBlastWaveCurve.Evaluate(valueForCurve);
         float forceShockWave = _force * forceMultiplier;
         return forceShockWave;
     }
 
+    private float CalculateDistance(Vector2 positionHit)
+    {
+        return Vector2.Distance(_transformPointReference.position, positionHit);
+    }
+    private float CalculateIntensitySmoke(float distance)
+    {
+        return Mathf.InverseLerp(_radiusBurnWave, _pointReference, distance);
+    }
     private Vector2 CalculateDirectionBlastWave(Vector2 hitPoint, Vector2 referencePoint)
     {
         return hitPoint - referencePoint;

@@ -50,14 +50,17 @@ TagManager:
   - name: Conteiners
     uniqueID: 1539085125
     locked: 0
-  - name: Particles
-    uniqueID: 1085480951
-    locked: 0
   - name: Car
     uniqueID: 157630223
     locked: 0
   - name: LevelContent
     uniqueID: 3988333031
+    locked: 0
+  - name: Particles
+    uniqueID: 1085480951
+    locked: 0
+  - name: Debris
+    uniqueID: 3313754077
     locked: 0
   - name: Canvas
     uniqueID: 1797723625

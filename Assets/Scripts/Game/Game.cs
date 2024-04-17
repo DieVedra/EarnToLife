@@ -10,10 +10,6 @@ public class Game : MonoBehaviour
 {
     [SerializeField] private CinemachineVirtualCamera _cinemachineVirtualCamera;
     [SerializeField] private LimitRideBack _limitRideBack;
-    
-    
-    
-    // [SerializeField] private Pool _pool;
     [SerializeField] private GameObject _buildingsParent;
     [Space]
     [SerializeField, BoxGroup("Level Settings"), HorizontalLine(color:EColor.White)] private Level _level;
@@ -66,6 +62,7 @@ public class Game : MonoBehaviour
         _playerDataHandler = _playerDataProvider.PlayerDataHandler;
         _factory = new Factory(_instantiator);
         _notificationsProvider = new NotificationsProvider();
+        InitLevel();
         InitCar();
         _limitRideBack.Init(_limitRideBackIsOn);
         InitViewUILevel();
@@ -78,6 +75,10 @@ public class Game : MonoBehaviour
         _notificationsProvider.ShowDayInfo(_playerDataHandler.PlayerData.Days.ToString());
     }
 
+    private void InitLevel()
+    {
+        // _level.Init(_factory, _levelPrefabsProvider);
+    }
     private void InitCar()
     {
         int currentSelectLotCarIndex = _playerDataHandler.GetCurrentSelectLotCarIndex();

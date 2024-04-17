@@ -14,22 +14,22 @@ public class Beam2 : Beam, IHitable, ICutable
 
         private float _oneThirdLength;
         private Transform _transform;
-        private Rigidbody2D _rigidbody2D;
         public Vector2 Position => _transform.position;
         public bool IsBroken => ObjectIsBroken;
         public IReadOnlyList<DebrisFragment> DebrisFragments => base.FragmentsDebris;
 
         [Inject]
-        private void Construct(LevelAudioHandler levelAudioHandler)
+        private void Construct(ILevel level, LevelAudioHandler levelAudioHandler)
         {
+                DebrisParentForDestroy = level.DebrisParent;
                 WoodDestructibleAudioHandler = levelAudioHandler.WoodDestructibleAudioHandler;
-                _rigidbody2D = GetComponent<Rigidbody2D>();
+                Rigidbody2D = GetComponent<Rigidbody2D>();
                 _transform = transform;
                 SetPositionsFragments();
                 SetSizeToFragments();
         }
 
-        public void DestructFromCut()
+        public void DestructFromCut(Vector2 cutPos)
         {
                 if (IsBroken == false)
                 {
@@ -64,7 +64,7 @@ public class Beam2 : Beam, IHitable, ICutable
 
         public void AddForce(Vector2 force)
         {
-                _rigidbody2D.AddForce(force * ForceMultiplierWholeObject);
+                Rigidbody2D.AddForce(force * ForceMultiplierWholeObject);
         }
 
         protected override void SetSizeToFragments()

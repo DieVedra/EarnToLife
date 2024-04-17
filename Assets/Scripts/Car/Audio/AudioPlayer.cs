@@ -3,53 +3,53 @@ using UnityEngine;
 
 public class AudioPlayer
 {
-    protected readonly AudioSource AudioSource;
+    private readonly AudioSource _audioSource;
     private bool _soundOn;
-    protected bool SoundOn => _soundOn;
-
-    protected AudioPlayer(AudioSource audioSource, ReactiveProperty<bool> soundReactiveProperty)
+    public bool SoundOn => _soundOn;
+    public AudioSource AudioSource => _audioSource;
+    public AudioPlayer(AudioSource audioSource, ReactiveProperty<bool> soundReactiveProperty)
     {
-        AudioSource = audioSource;
+        _audioSource = audioSource;
         soundReactiveProperty.Subscribe(SetSoundStatus);
         _soundOn = soundReactiveProperty.Value;
     }
-    protected void TryPlayClip(AudioClip audioClip, bool loop = false)
+    public void TryPlayClip(AudioClip audioClip, bool loop = false)
     {
         if (_soundOn == true)
         {
-            AudioSource.clip = audioClip;
-            AudioSource.loop = loop;
-            AudioSource.Play();
+            _audioSource.clip = audioClip;
+            _audioSource.loop = loop;
+            _audioSource.Play();
         }
     }
-    protected void TryPlayOneShotClip(AudioClip audioClip)
+    public void TryPlayOneShotClip(AudioClip audioClip)
     {
         if (_soundOn == true)
         {
-            AudioSource.PlayOneShot(audioClip);
+            _audioSource.PlayOneShot(audioClip);
         }
     }
-    protected void TryPlayOneShotClipWithRandomSectionVolumeAndPitch(AudioClip audioClip, Vector2 volumeSection, Vector2 pitchSection)
+    public void TryPlayOneShotClipWithRandomSectionVolumeAndPitch(AudioClip audioClip, Vector2 volumeSection, Vector2 pitchSection)
     {
         if (_soundOn == true)
         {
             SetPitch(GetRandomFloatValue(pitchSection.x, pitchSection.y));
             SetVolume(GetRandomFloatValue(volumeSection.x, volumeSection.y));
-            AudioSource.PlayOneShot(audioClip);
+            _audioSource.PlayOneShot(audioClip);
         }
     }
-    protected void SetVolume(float volume)
+    public void SetVolume(float volume)
     {
-        AudioSource.volume = volume;
+        _audioSource.volume = volume;
     }
-    protected void SetPitch(float pitch)
+    public void SetPitch(float pitch)
     {
-        AudioSource.pitch = pitch;
+        _audioSource.pitch = pitch;
     }
-    protected void StopPlay()
+    public void StopPlay()
     {
-        AudioSource.Stop();
-        AudioSource.loop = false;
+        _audioSource.Stop();
+        _audioSource.loop = false;
     }
     protected AudioClip GetRandomAudioClip(AudioClip[] clips)
     {

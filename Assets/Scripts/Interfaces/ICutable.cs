@@ -1,4 +1,6 @@
-﻿public interface ICutable
+﻿using UnityEngine;
+
+public interface ICutable
 {
-    public void DestructFromCut();
+    public void DestructFromCut(Vector2 cutPos);
 }

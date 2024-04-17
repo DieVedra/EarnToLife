@@ -5,11 +5,10 @@ using UnityEngine;
 
 public class DestructionCar : MonoBehaviour
 {
-    [SerializeField] private int _carDebrisLayerNONInteractionWithCar;
-    [SerializeField] private int _carDebrisInteractingWithCar;
-    [SerializeField] private int _fallingContentLayer;
-    // [SerializeField] private int _limitRideBack;
-    [SerializeField] private LayerMask _canCollisionsLayerMasks;
+    [SerializeField, BoxGroup("Layers"), Layer] private int _carDebrisLayerNONInteractionWithCar;
+    [SerializeField, BoxGroup("Layers"), Layer] private int _carDebrisInteractingWithCar;
+    [SerializeField, BoxGroup("Layers"), Layer] private int _fallingContentLayer;
+    [SerializeField, BoxGroup("Layers")] private LayerMask _canCollisionsLayerMasks;
     
     [SerializeField, BoxGroup("Effects")] private ParticleSystem _glassBrokenEffectPrefab;
     [SerializeField, BoxGroup("Effects")] private ParticleSystem _hitEffectPrefab;

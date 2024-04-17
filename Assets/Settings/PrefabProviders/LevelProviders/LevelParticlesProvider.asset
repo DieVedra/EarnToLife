@@ -1,0 +1,16 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1bfad31c28d7761488b512ff3707f4bc, type: 3}
+  m_Name: LevelParticlesProvider
+  m_EditorClassIdentifier: 
+  _barrelExplosion: {fileID: 8582804870544612220, guid: dbcec5583369e8e4ab51b33155dfa835, type: 3}
+  _debrisBarrelEffect: {fileID: 577551032073301119, guid: 2e5d899f62a727b49a99e5b72a5428bf, type: 3}

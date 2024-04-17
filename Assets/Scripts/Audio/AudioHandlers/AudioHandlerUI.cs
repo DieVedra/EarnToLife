@@ -5,7 +5,7 @@ using UnityEngine.UIElements;
 public class AudioHandlerUI: IClickAudio
 {
     private GlobalAudio _globalAudio;
-    private AudioSource _audioSource => _globalAudio.AudioSourceUI;
+    private AudioSource _audioSource => _globalAudio.UI;
     private bool SoundOn => _globalAudio.SoundOn;
     public AudioHandlerUI(GlobalAudio globalAudio)
     {

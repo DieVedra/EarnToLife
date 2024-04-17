@@ -8,16 +8,16 @@ public class Coil : DestructibleObject, IHitable
 {
     private Transform _transform;
     private WoodDestructibleAudioHandler _woodDestructibleAudioHandler;
-    private Rigidbody2D _rigidbody2D;
     public Vector2 Position => _transform.position;
     public bool IsBroken => ObjectIsBroken;
     public IReadOnlyList<DebrisFragment> DebrisFragments => base.FragmentsDebris;
     
     [Inject]
-    private void Construct(LevelAudioHandler levelAudioHandler)
+    private void Construct(ILevel level, LevelAudioHandler levelAudioHandler)
     {
+        DebrisParentForDestroy = level.DebrisParent;
         _woodDestructibleAudioHandler = levelAudioHandler.WoodDestructibleAudioHandler;
-        _rigidbody2D = GetComponent<Rigidbody2D>();
+        Rigidbody2D = GetComponent<Rigidbody2D>();
 
         _transform = transform;
     }
@@ -47,7 +47,7 @@ public class Coil : DestructibleObject, IHitable
 
     public void AddForce(Vector2 force)
     {
-        _rigidbody2D.AddForce(force * ForceMultiplierWholeObject);
+        Rigidbody2D.AddForce(force * ForceMultiplierWholeObject);
     }
     private new void OnEnable()
     {

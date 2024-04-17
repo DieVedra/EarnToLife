@@ -1,25 +1,29 @@
 ﻿using System;
 using System.Collections.Generic;
+using NaughtyAttributes;
 using UnityEngine;
-using Zenject;
 
 public class DestructibleObject : MonoBehaviour
 {
     protected readonly float ForceMultiplierWholeObject = 3f;
     private readonly float _delayChangeLayer = 1f;
-    [SerializeField] private int _layerDebris;
-    [SerializeField] private Transform _debrisParent;
-    [SerializeField] private Transform _wholeObjectTransform;
+    [SerializeField, Layer] private int _layerDebris;
+    [SerializeField] protected Transform WholeObjectTransform;
     [SerializeField] protected float Hardness;
-    [Inject(Id = "DebrisParent")] private Transform _debrisParentForDestroy;
+    [SerializeField] private Transform _debrisParentLocal;
+    protected Rigidbody2D Rigidbody2D;
+    protected Transform DebrisParentForDestroy;
     protected List<DebrisFragment> FragmentsDebris;
     protected bool ObjectIsBroken;
     protected event Action OnDebrisHit;
+
     protected void Destruct()
     {
-        _wholeObjectTransform.gameObject.SetActive(false);
-        _debrisParent.gameObject.SetActive(true);
+        WholeObjectTransform.gameObject.SetActive(false);
+        _debrisParentLocal.gameObject.SetActive(true);
         AddRigidBodiesToDebrisAndSubscribeDebrisForHitSound();
+        Rigidbody2D.isKinematic = true;
+        Rigidbody2D.simulated = false;
         ObjectIsBroken = true;
     }
     private void AddRigidBodiesToDebrisAndSubscribeDebrisForHitSound()
@@ -43,7 +47,10 @@ public class DestructibleObject : MonoBehaviour
             {
                 CollectDebrisChilds(debris.GetChild(i));
             }
-            FragmentsDebris.Add(new DebrisFragment(debris.GetChild(i)));
+            else
+            {
+                FragmentsDebris.Add(new DebrisFragment(debris.GetChild(i)));
+            }
         }
     }
     private void AddRigidBodyTo(DebrisFragment fragment)
@@ -52,7 +59,7 @@ public class DestructibleObject : MonoBehaviour
     }
     private void SetDebrisParent(Transform chip)
     {
-        chip.SetParent(_debrisParentForDestroy);
+        chip.SetParent(DebrisParentForDestroy);
     }
     private void SubscribeDebrisForHitSound()
     {
@@ -69,7 +76,7 @@ public class DestructibleObject : MonoBehaviour
     {
         ObjectIsBroken = false;
         FragmentsDebris = new List<DebrisFragment>();
-        CollectDebrisChilds(_debrisParent);
+        CollectDebrisChilds(_debrisParentLocal);
     }
     protected void OnDisable()
     {

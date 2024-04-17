@@ -9,9 +9,10 @@ public class Barrel : DestructibleObject, IHitable, IShotable, ICutable
 {
     [SerializeField] private float _force;
     [SerializeField] private float _radiusShockWave;
+    [SerializeField] private float _radiusBurnWave;
+    [SerializeField] private LayerMask _blastWaveMask;
     [SerializeField] private AnimationCurve _extinctionBlastWaveCurve;
-    [SerializeField] private ParticleSystem _explodeEffect;
-    private Rigidbody2D _rigidbody2D;
+    private BarrelPool _barrelPoolEffects;
     private BlastWave _blastWave;
     private BarrelAudioHandler _barrelAudioHandler;
     private Transform _transform;
@@ -24,15 +25,17 @@ public class Barrel : DestructibleObject, IHitable, IShotable, ICutable
     public Transform TargetTransform => _transform;
 
     [Inject]
-    private void Construct(LevelAudioHandler levelAudioHandler)
+    private void Construct(ILevel level, LevelAudioHandler levelAudioHandler)
     {
+        _barrelPoolEffects = level.BarrelPool;
+        DebrisParentForDestroy = level.DebrisParent;
         _barrelAudioHandler = levelAudioHandler.BarrelAudioHandler;
         _transform = transform;
-        _rigidbody2D = GetComponent<Rigidbody2D>();
-        _blastWave = new BlastWave(transform, _extinctionBlastWaveCurve, _radiusShockWave, _force);
+        Rigidbody2D = GetComponent<Rigidbody2D>();
+        _blastWave = new BlastWave(level.BarrelPool, WholeObjectTransform, _extinctionBlastWaveCurve, _blastWaveMask,
+            _radiusShockWave, _radiusBurnWave, _force);
     }
-
-    public void DestructFromCut()
+    public void DestructFromCut(Vector2 cutPos)
     {
         if (ObjectIsBroken == false)
         {
@@ -76,20 +79,13 @@ public class Barrel : DestructibleObject, IHitable, IShotable, ICutable
 
     public void AddForce(Vector2 force)
     {
-        _rigidbody2D.AddForce(force);
+        Rigidbody2D.AddForce(force);
     }
-
-    [Button("Explosion")]
-    private void a()
-    {
-        TryBreakOnImpact(100);
-    }
-
     private void Explosion()
     {
         _barrelAudioHandler.PlayBarrelExplosionSound();
-        _blastWave.InteractWithBlastWave(DebrisFragments);
-        // _explodeEffect?.Play();
+        _blastWave.InteractWithBlastWave();
+        _barrelPoolEffects.PlayBarrelExplosionEffect(WholeObjectTransform.position).Forget();
     }
 
     private void OnDrawGizmos()
@@ -97,21 +93,19 @@ public class Barrel : DestructibleObject, IHitable, IShotable, ICutable
         if (Application.isEditor)
         {
             Gizmos.color = Color.red;
-            Gizmos.DrawWireSphere(transform.position, _radiusShockWave);
+            Gizmos.DrawWireSphere(WholeObjectTransform.position, _radiusShockWave);
+            Gizmos.color = Color.yellow;
+            Gizmos.DrawWireSphere(WholeObjectTransform.position, _radiusBurnWave);
         }
     }
-
     private new void OnEnable()
     {
         OnDebrisHit += _barrelAudioHandler.PlayBarrelHitSound;
         base.OnEnable();
-
     }
-
     private new void OnDisable()
     {
         OnDebrisHit -= _barrelAudioHandler.PlayBarrelHitSound;
         base.OnDisable();
-
     }
 }

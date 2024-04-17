@@ -14,8 +14,8 @@ public class CarInLevel : Car
     [SerializeField, Range(0f, 1f), BoxGroup("Gyroscope"), HorizontalLine(color:EColor.Green)] private float _gyroscopePower;
 
     [SerializeField, BoxGroup("WheelGroundInteraction"), HorizontalLine(color:EColor.Yellow)] private LayerMask _groundsLayerMask;
-    [SerializeField, BoxGroup("WheelGroundInteraction")] private int _asphaltLayer;
-    [SerializeField, BoxGroup("WheelGroundInteraction")] private int _groundLayer;
+    [SerializeField, BoxGroup("WheelGroundInteraction"), Layer] private int _asphaltLayer;
+    [SerializeField, BoxGroup("WheelGroundInteraction"), Layer] private int _groundLayer;
     [SerializeField, BoxGroup("WheelGroundInteraction")] private AnimationCurve _brakeVolumeCurve;
     [SerializeField, BoxGroup("WheelGroundInteraction")] private AnimationCurve _particlesSpeedCurveGasState;
     [SerializeField, BoxGroup("WheelGroundInteraction")] private AnimationCurve _particlesSpeedCurveStopState;
@@ -43,6 +43,9 @@ public class CarInLevel : Car
 
     [SerializeField, BoxGroup("HotWheel"), HorizontalLine(color:EColor.Red)] private HotWheelRef _hotWheelRef;
     [SerializeField, BoxGroup("HotWheel"), Range(1f,50f)] private float _hotWheelRotationSpeed;
+    [SerializeField, BoxGroup("HotWheel"), Range(0f,1f)] private float _radiusWheel1;
+    [SerializeField, BoxGroup("HotWheel"), Range(0f,1f)] private float _radiusWheel2;
+    [SerializeField, BoxGroup("HotWheel")] private LayerMask _contactMask;
 
     [HorizontalLine(color:EColor.Orange)]
     [SerializeField, BoxGroup("Settings")] private Rigidbody2D _bodyRigidbody2D;
@@ -139,6 +142,7 @@ public class CarInLevel : Car
         {
             _currentBoosterFuelQuantity = Booster.BoosterFuelTank.FuelQuantity;
         }
+        _hotWheel?.Update();
         CarGun?.Update();
         _groundAnalyzer.Update();
         FrontSuspension.Calculate();
@@ -153,6 +157,7 @@ public class CarInLevel : Car
         _controlActive = false;
         _carAudioHandler.EngineAudioHandler.StopPlayEngine();
         _carAudioHandler.EngineAudioHandler.PlaySoundStopEngine();
+        _carAudioHandler.HotWheelAudioHandler.StopPlayRotateWheels().Forget();
         _exhaust.StopEffect();
     }
 
@@ -164,7 +169,6 @@ public class CarInLevel : Car
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        Debug.Log(6587);
         TryKnock(collision);
     }
 
@@ -211,6 +215,13 @@ public class CarInLevel : Car
                 Gizmos.color = Color.red;
                 Gizmos.DrawWireSphere(_gunRef.transform.position, _distanceDetectionValue);
                 Gizmos.DrawWireSphere(_gunRef.transform.position, _deadZoneDetectionValue);
+            }
+
+            if (_hotWheelRef.gameObject.activeSelf == true)
+            {
+                Gizmos.color = Color.cyan;
+                Gizmos.DrawWireSphere(_hotWheelRef.Wheel1.position, _radiusWheel1);
+                Gizmos.DrawWireSphere(_hotWheelRef.Wheel2.position, _radiusWheel2);
             }
         }
     }
@@ -335,7 +346,7 @@ public class CarInLevel : Car
     {
         if (_hotWheelRef.gameObject.activeSelf == true)
         {
-            _hotWheel = new HotWheel(_hotWheelRef, hotWheelAudioHandler, _hotWheelRotationSpeed);
+            _hotWheel = new HotWheel(_hotWheelRef, hotWheelAudioHandler, _contactMask, _hotWheelRotationSpeed, _radiusWheel1, _radiusWheel2);
         } 
     }
 

@@ -8,8 +8,9 @@ public interface ICarAudio
     public AudioSource CarAudioSourceForEngine { get; }
     public AudioSource CarAudioSourceForBooster { get; }
     public AudioSource CarAudioSourceForDestruction { get; }
-    public AudioSource CarAudioSourceForHotWheels { get; }
-    public AudioSource CarAudioSourceForOther { get; }
+    public AudioSource CarAudioSourceForHotWheels1 { get; }
+    public AudioSource CarAudioSourceForHotWheels2 { get; }
+    public AudioSource CarAudioSourceForBrakes { get; }
     public ReactiveProperty<bool> SoundReactiveProperty { get; }
     public event Action OnSoundChange; 
 }

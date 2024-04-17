@@ -29,7 +29,8 @@ public class EngineAudioHandler : AudioPlayer
     }
     public void PitchControl(float value)
     {
-        AudioSource.pitch = Mathf.LerpUnclamped(MINTIMEPITCH, MAXTIMEPITCH, value);
+        SetPitch(Mathf.LerpUnclamped(MINTIMEPITCH, MAXTIMEPITCH, value));
+        // _audioSource.pitch = Mathf.LerpUnclamped(MINTIMEPITCH, MAXTIMEPITCH, value);
     }
     public void PlaySoundStopEngine()
     {

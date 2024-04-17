@@ -48,9 +48,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _layerDebris: 20
-  _debrisParent: {fileID: 3723734724087198669}
-  _wholeObjectTransform: {fileID: 6960929882116302711}
+  WholeObjectTransform: {fileID: 6960929882116302711}
   Hardness: 20
+  _debrisParentLocal: {fileID: 3723734724087198669}
   _sprite: {fileID: 7604037518833707625}
   _spriteFragment1: {fileID: 8291457196404356086}
   _spriteFragment2: {fileID: 7716670098436952874}
@@ -71,7 +71,7 @@ Rigidbody2D:
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 2151713eab0114248a49f9453a47db44, type: 2}
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
@@ -261,8 +261,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: -82694975
-  m_SortingLayer: 2
+  m_SortingLayerID: -981213219
+  m_SortingLayer: 7
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 60da683255b632d4a9b3fffa26aa498f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -408,8 +408,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: -82694975
-  m_SortingLayer: 2
+  m_SortingLayerID: -981213219
+  m_SortingLayer: 7
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: fb33d0e73e9a2634f8f30a50ef997e16, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

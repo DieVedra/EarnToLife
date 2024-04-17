@@ -8,13 +8,14 @@ using Zenject;
 public class GlobalAudio : MonoBehaviour, ISoundPause, ICarAudio, ILevelAudio, IAudioSettingSwitch
 {
     [SerializeField, BoxGroup("AudioSources"), HorizontalLine(color:EColor.White)] private AudioSource _audioSourceBackground;
-    [SerializeField, BoxGroup("AudioSources")] private AudioSource _audioSourceUI;
-    [SerializeField, BoxGroup("AudioSources")] private AudioSource _carAudioSourceForEngine;
-    [SerializeField, BoxGroup("AudioSources")] private AudioSource _carAudioSourceForBooster;
-    [SerializeField, BoxGroup("AudioSources")] private AudioSource _carAudioSourceForDestruction;
-    [SerializeField, BoxGroup("AudioSources")] private AudioSource _carAudioSourceForHotWheels;
-    [SerializeField, BoxGroup("AudioSources")] private AudioSource _carAudioSourceForOther;
-    [SerializeField, BoxGroup("AudioSources")] private AudioSource _levelAudioSource;
+    [SerializeField, BoxGroup("AudioSources")] private AudioSource _uI;
+    [SerializeField, BoxGroup("AudioSources")] private AudioSource _forEngine;
+    [SerializeField, BoxGroup("AudioSources")] private AudioSource _forBooster;
+    [SerializeField, BoxGroup("AudioSources")] private AudioSource _forDestruction;
+    [SerializeField, BoxGroup("AudioSources")] private AudioSource _forHotWheels1;
+    [SerializeField, BoxGroup("AudioSources")] private AudioSource _forHotWheels2;
+    [SerializeField, BoxGroup("AudioSources")] private AudioSource _forBrakes;
+    [SerializeField, BoxGroup("AudioSources")] private AudioSource _forLevel;
     
     [SerializeField, BoxGroup("AudioGroups"), HorizontalLine(color:EColor.Yellow)] private AudioMixerGroup _masterMixer;
     [SerializeField, BoxGroup("AudioGroups")] private AudioMixerGroup _levelMixer;
@@ -25,18 +26,19 @@ public class GlobalAudio : MonoBehaviour, ISoundPause, ICarAudio, ILevelAudio, I
     public UIAudioClipProvider UIAudioClipProvider => _audioClipProvider.UIAudioClipProvider;
     public CarAudioClipProvider CarAudioClipProvider => _audioClipProvider.CarAudioClipProvider;
     public LevelAudioClipProvider LevelAudioClipProvider => _audioClipProvider.LevelAudioClipProvider;
-    public AudioSource AudioSourceUI => _audioSourceUI;
-    public AudioSource CarAudioSourceForEngine => _carAudioSourceForEngine;
-    public AudioSource CarAudioSourceForBooster => _carAudioSourceForBooster;
-    public AudioSource CarAudioSourceForDestruction => _carAudioSourceForDestruction;
-    public AudioSource CarAudioSourceForHotWheels => _carAudioSourceForHotWheels;
-    public AudioSource CarAudioSourceForOther => _carAudioSourceForOther;
-    public AudioSource LevelAudioSource => _levelAudioSource;
+    public AudioSource UI => _uI;
+    public AudioSource CarAudioSourceForEngine => _forEngine;
+    public AudioSource CarAudioSourceForBooster => _forBooster;
+    public AudioSource CarAudioSourceForDestruction => _forDestruction;
+    public AudioSource CarAudioSourceForHotWheels1 => _forHotWheels1;
+    public AudioSource CarAudioSourceForHotWheels2 => _forHotWheels2;
+    public AudioSource CarAudioSourceForBrakes => _forBrakes;
+    public AudioSource LevelAudioSource => _forLevel;
     private AudioSource[] _audioSources;
     private ILevelAudio _levelAudioImplementation;
 
     public event Action OnSoundChange; 
-    public event Action<bool> OnMusicChange;
+    // public event Action<bool> OnMusicChange;
     public bool SoundOn => SoundReactiveProperty.Value;
     public bool MusicOn => MusicReactiveProperty.Value;
     public ReactiveProperty<bool> SoundReactiveProperty { get; private set; }
@@ -50,17 +52,13 @@ public class GlobalAudio : MonoBehaviour, ISoundPause, ICarAudio, ILevelAudio, I
         MusicReactiveProperty.Value = keyMusic;
         if (MusicOn == true)
         {
-            PlayBackground();
+            SetAndPlayBackground();
         }
         _audioSources = new[]
         {
-            _audioSourceUI, _carAudioSourceForEngine, _carAudioSourceForBooster,
-            _carAudioSourceForOther, _levelAudioSource
+            _uI, _forEngine, _forBooster, _forDestruction, _forHotWheels1, _forHotWheels2,
+            _forBrakes, _forLevel
         };
-    }
-    private void PlayBackground()
-    {
-        SetAndPlay();
     }
     private void StopBackground()
     {
@@ -70,51 +68,92 @@ public class GlobalAudio : MonoBehaviour, ISoundPause, ICarAudio, ILevelAudio, I
     public void SetMusicOff()
     {
         MusicReactiveProperty.Value = false;
-        OnMusicChange?.Invoke(MusicOn);
+        // OnMusicChange?.Invoke(MusicOn);
         StopBackground();
     }
     public void SetMusicOn()
     {
         MusicReactiveProperty.Value = true;
-        OnMusicChange?.Invoke(MusicOn);
-        PlayBackground();
+        // OnMusicChange?.Invoke(MusicOn);
+        SetAndPlayBackground();
     }
     public void SetSoundsOff()
     {
         SoundReactiveProperty.Value = false;
         OnSoundChange?.Invoke();
-        _carAudioSourceForEngine.Stop();
-        _carAudioSourceForBooster.Stop();
+        StopAllSources();
+        MuteMaster();
     }
     public void SetSoundsOn()
     {
         SoundReactiveProperty.Value = true;
         OnSoundChange?.Invoke();
+        UnmuteMaster();
     }
-    private void SetAndPlay()
+    private void SetAndPlayBackground()
     {
         _audioSourceBackground.clip = _audioClipProvider.ClipBackground;
         _audioSourceBackground.Play();
+    }
+
+    private void MuteMaster()
+    {
+        StopAllSources();
+        _masterMixer.audioMixer.SetFloat(_globalAudioValues.NameVolumeMaster, _globalAudioValues.VolumeLevelLow);
+    }
+    private void UnmuteMaster()
+    {
+        PlayAllSources();
+        _masterMixer.audioMixer.SetFloat(_globalAudioValues.NameVolumeMaster, _globalAudioValues.VolumeNormal);
+    }
+
+    private void PauseAllSources()
+    {
+        SelectionSources(PauseSource);
+    }
+    private void StopAllSources()
+    {
+        Debug.Log($"StopAllSources");
+        SelectionSources(StopSource);
+    }
+    private void PlayAllSources()
+    {
+        SelectionSources(PlaySource);
+    }
+
+    private void SelectionSources(Action<AudioSource> operation)
+    {
+        for (int i = 0; i < _audioSources.Length; i++)
+        {
+            operation.Invoke(_audioSources[i]);
+        }
+    }
+
+    private void PauseSource(AudioSource audioSource)
+    {
+        audioSource.Pause();
+    }
+    private void StopSource(AudioSource audioSource)
+    {
+        audioSource.Stop();
+    }
+    private void PlaySource(AudioSource audioSource)
+    {
+        audioSource.Play();
     }
     public void SoundOnPause(bool pause)
     {
         if (pause == true)
         {
-            for (int i = 0; i < _audioSources.Length; i++)
-            {
-                _audioSources[i].Pause();
-            }
-            _levelMixer.audioMixer.SetFloat(_globalAudioValues.VolumeLevel, _globalAudioValues.VolumeLevelLow);
-            _backgroundMixer.audioMixer.SetFloat(_globalAudioValues.VolumeBackgroundMusic, _globalAudioValues.VolumeBackgroundMusicLow);
+            PauseAllSources();
+            _levelMixer.audioMixer.SetFloat(_globalAudioValues.NameVolumeLevel, _globalAudioValues.VolumeLevelLow);
+            _backgroundMixer.audioMixer.SetFloat(_globalAudioValues.NameVolumeBackgroundMusic, _globalAudioValues.VolumeBackgroundMusicLow);
         }
         else
         {
-            for (int i = 0; i < _audioSources.Length; i++)
-            {
-                _audioSources[i].Play();
-            }
-            _levelMixer.audioMixer.SetFloat(_globalAudioValues.VolumeLevel, _globalAudioValues.VolumeNormal);
-            _backgroundMixer.audioMixer.SetFloat(_globalAudioValues.VolumeBackgroundMusic, _globalAudioValues.VolumeNormal);
+            PlayAllSources();
+            _levelMixer.audioMixer.SetFloat(_globalAudioValues.NameVolumeLevel, _globalAudioValues.VolumeNormal);
+            _backgroundMixer.audioMixer.SetFloat(_globalAudioValues.NameVolumeBackgroundMusic, _globalAudioValues.VolumeNormal);
         }
     }
 }
