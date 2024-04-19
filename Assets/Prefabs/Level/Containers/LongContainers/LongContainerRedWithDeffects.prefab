@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6106959073971665717}
   - component: {fileID: 6287764938034135557}
   - component: {fileID: 2507300913558874324}
-  m_Layer: 22
+  m_Layer: 23
   m_Name: ContainerSubstrate
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -129,7 +129,7 @@ GameObject:
   m_Component:
   - component: {fileID: 608462267608996774}
   - component: {fileID: 6785778048013534420}
-  m_Layer: 22
+  m_Layer: 23
   m_Name: Stiker
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -213,7 +213,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4041530016234746905}
   - component: {fileID: 7161249269907589459}
-  m_Layer: 22
+  m_Layer: 23
   m_Name: Side Mini
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -297,7 +297,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6097388694053998049}
   - component: {fileID: 7958935482741788382}
-  m_Layer: 22
+  m_Layer: 23
   m_Name: ContainerSkelet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -363,7 +363,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -306634265
-  m_SortingLayer: 6
+  m_SortingLayer: 5
   m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 8c5d394d76029254389ee0d4044950aa, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -386,7 +386,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5112217539034204007}
   - component: {fileID: 4563884296219049361}
-  m_Layer: 22
+  m_Layer: 23
   m_Name: Defect30
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -470,7 +470,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1580619441866856872}
   - component: {fileID: 3019418380047620903}
-  m_Layer: 22
+  m_Layer: 23
   m_Name: Part8
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -554,7 +554,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5963394634633112423}
   - component: {fileID: 2398373404682540028}
-  m_Layer: 22
+  m_Layer: 23
   m_Name: Hole (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -638,7 +638,7 @@ GameObject:
   m_Component:
   - component: {fileID: 254919600990885681}
   - component: {fileID: 5398824711830512895}
-  m_Layer: 22
+  m_Layer: 23
   m_Name: Stiker (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -722,7 +722,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5612508998647369825}
   - component: {fileID: 4929271874070176192}
-  m_Layer: 22
+  m_Layer: 23
   m_Name: Part6 (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -806,7 +806,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6855201339231179759}
   - component: {fileID: 3348359826429791809}
-  m_Layer: 22
+  m_Layer: 23
   m_Name: Part1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -896,7 +896,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6327647553940895472}
   - component: {fileID: 4985535903866893972}
-  m_Layer: 22
+  m_Layer: 23
   m_Name: Part3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -980,7 +980,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1150086315844040047}
   - component: {fileID: 7311413340055283974}
-  m_Layer: 22
+  m_Layer: 23
   m_Name: Part4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1064,7 +1064,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3962299825496085002}
   - component: {fileID: 6604255560439406047}
-  m_Layer: 22
+  m_Layer: 23
   m_Name: Defect29
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1148,7 +1148,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6422709389954989396}
   - component: {fileID: 6098030173563793889}
-  m_Layer: 22
+  m_Layer: 23
   m_Name: Defect27
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1232,7 +1232,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6678211523655291425}
   - component: {fileID: 4672608182878260483}
-  m_Layer: 22
+  m_Layer: 23
   m_Name: Stiker (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1316,7 +1316,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7126783639881727494}
   - component: {fileID: 6077815578477533863}
-  m_Layer: 22
+  m_Layer: 23
   m_Name: Stiker (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1400,7 +1400,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6227366963361307932}
   - component: {fileID: 2798875587467659486}
-  m_Layer: 22
+  m_Layer: 23
   m_Name: Defect28
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1484,7 +1484,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1133294445086361922}
   - component: {fileID: 3876870514080097311}
-  m_Layer: 22
+  m_Layer: 23
   m_Name: Part2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1572,7 +1572,7 @@ GameObject:
   m_Component:
   - component: {fileID: 399201575586603786}
   - component: {fileID: 5513252974319961043}
-  m_Layer: 22
+  m_Layer: 23
   m_Name: Defect26
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1655,7 +1655,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8042569568304918507}
-  m_Layer: 22
+  m_Layer: 23
   m_Name: LongContainerRedWithDeffects
   m_TagString: Untagged
   m_Icon: {fileID: 5721338939258241955, guid: 0000000000000000d000000000000000, type: 0}
@@ -1689,7 +1689,7 @@ GameObject:
   m_Component:
   - component: {fileID: 846143031494174502}
   - component: {fileID: 7631145914289591282}
-  m_Layer: 22
+  m_Layer: 23
   m_Name: Hole
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1773,7 +1773,7 @@ GameObject:
   m_Component:
   - component: {fileID: 158185425059335171}
   - component: {fileID: 4684223558825033753}
-  m_Layer: 22
+  m_Layer: 23
   m_Name: Part8 (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1857,7 +1857,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2353630263076818307}
   - component: {fileID: 3885457678386540436}
-  m_Layer: 22
+  m_Layer: 23
   m_Name: Part6
   m_TagString: Untagged
   m_Icon: {fileID: 0}

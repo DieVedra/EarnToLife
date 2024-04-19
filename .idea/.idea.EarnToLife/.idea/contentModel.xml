@@ -336,6 +336,13 @@
             </e>
           </e>
         </e>
+        <e p="Prefabs" t="Include">
+          <e p="Cars" t="Include">
+            <e p="CarsToGame" t="Include">
+              <e p="test.cs" t="Include" />
+            </e>
+          </e>
+        </e>
         <e p="Scripts" t="Include">
           <e p="Audio" t="Include">
             <e p="AudioHandlers" t="Include">
@@ -416,6 +423,12 @@
               <e p="SafetyFrameworkRef.cs" t="Include" />
             </e>
             <e p="Sourse" t="Include">
+              <e p="Analyzers" t="Include">
+                <e p="CoupAnalyzer.cs" t="Include" />
+                <e p="GroundAnalyzer.cs" t="Include" />
+                <e p="MoveAnalyzer.cs" t="Include" />
+                <e p="TimerAsync.cs" t="Include" />
+              </e>
               <e p="Booster.cs" t="Include" />
               <e p="BoosterScrew.cs" t="Include" />
               <e p="Brakes.cs" t="Include" />
@@ -441,14 +454,12 @@
                 <e p="KeyboardInputMethod.cs" t="Include" />
                 <e p="UIInputMethod.cs" t="Include" />
               </e>
-              <e p="CoupAnalyzer.cs" t="Include" />
               <e p="Exhaust.cs" t="Include" />
               <e p="FuelTank" t="Include">
                 <e p="BoosterFuelTank.cs" t="Include" />
                 <e p="FuelTank.cs" t="Include" />
                 <e p="Tank.cs" t="Include" />
               </e>
-              <e p="GroundAnalyzer.cs" t="Include" />
               <e p="Gun" t="Include">
                 <e p="CarGun.cs" t="Include" />
                 <e p="CarGunDetector.cs" t="Include" />
@@ -469,6 +480,7 @@
                 <e p="WheelGroundInteraction.cs" t="Include" />
               </e>
             </e>
+            <e p="StopCauseHandler.cs" t="Include" />
           </e>
           <e p="DebrisBarrelEffect.cs" t="Include" />
           <e p="Editor" t="Include">
@@ -533,7 +545,7 @@
               </e>
               <e p="LevelEditor" t="Include">
                 <e p="LandGenerator.cs" t="Include" />
-                <e p="test.cs" t="Include" />
+                <e p="test1.cs" t="Include" />
               </e>
               <e p="LevelPart.cs" t="Include" />
               <e p="LevelPool" t="Include">
@@ -606,6 +618,7 @@
             <e p="ILevel.cs" t="Include" />
             <e p="ILevelAudio.cs" t="Include" />
             <e p="IMovementForward.cs" t="Include" />
+            <e p="IPause.cs" t="Include" />
             <e p="IPlayerData.cs" t="Include" />
             <e p="IShotable.cs" t="Include" />
             <e p="ISoundPause.cs" t="Include" />
@@ -744,7 +757,6 @@
             <e p="SimpleFolderIcon.asmdef" t="Include" />
           </e>
         </e>
-        <e p="testcoup.cs" t="Include" />
         <e p="UnityTechnologies" t="Include">
           <e p="EffectExamples" t="Include">
             <e p="Editor" t="Include">

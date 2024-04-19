@@ -5,7 +5,7 @@ public class FrontDoorDestructionHandler : DestructionHandler
 {
     public readonly int StrengthDoor;
     private readonly DoorRef _doorRef;
-    private readonly Action<Vector2, float> _effect;
+    private readonly DestructionEffectsHandler _destructionEffectsHandler;
     private readonly Transform _doorNormal;
     private readonly Transform _doorDamaged1;
     private readonly Transform _doorDamaged2;
@@ -13,12 +13,12 @@ public class FrontDoorDestructionHandler : DestructionHandler
     private Transform _activePart;
     private Transform _rearviewMirror;
     private bool _isBroken = false;
-    public FrontDoorDestructionHandler(DoorRef doorRef, DestructionHandlerContent destructionHandlerContent, Action<Vector2, float> effect,
+    public FrontDoorDestructionHandler(DoorRef doorRef, DestructionHandlerContent destructionHandlerContent, DestructionEffectsHandler destructionEffectsHandler,
         bool isArmored = false)
-        : base(doorRef, destructionHandlerContent)
+        : base(doorRef, destructionHandlerContent, " FrontDoor ")
     {
         _doorRef = doorRef;
-        _effect = effect;
+        _destructionEffectsHandler = destructionEffectsHandler;
         _doorNormal = doorRef.DoorNormal;
         _doorDamaged1 = doorRef.DoorDamaged1;
         _doorDamaged2 = doorRef.DoorDamaged2;
@@ -32,7 +32,6 @@ public class FrontDoorDestructionHandler : DestructionHandler
     {
         if (_isBroken == false)
         {
-            PlayEffect();
             _doorNormal.gameObject.SetActive(false);
             _doorDamaged1.gameObject.SetActive(true);
             _activePart = _doorDamaged1;
@@ -41,6 +40,11 @@ public class FrontDoorDestructionHandler : DestructionHandler
                 _rearviewMirror.gameObject.AddComponent<Rigidbody2D>();
                 SetParentDebris(_rearviewMirror);
                 SetCarDebrisLayerNonInteractableWithCar(_rearviewMirror);
+                _destructionEffectsHandler.HitBrokenEffect(_doorRef.PointEffect.position, ImpulseNormalValue);
+            }
+            else
+            {
+                _destructionEffectsHandler.GlassBrokenEffect(_doorRef.PointEffect.position, ImpulseNormalValue);
             }
         }
     }
@@ -67,10 +71,5 @@ public class FrontDoorDestructionHandler : DestructionHandler
             SetParentDebris(_doorRef.transform);
             SetCarDebrisLayerNonInteractableWithCar(_doorRef.transform);
         }
-    }
-
-    private void PlayEffect()
-    {
-        _effect.Invoke(_doorRef.PointEffect.position, ImpulseNormalValue);
     }
 }

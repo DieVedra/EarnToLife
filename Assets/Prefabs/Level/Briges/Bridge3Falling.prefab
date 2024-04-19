@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6972623940134584202}
-  m_Layer: 24
+  m_Layer: 18
   m_Name: Bridge3Falling
   m_TagString: Untagged
   m_Icon: {fileID: 5721338939258241955, guid: 0000000000000000d000000000000000, type: 0}
@@ -107,7 +107,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -306634265
-  m_SortingLayer: 6
+  m_SortingLayer: 5
   m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 0676cae1563e76247b969090ed83e92a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -161,7 +161,7 @@ GameObject:
   - component: {fileID: 5755947715333700330}
   - component: {fileID: 8428451623928825351}
   - component: {fileID: 792876259388973049}
-  m_Layer: 24
+  m_Layer: 18
   m_Name: Bridge4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -222,7 +222,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -306634265
-  m_SortingLayer: 6
+  m_SortingLayer: 5
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 38abf82e61a1bd547996d61d049552fc, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -275,7 +275,7 @@ GameObject:
   - component: {fileID: 932471938648999534}
   - component: {fileID: 1043177349213691091}
   - component: {fileID: 4234117627459331296}
-  m_Layer: 24
+  m_Layer: 18
   m_Name: Bridge5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -336,7 +336,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -306634265
-  m_SortingLayer: 6
+  m_SortingLayer: 5
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 8f956e637948bb042ad0200cfc943bac, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -390,7 +390,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7620567577895642174}
   - component: {fileID: 6703053787339976506}
-  m_Layer: 24
+  m_Layer: 22
   m_Name: Railing4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -451,7 +451,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -306634265
-  m_SortingLayer: 6
+  m_SortingLayer: 5
   m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: de359b029bcda604c81878d55598ba54, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

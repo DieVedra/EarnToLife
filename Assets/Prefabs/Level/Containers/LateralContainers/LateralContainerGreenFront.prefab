@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6559182915068122179}
   - component: {fileID: 7108023057844761833}
-  m_Layer: 22
+  m_Layer: 23
   m_Name: Part8 (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -94,7 +94,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7559666717659075903}
   - component: {fileID: 5872274866895673705}
-  m_Layer: 22
+  m_Layer: 23
   m_Name: Part4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -178,7 +178,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7948927596746148407}
   - component: {fileID: 975412517962285751}
-  m_Layer: 22
+  m_Layer: 23
   m_Name: Part5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -262,7 +262,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7308090406525187566}
   - component: {fileID: 1499646905697280510}
-  m_Layer: 22
+  m_Layer: 23
   m_Name: ContainerSkelet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -338,7 +338,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -306634265
-  m_SortingLayer: 6
+  m_SortingLayer: 5
   m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: d8984bfb467e2024094ada2037bae58f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -361,7 +361,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7116632822100816705}
   - component: {fileID: 2173429534709028402}
-  m_Layer: 22
+  m_Layer: 23
   m_Name: Hinges Substrate (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -446,7 +446,7 @@ GameObject:
   - component: {fileID: 8615651521740161146}
   - component: {fileID: 8235538617095008538}
   - component: {fileID: 2718846800467437327}
-  m_Layer: 22
+  m_Layer: 23
   m_Name: ContainerSubstrate
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -559,7 +559,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2127846125084644529}
   - component: {fileID: 8231052452354664587}
-  m_Layer: 22
+  m_Layer: 23
   m_Name: Part8
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -642,7 +642,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3216995963383608857}
-  m_Layer: 22
+  m_Layer: 23
   m_Name: LateralContainerGreenFront
   m_TagString: Untagged
   m_Icon: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000, type: 0}
@@ -676,7 +676,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3537089489903303072}
   - component: {fileID: 161671454447777150}
-  m_Layer: 22
+  m_Layer: 23
   m_Name: Door
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -760,7 +760,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4660823039744829949}
   - component: {fileID: 7343305004966757567}
-  m_Layer: 22
+  m_Layer: 23
   m_Name: Container Hinges
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -844,7 +844,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2955446238342351935}
   - component: {fileID: 3017593908297061653}
-  m_Layer: 22
+  m_Layer: 23
   m_Name: Part3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -928,7 +928,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3314916218613496215}
   - component: {fileID: 6684545769432130072}
-  m_Layer: 22
+  m_Layer: 23
   m_Name: Container Lock
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1012,7 +1012,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8356664855864466230}
   - component: {fileID: 5779871256831567441}
-  m_Layer: 22
+  m_Layer: 23
   m_Name: Part6 (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1096,7 +1096,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5198236200249235725}
   - component: {fileID: 2481950816309577095}
-  m_Layer: 22
+  m_Layer: 23
   m_Name: Hinges Substrate
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1180,7 +1180,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1322352351178842256}
   - component: {fileID: 4057832015332196823}
-  m_Layer: 22
+  m_Layer: 23
   m_Name: Part6
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1264,7 +1264,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3327800087467759965}
   - component: {fileID: 8979343512788533045}
-  m_Layer: 22
+  m_Layer: 23
   m_Name: Door (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1348,7 +1348,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4346185707963279906}
   - component: {fileID: 1605446876008313508}
-  m_Layer: 22
+  m_Layer: 23
   m_Name: Part7
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1432,7 +1432,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1708224300756884785}
   - component: {fileID: 4843543457671469903}
-  m_Layer: 22
+  m_Layer: 23
   m_Name: Container Hinges
   m_TagString: Untagged
   m_Icon: {fileID: 0}

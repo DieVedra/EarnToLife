@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 using Cysharp.Threading.Tasks;
 using UniRx;
 using UniRx.Triggers;
@@ -7,6 +8,7 @@ using UnityEngine;
 public class DebrisFragment
 {
     private readonly CompositeDisposable _compositeDisposable;
+    private readonly CancellationTokenSource _cancellationTokenSource;
     private readonly Transform _fragmentTransform;
     private readonly Collider2D _fragmentCollider2D;
     private Rigidbody2D _rigidbody2D;
@@ -18,11 +20,13 @@ public class DebrisFragment
         _fragmentTransform = fragmentTransform;
         _fragmentCollider2D = fragmentTransform.GetComponent<Collider2D>();
         _compositeDisposable = new CompositeDisposable();
+        _cancellationTokenSource = new CancellationTokenSource();
     }
 
     public void Dispose()
     {
         _compositeDisposable.Clear();
+        _cancellationTokenSource.Cancel();
     }
     public void InitRigidBody()
     {
@@ -41,12 +45,12 @@ public class DebrisFragment
         _fragmentCollider2D.OnCollisionEnter2DAsObservable().Subscribe(_ =>
         {
             operation?.Invoke();
-            SetLayerFragments(layer, delayChangeLayer);
+            SetLayerFragments(layer, delayChangeLayer).Forget();
         }).AddTo(_compositeDisposable);
     }
-    private async void SetLayerFragments(int layer, float delayChangeLayer)
+    private async UniTaskVoid SetLayerFragments(int layer, float delayChangeLayer)
     {
-        await UniTask.Delay(TimeSpan.FromSeconds(delayChangeLayer));
+        await UniTask.Delay(TimeSpan.FromSeconds(delayChangeLayer), cancellationToken: _cancellationTokenSource.Token);
         _compositeDisposable.Clear();
         _fragmentTransform.gameObject.layer = layer;
     }

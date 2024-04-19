@@ -5,7 +5,8 @@ using UnityEngine;
 
 public class BumperDestructionHandler : DestructionHandler, IDispose
 {
-    private readonly Action<Vector2, float> _effect;
+    private readonly DestructionEffectsHandler _destructionEffectsHandler;
+    private readonly DestructionAudioHandler _destructionAudioHandler;
     private readonly float _delay = 2f;
     private readonly Transform _bumperNormal;
     private readonly Transform _bumperDamaged;
@@ -16,10 +17,11 @@ public class BumperDestructionHandler : DestructionHandler, IDispose
     private CancellationTokenSource _cancellationTokenSource = new CancellationTokenSource();
     private bool _isBroken = false;
     public BumperDestructionHandler(BumperRef bumperRef, DestructionHandlerContent destructionHandlerContent,
-        Action<Vector2, float> effect, Action<float> soundSoftHit)
-    :base(bumperRef, destructionHandlerContent, soundSoftHit, bumperRef.StrengthBumper)
+        DestructionEffectsHandler destructionEffectsHandler, DestructionAudioHandler destructionAudioHandler)
+    :base(bumperRef, destructionHandlerContent, " bumper ", destructionAudioHandler, bumperRef.StrengthBumper)
     {
-        _effect = effect;
+        _destructionEffectsHandler = destructionEffectsHandler;
+        _destructionAudioHandler = destructionAudioHandler;
         _collider2DBumperNormal = bumperRef.BumperNormal.GetComponent<Collider2D>();
         _collider2DBumperDamaged = bumperRef.BumperDamaged.GetComponent<Collider2D>();
         _bumperNormal = bumperRef.BumperNormal;
@@ -71,7 +73,7 @@ public class BumperDestructionHandler : DestructionHandler, IDispose
 
     private void PlayEffect()
     {
-        _effect.Invoke(HitPosition, ImpulseNormalValue);
+        _destructionEffectsHandler.HitBrokenEffect(HitPosition, ImpulseNormalValue);
     }
     private void DestructionMode1()
     {

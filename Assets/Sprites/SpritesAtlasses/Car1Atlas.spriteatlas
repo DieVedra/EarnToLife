@@ -38,7 +38,7 @@ SpriteAtlas:
       padding: 8
       blockOffset: 1
       allowAlphaSplitting: 0
-      enableRotation: 0
+      enableRotation: 1
       enableTightPacking: 0
       enableAlphaDilation: 0
     secondaryTextureSettings: {}
@@ -80,7 +80,6 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 6cb30b82092494b44b46d15adda2dc66, type: 3}
   - {fileID: 21300000, guid: 5a408cc2e0f326e438d8535449b57164, type: 3}
   - {fileID: 21300000, guid: 6fcc65d224f82fc429d55dc53b1b53e6, type: 3}
-  - {fileID: 21300000, guid: e9189ed2bfce7814dbc861916e038cdf, type: 3}
   - {fileID: 21300000, guid: 8eb899f295da4c84db0a961c246f72fa, type: 3}
   - {fileID: 21300000, guid: 68f75e6331b5a02438dd945b8cf6a42b, type: 3}
   - {fileID: 21300000, guid: a3dd0583ea38af7469fd98b7379aac3f, type: 3}
@@ -98,7 +97,6 @@ SpriteAtlas:
   - {fileID: 21300000, guid: fd17ed053cb4e3c47a34417ee609a741, type: 3}
   - {fileID: 21300000, guid: 648ecb15ea3f89745b6d6bfbaa84b96d, type: 3}
   - {fileID: 21300000, guid: f1db9545165c81c40b5fca5967dc6fb6, type: 3}
-  - {fileID: 21300000, guid: cbe969556f2e9e748999d26fb47d0020, type: 3}
   - {fileID: 21300000, guid: f2678795efc159d44a997eeba164242f, type: 3}
   - {fileID: 21300000, guid: ea2571b54d99bd246b0ce3eb749e41e6, type: 3}
   - {fileID: 21300000, guid: 0c940a068b6ccf74e9110f7c849841ab, type: 3}
@@ -144,7 +142,6 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 7068ef1ca1a5b274d80619da0e2fd4d2, type: 3}
   - {fileID: 21300000, guid: 9c7c815c59a9d8a4a963053a34216fcb, type: 3}
   - {fileID: 21300000, guid: fd49968ceb3655247bbbea8f13b0ba6e, type: 3}
-  - {fileID: 21300000, guid: 5305c69cb260a524fb516baeedd783c0, type: 3}
   - {fileID: 21300000, guid: 5a9d89ec11fee4849882c8969d29a09f, type: 3}
   - {fileID: 21300000, guid: 61e55f9dcbf8aac4fb7381b136c9a417, type: 3}
   - {fileID: 21300000, guid: 90a783ad9b7d17e4682fe7977a6e8886, type: 3}
@@ -181,7 +178,6 @@ SpriteAtlas:
   - Roof2
   - Buttom3
   - Frame7
-  - BoosterScrew
   - Frame1
   - Wing1
   - Seat1
@@ -199,7 +195,6 @@ SpriteAtlas:
   - CableBooster
   - Gun1
   - Wing6
-  - Booster3
   - HotWheel
   - Exhaust1
   - Door12
@@ -245,7 +240,6 @@ SpriteAtlas:
   - Frame9
   - Frame5
   - Blade1
-  - SupportBooster
   - Bumper3
   - Lever
   - TrunkCover4

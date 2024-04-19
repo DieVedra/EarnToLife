@@ -49,7 +49,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _layerDebris: 20
   WholeObjectTransform: {fileID: 6960929882116302711}
-  Hardness: 20
+  Hardness: 100
   _debrisParentLocal: {fileID: 3723734724087198669}
   _sprite: {fileID: 7604037518833707625}
   _spriteFragment1: {fileID: 8291457196404356086}
@@ -67,7 +67,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 10
+  m_Mass: 30
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 1

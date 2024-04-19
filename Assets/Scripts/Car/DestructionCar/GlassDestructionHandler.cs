@@ -4,18 +4,18 @@ using UnityEngine;
 public class GlassDestructionHandler : DestructionHandler, IDispose
 {
     private readonly GlassRef _glassRef;
-    private readonly Action<Vector2, float> _effect;
+    private readonly DestructionEffectsHandler _destructionEffectsHandler;
     private Transform _glassNormal;
     private Transform _glassDamaged;
     private Transform _currentGlass;
     private bool _isBreaked = false;
     private bool _isBroken = false;
-    public GlassDestructionHandler(GlassRef glassRef, DestructionHandlerContent destructionHandlerContent, Action<Vector2, float> effect)
-    :base(glassRef, destructionHandlerContent, maxStrength: glassRef.StrengthGlass)
+    public GlassDestructionHandler(GlassRef glassRef, DestructionHandlerContent destructionHandlerContent, DestructionEffectsHandler destructionEffectsHandler)
+    :base(glassRef, destructionHandlerContent, " GlassDestruction ", maxStrength: glassRef.StrengthGlass)
     {
         TryInitGlasses(glassRef);
         _glassRef = glassRef;
-        _effect = effect;
+        _destructionEffectsHandler = destructionEffectsHandler;
         SubscribeCollider(_glassNormal.GetComponent<Collider2D>(), CheckCollision, TryBreakGlassFromHit);
     }
 
@@ -51,7 +51,7 @@ public class GlassDestructionHandler : DestructionHandler, IDispose
         if (_isBreaked == false)
         {
             _isBreaked = true;
-            _effect.Invoke(position, force);
+            _destructionEffectsHandler.HitBrokenEffect(position, force);
             CompositeDisposable.Clear();
             TrySwitchSprites();
         }

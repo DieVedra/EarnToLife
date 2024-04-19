@@ -250,6 +250,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _wheelRigidbody2D: {fileID: 5629588221683927287}
   _anchor: {x: 2.8213134, y: -0.14358851}
+  _smokeWheelParticleSystem: {fileID: 0}
+  _dirtWheelParticleSystem: {fileID: 0}
 --- !u!212 &5983594466658285973
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1518,6 +1520,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _wheelRigidbody2D: {fileID: 4685337608643729257}
   _anchor: {x: -1.8502113, y: -0.1443027}
+  _smokeWheelParticleSystem: {fileID: 0}
+  _dirtWheelParticleSystem: {fileID: 0}
 --- !u!212 &1601999725904028687
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -4787,6 +4791,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _wheelRigidbody2D: {fileID: 7501432734681586069}
   _anchor: {x: 2.838, y: -0.5309678}
+  _smokeWheelParticleSystem: {fileID: 0}
+  _dirtWheelParticleSystem: {fileID: 0}
 --- !u!212 &6954307055100753478
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -5361,6 +5367,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _wheelRigidbody2D: {fileID: 4774802054017811767}
   _anchor: {x: 2.8242261, y: -0.23197249}
+  _smokeWheelParticleSystem: {fileID: 0}
+  _dirtWheelParticleSystem: {fileID: 0}
 --- !u!212 &1724061637777856531
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -5581,7 +5589,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &7655579552364994257
 Transform:
   m_ObjectHideFlags: 0
@@ -5768,7 +5776,7 @@ SpriteRenderer:
   m_Size: {x: 1.43, y: 0.98}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!60 &2023014032824683439
@@ -7266,12 +7274,12 @@ SpriteRenderer:
   m_SortingLayerID: 157630223
   m_SortingLayer: 4
   m_SortingOrder: -1
-  m_Sprite: {fileID: 21300000, guid: cbe969556f2e9e748999d26fb47d0020, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 2c03d63a82931b84ba775aa4f2541142, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1.37, y: 1.78}
+  m_Size: {x: 1.44, y: 1.78}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -7294,27 +7302,21 @@ PolygonCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.37, y: 1.78}
-    newSize: {x: 1.37, y: 1.78}
+    oldSize: {x: 1.44, y: 1.78}
+    newSize: {x: 1.44, y: 1.78}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: -0.21499999, y: -0.87}
-      - {x: -0.24499999, y: -0.52}
-      - {x: -0.39499998, y: -0.51}
-      - {x: -0.36499998, y: -0.42999998}
-      - {x: -0.265, y: -0.26999998}
-      - {x: -0.325, y: 0.32}
-      - {x: -0.505, y: 0.5}
-      - {x: -0.415, y: 0.87}
-      - {x: 0.155, y: 0.85999995}
-      - {x: 0.265, y: 0.51}
-      - {x: 0.055, y: 0.38}
-      - {x: 0.005, y: -0.71}
-      - {x: -0.13499999, y: -0.87}
+    - - {x: -0.01, y: -0.69}
+      - {x: -0.21, y: -0.85999995}
+      - {x: -0.41, y: -0.51}
+      - {x: -0.51, y: 0.48999998}
+      - {x: -0.42, y: 0.88}
+      - {x: 0.11, y: 0.85999995}
+      - {x: 0.35, y: 0.29999998}
 --- !u!1 &7674069524390424464
 GameObject:
   m_ObjectHideFlags: 0
@@ -7592,6 +7594,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _wheelRigidbody2D: {fileID: 2529057462103093802}
   _anchor: {x: -1.8562188, y: -0.24492754}
+  _smokeWheelParticleSystem: {fileID: 0}
+  _dirtWheelParticleSystem: {fileID: 0}
 --- !u!212 &775854313131775769
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -7730,6 +7734,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _wheelRigidbody2D: {fileID: 8144592301134868781}
   _anchor: {x: -1.847, y: -0.6}
+  _smokeWheelParticleSystem: {fileID: 0}
+  _dirtWheelParticleSystem: {fileID: 0}
 --- !u!212 &6564035621226145810
 SpriteRenderer:
   m_ObjectHideFlags: 0

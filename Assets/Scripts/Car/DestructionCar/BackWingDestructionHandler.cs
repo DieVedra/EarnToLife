@@ -9,7 +9,7 @@ public class BackWingDestructionHandler : DestructionHandler, IDispose
     private readonly ArmoredBackFrameRef _armoredBackFrameRef;
     private readonly BumperDestructionHandler _backBumperDestructionHandler;
     private readonly ExhaustHandler _exhaustHandler;
-    private readonly Action<Vector2, float> _effect;
+    private readonly DestructionEffectsHandler _destructionEffectsHandler;
     private readonly Transform _wingNormal;
     private readonly Transform _wingDamaged1;
     private readonly Transform _wingDamaged2;
@@ -28,15 +28,15 @@ public class BackWingDestructionHandler : DestructionHandler, IDispose
     private bool _isArmored = false;
     public BackWingDestructionHandler(BackWingRef backWingRef, GlassDestructionHandler glassDestructionHandler,
         ArmoredBackFrameDestructionHandler armoredBackFrameHandler, BumperDestructionHandler backBumperDestructionHandler, 
-        ExhaustHandler exhaustHandler, Action<Vector2, float> effect, Action<float> soundSoftHit,
+        ExhaustHandler exhaustHandler, DestructionEffectsHandler destructionEffectsHandler, DestructionAudioHandler destructionAudioHandler,
         DestructionHandlerContent destructionHandlerContent, int totalStrength, bool isArmored, bool boosterActive)
-        :base(backWingRef, destructionHandlerContent, soundSoftHit, totalStrength)
+        :base(backWingRef, destructionHandlerContent, " BackWing ", destructionAudioHandler, totalStrength)
     {
         _glassDestructionHandler = glassDestructionHandler;
         _armoredBackFrameHandler = armoredBackFrameHandler;
         _backBumperDestructionHandler = backBumperDestructionHandler;
         _exhaustHandler = exhaustHandler;
-        _effect = effect;
+        _destructionEffectsHandler = destructionEffectsHandler;
         _wingNormal = backWingRef.WingNormal;
         _wingDamaged1 = backWingRef.WingDamaged1;
         _wingDamaged2 = backWingRef.WingDamaged2;
@@ -90,7 +90,7 @@ public class BackWingDestructionHandler : DestructionHandler, IDispose
 
     private void PlayEffect()
     {
-        _effect.Invoke(HitPosition, ImpulseNormalValue);
+        _destructionEffectsHandler.HitBrokenEffect(HitPosition, ImpulseNormalValue);
     }
 
     private void DestructionMode1AndSubscribe()

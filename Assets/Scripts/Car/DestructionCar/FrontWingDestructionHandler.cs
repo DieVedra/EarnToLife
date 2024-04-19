@@ -7,9 +7,7 @@ public class FrontWingDestructionHandler : DestructionHandler, IDispose
     private readonly GlassDestructionHandler _glassDestructionHandler;
     private readonly HotWheelDestructionHandler _hotWheelDestructionHandler;
     private readonly BumperDestructionHandler _bumperDestructionFrontHandler;
-    private readonly Action<Vector2, float> _effectHit;
-    private readonly Action<DestructionMode> _effectSmoke;
-    private readonly Action _effectBurn;
+    private readonly DestructionEffectsHandler _destructionEffectsHandler;
     private readonly Transform _wingNormal;
     private readonly Transform _lighterWingNormal;
     private readonly Transform _wingDamaged1;
@@ -29,16 +27,14 @@ public class FrontWingDestructionHandler : DestructionHandler, IDispose
     public FrontWingDestructionHandler(FrontWingRef frontWingRef, ArmoredFrontFrameRef armoredFrontFrameRef, 
         GlassDestructionHandler glassDestructionHandler, HotWheelDestructionHandler hotWheelDestructionHandler,
         BumperDestructionHandler bumperDestructionFrontHandler, DestructionHandlerContent destructionHandlerContent,
-        Action<Vector2, float> effectHit, Action<DestructionMode> effectSmoke, Action effectBurn, Action<float> soundSoftHitHit2,
+        DestructionEffectsHandler destructionEffectsHandler, DestructionAudioHandler destructionAudioHandler,
         int strength, bool isArmored)
-        :base(frontWingRef, destructionHandlerContent, soundSoftHitHit2, strength)
+        :base(frontWingRef, destructionHandlerContent, " FrontWing ", destructionAudioHandler, strength)
     {
         _glassDestructionHandler = glassDestructionHandler;
         _hotWheelDestructionHandler = hotWheelDestructionHandler;
         _bumperDestructionFrontHandler = bumperDestructionFrontHandler;
-        _effectHit = effectHit;
-        _effectSmoke = effectSmoke;
-        _effectBurn = effectBurn;
+        _destructionEffectsHandler = destructionEffectsHandler;
         _wingNormal = frontWingRef.WingNormal;
         _lighterWingNormal = frontWingRef.LighterWingNormal;
         _lighterWingNormal.gameObject.SetActive(false);
@@ -101,7 +97,7 @@ public class FrontWingDestructionHandler : DestructionHandler, IDispose
 
     private void PlayEffect()
     {
-        _effectHit.Invoke(HitPosition, ImpulseNormalValue);
+        _destructionEffectsHandler.HitBrokenEffect(HitPosition, ImpulseNormalValue);
     }
 
     private void DestructionMode1AndSubscribe()
@@ -210,10 +206,10 @@ public class FrontWingDestructionHandler : DestructionHandler, IDispose
 
     private void StartSmoke(DestructionMode destructionMode)
     {
-        _effectSmoke.Invoke(destructionMode);
+        _destructionEffectsHandler.TryPlayEngineSmokeEffect(destructionMode);
     }
     private void StartFire()
     {
-        _effectBurn.Invoke();
+        _destructionEffectsHandler.TryPlayEngineBurnEffect();
     }
 }

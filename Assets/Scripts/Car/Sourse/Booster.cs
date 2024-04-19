@@ -46,9 +46,17 @@ public class Booster
             _boosterScrew.RotateScrew();
         }).AddTo(_compositeDisposable);
         _particleSystemBooster.Play();
+        Debug.Log($"RunBooster");
+
     }
     public void BoosterDisable()
     {
+        Debug.Log($"BoosterDisable  _isRun: {_isRun}");
+        if (_isRun == true)
+        {
+            _particleSystemBooster.Stop();
+            _boosterAudioHandler.StopPlayRunBooster();
+        }
         _isRun = false;
         _compositeDisposable.Clear();
         OnBoosterDisable?.Invoke();
@@ -57,7 +65,7 @@ public class Booster
     private void StopBooster()
     {
         _isRun = false;
-        _boosterAudioHandler.StopPlayRunBooster();
+        _boosterAudioHandler.StopPlayRunBoosterDecrease();
         _compositeDisposable.Clear();
         _boosterScrew.SetDefaultRotationSpeed();
         _particleSystemBooster.Stop();
@@ -65,5 +73,7 @@ public class Booster
         {
             _boosterScrew.SmoothStopScrew();
         }).AddTo(_compositeDisposable);
+        Debug.Log($"StopBooster");
+
     }
 }

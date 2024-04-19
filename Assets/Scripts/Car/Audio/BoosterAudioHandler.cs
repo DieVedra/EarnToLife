@@ -38,16 +38,19 @@ public class BoosterAudioHandler : AudioPlayer
             VolumeIncrease();
         }).AddTo(_compositeDisposable);
     }
-    public void StopPlayRunBooster()
+    public void StopPlayRunBoosterDecrease()
     {
-        _currentAudioValue = _startDecreaseValue;
-        _compositeDisposable.Clear();
+        StopPlayRunBooster();
         Observable.EveryUpdate().Subscribe(_ =>
         {
             VolumeDecrease();
         }).AddTo(_compositeDisposable);
     }
-
+    public void StopPlayRunBooster()
+    {
+        _currentAudioValue = _startDecreaseValue;
+        _compositeDisposable.Clear();
+    }
     private void VolumeIncrease() //++
     {
         if (_currentAudioValue < _startDecreaseValue)

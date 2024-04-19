@@ -15,9 +15,9 @@ public class AudioPlayer
     }
     public void TryPlayClip(AudioClip audioClip, bool loop = false)
     {
+        _audioSource.clip = audioClip;
         if (_soundOn == true)
         {
-            _audioSource.clip = audioClip;
             _audioSource.loop = loop;
             _audioSource.Play();
         }

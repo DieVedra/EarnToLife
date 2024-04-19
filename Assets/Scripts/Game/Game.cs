@@ -117,7 +117,7 @@ public class Game : MonoBehaviour
     }
     private void Update()
     {
-        if (_gamePause.CheckPause())
+        if (_gamePause.IsPause == false)
         {
 
             // for (int i = 0; i < _botsWithAK.Length; i++)
@@ -137,7 +137,7 @@ public class Game : MonoBehaviour
     }
     private void FixedUpdate()
     {
-        if (_gamePause.CheckPause())
+        if (_gamePause.IsPause == false)
         {
             _carInLevel.UpdateCar();
         }

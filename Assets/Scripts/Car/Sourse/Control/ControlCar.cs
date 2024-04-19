@@ -2,10 +2,12 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
+using UniRx;
 using UnityEngine;
 
 public class ControlCar
 {
+    public readonly ReactiveProperty<bool> DriveStarted = new ReactiveProperty<bool>();
     private readonly InputMethod _currentInputMethod;
     private readonly Gyroscope _gyroscope;
     private readonly IStateSetter _stateSetterPropulsionUnit;
@@ -13,6 +15,7 @@ public class ControlCar
     private readonly Booster _booster;
     private readonly Speedometer _speedometer;
     private int _stayValue = 5;
+
     protected ControlCar(InputMethod currentInputMethod, Gyroscope gyroscope, IStateSetter stateSetterPropulsionUnit, PropulsionUnit propulsionUnit,
         Booster booster, Speedometer speedometer)
     {
@@ -23,16 +26,19 @@ public class ControlCar
         _speedometer = speedometer;
         _currentInputMethod = currentInputMethod;
         ChangeStaySpeedAfterStartGame();
+        DriveStarted.Value = false;
     }
     public virtual void Update()
     {
         if (_currentInputMethod.CheckPressBreak())
         {
+            DriveStarted.Value = true;
             Stop();
             return;
         }
         else if (_currentInputMethod.CheckPressBoost() && _booster.FuelAvailability == true)
         {
+            DriveStarted.Value = true;
             Boost();
         }
         else if (_currentInputMethod.CheckPressGas() && _propulsionUnit.FuelAvailability == true)

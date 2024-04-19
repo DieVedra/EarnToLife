@@ -15,8 +15,7 @@ public class RoofDestructionHandler : DestructionHandler, IDispose
     private readonly ArmoredBackFrameDestructionHandler _armoredBackFrameDestructionHandler;
     private readonly GunDestructionHandler _gunDestructionHandler;
     private readonly CabineDestructionHandler _cabineDestructionHandler;
-    private readonly Action<float> _soundBends;
-    private readonly Action<float> _soundHardHit;
+    private readonly DestructionAudioHandler _destructionAudioHandler;
     private readonly CoupAnalyzer _coupAnalyzer;
     private readonly CarMass _carMass;
     private readonly Transform _roofNormal;
@@ -43,11 +42,10 @@ public class RoofDestructionHandler : DestructionHandler, IDispose
         FrontDoorDestructionHandler frontDoorDestructionHandler, BackDoorDestructionHandler backDoorDestructionHandler,
         GlassDestructionHandler frontGlassDestructionHandler, GlassDestructionHandler backGlassDestructionHandler,
         GunDestructionHandler gunDestructionHandler, CabineDestructionHandler cabineDestructionHandler,
-        DestructionHandlerContent destructionHandlerContent, Action<float> soundBends, Action<float> soundHardHit, Action<float> soundSoftHit,
+        DestructionHandlerContent destructionHandlerContent,  DestructionAudioHandler destructionAudioHandler/*Action<float> soundBends, Action<float> soundHardHit, Action<float, string> soundSoftHit*/,
         int totalStrengthRoof, int fallingContentLayer, bool isArmored, bool safetyFrameworkInstalled)
-        : base(roofRef, destructionHandlerContent, soundSoftHit, totalStrengthRoof)
+        : base(roofRef, destructionHandlerContent, " roof ",destructionAudioHandler, totalStrengthRoof)
     {
-        _soundHardHit = soundHardHit;
         _roofRef = roofRef;
         _coupAnalyzer = coupAnalyzer;
         _carMass = carMass;
@@ -58,7 +56,7 @@ public class RoofDestructionHandler : DestructionHandler, IDispose
         _armoredBackFrameDestructionHandler = armoredBackFrameDestructionHandler;
         _gunDestructionHandler = gunDestructionHandler;
         _cabineDestructionHandler = cabineDestructionHandler;
-        _soundBends = soundBends;
+        _destructionAudioHandler = destructionAudioHandler;
         _roofNormal = roofRef.RoofNormal;
         _roofDamaged1 = roofRef.RoofDamaged1;
         _roofDamaged2 = roofRef.RoofDamaged2;
@@ -78,11 +76,11 @@ public class RoofDestructionHandler : DestructionHandler, IDispose
             _frameNormal = armoredRoofFrameRef.FrameNormal;
             _frameDamaged = armoredRoofFrameRef.FrameDamaged;
             _currentFrame = _frameNormal;
-            SubscribeCollider(_frameNormal.GetComponent<Collider2D>(), CollisionHandling, TrySwitchMode);
+            SubscribeCollider(_frameNormal.GetComponent<Collider2D>(), CollisionHandlingRoof, TrySwitchMode);
         }
         else
         {
-            SubscribeCollider(_roofNormal.GetComponent<Collider2D>(), CollisionHandling, TrySwitchMode);
+            SubscribeCollider(_roofNormal.GetComponent<Collider2D>(), CollisionHandlingRoof, TrySwitchMode);
         }
     }
 
@@ -137,11 +135,11 @@ public class RoofDestructionHandler : DestructionHandler, IDispose
 
     private void PlaySoundHardHit()
     {
-        _soundHardHit.Invoke(ImpulseNormalValue);
+        _destructionAudioHandler.PlayHardHit(ImpulseNormalValue);
     }
     private void PlaySoundBends()
     {
-        _soundBends.Invoke(ImpulseNormalValue);
+        _destructionAudioHandler.PlayRoofBends(ImpulseNormalValue);
     }
 
     private void DestructionMode1AndSubscribe()
@@ -171,7 +169,7 @@ public class RoofDestructionHandler : DestructionHandler, IDispose
     private void DestructionMode2AndSubscribe()
     {
         DestructionMode2();
-        SubscribeCollider(_roofDamaged2.GetComponent<Collider2D>(), CollisionHandling, TrySwitchMode);
+        SubscribeCollider(_roofDamaged2.GetComponent<Collider2D>(), CollisionHandlingRoof, TrySwitchMode);
     }
     private void DestructionMode2()
     {
@@ -230,8 +228,10 @@ public class RoofDestructionHandler : DestructionHandler, IDispose
         DestructionMode = DestructionMode.Mode3;
     }
 
-    protected override bool CollisionHandling(Collision2D collision)
+    private bool CollisionHandlingRoof(Collision2D collision)
     {
+        Debug.Log($"Overriding CollisionHandling roof ");
+
         bool result = false;
         if (1 << _fallingContentLayer == 1 << collision.gameObject.layer && _isСrushed == false)
         {
@@ -252,8 +252,10 @@ public class RoofDestructionHandler : DestructionHandler, IDispose
             }
             return result;
         }
-        if (_coupAnalyzer.CarIsCoupCurrentValue == true)
+        if (_coupAnalyzer.CarIsCoup == true)
         {
+            Debug.Log($"Overriding CollisionHandling roof   CarIsCoup");
+
             if ((base.CheckCollision(collision) == true)
                 && _carHasBeenCoup == false)
             {
@@ -321,7 +323,7 @@ public class RoofDestructionHandler : DestructionHandler, IDispose
 
     private void TrySubscribeCollider()
     {
-        if (_coupAnalyzer.CarIsCoupCurrentValue == false)
+        if (_coupAnalyzer.CarIsCoup == false)
         {
             _carHasBeenCoup = false;
             _disposableCoupAnalyze.Clear();
@@ -343,18 +345,18 @@ public class RoofDestructionHandler : DestructionHandler, IDispose
     {
         if (_isArmored == true)
         {
-            SubscribeCollider(_frameDamaged.GetComponent<Collider2D>(), CollisionHandling, TrySwitchMode);
+            SubscribeCollider(_frameDamaged.GetComponent<Collider2D>(), CollisionHandlingRoof, TrySwitchMode);
         }
         else
         {
-            SubscribeCollider(_roofDamaged1.GetComponent<Collider2D>(), CollisionHandling, TrySwitchMode);
+            SubscribeCollider(_roofDamaged1.GetComponent<Collider2D>(), CollisionHandlingRoof, TrySwitchMode);
         }
     }
     private void SubscribesDestructionMode2()
     {
-        if (_coupAnalyzer.CarIsCoupCurrentValue == false)
+        if (_coupAnalyzer.CarIsCoup == false)
         {
-            SubscribeCollider(_roofDamaged2.GetComponent<Collider2D>(), CollisionHandling, TrySwitchMode);
+            SubscribeCollider(_roofDamaged2.GetComponent<Collider2D>(), this.CollisionHandling, TrySwitchMode);
         }
     }
 }

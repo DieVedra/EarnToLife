@@ -15,7 +15,7 @@ public class Exhaust
         mainModule.startSpeed = value;
     }
 
-    public void StopEffect()
+    public void StopPlayEffect()
     {
         _effect.Stop();
     }

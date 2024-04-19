@@ -4,15 +4,23 @@ using UnityEngine;
 
 public class BoosterDestructionHandler : DestructionHandler, IDispose
 {
+    private readonly int _fallingContentLayer;
     private readonly Booster _booster;
-    private readonly Action<Vector2, float> _effect;
+    private readonly CoupAnalyzer _coupAnalyzer;
+    private readonly CarMass _carMass;
+    private readonly DestructionEffectsHandler _destructionEffectsHandler;
     private readonly BoosterRef _boosterRef;
-    public BoosterDestructionHandler(BoosterRef boosterRef, Booster booster, DestructionHandlerContent destructionHandlerContent,
-        Action<Vector2, float> effect, Action<float> soundSoftHit) 
-        : base(boosterRef, destructionHandlerContent, soundSoftHit, boosterRef.StrengthBooster)
+    private bool _isСrushed;
+
+    public BoosterDestructionHandler(BoosterRef boosterRef, Booster booster, CoupAnalyzer coupAnalyzer, CarMass carMass, DestructionHandlerContent destructionHandlerContent,
+        DestructionEffectsHandler destructionEffectsHandler, DestructionAudioHandler destructionAudioHandler, int fallingContentLayer) 
+        : base(boosterRef, destructionHandlerContent, " Booster ", destructionAudioHandler, boosterRef.StrengthBooster)
     {
+        _fallingContentLayer = fallingContentLayer;
         _booster = booster;
-        _effect = effect;
+        _coupAnalyzer = coupAnalyzer;
+        _carMass = carMass;
+        _destructionEffectsHandler = destructionEffectsHandler;
         _boosterRef = boosterRef;
         SubscribeColliders();
     }
@@ -38,17 +46,61 @@ public class BoosterDestructionHandler : DestructionHandler, IDispose
 
     private void PlayEffect()
     {
-        _effect.Invoke(HitPosition, ImpulseNormalValue);
+        _destructionEffectsHandler.HitBrokenEffect(HitPosition, ImpulseNormalValue);
     }
 
     private void SubscribeColliders()
     {
         for (int i = 0; i < _boosterRef.BoosterParts.Length; i++)
         {
-            SubscribeCollider(_boosterRef.BoosterParts[i].GetComponent<Collider2D>(), CollisionHandling, TrySwitchMode);
+            SubscribeCollider(_boosterRef.BoosterParts[i].GetComponent<Collider2D>(), BoosterCollisionHandling, TrySwitchMode);
         }
     }
 
+    private bool BoosterCollisionHandling(Collision2D collision)
+    {
+        bool result;
+        ImpulseNormalValue = SetImpulseNormalAndHitPosition(collision);
+        if (1 << _fallingContentLayer == 1 << collision.gameObject.layer && _isСrushed == false)
+        {
+            if (collision.gameObject.TryGetComponent(out Rigidbody2D rigidbody2D))
+            {
+                ImpulseNormalValue += rigidbody2D.mass;
+                if (rigidbody2D.mass > MaxStrength)
+                {
+                    _isСrushed = true;
+                }
+                result = true;
+            }
+            else
+            {
+                result = false;
+            }
+            return result;
+        }
+        if (base.CollisionHandling(collision))
+        {
+            if (_coupAnalyzer.CarIsCoup == true || _coupAnalyzer.CarIsCoup == true)
+            {
+                ImpulseNormalValue += _carMass.Mass;
+                result = true;
+            }
+            else
+            {
+                result = false;
+            }
+        }
+        else if (CheckCollisionAndMinSpeed(collision) == true)
+        {
+            result = true;
+        }
+        else
+        {
+            result = false;
+        }
+
+        return result;
+    }
     private void Destruction()
     {
         CompositeDisposable.Clear();

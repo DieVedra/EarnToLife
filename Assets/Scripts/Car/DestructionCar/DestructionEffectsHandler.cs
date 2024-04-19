@@ -1,18 +1,13 @@
 ﻿using System;
 using Cysharp.Threading.Tasks;
+using UniRx;
 using UnityEngine;
 
 public class DestructionEffectsHandler :IDispose
 {
     private readonly int _preloadCount = 4;
-    private readonly ParticleSystem.MinMaxCurve _smokeEffectMainModuleType2StartSize = new ParticleSystem.MinMaxCurve(2f,3f);
-    private readonly Color _smokeEffectMainModuleType2StartColor = new Color(1f,1f,1f,0.9f);
-    private readonly ParticleSystem.MinMaxCurve _smokeEffectMainModuleType2StartLifetime  = new ParticleSystem.MinMaxCurve(2f,3f);
-    
-    
-    private readonly float _smokeEffectMainModuleType1StartSize = 1f;
-    private readonly Color _smokeEffectMainModuleType1StartColor = new Color(1f,1f,1f,0.1f);
-    private readonly ParticleSystem.MinMaxCurve _smokeEffectMainModuleType1StartLifetime  = new ParticleSystem.MinMaxCurve(1f,3f);
+    private readonly Color _smokeEffectMainModuleType2StartColor = new Color(1f,1f,1f,0.7f);
+    private readonly Color _smokeEffectMainModuleType1StartColor = new Color(1f,1f,1f,0.2f);
 
     private readonly DestructionAudioHandler _destructionAudioHandler;
     private readonly ParticleSystem _glassBrokenEffectPrefab;
@@ -20,7 +15,7 @@ public class DestructionEffectsHandler :IDispose
     private readonly ParticleSystem _engineSmokeEffect;
     private readonly ParticleSystem _engineBurnEffect;
 
-
+    private readonly CompositeDisposable _compositeDisposable = new CompositeDisposable();
     private readonly Transform _effectsParent;
     private readonly Spawner _spawner;
     private readonly PoolBase<ParticleSystem> _glassEffects;
@@ -99,29 +94,28 @@ public class DestructionEffectsHandler :IDispose
         effect.gameObject.SetActive(false);
     }
 
-    private async void PlayEffect(PoolBase<ParticleSystem> pool, Action operation, Vector2 position)
+    private void PlayEffect(PoolBase<ParticleSystem> pool, Action audioOperation, Vector2 position)
     {
         var effect = pool.Get();
-        float duration = effect.main.duration;
         effect.transform.position = position;
         effect.Play();
-        operation.Invoke();
-        await UniTask.Delay(TimeSpan.FromSeconds(duration));
-        pool.Return(effect);
+        audioOperation.Invoke();
+
+        Observable.Timer(TimeSpan.FromSeconds(effect.main.duration)).Subscribe(_ =>
+        {
+            pool.Return(effect);
+            _compositeDisposable.Clear();
+        }).AddTo(_compositeDisposable);
     }
 
     private void SetSmokeEffectMainModuleType1()
     {
         var mainModule = _engineSmokeEffect.main;
-        mainModule.startSize = _smokeEffectMainModuleType1StartSize;
         mainModule.startColor = _smokeEffectMainModuleType1StartColor;
-        mainModule.startLifetime = _smokeEffectMainModuleType1StartLifetime;
     }
     private void SetSmokeEffectMainModuleType2()
     {
         var mainModule = _engineSmokeEffect.main;
-        mainModule.startSize = _smokeEffectMainModuleType2StartSize;
         mainModule.startColor = _smokeEffectMainModuleType2StartColor;
-        mainModule.startLifetime = _smokeEffectMainModuleType2StartLifetime;
     }
 }

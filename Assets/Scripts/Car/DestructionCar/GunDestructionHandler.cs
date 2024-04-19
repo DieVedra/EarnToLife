@@ -4,34 +4,31 @@ using UnityEngine;
 public sealed class GunDestructionHandler : DestructionHandler, IDispose
 {
     private readonly CarGun _carGun;
-    private readonly Action<Vector2, float> _effect;
+    private readonly CoupAnalyzer _coupAnalyzer;
+    private readonly DestructionEffectsHandler _destructionEffectsHandler;
+    private readonly CarMass _carMass;
+    private readonly int _fallingContentLayer;
     private readonly Transform[] _gunParts;
     private bool _isBroken = false;
-    public GunDestructionHandler(GunRef gunRefs, CarGun carGun, DestructionHandlerContent destructionHandlerContent, Action<Vector2, float> effect)
-    :base(gunRefs, destructionHandlerContent, maxStrength: gunRefs.StrengthGun)
+    private bool _carHasBeenCoup;
+    private bool _isСrushed;
+
+    public GunDestructionHandler(GunRef gunRefs, CarGun carGun, CarMass carMass, CoupAnalyzer coupAnalyzer,
+        DestructionHandlerContent destructionHandlerContent, DestructionEffectsHandler destructionEffectsHandler, int fallingContentLayer)
+    :base(gunRefs, destructionHandlerContent, "  GunDestruction ", maxStrength: gunRefs.StrengthGun)
     {
         _gunParts = gunRefs.GunParts;
         _carGun = carGun;
-        _effect = effect;
-        SubscribeCollider(_gunParts[0].GetComponent<Collider2D>(), CheckCollision, TrySwitchMode);
+        _carMass = carMass;
+        _coupAnalyzer = coupAnalyzer;
+        _destructionEffectsHandler = destructionEffectsHandler;
+        _fallingContentLayer = fallingContentLayer;
+        SubscribeCollider(_gunParts[0].GetComponent<Collider2D>(), CollisionHandlingGun, TrySwitchMode);
     }
 
     public void Dispose()
     {
         CompositeDisposable.Clear();
-    }
-    protected override void TrySwitchMode()
-    {
-        if (ImpulseNormalValue > MaxStrength)
-        {
-            PlayEffect();
-            TryDestruct();
-        }
-        else
-        {
-            RecalculateStrength();
-            PlaySoftHitSound();
-        }
     }
 
     public void TryDestruct()
@@ -51,8 +48,84 @@ public sealed class GunDestructionHandler : DestructionHandler, IDispose
         }
     }
 
+    private bool CollisionHandlingGun(Collision2D collision)
+    {
+        Debug.Log($"Overriding CollisionHandling GUN Start ");
+
+        bool result = false;
+        if (1 << _fallingContentLayer == 1 << collision.gameObject.layer && _isСrushed == false)
+        {
+            if (collision.gameObject.TryGetComponent(out Rigidbody2D rigidbody2D))
+            {
+                SetImpulseNormalAndHitPosition(collision);
+                ImpulseNormalValue += rigidbody2D.mass;
+                if (rigidbody2D.mass > MaxStrength)
+                {
+                    _isСrushed = true;
+                }
+                result = true;
+            }
+            else
+            {
+                result = false;
+            }
+            return result;
+        }
+        if (_coupAnalyzer.CarIsCoup == true || _coupAnalyzer.CarIsTilted == true)
+        {
+            Debug.Log($"Overriding CollisionHandling gun   CarIsCoup: {_coupAnalyzer.CarIsCoup}");
+
+            if ((base.CheckCollision(collision) == true)
+                && _carHasBeenCoup == false)
+            {
+                _carHasBeenCoup = true;
+                SetImpulseNormalAndHitPosition(collision);
+                ImpulseNormalValue += _carMass.Mass;
+                result = true;
+            }
+            else
+            {
+                result = false;
+            }
+        }
+        else
+        {
+            if (base.CheckCollisionAndMinSpeed(collision) == true)
+            {
+                SetImpulseNormalAndHitPosition(collision);
+                result = true;
+            }
+            else
+            {
+                SetImpulseNormalAndHitPosition(collision);
+                PlaySoftHitSound();
+                result = false;
+            }
+        }
+        Debug.Log($"Overriding CollisionHandling GUN end   result: {result} ");
+
+        return result;
+    }
+    protected override void TrySwitchMode()
+    {
+        Debug.Log($" GunDestruction  TrySwitchMode   ImpulseNormalValue: {ImpulseNormalValue}  MaxStrength: {MaxStrength}");
+
+        if (ImpulseNormalValue > MaxStrength)
+        {
+            PlayEffect();
+            TryDestruct();
+            Debug.Log($" GunDestruction 1");
+        }
+        else
+        {
+            RecalculateStrength();
+            PlaySoftHitSound();
+            Debug.Log($"GunDestruction 2");
+        }
+    }
+
     private void PlayEffect()
     {
-        _effect.Invoke(HitPosition, ImpulseNormalValue);
+        _destructionEffectsHandler.HitBrokenEffect(HitPosition, ImpulseNormalValue);
     }
 }

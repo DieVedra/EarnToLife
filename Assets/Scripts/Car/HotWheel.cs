@@ -5,69 +5,72 @@ using Cysharp.Threading.Tasks;
 using UniRx;
 using UniRx.Triggers;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class HotWheel
 {
     public readonly HotWheelRef HotWheelRef;
     private readonly float _delayDisposeSlit = 2f;
+    private readonly float _torqueMin = -30f;
+    private readonly float _torqueMax = -100f;
     private readonly float _hotWheelRotationSpeed;
     private readonly float _distance = 0.05f;
     private readonly float _radiusWheel1;
     private readonly float _radiusWheel2;
     private readonly LayerMask _contactMask;
-    private readonly ContactFilter2D _contactFilter;
+    private readonly int _layerAfterBreaking;
     private readonly HotWheelAudioHandler _hotWheelAudioHandler;
+    private readonly Transform _debrisParent;
     private readonly Transform _wheel1;
     private readonly Transform _wheel2;
     private RaycastHit2D _wheel1Hit;
     private RaycastHit2D _wheel2Hit;
-    private CompositeDisposable _compositeDisposableRotate = new CompositeDisposable();
-    private CompositeDisposable _compositeDisposableSlit = new CompositeDisposable();
     private CancellationTokenSource _cancellationToken = new CancellationTokenSource();
-    private Rigidbody2D _wheel1Rigidbody2D;
-    private Rigidbody2D _wheel2Rigidbody2D;
-    private CircleCollider2D _wheel1Collider;
-    private CircleCollider2D _wheel2Collider;
+    // private Rigidbody2D _wheel1Rigidbody2D;
+    // private Rigidbody2D _wheel2Rigidbody2D;
+    // private CircleCollider2D _wheel1Collider;
+    // private CircleCollider2D _wheel2Collider;
     private List<Collider2D> _colliders = new List<Collider2D>(50);
     private bool _isBroken = false;
-    public HotWheel(HotWheelRef hotWheelRef, HotWheelAudioHandler hotWheelAudioHandler, LayerMask contactMask,
+    private bool _circleCastOn = true;
+    public HotWheel(HotWheelRef hotWheelRef, HotWheelAudioHandler hotWheelAudioHandler, Transform debrisParent, LayerMask contactMask, int layerAfterBreaking,
         float hotWheelRotationSpeed, float radiusWheel1, float radiusWheel2)
     {
         HotWheelRef = hotWheelRef;
         _hotWheelAudioHandler = hotWheelAudioHandler;
+        _debrisParent = debrisParent;
         _hotWheelRotationSpeed = hotWheelRotationSpeed;
         _radiusWheel1 = radiusWheel1;
         _radiusWheel2 = radiusWheel2;
         _contactMask = contactMask;
-        _contactFilter = new ContactFilter2D();
-        _contactFilter.SetLayerMask(contactMask);
+        _layerAfterBreaking = layerAfterBreaking;
         _wheel1 = hotWheelRef.Wheel1;
         _wheel2 = hotWheelRef.Wheel2;
-        _wheel1Collider = hotWheelRef.Wheel1Collider;
-        _wheel2Collider = hotWheelRef.Wheel2Collider;
-        // SubscribeUpdate();
-        // SubscribeToSlit();
+        // _wheel1Collider = hotWheelRef.Wheel1Collider;
+        // _wheel2Collider = hotWheelRef.Wheel2Collider;
         _hotWheelAudioHandler.PlayRotateWheels();
     }
     public void Dispose()
     {
-        _compositeDisposableRotate.Clear();
-        _compositeDisposableSlit.Clear();
         _cancellationToken.Cancel();
     }
 
     public void Destruct()
     {
-        // _compositeDisposableRotate.Clear();
         _isBroken = true;
-        _wheel1Rigidbody2D = HotWheelRef.Wheel1.gameObject.AddComponent<Rigidbody2D>();
-        _wheel2Rigidbody2D = HotWheelRef.Wheel2.gameObject.AddComponent<Rigidbody2D>();
-        _wheel1Rigidbody2D.AddTorque(100f);
-        _wheel2Rigidbody2D.AddTorque(100f);
-        
-        
-        _hotWheelAudioHandler.StopPlayRotateWheels().Forget();
-        DelayDisposeSlit().Forget();
+        HotWheelRef.transform.SetParent(_debrisParent);
+        HotWheelRef.Wheel1.gameObject.AddComponent<Rigidbody2D>().AddTorque(GetRandomTorque());
+        HotWheelRef.Wheel2.gameObject.AddComponent<Rigidbody2D>().AddTorque(GetRandomTorque());
+        // _wheel1Rigidbody2D = HotWheelRef.Wheel1.gameObject.AddComponent<Rigidbody2D>();
+        // _wheel2Rigidbody2D = HotWheelRef.Wheel2.gameObject.AddComponent<Rigidbody2D>();
+        // _wheel1Rigidbody2D.AddTorque(GetRandomTorque());
+        // _wheel2Rigidbody2D.AddTorque(GetRandomTorque());
+        Physics2D.IgnoreLayerCollision(
+            HotWheelRef.Wheel1.gameObject.layer, 
+            _layerAfterBreaking,
+            false);
+        _hotWheelAudioHandler.StopPlaySoundRotateWheels().Forget();
+        DelayCircleCastOff().Forget();
     }
 
     public void Update()
@@ -76,13 +79,17 @@ public class HotWheel
         {
             _wheel1.Rotate(Vector3.forward, _hotWheelRotationSpeed);
             _wheel2.Rotate(Vector3.forward, _hotWheelRotationSpeed);
+        }
+
+        if (_circleCastOn == true)
+        {
             CheckContact();
         }
     }
-    private async UniTaskVoid DelayDisposeSlit()
+    private async UniTaskVoid DelayCircleCastOff()
     {
         await UniTask.Delay(TimeSpan.FromSeconds(_delayDisposeSlit),  cancellationToken: _cancellationToken.Token);
-        _compositeDisposableSlit.Clear();
+        _circleCastOn = false;
     }
     private void CheckContact()
     {
@@ -91,7 +98,7 @@ public class HotWheel
         _wheel2Hit = Physics2D.CircleCast(_wheel2.position, _radiusWheel2,
             Vector2.right, _distance, _contactMask.value);
         
-        TryCut(ref _wheel2Hit);
+        TryCut(ref _wheel1Hit);
         TryCut(ref _wheel2Hit);
     }
     private void TryCut(ref RaycastHit2D wheelHit)
@@ -102,32 +109,9 @@ public class HotWheel
             _hotWheelAudioHandler.TryPlayCut();
         }
     }
-    // private void HandleColliders()
-    // {
-    //     for (int i = 0; i < _colliders.Count; i++)
-    //     {
-    //         if (_colliders[i].gameObject.TryGetComponent(out ICutable cutable))
-    //         {
-    //             cutable.DestructFromCut();
-    //             _hotWheelAudioHandler.TryPlayCut();
-    //         }
-    //     }
-    // }
-    // private void SubscribeToSlit()
-    // {
-    //     _wheel1.GetComponent<Collider2D>().OnCollisionEnter2DAsObservable()
-    //         .Do(Slit).Subscribe().AddTo(_compositeDisposableSlit);
-    //     
-    //     _wheel2.GetComponent<Collider2D>().OnCollisionEnter2DAsObservable()
-    //         .Do(Slit).Subscribe().AddTo(_compositeDisposableSlit);
-    // }
-    // private void Slit(Collision2D collision)
-    // {
-    //     Debug.Log($"{collision.collider.gameObject.name}");
-    //     if (collision.gameObject.TryGetComponent(out ICutable cutable))
-    //     {
-    //         cutable.DestructFromCut();
-    //         _hotWheelAudioHandler.TryPlayCut();
-    //     }
-    // }
+
+    private float GetRandomTorque()
+    {
+        return Random.Range(_torqueMin, _torqueMax);
+    }
 }

@@ -16,13 +16,13 @@ public class BottomDestructionHandler : DestructionHandler, IDispose
     private readonly FrontDoorDestructionHandler _frontDoorDestructionHandler;
     private readonly BackDoorDestructionHandler _backDoorDestructionHandler;
     private readonly ExhaustHandler _exhaustHandler;
-    private readonly Action<float> _soundHardHit;
+    private readonly DestructionAudioHandler _destructionAudioHandler;
     private readonly bool _isArmored;
     private bool _exhaustBroken = false;
     public BottomDestructionHandler(BottomRef bottomRef, BackCarHandler backCarHandler, RoofDestructionHandler roofDestructionHandler, 
         FrontDoorDestructionHandler frontDoorDestructionHandler, BackDoorDestructionHandler backDoorDestructionHandler, ExhaustHandler exhaustHandler,
-        DestructionHandlerContent destructionHandlerContent, Action<float> soundHardHit, Action<float> soundSoftHit,int strength, bool isArmored)
-        : base(bottomRef, destructionHandlerContent, soundSoftHit, strength)
+        DestructionHandlerContent destructionHandlerContent, DestructionAudioHandler destructionAudioHandler,int strength, bool isArmored)
+        : base(bottomRef, destructionHandlerContent, " Bottom ", destructionAudioHandler, strength)
     {
         _bottomRef = bottomRef;
         _exhaust = bottomRef.Exhaust;
@@ -32,7 +32,7 @@ public class BottomDestructionHandler : DestructionHandler, IDispose
         _frontDoorDestructionHandler = frontDoorDestructionHandler;
         _backDoorDestructionHandler = backDoorDestructionHandler;
         _exhaustHandler = exhaustHandler;
-        _soundHardHit = soundHardHit;
+        _destructionAudioHandler = destructionAudioHandler;
         _collider2DStandart = _bottomRef.GetComponent<Collider2D>();
         _isArmored = isArmored;
         if (_isArmored == true)
@@ -56,21 +56,21 @@ public class BottomDestructionHandler : DestructionHandler, IDispose
         {
             DestructionMode2();
             RecalculateStrength();
-            _soundHardHit.Invoke(ImpulseNormalValue);
+            _destructionAudioHandler.PlayHardHit(ImpulseNormalValue);
             Debug.Log($" bottom impulse: {ImpulseNormalValue}");
         }
         else if (ImpulseNormalValue > HalfStrength)
         {
             DestructionMode1();
             RecalculateStrength();
-            _soundHardHit.Invoke(ImpulseNormalValue);
+            _destructionAudioHandler.PlayHardHit(ImpulseNormalValue);
             Debug.Log($" bottom impulse: {ImpulseNormalValue}");
 
         }
         else if (ImpulseNormalValue > MinStrength)
         {
             RecalculateStrength();
-            _soundHardHit.Invoke(ImpulseNormalValue);
+            _destructionAudioHandler.PlayHardHit(ImpulseNormalValue);
             Debug.Log($" bottom impulse: {ImpulseNormalValue}");
         }
     }

@@ -7,39 +7,30 @@ public class GamePause
 {
     private const float MIN_VALUE_TIME = 0f;
     private const float NORMAL_VALUE_TIME = 1f;
-    private bool _isPause;
     private AudioMixerGroup _levelGroup;
     private ISoundPause _soundPause;
+    public bool IsPause { get; private set; }
+
     public GamePause(ISoundPause soundPause)
     {
         _soundPause = soundPause;
+        IsPause = false;
         AbortPause();
     }
     public void SetPause()
     {
-        _isPause = true;
-        _soundPause.SoundOnPause(_isPause);
+        IsPause = true;
+        _soundPause.SoundOnPause(IsPause);
         Time.timeScale = MIN_VALUE_TIME;
     }
     public void AbortPause()
     {
-        _isPause = false;
-        _soundPause.SoundOnPause(_isPause);
+        IsPause = false;
+        _soundPause.SoundOnPause(IsPause);
         Time.timeScale = NORMAL_VALUE_TIME;
     }
     public void AbortPauseForLoad()
     {
         Time.timeScale = NORMAL_VALUE_TIME;
-    }
-    public bool CheckPause()
-    {
-        if (_isPause == false)
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
     }
 }

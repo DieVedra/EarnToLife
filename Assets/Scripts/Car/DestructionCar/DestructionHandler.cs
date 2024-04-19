@@ -15,7 +15,6 @@ public abstract class DestructionHandler
     private readonly Speedometer _speedometer;
     private readonly LayerMask _canCollisionsLayerMasks;
     private readonly MonoBehaviour _monoBehaviour;
-    private readonly Action<float> _soundSoftHit;
     private readonly float _minSpeedForDestruct = 10f;
     private readonly float _reducingStrengthMultiplier = 0.7f;
     protected DestructionMode DestructionMode = DestructionMode.ModeDefault;
@@ -24,10 +23,16 @@ public abstract class DestructionHandler
     protected float HalfStrength;
     protected float MinStrength;
     protected float ImpulseNormalValue;
+    private string _name;
+    private readonly DestructionAudioHandler _destructionAudioHandler;
 
-    protected DestructionHandler(MonoBehaviour monoBehaviour, DestructionHandlerContent destructionHandlerContent, Action<float> soundSoftHit = null,
+    protected DestructionHandler(MonoBehaviour monoBehaviour, DestructionHandlerContent destructionHandlerContent,
+        string name,
+        DestructionAudioHandler destructionAudioHandler = null,
         int maxStrength = 0)
     {
+        _name = name;
+        _destructionAudioHandler = destructionAudioHandler;
         _carDebrisLayerNonInteractionWithCar = destructionHandlerContent.CarDebrisLayerNonInteractionWithCar;
         _carDebrisInteractingWithCar = destructionHandlerContent.CarDebrisInteractingWithCar;
         CalculateStrength(maxStrength);
@@ -35,30 +40,31 @@ public abstract class DestructionHandler
         _speedometer = destructionHandlerContent.Speedometer;
         _canCollisionsLayerMasks = destructionHandlerContent.CanCollisionsLayerMasks;
         _monoBehaviour = monoBehaviour;
-        _soundSoftHit = soundSoftHit;
     }
     protected virtual void TrySwitchMode(){}
 
     protected void PlaySoftHitSound()
     {
-        _soundSoftHit?.Invoke(ImpulseNormalValue);
+        // _soundSoftHit?.Invoke(ImpulseNormalValue, _name);
+        _destructionAudioHandler?.PlaySoftHit(ImpulseNormalValue, _name);
     }
 
-    protected virtual bool CollisionHandling(Collision2D collision)
+    protected bool CollisionHandling(Collision2D collision)
     {
         if (CheckCollisionAndMinSpeed(collision) == true)
         {
             ImpulseNormalValue = SetImpulseNormalAndHitPosition(collision);
+            // Debug.Log($"Base CollisionHandling {_name}  true");
             return true;
         }
         else
         {
             PlaySoftHitSound();
+            // Debug.Log($"Base CollisionHandling {_name}  false");
             return false;
         }
     }
-
-    protected virtual void SubscribeCollider(Collider2D collider2D, Predicate<Collision2D> condition = null, Action operation = null)
+    protected void SubscribeCollider(Collider2D collider2D, Predicate<Collision2D> condition = null, Action operation = null)
     {
         collider2D.OnCollisionEnter2DAsObservable()
             .Where(condition.Invoke)
@@ -153,7 +159,6 @@ public abstract class DestructionHandler
             MaxStrength = strength;
             HalfStrength = strength * _halfStrengthMultiplier;
             MinStrength = strength * _minStrengthMultiplier;
-            // Debug.Log($"MaxStrength: {MaxStrength}    HalfStrength: {HalfStrength}    MinStrength: {MinStrength}");
         }
     }
 
@@ -185,14 +190,5 @@ public abstract class DestructionHandler
         {
             transformCarPart.gameObject.layer = layer;
         }
-    }
-
-    private void SetCarDebrisLayerNonInteractableWithCar()
-    {
-        
-    }
-    private void SetCarDebrisLayerInteractableWithCar()
-    {
-        
     }
 }

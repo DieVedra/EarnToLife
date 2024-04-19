@@ -6,7 +6,7 @@ public class HotWheelDestructionHandler : DestructionHandler
     private readonly HotWheel _hotWheel;
 
     public HotWheelDestructionHandler(HotWheelRef hotWheelRef, HotWheel hotWheel, DestructionHandlerContent destructionHandlerContent)
-        : base(hotWheelRef, destructionHandlerContent)
+        : base(hotWheelRef, destructionHandlerContent," HotWheel ")
     {
         HotWheelRef = hotWheelRef;
         _hotWheel = hotWheel;

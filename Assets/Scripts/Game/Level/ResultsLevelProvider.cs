@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System;
+using System.Threading;
 using UnityEngine;
 using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
@@ -11,10 +12,11 @@ public class ResultsLevelProvider
     private readonly float _timeDelayOnEndLevelOnDriverCrushed = 3f;
     private readonly float _timeDelayOnEndLevelOnEngineBurn = 3f;
     private readonly float _timeDelayOnEndLevelDefault = 3f;
-    private readonly Wallet _wallet;
-    private readonly PlayerDataHandler _playerDataHandler;
     private readonly float _priceTagForTheWayMeter;
     private readonly float _priceTagForTheMurder;
+    private readonly CancellationTokenSource _cancellationTokenSource = new CancellationTokenSource();
+    private readonly Wallet _wallet;
+    private readonly PlayerDataHandler _playerDataHandler;
     private ResultsLevel _resultsLevel;
     private int _totalCash = 0;
     private int _distanceMoney = 0;
@@ -53,39 +55,40 @@ public class ResultsLevelProvider
         NotificationsProvider.OnDriverCrushed -= GameOverBecauseDriverCrushed;
         NotificationsProvider.OnCarTurnOver -= GameOverBecauseTurnOver;
         NotificationsProvider.OnCarStuck -= GameOverBecauseCarStuck;
+        _cancellationTokenSource.Cancel();
     }
     private void GameOverBecauseTankEmpty(string reason)
     {
-        GameOver(false, true, reason, _timePauseOnEndLevel);
+        GameOver(false, true, reason, _timePauseOnEndLevel).Forget();
     }
 
     private void GameOverBecauseGotPointDestination(string reason)
     {
-        GameOver(true, false, reason, _timePauseOnEndLevel);
+        GameOver(true, false, reason, _timePauseOnEndLevel).Forget();
     }
 
     private void GameOverBecauseEngineBroken(string reason)
     {
-        GameOver(false, true, reason, _timeDelayOnEndLevelOnEngineBurn);
+        GameOver(false, true, reason, _timeDelayOnEndLevelOnEngineBurn).Forget();
     }
     private void GameOverBecauseDriverCrushed(string reason)
     {
-        GameOver(false, true, reason, _timeDelayOnEndLevelOnDriverCrushed);
+        GameOver(false, true, reason, _timeDelayOnEndLevelOnDriverCrushed).Forget();
     }
     private void GameOverBecauseTurnOver(string reason)
     {
-        GameOver(false, true, reason, _timeDelayOnEndLevelDefault);
+        GameOver(false, true, reason, _timeDelayOnEndLevelDefault).Forget();
     }
     private void GameOverBecauseCarStuck(string reason)
     {
-        GameOver(false, true, reason, _timeDelayOnEndLevelDefault);
+        GameOver(false, true, reason, _timeDelayOnEndLevelDefault).Forget();
     }
 
-    private async void GameOver(bool openNextLevel, bool availabilityResultLevel, string reason, float delay)
+    private async UniTaskVoid GameOver(bool openNextLevel, bool availabilityResultLevel, string reason, float delay)
     {
         if (CheckGameStatus())
         {
-            await UniTask.Delay(TimeSpan.FromSeconds(delay));
+            await UniTask.Delay(TimeSpan.FromSeconds(delay), cancellationToken:  _cancellationTokenSource.Token);
             CalculateResultsAndSend(reason);
             _playerDataHandler.AddDay();
             if (openNextLevel == true)

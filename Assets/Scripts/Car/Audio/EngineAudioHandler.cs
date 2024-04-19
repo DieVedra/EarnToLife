@@ -9,9 +9,9 @@ public class EngineAudioHandler : AudioPlayer
     private const float MAXTIMEPITCH = 1.45f;
     private readonly AudioClip _engineStartAudioClip;
     private readonly AudioClip _engineStopAudioClip;
-    private readonly AudioClip _engineSoftStopAudioClip;
     private readonly AudioClip _engineRunAudioClip;
-    private readonly AudioClip _engineExplosionAudioClip;
+    // private readonly AudioClip _engineSoftStopAudioClip;
+    // private readonly AudioClip _engineExplosionAudioClip;
 
     public EngineAudioHandler(AudioSource audioSource, ReactiveProperty<bool> soundReactiveProperty,
         AudioClip engineStartAudioClip, AudioClip engineStopAudioClip, AudioClip engineRunAudioClip)
@@ -36,14 +36,14 @@ public class EngineAudioHandler : AudioPlayer
     {
         TryPlayClip(_engineStopAudioClip);
     }
-    public void PlaySoundSoftStopEngine()
-    {
-        TryPlayClip(_engineSoftStopAudioClip);
-    }
-    public void PlaySoundExplosionEngine()
-    {
-        TryPlayClip(_engineExplosionAudioClip);
-    }
+    // public void PlaySoundSoftStopEngine()
+    // {
+    //     TryPlayClip(_engineSoftStopAudioClip);
+    // }
+    // public void PlaySoundExplosionEngine()
+    // {
+    //     TryPlayClip(_engineExplosionAudioClip);
+    // }
     public void StopPlayEngine()
     {
         StopPlay();

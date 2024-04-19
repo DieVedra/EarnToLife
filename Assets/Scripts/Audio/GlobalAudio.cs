@@ -34,7 +34,7 @@ public class GlobalAudio : MonoBehaviour, ISoundPause, ICarAudio, ILevelAudio, I
     public AudioSource CarAudioSourceForHotWheels2 => _forHotWheels2;
     public AudioSource CarAudioSourceForBrakes => _forBrakes;
     public AudioSource LevelAudioSource => _forLevel;
-    private AudioSource[] _audioSources;
+    private AudioSource[] _audioSourcesAll;
     private ILevelAudio _levelAudioImplementation;
 
     public event Action OnSoundChange; 
@@ -54,7 +54,7 @@ public class GlobalAudio : MonoBehaviour, ISoundPause, ICarAudio, ILevelAudio, I
         {
             SetAndPlayBackground();
         }
-        _audioSources = new[]
+        _audioSourcesAll = new[]
         {
             _uI, _forEngine, _forBooster, _forDestruction, _forHotWheels1, _forHotWheels2,
             _forBrakes, _forLevel
@@ -123,9 +123,9 @@ public class GlobalAudio : MonoBehaviour, ISoundPause, ICarAudio, ILevelAudio, I
 
     private void SelectionSources(Action<AudioSource> operation)
     {
-        for (int i = 0; i < _audioSources.Length; i++)
+        for (int i = 0; i < _audioSourcesAll.Length; i++)
         {
-            operation.Invoke(_audioSources[i]);
+            operation.Invoke(_audioSourcesAll[i]);
         }
     }
 
@@ -153,7 +153,7 @@ public class GlobalAudio : MonoBehaviour, ISoundPause, ICarAudio, ILevelAudio, I
         {
             PlayAllSources();
             _levelMixer.audioMixer.SetFloat(_globalAudioValues.NameVolumeLevel, _globalAudioValues.VolumeNormal);
-            _backgroundMixer.audioMixer.SetFloat(_globalAudioValues.NameVolumeBackgroundMusic, _globalAudioValues.VolumeNormal);
+            _backgroundMixer.audioMixer.SetFloat(_globalAudioValues.NameVolumeBackgroundMusic, _globalAudioValues.VolumeBackgroundNormal);
         }
     }
 }

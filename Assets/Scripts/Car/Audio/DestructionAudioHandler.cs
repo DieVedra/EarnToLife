@@ -1,9 +1,10 @@
 ﻿using System;
+using System.Threading;
 using Cysharp.Threading.Tasks;
 using UniRx;
 using UnityEngine;
 
-public class DestructionAudioHandler : AudioPlayer
+public class DestructionAudioHandler : AudioPlayer, IDispose
 {
     private readonly float _defaultVolume = 1f;
     private readonly AudioClip _carBurnAudioClip;
@@ -13,6 +14,9 @@ public class DestructionAudioHandler : AudioPlayer
     private readonly AudioClip _glassBreakingAudioClip;
     private readonly AudioClip _metalBendsAudioClip;
     private readonly AudioClip _driverNeckBrokeAudioClip;
+    private readonly CompositeDisposable _compositeDisposableBurn = new CompositeDisposable();
+    private readonly CompositeDisposable _compositeDisposableSoftHit = new CompositeDisposable();
+    private readonly CompositeDisposable _compositeDisposableHardHit = new CompositeDisposable();
     private AnimationCurve _destructionAudioCurve;
     private bool _hitSoundIsPlay = false;
 
@@ -29,56 +33,80 @@ public class DestructionAudioHandler : AudioPlayer
         _engineClapAudioClip = engineClapAudioClip;
         _driverNeckBrokeAudioClip = driverNeckBrokeAudioClip;
     }
-
     public void Init(AnimationCurve destructionAudioCurve)
     {
         _destructionAudioCurve = destructionAudioCurve;
     }
-    public async void PlayHardHit(float force)
+
+    public void Dispose()
+    {
+        _compositeDisposableBurn.Clear();
+        _compositeDisposableSoftHit.Clear();
+        _compositeDisposableHardHit.Clear();
+    }
+
+    public void PlayHardHit(float force)
     {
         if (_hitSoundIsPlay == false)
         {
+            // Debug.Log($"PlayHardHit");
             _hitSoundIsPlay = true;
             SetVolume(_destructionAudioCurve.Evaluate(force));
             TryPlayOneShotClip(_carHardHitAudioClip);
-            await UniTask.Delay(TimeSpan.FromSeconds(_carHardHitAudioClip.length));
-            _hitSoundIsPlay = false;
+            Observable.Timer(TimeSpan.FromSeconds(_carHardHitAudioClip.length)).Subscribe(_ =>
+            {
+                _hitSoundIsPlay = false;
+                _compositeDisposableHardHit.Clear();
+            }).AddTo(_compositeDisposableHardHit);
         }
     }
-    public async void PlaySoftHit(float force)
+
+    public void PlaySoftHit(float force, string a)
     {
         if (_hitSoundIsPlay == false)
         {
+            // Debug.Log($"PlaySoftHit   {a}");
+
             _hitSoundIsPlay = true;
             SetVolume(_destructionAudioCurve.Evaluate(force));
             TryPlayOneShotClip(_carSoftHitAudioClip);
-            await UniTask.Delay(TimeSpan.FromSeconds(_carSoftHitAudioClip.length));
-            _hitSoundIsPlay = false;
+            Observable.Timer(TimeSpan.FromSeconds(_carSoftHitAudioClip.length)).Subscribe(_ =>
+            {
+                _hitSoundIsPlay = false;
+                _compositeDisposableSoftHit.Clear();
+            }).AddTo(_compositeDisposableSoftHit);
         }
     }
+
     public void PlayGlassBreak()
     {
         TryPlayOneShotClip(_glassBreakingAudioClip);
 
     }
-    public async void PlayEngineBurn()
+
+    public void PlayEngineBurn()
     {
         SetVolume(_defaultVolume);
         TryPlayOneShotClip(_engineClapAudioClip);
-        await UniTask.Delay(TimeSpan.FromSeconds(_engineClapAudioClip.length));
-        TryPlayClip(_carBurnAudioClip, true);
+        Observable.Timer(TimeSpan.FromSeconds(_engineClapAudioClip.length)).Subscribe(_ =>
+        {
+            TryPlayClip(_carBurnAudioClip, true);
+            _compositeDisposableBurn.Clear();
+        }).AddTo(_compositeDisposableBurn);
     }
 
     public void PlayDriverNeckBroke()
     {
         TryPlayOneShotClip(_driverNeckBrokeAudioClip);
     }
+
     public void PlayRoofBends(float force)
     {
         SetVolume(_defaultVolume);
         Debug.Log($"                         PlayRoofBends:                     {AudioSource.volume}");
         TryPlayClip(_metalBendsAudioClip);
     }
+
     public void StopPlayEngineBurn()
     {
         StopPlay();

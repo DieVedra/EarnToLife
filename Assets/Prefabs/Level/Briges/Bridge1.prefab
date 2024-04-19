@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8999575144503877159}
   - component: {fileID: 5216994971002824836}
-  m_Layer: 0
+  m_Layer: 22
   m_Name: Railing1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -95,7 +95,7 @@ GameObject:
   - component: {fileID: 5197114957476247848}
   - component: {fileID: 6901421816356782917}
   - component: {fileID: 1720040942678232885}
-  m_Layer: 0
+  m_Layer: 18
   m_Name: Bridge1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -179,7 +179,7 @@ PolygonCollider2D:
   m_GameObject: {fileID: 9075453504474283275}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 39b7d0fb1192526449b18ee17be95785, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
