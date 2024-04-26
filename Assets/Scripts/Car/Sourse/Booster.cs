@@ -24,7 +24,7 @@ public class Booster
     {
         if (_isRun == true)
         {
-            StopBooster();
+            StopBoosterDecrease();
         }
     }
     public void StopBoosterOnOutFuel()
@@ -32,8 +32,7 @@ public class Booster
         if (_isRun == true)
         {
             StopBooster();
-            // _boosterAudioHandler.PlayBoosterEndFuel();
-            _particleSystemBooster.Stop();
+            _boosterAudioHandler.PlayBoosterEndFuel();
         }
     }
     public void RunBooster()
@@ -46,26 +45,27 @@ public class Booster
             _boosterScrew.RotateScrew();
         }).AddTo(_compositeDisposable);
         _particleSystemBooster.Play();
-        Debug.Log($"RunBooster");
-
     }
     public void BoosterDisable()
     {
-        Debug.Log($"BoosterDisable  _isRun: {_isRun}");
         if (_isRun == true)
         {
             _particleSystemBooster.Stop();
-            _boosterAudioHandler.StopPlayRunBooster();
+            _boosterAudioHandler.StopPlayRunBoosterImmediately();
         }
         _isRun = false;
         _compositeDisposable.Clear();
         OnBoosterDisable?.Invoke();
     }
 
+    private void StopBoosterDecrease()
+    {
+        StopBooster();
+        _boosterAudioHandler.StopPlayRunBoosterDecrease();
+    }
     private void StopBooster()
     {
         _isRun = false;
-        _boosterAudioHandler.StopPlayRunBoosterDecrease();
         _compositeDisposable.Clear();
         _boosterScrew.SetDefaultRotationSpeed();
         _particleSystemBooster.Stop();
@@ -73,7 +73,6 @@ public class Booster
         {
             _boosterScrew.SmoothStopScrew();
         }).AddTo(_compositeDisposable);
-        Debug.Log($"StopBooster");
-
+        
     }
 }

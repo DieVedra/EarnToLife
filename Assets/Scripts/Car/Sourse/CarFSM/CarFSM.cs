@@ -10,6 +10,11 @@ public class CarFSM : IStateSetter
     {
         _dictionaryStates = dictionaryStates;
     }
+
+    public void Dispose()
+    {
+        CurrentState.Exit();
+    }
     public void SetState<T>() where T : CarState
     {
         var type = typeof(T);

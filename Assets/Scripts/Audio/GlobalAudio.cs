@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.Audio;
 using Zenject;
 
-public class GlobalAudio : MonoBehaviour, ISoundPause, ICarAudio, ILevelAudio, IAudioSettingSwitch
+public class GlobalAudio : MonoBehaviour, ISoundPause, ILevelAudio, IAudioSettingSwitch, IGlobalAudio
 {
     [SerializeField, BoxGroup("AudioSources"), HorizontalLine(color:EColor.White)] private AudioSource _audioSourceBackground;
     [SerializeField, BoxGroup("AudioSources")] private AudioSource _uI;
@@ -16,6 +16,9 @@ public class GlobalAudio : MonoBehaviour, ISoundPause, ICarAudio, ILevelAudio, I
     [SerializeField, BoxGroup("AudioSources")] private AudioSource _forHotWheels2;
     [SerializeField, BoxGroup("AudioSources")] private AudioSource _forBrakes;
     [SerializeField, BoxGroup("AudioSources")] private AudioSource _forLevel;
+    [SerializeField, BoxGroup("AudioSources")] private AudioSource _frontSuspension;
+    [SerializeField, BoxGroup("AudioSources")] private AudioSource _backSuspension;
+    [SerializeField, BoxGroup("AudioSources")] private AudioSource _frictionAudioSource;
     
     [SerializeField, BoxGroup("AudioGroups"), HorizontalLine(color:EColor.Yellow)] private AudioMixerGroup _masterMixer;
     [SerializeField, BoxGroup("AudioGroups")] private AudioMixerGroup _levelMixer;
@@ -24,15 +27,18 @@ public class GlobalAudio : MonoBehaviour, ISoundPause, ICarAudio, ILevelAudio, I
     private GlobalAudioValues _globalAudioValues = new GlobalAudioValues();
 
     public UIAudioClipProvider UIAudioClipProvider => _audioClipProvider.UIAudioClipProvider;
-    public CarAudioClipProvider CarAudioClipProvider => _audioClipProvider.CarAudioClipProvider;
+    public CarsAudioClipsProvider CarsAudioClipsProvider => _audioClipProvider.CarsAudioClipsProvider;
     public LevelAudioClipProvider LevelAudioClipProvider => _audioClipProvider.LevelAudioClipProvider;
     public AudioSource UI => _uI;
-    public AudioSource CarAudioSourceForEngine => _forEngine;
-    public AudioSource CarAudioSourceForBooster => _forBooster;
-    public AudioSource CarAudioSourceForDestruction => _forDestruction;
-    public AudioSource CarAudioSourceForHotWheels1 => _forHotWheels1;
-    public AudioSource CarAudioSourceForHotWheels2 => _forHotWheels2;
-    public AudioSource CarAudioSourceForBrakes => _forBrakes;
+    // public AudioSource CarAudioSourceForEngine => _forEngine;
+    // public AudioSource CarAudioSourceForBooster => _forBooster;
+    // public AudioSource CarAudioSourceForDestruction => _forDestruction;
+    // public AudioSource CarAudioSourceForHotWheels1 => _forHotWheels1;
+    // public AudioSource CarAudioSourceForBrakes => _forBrakes;
+    // public AudioSource CarAudioSourceForHotWheels2 => _forHotWheels2;
+    // public AudioSource CarAudioSourceFrontSuspension => _frontSuspension;
+    // public AudioSource CarAudioSourceBackSuspension => _backSuspension;
+    // public AudioSource FrictionAudioSource => _frictionAudioSource;
     public AudioSource LevelAudioSource => _forLevel;
     private AudioSource[] _audioSourcesAll;
     private ILevelAudio _levelAudioImplementation;
@@ -44,8 +50,9 @@ public class GlobalAudio : MonoBehaviour, ISoundPause, ICarAudio, ILevelAudio, I
     public ReactiveProperty<bool> SoundReactiveProperty { get; private set; }
     public ReactiveProperty<bool> MusicReactiveProperty { get; private set; }
 
-    public void Construct(bool keySound, bool keyMusic)
+    public void Construct(AudioClipProvider audioClipProvider, bool keySound, bool keyMusic)
     {
+        _audioClipProvider = audioClipProvider;
         SoundReactiveProperty = new ReactiveProperty<bool>();
         MusicReactiveProperty = new ReactiveProperty<bool>();
         SoundReactiveProperty.Value = keySound;
@@ -57,7 +64,7 @@ public class GlobalAudio : MonoBehaviour, ISoundPause, ICarAudio, ILevelAudio, I
         _audioSourcesAll = new[]
         {
             _uI, _forEngine, _forBooster, _forDestruction, _forHotWheels1, _forHotWheels2,
-            _forBrakes, _forLevel
+            _forBrakes, _forLevel, _frontSuspension, _backSuspension, _frictionAudioSource
         };
     }
     private void StopBackground()

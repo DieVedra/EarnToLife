@@ -1298,7 +1298,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1389434801113103246}
   m_LocalRotation: {x: -1, y: -0, z: -0, w: 0}
-  m_LocalPosition: {x: -0.722, y: -0.695, z: 0}
+  m_LocalPosition: {x: -0.722, y: 0.595, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -5436,7 +5436,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.66
+  m_Radius: 0.71
 --- !u!50 &4774802054017811767
 Rigidbody2D:
   serializedVersion: 4
@@ -6198,7 +6198,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &7665990385682751608
 Transform:
   m_ObjectHideFlags: 0
@@ -7209,7 +7209,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8885119156835372491}
   - component: {fileID: 6577586550458766654}
-  - component: {fileID: 4805842230208635866}
+  - component: {fileID: 3285462048282731731}
   m_Layer: 14
   m_Name: Booster3
   m_TagString: Untagged
@@ -7224,15 +7224,15 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7551910632873927690}
-  m_LocalRotation: {x: 1, y: 0, z: 0, w: 0}
-  m_LocalPosition: {x: 0.84, y: -0.22, z: 0}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.84, y: -0.13, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 6619322510619893755}
   m_Father: {fileID: 7655579552364994257}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 180, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &6577586550458766654
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -7274,18 +7274,18 @@ SpriteRenderer:
   m_SortingLayerID: 157630223
   m_SortingLayer: 4
   m_SortingOrder: -1
-  m_Sprite: {fileID: 21300000, guid: 2c03d63a82931b84ba775aa4f2541142, type: 3}
+  m_Sprite: {fileID: 21300000, guid: d2cb793868ae047409f14367f1fa87e2, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1.44, y: 1.78}
+  m_Size: {x: 1.19, y: 1.51}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!60 &4805842230208635866
+--- !u!60 &3285462048282731731
 PolygonCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -7294,7 +7294,7 @@ PolygonCollider2D:
   m_GameObject: {fileID: 7551910632873927690}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 17d9ae3f8ddfc674a8f884e7144b9185, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
@@ -7302,21 +7302,22 @@ PolygonCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.44, y: 1.78}
-    newSize: {x: 1.44, y: 1.78}
+    oldSize: {x: 1.19, y: 1.51}
+    newSize: {x: 1.19, y: 1.51}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: -0.01, y: -0.69}
-      - {x: -0.21, y: -0.85999995}
-      - {x: -0.41, y: -0.51}
-      - {x: -0.51, y: 0.48999998}
-      - {x: -0.42, y: 0.88}
-      - {x: 0.11, y: 0.85999995}
-      - {x: 0.35, y: 0.29999998}
+    - - {x: 0.015, y: 0.59499997}
+      - {x: 0.055, y: -0.33499998}
+      - {x: 0.305, y: -0.255}
+      - {x: 0.114999995, y: -0.715}
+      - {x: -0.33499998, y: -0.73499995}
+      - {x: -0.445, y: -0.415}
+      - {x: -0.345, y: 0.42499998}
+      - {x: -0.185, y: 0.745}
 --- !u!1 &7674069524390424464
 GameObject:
   m_ObjectHideFlags: 0
@@ -7564,7 +7565,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &886924498413575865
 Transform:
   m_ObjectHideFlags: 0
@@ -7663,7 +7664,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.66
+  m_Radius: 0.71
 --- !u!50 &2529057462103093802
 Rigidbody2D:
   serializedVersion: 4

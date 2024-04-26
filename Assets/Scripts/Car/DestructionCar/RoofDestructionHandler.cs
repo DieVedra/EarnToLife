@@ -1,6 +1,4 @@
-﻿using System;
-using Cysharp.Threading.Tasks;
-using UniRx;
+﻿using UniRx;
 using UnityEngine;
 
 public class RoofDestructionHandler : DestructionHandler, IDispose
@@ -139,7 +137,7 @@ public class RoofDestructionHandler : DestructionHandler, IDispose
     }
     private void PlaySoundBends()
     {
-        _destructionAudioHandler.PlayRoofBends(ImpulseNormalValue);
+        _destructionAudioHandler.PlayRoofBends();
     }
 
     private void DestructionMode1AndSubscribe()

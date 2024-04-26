@@ -10,12 +10,16 @@ public class StopCauseHandler
     private readonly MoveAnalyzer _moveAnalyzer;
     private readonly CoupAnalyzer _coupAnalyzer;
     private readonly GroundAnalyzer _groundAnalyzer;
+    private readonly Action _stopCarOtherOperation;
     private readonly Action _stopCarOperation;
+    private readonly Action _softStopCarOnDestinationPointOperation;
+    private readonly Action _stopCarOnFuelTankEmptyOperation;
 
     // public event Action OnStopCar;
 
     public StopCauseHandler(FuelTank fuelTank, LevelProgressCounter levelProgressCounter, DestructionCar destructionCar, NotificationsProvider notificationsProvider,
-        MoveAnalyzer moveAnalyzer, CoupAnalyzer coupAnalyzer, GroundAnalyzer groundAnalyzer, Action stopCarOperation)
+        MoveAnalyzer moveAnalyzer, CoupAnalyzer coupAnalyzer, GroundAnalyzer groundAnalyzer,
+        Action stopCarOtherOperation, Action softStopCarOnDestinationPointOperation, Action stopCarOnFuelTankEmptyOperation)
     {
         _fuelTank = fuelTank;
         _levelProgressCounter = levelProgressCounter;
@@ -24,7 +28,9 @@ public class StopCauseHandler
         _moveAnalyzer = moveAnalyzer;
         _coupAnalyzer = coupAnalyzer;
         _groundAnalyzer = groundAnalyzer;
-        _stopCarOperation = stopCarOperation;
+        _stopCarOtherOperation = stopCarOtherOperation;
+        _softStopCarOnDestinationPointOperation = softStopCarOnDestinationPointOperation;
+        _stopCarOnFuelTankEmptyOperation = stopCarOnFuelTankEmptyOperation;
         Init();
     }
     public void Dispose()
@@ -58,11 +64,11 @@ public class StopCauseHandler
     private void FuelTankEmpty()
     {
         _notificationsProvider.FuelTankEmpty();
-        _stopCarOperation?.Invoke();
+        _stopCarOnFuelTankEmptyOperation?.Invoke();
     }
     private void PointDestinationGot()
     {
-        _stopCarOperation?.Invoke();
+        _softStopCarOnDestinationPointOperation?.Invoke();
     }
     private void MoveAnalyzeHandle()
     {
@@ -80,18 +86,18 @@ public class StopCauseHandler
             // Fell asleep
             Debug.Log($"Fell Asleep");
         }
-        _stopCarOperation?.Invoke();
+        _stopCarOtherOperation?.Invoke();
     }
 
     private void EngineBroken()
     {
         _notificationsProvider.EngineBroken();
-        _stopCarOperation?.Invoke();
+        _stopCarOtherOperation?.Invoke();
     }
 
     private void DriverCrushed()
     {
         _notificationsProvider.DriverCrushed();
-        _stopCarOperation?.Invoke();
+        _stopCarOtherOperation?.Invoke();
     }
 }

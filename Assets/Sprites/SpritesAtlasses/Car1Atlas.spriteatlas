@@ -125,10 +125,8 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 3a5689b9e8a20474b9eeb54ebf0edee6, type: 3}
   - {fileID: 21300000, guid: ee0e05c9be09e5042a089ed131479ba5, type: 3}
   - {fileID: 21300000, guid: 14a1c5c94cd1c8240b7915703ddd239b, type: 3}
-  - {fileID: 21300000, guid: 9b1782d9ba62a164eadf8c75d4751a04, type: 3}
   - {fileID: 21300000, guid: eb1ed91a66b16744daff0dba4ebc22a5, type: 3}
   - {fileID: 21300000, guid: 04ce642acd106b848b6d1b17b794ffba, type: 3}
-  - {fileID: 21300000, guid: 2c03d63a82931b84ba775aa4f2541142, type: 3}
   - {fileID: 21300000, guid: 5031265a9de498b47b3996bffc5bbb0d, type: 3}
   - {fileID: 21300000, guid: 5297099a8351e824ab4daf6b7d3d5983, type: 3}
   - {fileID: 21300000, guid: 81457bfa3763b7546843d8bd179f2f5c, type: 3}
@@ -150,12 +148,10 @@ SpriteAtlas:
   - {fileID: 21300000, guid: cf5f626ebfc5b384788976d9c7c00942, type: 3}
   - {fileID: 21300000, guid: ef6a6b8e43ab76b438ea74cdf97892ff, type: 3}
   - {fileID: 21300000, guid: 112c610fe1ccb714aaaf45d42bbb8417, type: 3}
-  - {fileID: 21300000, guid: 29e81c3fe64358b45ba4b06a57f259d7, type: 3}
   - {fileID: 21300000, guid: 84caef4f899b03b49bf81875e65f0a40, type: 3}
   - {fileID: 21300000, guid: 9556526f9cbf9664084de86576ac2122, type: 3}
   - {fileID: 21300000, guid: 9f736b8f857f96148a3966d8cb4b71af, type: 3}
   - {fileID: 21300000, guid: 3673469f33d93734bb7d56814259dd8e, type: 3}
-  - {fileID: 21300000, guid: 9fad0a9f3d00c3148a12d27f9a040d21, type: 3}
   m_PackedSpriteNamesToIndex:
   - Bumper8
   - Bumper2
@@ -223,10 +219,8 @@ SpriteAtlas:
   - Cylinder
   - Frame8
   - Frame4
-  - WheelUI
   - TrunkCover1
   - Support
-  - Booster
   - Bumper4
   - Door
   - Body
@@ -248,12 +242,10 @@ SpriteAtlas:
   - Wing4
   - Roof4
   - Door7
-  - DoorUI
   - Door11
   - Drive
   - Bumper5
   - Roof
-  - GunUI
   m_RenderDataMap: {}
   m_Tag: Car1Atlas
   m_IsVariant: 0

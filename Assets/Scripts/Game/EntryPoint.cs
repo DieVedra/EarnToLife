@@ -20,6 +20,8 @@ public class EntryPoint : MonoBehaviour
     [Inject] private SpriteRenderer _startMenuBackground;
     [Inject] private Map _map;
     [Inject] private ViewEntryScene _viewEntryScene;
+    [Inject] private AudioClipProvider _audioClipProvider;
+
     private PresenterEntryScene _presenterEntryScene;
     private IPlayerData _playerData;
     private PlayerDataHandler _playerDataHandler;
@@ -29,7 +31,7 @@ public class EntryPoint : MonoBehaviour
         _gameData.CarControlMethod = carControlMethod;
         
         PlayerDataInit();
-        _globalAudio.Construct(_playerData.SoundOn, _playerData.MusicOn);
+        _globalAudio.Construct(_audioClipProvider, _playerData.SoundOn, _playerData.MusicOn);
         _garage.Construct(_playerData, _garageData);
         _presenterEntryScene = new PresenterEntryScene(_viewEntryScene, _garage, _map, _startMenuBackground, _gameData, _garageData, _globalAudio, _playerDataHandler);
     }

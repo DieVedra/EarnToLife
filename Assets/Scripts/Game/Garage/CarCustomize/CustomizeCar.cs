@@ -13,6 +13,7 @@ public class CustomizeCar : MonoBehaviour
     [ShowNativeProperty] public int CorpusIndex => _currentCorpusIndex;
     private CarConfiguration _carConfiguration;
     private int _currentCorpusIndex;
+    public IReadOnlyList<CombinedImprovement> UpgradesWheels => WheelsUpgrades;
     public event Action<IReadOnlyList<GameObject>> OnSetWheels;
     public void Construct(CarConfiguration carConfiguration)
     {

@@ -78,9 +78,9 @@ public class BoosterDestructionHandler : DestructionHandler, IDispose
             }
             return result;
         }
-        if (base.CollisionHandling(collision))
+        if (CollisionHandling(collision))
         {
-            if (_coupAnalyzer.CarIsCoup == true || _coupAnalyzer.CarIsCoup == true)
+            if (_coupAnalyzer.CarIsCoup == true || _coupAnalyzer.CarIsTilted == true)
             {
                 ImpulseNormalValue += _carMass.Mass;
                 result = true;

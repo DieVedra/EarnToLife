@@ -10,12 +10,12 @@ public class AudioClipProvider : ScriptableObject
     private UIAudioClipProvider _uiAudioClipProvider;
 
     [SerializeField, Expandable, HorizontalLine(color: EColor.White)]
-    private CarAudioClipProvider _carAudioClipProvider;
+    private CarsAudioClipsProvider carsAudioClipsProvider;
 
     [SerializeField, Expandable, HorizontalLine(color: EColor.White)]
     private LevelAudioClipProvider _levelAudioClipProvider;
     public AudioClip ClipBackground => _clipBackground;
     public UIAudioClipProvider UIAudioClipProvider => _uiAudioClipProvider;
-    public CarAudioClipProvider CarAudioClipProvider => _carAudioClipProvider;
+    public CarsAudioClipsProvider CarsAudioClipsProvider => carsAudioClipsProvider;
     public LevelAudioClipProvider LevelAudioClipProvider => _levelAudioClipProvider;
 }

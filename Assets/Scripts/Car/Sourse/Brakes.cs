@@ -27,7 +27,7 @@ public class Brakes
     {
         if (GroundContact && CheckSpeed())
         {
-            _brakeAudioHandler.SetVolumeBrake(_brakeVolumeCurve.Evaluate(_speedometer.CurrentSpeedFloat));
+            _brakeAudioHandler.SetVolumeBrake(_speedometer.CurrentSpeedFloat);
         }
         else
         {

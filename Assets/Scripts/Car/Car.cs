@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using NaughtyAttributes;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Car : MonoBehaviour
@@ -15,9 +16,9 @@ public class Car : MonoBehaviour
     protected CustomizeCar CustomizeCar;
     protected WheelCarValues FrontWheelCarValues;
     protected WheelCarValues BackWheelCarValues;
-    protected SuspensionValues _frontSupensionValues;
-    protected SuspensionValues _backSuspensionValues;
-
+    protected SuspensionValues FrontSuspensionValues;
+    protected SuspensionValues BackSuspensionValues;
+    protected SuspensionAudioHandler SuspensionAudioHandler;
     protected void ReinitBackWheelAndSuspensionOnCarBrokenIntoTwoParts(WheelJoint2D joint2D, WheelCarValues wheelCarValues)
     {
         wheelCarValues.gameObject.SetActive(true);
@@ -27,9 +28,27 @@ public class Car : MonoBehaviour
         BackWheelJoint.suspension = suspension2D;
         joint2D.connectedBody = BackWheelCarValues.WheelRigidbody2D;
         joint2D.anchor = _anchorJointOnCarBrokenIntoTwoParts;
-        InitSuspension(out BackSuspension, _backSuspensionValues, joint2D);
+        InitSuspension(out BackSuspension, BackSuspensionValues, joint2D);
     }
-    private void InitWheelsAndSuspension(IReadOnlyList<GameObject> parts)
+
+    // protected void Init(SuspensionAudioHandler suspensionAudioHandler)
+    // {
+    //     SuspensionAudioHandler = suspensionAudioHandler;
+    //     Init();
+    // }
+
+    // protected void Init()
+    // {
+    //     CustomizeCar ??= GetComponent<CustomizeCar>();
+    //     CustomizeCar.OnSetWheels += InitWheelsAndSuspension;
+    // }
+
+    // protected void Dispose()
+    // {
+    //     CustomizeCar.OnSetWheels -= InitWheelsAndSuspension;
+    // }
+
+    protected void InitWheelsAndSuspension(IReadOnlyList<GameObject> parts)
     {
         ResetValues();
         List<WheelCarValues> wheelCarValues = new List<WheelCarValues>(2);
@@ -47,8 +66,8 @@ public class Car : MonoBehaviour
         }
         FrontWheelCarValues = wheelCarValues[0];
         BackWheelCarValues = wheelCarValues[1];
-        _frontSupensionValues = suspensionValues[0];
-        _backSuspensionValues = suspensionValues[1];
+        FrontSuspensionValues = suspensionValues[0];
+        BackSuspensionValues = suspensionValues[1];
         InitFrontWheelJoint();
         InitBackWheelJoint();
         InitFrontSuspension();
@@ -59,21 +78,41 @@ public class Car : MonoBehaviour
     {
         FrontWheelCarValues = null;
         BackWheelCarValues = null;
-        _frontSupensionValues = null;
-        _backSuspensionValues = null;
+        FrontSuspensionValues = null;
+        BackSuspensionValues = null;
     }
+
     private void InitFrontSuspension()
     {
-        InitSuspension(out FrontSuspension, _frontSupensionValues, FrontWheelJoint);
+        if (SuspensionAudioHandler != null)
+        {
+            InitSuspension(out FrontSuspension, FrontSuspensionValues, FrontWheelJoint, SuspensionAudioHandler.CalculateVolumeAndPitchFrontSuspension);
+        }
+        else
+        {
+            InitSuspension(out FrontSuspension, FrontSuspensionValues, FrontWheelJoint);
+        }
     }
     private void InitBackSuspension()
     {
-        InitSuspension(out BackSuspension, _backSuspensionValues, BackWheelJoint);
+        if (SuspensionAudioHandler != null)
+        {
+            InitSuspension(out BackSuspension, BackSuspensionValues, BackWheelJoint, SuspensionAudioHandler.CalculateVolumeAndPitchBackSuspension);
+        }
+        else
+        {
+            InitSuspension(out BackSuspension, BackSuspensionValues, BackWheelJoint);
+        }
     }
-
     private void InitSuspension(out Suspension suspension, SuspensionValues suspensionValues, WheelJoint2D joint2D)
     {
-        suspension = suspensionValues.GetSuspension(joint2D);
+        suspension = new Suspension(suspensionValues.Spring, suspensionValues.InsideCylinder, joint2D, 
+            suspensionValues.SuspensionStiffness, suspensionValues.SuspensionYScaleValueDefault);
+    }
+    private void InitSuspension(out Suspension suspension, SuspensionValues suspensionValues, WheelJoint2D joint2D, Action<float> calculateSoundOperation)
+    {
+        suspension = new Suspension(suspensionValues.Spring, suspensionValues.InsideCylinder, joint2D, 
+            suspensionValues.SuspensionStiffness, suspensionValues.SuspensionYScaleValueDefault, calculateSoundOperation);
     }
     private void InitFrontWheelJoint()
     {
@@ -89,15 +128,5 @@ public class Car : MonoBehaviour
     {
         joint2D.anchor = values.Anchor;
         joint2D.connectedBody = values.WheelRigidbody2D;
-    }
-    private void OnEnable()
-    {
-        CustomizeCar ??= GetComponent<CustomizeCar>();
-        CustomizeCar.OnSetWheels += InitWheelsAndSuspension;
-    }
-
-    private void OnDisable()
-    {
-        CustomizeCar.OnSetWheels -= InitWheelsAndSuspension;
     }
 }

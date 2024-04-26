@@ -23,11 +23,14 @@ public class Game : MonoBehaviour
     [Inject] private SaveService _saveService;
     [Inject] private PlayerDataProvider _playerDataProvider;
     [Inject] private GlobalAudio _globalAudio;
+    [Inject] private IGlobalAudio _globalAudioForCar;
     [Inject] private GameData _gameData;
     [Inject] private GarageData _garageData;
     [Inject] private IInstantiator _instantiator;
     [Inject] private LevelPrefabsProvider _levelPrefabsProvider;
-    [Inject] private CarAudioHandler _carAudioHandler;
+    // [Inject] private CarAudioInitializer _carAudioInitializer;
+    [Inject] private AudioClipProvider _audioClipProvider;
+
 
     private Factory _factory;
     private CarInLevel _carInLevel;
@@ -90,7 +93,9 @@ public class Game : MonoBehaviour
             );
         _cinemachineVirtualCamera.Follow = _carInLevel.transform;
         InitProgressCounter();
-        _carInLevel.Construct(_carConfiguration, _notificationsProvider, _carAudioHandler, _levelProgressCounter, _level.DebrisParent, _gameData.CarControlMethod);
+        _carInLevel.Construct(_carConfiguration, _notificationsProvider, _levelProgressCounter,
+            _level.DebrisParent, _globalAudioForCar, _audioClipProvider.CarsAudioClipsProvider.GetCarAudioClipProvider(currentSelectLotCarIndex),
+            _gameData.CarControlMethod);
     }
 
     private void InitProgressCounter()

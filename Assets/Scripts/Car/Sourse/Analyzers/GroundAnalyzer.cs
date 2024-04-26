@@ -22,11 +22,12 @@ public class GroundAnalyzer
 
     public ReactiveProperty<bool> FrontWheelOnGroundReactiveProperty = new ReactiveProperty<bool>();
     public ReactiveProperty<bool> BackWheelOnGroundReactiveProperty = new ReactiveProperty<bool>();
-    
     public ReactiveProperty<bool> FrontWheelOnAsphaltReactiveProperty = new ReactiveProperty<bool>();
     public ReactiveProperty<bool> BackWheelOnAsphaltReactiveProperty = new ReactiveProperty<bool>();
-    public bool FrontWheelContact { get; private set; } = false;
-    public bool BackWheelContact { get; private set; } = false;
+    public ReactiveProperty<bool> FrontWheelContactReactiveProperty = new ReactiveProperty<bool>();
+    public ReactiveProperty<bool> BackWheelContactReactiveProperty = new ReactiveProperty<bool>();
+    public bool FrontWheelContact => FrontWheelContactReactiveProperty.Value;
+    public bool BackWheelContact => BackWheelContactReactiveProperty.Value;
     public GroundAnalyzer(CarWheel frontWheel, CarWheel backWheel, ReactiveCommand onCarBrokenIntoTwoParts,
         LayerMask contactMask, int asphaltLayer, int groundLayer)
     {
@@ -102,25 +103,25 @@ public class GroundAnalyzer
     }
     private void SetContactPointFrontWheelAndSetKeyTrue(RaycastHit2D wheelHit)
     {
-        FrontWheelContact = true;
+        FrontWheelContactReactiveProperty.Value = true;
         FrontWheelPointContact = wheelHit.point;
     }
     private void SetContactPointBackWheelAndSetKeyTrue(RaycastHit2D wheelHit)
     {
-        BackWheelContact = true;
+        BackWheelContactReactiveProperty.Value = true;
         BackWheelPointContact = wheelHit.point;
     }
     private void SetKeyFalseFrontWheelContact()
     {
         FrontWheelOnGroundReactiveProperty.Value = false;
         FrontWheelOnAsphaltReactiveProperty.Value = false;
-        FrontWheelContact = false;
+        FrontWheelContactReactiveProperty.Value = false;
     }
     private void SetKeyFalseBackWheelContact()
     {
         BackWheelOnGroundReactiveProperty.Value = false;
         BackWheelOnAsphaltReactiveProperty.Value = false;
-        BackWheelContact = false;
+        BackWheelContactReactiveProperty.Value = false;
     }
     private void CarBrokenIntoTwoParts()
     {
