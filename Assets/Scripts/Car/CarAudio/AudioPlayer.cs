@@ -23,9 +23,25 @@ public class AudioPlayer
         }
     }
 
-    public void Play()
+    public void TryPlayClip(bool loop = false)
     {
         if (_soundOn == true)
+        {
+            if (_audioSource.clip != null)
+            {
+                _audioSource.loop = loop;
+                _audioSource.Play();
+            }
+        }
+    }
+
+    public void SetClip(AudioClip audioClip)
+    {
+        _audioSource.clip = audioClip;
+    }
+    public void Play()
+    {
+        if (_soundOn == true && _audioSource.isPlaying != true)
         {
             _audioSource.Play();
         }

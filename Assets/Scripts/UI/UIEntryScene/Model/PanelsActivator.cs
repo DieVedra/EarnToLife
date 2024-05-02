@@ -1,9 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using DG.Tweening;
 
@@ -26,7 +23,9 @@ public class PanelsActivator
 
     private CancellationTokenSource _cancellationTokenSource;
 
-    public PanelsActivator(ViewEntryScene viewEntryScene, GarageUI buttonsSelectLotCar, SceneSwitch sceneSwitch, Image background, SpriteRenderer startMenuBackground, GameData gameData, MapPanelHandler mapPanelHandler, AudioHandlerUI audioHandlerUI, AudioSettingSwitch audioSettingSwitch)
+    public PanelsActivator(ViewEntryScene viewEntryScene, GarageUI buttonsSelectLotCar, SceneSwitch sceneSwitch,
+        Image background, SpriteRenderer startMenuBackground, GameData gameData, MapPanelHandler mapPanelHandler,
+        AudioHandlerUI audioHandlerUI, AudioSettingSwitch audioSettingSwitch)
     {
         _valuesPanelActivator = new ValuesPanelActivator();
         _audioSettingSwitch = audioSettingSwitch;

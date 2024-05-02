@@ -22,12 +22,13 @@ public class ModelUILevel
     {
         TryInitButtonsControl(viewUILevel, carInLevel, carControlMethod);
         _pausePanelButtonsHandler = new PausePanelButtonsHandler(viewUILevel.PanelPause);
-        _resultsLevelHandler = new ResultsLevelHandler(viewUILevel.PanelScore);
+        _resultsLevelHandler = new ResultsLevelHandler(viewUILevel.PanelScore, viewUILevel.DisposeCommand);
         _audioSettingSwitch = new AudioSettingSwitch(globalAudio,
             viewUILevel.PanelPause.TextOnOffButtonMusic,
             viewUILevel.PanelPause.TextOnOffButtonSound);
         _panelsHandler = new PanelsHandler(viewUILevel, sceneSwitch, _pausePanelButtonsHandler,
-            _buttonsControl, gamePause, resultsLevelProvider, _resultsLevelHandler, _audioSettingSwitch, new AudioHandlerUI(globalAudio));
+            _buttonsControl, gamePause, resultsLevelProvider, _resultsLevelHandler, _audioSettingSwitch,
+            new AudioHandlerUI(globalAudio), viewUILevel.DisposeCommand);
         _notificationsHandler = new NotificationsHandler(viewUILevel, resultsLevelProvider, viewUILevel.DisposeCommand);
         _levelProgressHandler = new LevelProgressHandler(viewUILevel, resultsLevelProvider.LevelProgressCounter, viewUILevel.DisposeCommand);
 

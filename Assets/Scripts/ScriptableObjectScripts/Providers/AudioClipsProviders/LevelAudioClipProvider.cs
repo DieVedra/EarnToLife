@@ -6,14 +6,14 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "LevelAudioClipProvider", menuName = "Providers/LevelAudioClipProvider", order = 51)]
 public class LevelAudioClipProvider : ScriptableObject
 {
-    [SerializeField, BoxGroup("Wood")] private AudioClip _woodBreaking1AudioClip;
+    [SerializeField, BoxGroup("Wood"), HorizontalLine(color: EColor.Yellow)] private AudioClip _woodBreaking1AudioClip;
     [SerializeField, BoxGroup("Wood")] private AudioClip _woodBreaking2AudioClip;
     [SerializeField, BoxGroup("Wood")] private AudioClip _woodBreaking3AudioClip;
     [SerializeField, BoxGroup("Wood")] private AudioClip _hitWood1AudioClip;
     [SerializeField, BoxGroup("Wood")] private AudioClip _hitWood2AudioClip;
     [SerializeField, BoxGroup("Wood")] private AudioClip _hitWood3AudioClip;
     
-    [SerializeField, BoxGroup("Barrel"), HorizontalLine(color: EColor.White)] private AudioClip _hitBarrelAudioClip;
+    [SerializeField, BoxGroup("Barrel"), HorizontalLine(color: EColor.Red)] private AudioClip _hitBarrelAudioClip;
     [SerializeField, BoxGroup("Barrel")] private AudioClip _hitDebrisBarrelAudioClip;
     [SerializeField, BoxGroup("Barrel")] private AudioClip _explodeBarrelAudioClip;
 

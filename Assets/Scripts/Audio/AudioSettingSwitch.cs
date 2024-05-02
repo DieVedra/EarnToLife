@@ -25,31 +25,31 @@ public class AudioSettingSwitch
      {
          if (_musicOn == true)
          {
-             SetOn(_textButtonMusic);
+             SetTextOn(_textButtonMusic);
          }
          else
          {
-             SetOff(_textButtonMusic);
+             SetTextOff(_textButtonMusic);
          }
          if (_soundOn == true)
          {
-             SetOn(_textButtonSound);
+             SetTextOn(_textButtonSound);
          }
          else
          {
-             SetOff(_textButtonSound);
+             SetTextOff(_textButtonSound);
          }
      }
      public void SoundSwitch()
      {
          if (_soundOn == true)
          {
-             SetOff(_textButtonSound);
+             SetTextOff(_textButtonSound);
              _globalSwitch.SetSoundsOff();
          }
          else
          {
-             SetOn(_textButtonSound);
+             SetTextOn(_textButtonSound);
              _globalSwitch.SetSoundsOn();
          }
      }
@@ -57,20 +57,20 @@ public class AudioSettingSwitch
      {
          if (_musicOn == true)
          {
-             SetOff(_textButtonMusic);
+             SetTextOff(_textButtonMusic);
              _globalSwitch.SetMusicOff();
          }
          else
          {
-             SetOn(_textButtonMusic);
+             SetTextOn(_textButtonMusic);
              _globalSwitch.SetMusicOn();
          }
      }
-     private void SetOff(TextMeshProUGUI text)
+     private void SetTextOff(TextMeshProUGUI text)
      {
          text.text = TEXT_OFF;
      }
-     private void SetOn(TextMeshProUGUI text)
+     private void SetTextOn(TextMeshProUGUI text)
      {
          text.text = TEXT_ON;
      }

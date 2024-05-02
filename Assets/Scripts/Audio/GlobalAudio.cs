@@ -3,58 +3,32 @@ using NaughtyAttributes;
 using UniRx;
 using UnityEngine;
 using UnityEngine.Audio;
-using Zenject;
 
-public class GlobalAudio : MonoBehaviour, ISoundPause, ILevelAudio, IAudioSettingSwitch, IGlobalAudio
+public class GlobalAudio : MonoBehaviour, ISoundPause, IAudioSettingSwitch, IGlobalAudio, IUIAudio
 {
     [SerializeField, BoxGroup("AudioSources"), HorizontalLine(color:EColor.White)] private AudioSource _audioSourceBackground;
     [SerializeField, BoxGroup("AudioSources")] private AudioSource _uI;
-    [SerializeField, BoxGroup("AudioSources")] private AudioSource _forEngine;
-    [SerializeField, BoxGroup("AudioSources")] private AudioSource _forBooster;
-    [SerializeField, BoxGroup("AudioSources")] private AudioSource _forDestruction;
-    [SerializeField, BoxGroup("AudioSources")] private AudioSource _forHotWheels1;
-    [SerializeField, BoxGroup("AudioSources")] private AudioSource _forHotWheels2;
-    [SerializeField, BoxGroup("AudioSources")] private AudioSource _forBrakes;
     [SerializeField, BoxGroup("AudioSources")] private AudioSource _forLevel;
-    [SerializeField, BoxGroup("AudioSources")] private AudioSource _frontSuspension;
-    [SerializeField, BoxGroup("AudioSources")] private AudioSource _backSuspension;
-    [SerializeField, BoxGroup("AudioSources")] private AudioSource _frictionAudioSource;
     
     [SerializeField, BoxGroup("AudioGroups"), HorizontalLine(color:EColor.Yellow)] private AudioMixerGroup _masterMixer;
     [SerializeField, BoxGroup("AudioGroups")] private AudioMixerGroup _levelMixer;
     [SerializeField, BoxGroup("AudioGroups")] private AudioMixerGroup _backgroundMixer;
-    [Inject] private AudioClipProvider _audioClipProvider;
     private GlobalAudioValues _globalAudioValues = new GlobalAudioValues();
-
-    public UIAudioClipProvider UIAudioClipProvider => _audioClipProvider.UIAudioClipProvider;
-    public CarsAudioClipsProvider CarsAudioClipsProvider => _audioClipProvider.CarsAudioClipsProvider;
-    public LevelAudioClipProvider LevelAudioClipProvider => _audioClipProvider.LevelAudioClipProvider;
+    private AudioClip _clipBackground;
+    public UIAudioClipProvider UIAudioClipProvider { get; private set; }
     public AudioSource UI => _uI;
-    // public AudioSource CarAudioSourceForEngine => _forEngine;
-    // public AudioSource CarAudioSourceForBooster => _forBooster;
-    // public AudioSource CarAudioSourceForDestruction => _forDestruction;
-    // public AudioSource CarAudioSourceForHotWheels1 => _forHotWheels1;
-    // public AudioSource CarAudioSourceForBrakes => _forBrakes;
-    // public AudioSource CarAudioSourceForHotWheels2 => _forHotWheels2;
-    // public AudioSource CarAudioSourceFrontSuspension => _frontSuspension;
-    // public AudioSource CarAudioSourceBackSuspension => _backSuspension;
-    // public AudioSource FrictionAudioSource => _frictionAudioSource;
-    public AudioSource LevelAudioSource => _forLevel;
     private AudioSource[] _audioSourcesAll;
-    private ILevelAudio _levelAudioImplementation;
 
-    public event Action OnSoundChange; 
-    // public event Action<bool> OnMusicChange;
+    // public event Action OnSoundChange; 
     public bool SoundOn => SoundReactiveProperty.Value;
     public bool MusicOn => MusicReactiveProperty.Value;
-    public ReactiveProperty<bool> SoundReactiveProperty { get; private set; }
-    public ReactiveProperty<bool> MusicReactiveProperty { get; private set; }
+    public ReactiveProperty<bool> SoundReactiveProperty { get; private set; } = new ReactiveProperty<bool>();
+    public ReactiveProperty<bool> MusicReactiveProperty { get; private set; } = new ReactiveProperty<bool>();
 
-    public void Construct(AudioClipProvider audioClipProvider, bool keySound, bool keyMusic)
+    public void Construct(UIAudioClipProvider uIAudioClipProvider, AudioClip clipBackground, bool keySound, bool keyMusic)
     {
-        _audioClipProvider = audioClipProvider;
-        SoundReactiveProperty = new ReactiveProperty<bool>();
-        MusicReactiveProperty = new ReactiveProperty<bool>();
+        UIAudioClipProvider = uIAudioClipProvider;
+        _clipBackground = clipBackground;
         SoundReactiveProperty.Value = keySound;
         MusicReactiveProperty.Value = keyMusic;
         if (MusicOn == true)
@@ -63,8 +37,7 @@ public class GlobalAudio : MonoBehaviour, ISoundPause, ILevelAudio, IAudioSettin
         }
         _audioSourcesAll = new[]
         {
-            _uI, _forEngine, _forBooster, _forDestruction, _forHotWheels1, _forHotWheels2,
-            _forBrakes, _forLevel, _frontSuspension, _backSuspension, _frictionAudioSource
+            _uI
         };
     }
     private void StopBackground()
@@ -87,19 +60,17 @@ public class GlobalAudio : MonoBehaviour, ISoundPause, ILevelAudio, IAudioSettin
     public void SetSoundsOff()
     {
         SoundReactiveProperty.Value = false;
-        OnSoundChange?.Invoke();
         StopAllSources();
         MuteMaster();
     }
     public void SetSoundsOn()
     {
         SoundReactiveProperty.Value = true;
-        OnSoundChange?.Invoke();
         UnmuteMaster();
     }
     private void SetAndPlayBackground()
     {
-        _audioSourceBackground.clip = _audioClipProvider.ClipBackground;
+        _audioSourceBackground.clip = _clipBackground;
         _audioSourceBackground.Play();
     }
 

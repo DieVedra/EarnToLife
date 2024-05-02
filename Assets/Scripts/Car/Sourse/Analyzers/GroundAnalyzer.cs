@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using UniRx;
-using UniRx.Triggers;
 using UnityEngine;
 
 public class GroundAnalyzer
@@ -22,8 +20,10 @@ public class GroundAnalyzer
 
     public ReactiveProperty<bool> FrontWheelOnGroundReactiveProperty = new ReactiveProperty<bool>();
     public ReactiveProperty<bool> BackWheelOnGroundReactiveProperty = new ReactiveProperty<bool>();
+    
     public ReactiveProperty<bool> FrontWheelOnAsphaltReactiveProperty = new ReactiveProperty<bool>();
     public ReactiveProperty<bool> BackWheelOnAsphaltReactiveProperty = new ReactiveProperty<bool>();
+    
     public ReactiveProperty<bool> FrontWheelContactReactiveProperty = new ReactiveProperty<bool>();
     public ReactiveProperty<bool> BackWheelContactReactiveProperty = new ReactiveProperty<bool>();
     public bool FrontWheelContact => FrontWheelContactReactiveProperty.Value;
@@ -39,6 +39,15 @@ public class GroundAnalyzer
         onCarBrokenIntoTwoParts.Subscribe(_ => { CarBrokenIntoTwoParts();});
     }
 
+    public void Dispose()
+    {
+        FrontWheelOnGroundReactiveProperty.Dispose();
+        BackWheelOnGroundReactiveProperty.Dispose();
+        FrontWheelOnAsphaltReactiveProperty.Dispose();
+        BackWheelOnAsphaltReactiveProperty.Dispose();
+        FrontWheelContactReactiveProperty.Dispose();
+        BackWheelContactReactiveProperty .Dispose();
+    }
     public void Update()
     {
         if (_time <= 0f)
@@ -94,7 +103,13 @@ public class GroundAnalyzer
             wheelOnAsphaltReactiveProperty.Value = false;
             setContactPointWheel(hit);
         }
-        else if (hit.transform.gameObject.layer == _asphaltLayer)
+        // else if (hit.transform.gameObject.layer == _asphaltLayer)
+        // {
+        //     wheelOnGroundReactiveProperty.Value = false;
+        //     wheelOnAsphaltReactiveProperty.Value = true;
+        //     setContactPointWheel(hit);
+        // }
+        else
         {
             wheelOnGroundReactiveProperty.Value = false;
             wheelOnAsphaltReactiveProperty.Value = true;

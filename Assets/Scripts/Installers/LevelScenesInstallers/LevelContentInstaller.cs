@@ -9,7 +9,5 @@ public class LevelContentInstaller : MonoInstaller
     public override void InstallBindings()
     {
         Container.Bind<LevelPrefabsProvider>().FromInstance(_levelPrefabsProvider).AsSingle();
-        // Container.BindInterfacesAndSelfTo<CarAudioInitializer>().AsSingle();
-        Container.BindInterfacesAndSelfTo<LevelAudioHandler>().AsSingle();
     }
 }

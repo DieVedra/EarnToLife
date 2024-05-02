@@ -86,7 +86,7 @@ public class Car : MonoBehaviour
     {
         if (SuspensionAudioHandler != null)
         {
-            InitSuspension(out FrontSuspension, FrontSuspensionValues, FrontWheelJoint, SuspensionAudioHandler.CalculateVolumeAndPitchFrontSuspension);
+            InitSuspension(out FrontSuspension, FrontSuspensionValues, FrontWheelJoint, SuspensionAudioHandler.CalculateVolumeFrontSuspension);
         }
         else
         {
@@ -97,7 +97,7 @@ public class Car : MonoBehaviour
     {
         if (SuspensionAudioHandler != null)
         {
-            InitSuspension(out BackSuspension, BackSuspensionValues, BackWheelJoint, SuspensionAudioHandler.CalculateVolumeAndPitchBackSuspension);
+            InitSuspension(out BackSuspension, BackSuspensionValues, BackWheelJoint, SuspensionAudioHandler.CalculateVolumeBackSuspension);
         }
         else
         {

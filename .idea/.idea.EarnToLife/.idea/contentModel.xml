@@ -368,12 +368,12 @@
               <e p="BoosterAudioHandler.cs" t="Include" />
               <e p="BrakeAudioHandler.cs" t="Include" />
               <e p="CarAudio.cs" t="Include" />
-              <e p="CarAudioInitializer.cs" t="Include" />
               <e p="DestructionAudioHandler.cs" t="Include" />
               <e p="EngineAudioHandler.cs" t="Include" />
               <e p="GunAudioHandler.cs" t="Include" />
               <e p="HotWheelAudioHandler.cs" t="Include" />
               <e p="SuspensionAudioHandler.cs" t="Include" />
+              <e p="WheelsAudioHandler.cs" t="Include" />
             </e>
             <e p="CarInLevel.cs" t="Include" />
             <e p="DestructionCar" t="Include">
@@ -518,6 +518,7 @@
             <e p="Level" t="Include">
               <e p="Audio" t="Include">
                 <e p="BarrelAudioHandler.cs" t="Include" />
+                <e p="LevelAudio.cs" t="Include" />
                 <e p="LevelAudioHandler.cs" t="Include" />
                 <e p="WoodDestructibleAudioHandler.cs" t="Include" />
               </e>
@@ -616,13 +617,13 @@
             <e p="IGlobalAudio.cs" t="Include" />
             <e p="IHitable.cs" t="Include" />
             <e p="ILevel.cs" t="Include" />
-            <e p="ILevelAudio.cs" t="Include" />
             <e p="IMovementForward.cs" t="Include" />
             <e p="IPause.cs" t="Include" />
             <e p="IPlayerData.cs" t="Include" />
             <e p="IShotable.cs" t="Include" />
             <e p="ISoundPause.cs" t="Include" />
             <e p="IStateSetter.cs" t="Include" />
+            <e p="IUIAudio.cs" t="Include" />
           </e>
           <e p="PoolBase.cs" t="Include" />
           <e p="Ragdoll.cs" t="Include" />

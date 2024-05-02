@@ -14,7 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _woodBreaking1AudioClip: {fileID: 8300000, guid: 6e39727faf317554ca1f4cff4785f25c, type: 3}
   _woodBreaking2AudioClip: {fileID: 8300000, guid: 3598bb991e6815d47a5ee3e17463ef19, type: 3}
-  _woodBreaking3AudioClip: {fileID: 0}
+  _woodBreaking3AudioClip: {fileID: 8300000, guid: 8b9355d6558f765478caae0ec86718ee, type: 3}
   _hitWood1AudioClip: {fileID: 8300000, guid: 09e9ddc3117ae2f42b092f7ba9f6c1f7, type: 3}
   _hitWood2AudioClip: {fileID: 8300000, guid: d13fce52ec730634ca1f7265760c4447, type: 3}
   _hitWood3AudioClip: {fileID: 8300000, guid: 8b9355d6558f765478caae0ec86718ee, type: 3}
+  _hitBarrelAudioClip: {fileID: 0}
+  _hitDebrisBarrelAudioClip: {fileID: 0}
+  _explodeBarrelAudioClip: {fileID: 0}

@@ -38,6 +38,7 @@ public class EngineAudioHandler : AudioPlayer
     }
     public void PlaySoundStopEngine()
     {
+        StopPlay();
         TryPlayClip(_engineStopAudioClip);
     }
     // public void PlaySoundSoftStopEngine()

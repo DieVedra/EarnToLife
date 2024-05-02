@@ -19,10 +19,10 @@ public class Beam2 : Beam, IHitable, ICutable
         public IReadOnlyList<DebrisFragment> DebrisFragments => base.FragmentsDebris;
 
         [Inject]
-        private void Construct(ILevel level, LevelAudioHandler levelAudioHandler)
+        private void Construct(ILevel level)
         {
                 DebrisParentForDestroy = level.DebrisParent;
-                WoodDestructibleAudioHandler = levelAudioHandler.WoodDestructibleAudioHandler;
+                WoodDestructibleAudioHandler = level.LevelAudio.WoodDestructibleAudioHandler;
                 Rigidbody2D = GetComponent<Rigidbody2D>();
                 _transform = transform;
                 SetPositionsFragments();

@@ -31,7 +31,7 @@ public class EntryPoint : MonoBehaviour
         _gameData.CarControlMethod = carControlMethod;
         
         PlayerDataInit();
-        _globalAudio.Construct(_audioClipProvider, _playerData.SoundOn, _playerData.MusicOn);
+        _globalAudio.Construct(_audioClipProvider.UIAudioClipProvider, _audioClipProvider.ClipBackground, _playerData.SoundOn, _playerData.MusicOn);
         _garage.Construct(_playerData, _garageData);
         _presenterEntryScene = new PresenterEntryScene(_viewEntryScene, _garage, _map, _startMenuBackground, _gameData, _garageData, _globalAudio, _playerDataHandler);
     }

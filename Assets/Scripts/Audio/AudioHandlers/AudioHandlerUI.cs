@@ -4,24 +4,24 @@ using UnityEngine.UIElements;
 
 public class AudioHandlerUI: IClickAudio
 {
-    private GlobalAudio _globalAudio;
-    private AudioSource _audioSource => _globalAudio.UI;
-    private bool SoundOn => _globalAudio.SoundOn;
-    public AudioHandlerUI(GlobalAudio globalAudio)
+    private IUIAudio _uIAudio;
+    private AudioSource _audioSource => _uIAudio.UI;
+    private bool SoundOn => _uIAudio.SoundOn;
+    public AudioHandlerUI(IUIAudio uIAudio)
     {
-        _globalAudio = globalAudio;
+        _uIAudio = uIAudio;
     }
     public void PlayClick()
     {
-        TryPlayOneShot(_audioSource, _globalAudio.UIAudioClipProvider.ClipClick);
+        TryPlayOneShot(_audioSource, _uIAudio.UIAudioClipProvider.ClipClick);
     }
     public void PlayBuySuccess()
     {
-        TryPlayOneShot(_audioSource, _globalAudio.UIAudioClipProvider.ClipPaySuccess);
+        TryPlayOneShot(_audioSource, _uIAudio.UIAudioClipProvider.ClipPaySuccess);
     }
     public void PlayBuyFail()
     {
-        TryPlayOneShot(_audioSource, _globalAudio.UIAudioClipProvider.ClipFailPayAudio);
+        TryPlayOneShot(_audioSource, _uIAudio.UIAudioClipProvider.ClipFailPayAudio);
     }
     private void TryPlayOneShot(AudioSource audioSource, AudioClip clip)
     {

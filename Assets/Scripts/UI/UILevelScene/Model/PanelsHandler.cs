@@ -4,6 +4,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
+using UniRx;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
@@ -26,11 +27,11 @@ public class PanelsHandler
     private AudioSettingSwitch _audioSettingSwitch;
     private IClickAudio _audioClickAudioHandler;
     
-    private CancellationTokenSource _cancellationTokenSource;
+    private CancellationTokenSource _cancellationTokenSource = new CancellationTokenSource();
 
     public PanelsHandler(ViewUILevel viewUILevel, SceneSwitch sceneSwitch, PausePanelButtonsHandler pausePanelButtonsHandler,
         ButtonsControl buttonsControl, GamePause gamePause, ResultsLevelProvider resultsLevel,
-        ResultsLevelHandler resultsLevelUI, AudioSettingSwitch audioSettingSwitch, IClickAudio audioClickAudioHandler)
+        ResultsLevelHandler resultsLevelUI, AudioSettingSwitch audioSettingSwitch, IClickAudio audioClickAudioHandler, ReactiveCommand disposeCommand)
     {
         _valuesPanelHandler = new ValuesPanelHandler();
         _buttonPause = viewUILevel.ButtonPause;
@@ -48,7 +49,12 @@ public class PanelsHandler
         _audioSettingSwitch = audioSettingSwitch;
         _audioClickAudioHandler = audioClickAudioHandler;
         _resultsLevelProvider.OnOutCalculateResultsLevel += ActivateScorePanel;
+        disposeCommand.Subscribe(_ => { Dispose();});
         StartInit();
+    }
+    private void Dispose()
+    {
+        _cancellationTokenSource.Cancel();
     }
     private async void StartInit()
     {
@@ -62,7 +68,7 @@ public class PanelsHandler
 
         await _background.DOFade(
             _valuesPanelHandler.ClearBackground, 
-            _valuesPanelHandler.BackgroundDurationFade).ToUniTask();
+            _valuesPanelHandler.BackgroundDurationFade).WithCancellation(_cancellationTokenSource.Token);
         _background.gameObject.SetActive(false);
     }
     private async void ActivatePausePanel()
@@ -77,10 +83,10 @@ public class PanelsHandler
         await MoveAndFadePanelWhenAll(
             _panelPause.RectTransform.DOAnchorPos(
                 _valuesPanelHandler.EndPositionPanel,
-                _valuesPanelHandler.MovePanelDuration).SetEase(Ease.InOutQuint).SetUpdate(true).ToUniTask(),
+                _valuesPanelHandler.MovePanelDuration).SetEase(Ease.InOutQuint).SetUpdate(true).WithCancellation(_cancellationTokenSource.Token),
             _frameBackground.DOFade(
                 _valuesPanelHandler.DarkenedFrameBackground,
-                _valuesPanelHandler.FrameBackgroundDurationFade).SetUpdate(true).ToUniTask());
+                _valuesPanelHandler.FrameBackgroundDurationFade).SetUpdate(true).WithCancellation(_cancellationTokenSource.Token));
     }
     private async void DeactivatePausePanel()
     {
@@ -91,10 +97,10 @@ public class PanelsHandler
         await MoveAndFadePanelWhenAll(
             _panelPause.RectTransform.DOAnchorPos(
                 _valuesPanelHandler.StartPositionPanel,
-                _valuesPanelHandler.MovePanelDuration).SetEase(Ease.InOutQuint).ToUniTask(),
+                _valuesPanelHandler.MovePanelDuration).SetEase(Ease.InOutQuint).WithCancellation(_cancellationTokenSource.Token),
             _frameBackground.DOFade(
                 _valuesPanelHandler.ClearFrameBackground,
-                _valuesPanelHandler.FrameBackgroundDurationFade).ToUniTask());
+                _valuesPanelHandler.FrameBackgroundDurationFade).WithCancellation(_cancellationTokenSource.Token));
         _frameBackground.gameObject.SetActive(false);
         _panelPause.gameObject.SetActive(false);
         _buttonPause.onClick.AddListener(ActivatePausePanel);
@@ -118,7 +124,7 @@ public class PanelsHandler
         _background.gameObject.SetActive(true);
         await _background.DOFade(
             _valuesPanelHandler.BlackBackground,
-            _valuesPanelHandler.BackgroundDurationFade).SetUpdate(true).ToUniTask();
+            _valuesPanelHandler.BackgroundDurationFade).SetUpdate(true).WithCancellation(_cancellationTokenSource.Token);
         _panelPause.gameObject.SetActive(false);
         _gamePause.AbortPauseForLoad();
         EndLoadNextScene();
@@ -130,14 +136,14 @@ public class PanelsHandler
         _panelScore.ButtonGarage.onClick.AddListener(DeactivateScorePanelAndLoadGarage);
         _panelScore.gameObject.SetActive(true);
         _sceneSwitch.StartLoadGarage();
-        _resultsLevelHandler.DisplayOutResultsLevel(results, lastResults); //send token
+        _resultsLevelHandler.DisplayOutResultsLevel(results, lastResults);
         await MoveAndFadePanelWhenAll(
             _panelScore.RectTransform.DOAnchorPos(
                 _valuesPanelHandler.EndPositionPanel,
-                _valuesPanelHandler.MovePanelDuration).SetEase(Ease.InOutQuint).ToUniTask(),
+                _valuesPanelHandler.MovePanelDuration).SetEase(Ease.InOutQuint).WithCancellation(_cancellationTokenSource.Token),
             _frameBackground.DOFade(
                 _valuesPanelHandler.DarkenedFrameBackground,
-                _valuesPanelHandler.FrameBackgroundDurationFade).ToUniTask());
+                _valuesPanelHandler.FrameBackgroundDurationFade).WithCancellation(_cancellationTokenSource.Token));
     }
 
     private async void DeactivateScorePanelAndLoadGarage()
@@ -147,7 +153,7 @@ public class PanelsHandler
         _panelScore.ButtonGarage.onClick.RemoveAllListeners();
 
         EnableRaycastTargetDarkBackground();
-        await _background.DOFade(_valuesPanelHandler.BlackBackground, _valuesPanelHandler.BackgroundDurationFade).ToUniTask();
+        await _background.DOFade(_valuesPanelHandler.BlackBackground, _valuesPanelHandler.BackgroundDurationFade).WithCancellation(_cancellationTokenSource.Token);
         EndLoadNextScene();
     }
 

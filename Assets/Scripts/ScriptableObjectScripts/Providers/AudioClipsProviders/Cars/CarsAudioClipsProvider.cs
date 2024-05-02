@@ -25,7 +25,6 @@ public class CarsAudioClipsProvider : ScriptableObject
             return _car1AudioClipProvider;
         }
     }
-
     public CarAudioClipProvider Car2AudioClipProvider
     {
         get
@@ -55,16 +54,13 @@ public class CarsAudioClipsProvider : ScriptableObject
 
     public CarAudioClipProvider GetCarAudioClipProvider(int index)
     {
-        if (_carAudioClipProvider == null)
+        _carAudioClipProvider = new[]
         {
-            _carAudioClipProvider = new[]
-            {
-                Car1AudioClipProvider,
-                Car2AudioClipProvider,
-                Car3AudioClipProvider,
-                Car4AudioClipProvider
-            };
-        }
+            Car1AudioClipProvider,
+            Car2AudioClipProvider,
+            Car3AudioClipProvider,
+            Car4AudioClipProvider
+        };
         return _carAudioClipProvider[index];
     }
 }

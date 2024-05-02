@@ -5,6 +5,9 @@ using UnityEngine.UI;
 using DG.Tweening;
 using TMPro;
 using System.Text;
+using System.Threading;
+using Cysharp.Threading.Tasks;
+using UniRx;
 
 public class ResultsLevelHandler
 {
@@ -21,7 +24,8 @@ public class ResultsLevelHandler
     private TextMeshProUGUI _textKills;
     private TextMeshProUGUI _textMoneyForKills;
     private TextMeshProUGUI _textCash;
-    public ResultsLevelHandler(PanelScore panelScore)
+    private CancellationTokenSource _cancellationTokenSource = new CancellationTokenSource();
+    public ResultsLevelHandler(PanelScore panelScore, ReactiveCommand disposeCommand)
     {
         _panelScore = panelScore;
         _levelProgressResults = _panelScore.LevelProgressResults;
@@ -33,6 +37,7 @@ public class ResultsLevelHandler
         _textCash = _panelScore.TextCash;
         _textMoneyForDistance = _panelScore.TextMoneyDistance;
         _textMoneyForKills = _panelScore.TextMoneyKills;
+        disposeCommand.Subscribe(_ => { Dispose();});
     }
     public void DisplayOutResultsLevel(ResultsLevel results, ResultsLevel lastResults)
     {
@@ -54,6 +59,11 @@ public class ResultsLevelHandler
         }
 
         _levelProgressResults.value = 0f;
-        _levelProgressResults.DOValue(results.DistanceToDisplayOnSliderInScorePanel, 1f);
+        _levelProgressResults.DOValue(results.DistanceToDisplayOnSliderInScorePanel, 1f).WithCancellation(_cancellationTokenSource.Token);
+    }
+
+    private void Dispose()
+    {
+        _cancellationTokenSource.Cancel();
     }
 }

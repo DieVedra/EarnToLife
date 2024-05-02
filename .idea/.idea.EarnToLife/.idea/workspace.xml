@@ -51,53 +51,32 @@
   </component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/0A81BD77-F333-4BDF-A5D3-1008229EDCAC/4a/e0c1b8af/SceneSetup.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.cysharp.unitask@66de0d3a58/Runtime/UniTask.WhenAll.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/ScriptableObjectScripts/Providers/AudioClipsProviders/Cars/CarDefaultAudioClipProvider.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Game/Level/LevelContent/Beam/Beam2.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Settings/AudioProvider/curvetest.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/ScriptableObjectScripts/Providers/AudioClipsProviders/Cars/CarAudioClipProvider.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/ScriptableObjectScripts/Providers/AudioClipsProviders/UIAudioClipProvider.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/FCC0BBF6-BF4E-430C-91D4-AA05736FC5C6/43/b8d6bc88/DOTween.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Game/Level/LevelContent/Coil.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.cysharp.unitask@66de0d3a58/Runtime/UniTaskCompletionSource.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Installers/LevelScenesInstallers/LevelInstaller.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/ScriptableObjectScripts/Providers/PrefabsProviders/LevelPrefabs/LevelParticlesProvider.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ugui@1.0.0/Runtime/UI/Core/VertexModifiers/PositionAsUV1.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/2A3B1FC1-40AE-44E9-A447-6E34A2A29726/04/0ad46d37/Transform.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/44EB8A48-9200-44DB-A0E4-4D8431223846/31/c485d61b/RaycastHit2D.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.dbrizov.naughtyattributes@8a8fa5a965/Scripts/Editor/Utility/ReflectionUtility.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/ScriptableObjectScripts/Providers/AudioClipsProviders/LevelAudioClipProvider.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/2A3B1FC1-40AE-44E9-A447-6E34A2A29726/85/7e4b73a1/AnimationCurve.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/44EB8A48-9200-44DB-A0E4-4D8431223846/9e/73ec0ec4/ContactFilter2D.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.dbrizov.naughtyattributes@8a8fa5a965/Scripts/Core/DrawerAttributes/CurveRangeAttribute.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.cysharp.unitask@66de0d3a58/Runtime/UniTask.WhenAll.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Game/Level/LevelContent/Beam/Beam2.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Scripts/ScriptableObjectScripts/Providers/AudioClipsProviders/Cars/CarAudioClipProvider.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Scripts/ScriptableObjectScripts/Providers/AudioClipsProviders/UIAudioClipProvider.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/FCC0BBF6-BF4E-430C-91D4-AA05736FC5C6/43/b8d6bc88/DOTween.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Game/Level/LevelContent/Coil.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Installers/LevelScenesInstallers/LevelInstaller.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ugui@1.0.0/Runtime/UI/Core/VertexModifiers/PositionAsUV1.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/2A3B1FC1-40AE-44E9-A447-6E34A2A29726/04/0ad46d37/Transform.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/2A3B1FC1-40AE-44E9-A447-6E34A2A29726/a1/436eeb11/Scene.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/44EB8A48-9200-44DB-A0E4-4D8431223846/7e/0a11ae0d/ForceMode2D.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/5A41D6B7-1898-42EC-A409-FD0B1C3E3DCF/52/e51cdb7d/Int32.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.dbrizov.naughtyattributes@8a8fa5a965/Scripts/Core/DrawerAttributes/CurveRangeAttribute.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/Assets/Scripts/Car/DestructionCar/DestructionCar.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Car/DestructionCar/DestructionHandler.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/Analyzers/CoupAnalyzer.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Car/DestructionCar/BoosterDestructionHandler.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/Booster.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Car/Audio/BoosterAudioHandler.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/UI/UILevelScene/Model/NotificationsHandler.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Car/DestructionCar/RoofDestructionHandler.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Car/DestructionCar/BottomDestructionHandler.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/CarFSM/CarFSM.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/CarFSM/States/SoftStopState.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Car/Audio/DestructionAudioHandler.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Car/Audio/EngineAudioHandler.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Car/StopCauseHandler.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Editor/SceneSwitchTool/SceneSetupLoader.cs" />
-        <option value="$PROJECT_DIR$/Assets/Prefabs/Cars/test.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Interfaces/ICarAudio.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/ScriptableObjectScripts/Providers/AudioClipsProviders/CarAudioClipProvider.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Editor/SceneSwitchTool/SceneSetupData.cs" />
-        <option value="$PROJECT_DIR$/Assets/Settings/AudioProvider/test.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/Analyzers/GroundAnalyzer.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Game/Garage/InGarageCarCustomize/CarInGarage.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Car/Audio/CarAudioHandler.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Game/Garage/CarCustomize/CustomizeCar.cs" />
@@ -111,23 +90,44 @@
         <option value="$PROJECT_DIR$/Assets/Scripts/ScriptableObjectScripts/Providers/AudioClipsProviders/NewBehaviourScript.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/ScriptableObjectScripts/Providers/AudioClipsProviders/Car1AudioClipProvider.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/ScriptableObjectScripts/Providers/AudioClipsProviders/CarsAudioClipsProvider.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Installers/LevelScenesInstallers/LevelContentInstaller.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/ScriptableObjectScripts/Providers/AudioClipsProviders/Cars/CarDefaultAudioClipProvider.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Game/GamePause.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Interfaces/IGlobalAudio.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/ScriptableObjectScripts/Providers/AudioClipsProviders/Cars/CarsAudioClipsProvider.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/ScriptableObjectScripts/Providers/AudioClipsProviders/Cars/CarAudioClipProvider.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Car/CarAudio/CarAudioInitialyzer.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Car/CarAudio/BoosterAudioHandler.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Car/CarAudio/SuspensionAudioHandler.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Game/Game.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/ScriptableObjectScripts/Providers/AudioClipsProviders/Cars/CarsAudioClipsProvider.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/Brakes.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Car/CarAudio/BrakeAudioHandler.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Car/CarAudio/EngineAudioHandler.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Car/CarAudio/AudioPlayer.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/ScriptableObjectScripts/Providers/AudioClipsProviders/Cars/CarDefaultAudioClipProvider.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Car/CarAudio/SuspensionAudioHandler.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Car/CarAudio/CarAudioInitializer.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Car/CarAudio/CarAudio.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Audio/GlobalAudio.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Game/EntryPoint.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Game/Game.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Car/CarInLevel.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/Analyzers/GroundAnalyzer.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Car/CarAudio/WheelsAudioHandler.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/ScriptableObjectScripts/Providers/AudioClipsProviders/LevelAudioClipProvider.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Installers/LevelScenesInstallers/LevelContentInstaller.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Game/Level/Audio/LevelAudioHandler.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Game/EntryPoint.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Audio/AudioSettingSwitch.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Audio/GlobalAudio.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Interfaces/IUIAudio.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Audio/AudioHandlers/AudioHandlerUI.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/UI/UIEntryScene/Model/PanelsActivator.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/UI/UILevelScene/Model/ResultsLevelHandler.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/UI/UILevelScene/Model/ModelUILevel.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/UI/UILevelScene/Model/PanelsHandler.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Game/Level/Level.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Interfaces/ILevel.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Game/Level/LevelContent/Boxes/Box.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Game/Level/LevelContent/Barrel/Barrel.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Game/Level/LevelContent/Beam/Beam1.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Game/Level/LevelContent/Beam/Beam2.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Game/Level/LevelContent/Coil.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Game/Level/Audio/LevelAudio.cs" />
       </list>
     </option>
   </component>
@@ -213,6 +213,9 @@
       <workItem from="1713958776447" duration="19611000" />
       <workItem from="1714049285793" duration="14005000" />
       <workItem from="1714123120667" duration="20282000" />
+      <workItem from="1714333858046" duration="5731000" />
+      <workItem from="1714504509379" duration="9954000" />
+      <workItem from="1714648943145" duration="15645000" />
     </task>
     <task id="LOCAL-00001" summary="Roof Destruction changed&#10;Back Wing Destruction changed">
       <created>1710195340693</created>

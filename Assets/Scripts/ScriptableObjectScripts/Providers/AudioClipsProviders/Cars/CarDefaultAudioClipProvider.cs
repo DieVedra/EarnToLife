@@ -16,6 +16,7 @@ public class CarDefaultAudioClipProvider : ScriptableObject
     [SerializeField, BoxGroup("DefaultSoundsCar")] private AudioClip _metalBendsAudioClip;
     [SerializeField, BoxGroup("DefaultSoundsCar")] private AudioClip _driverNeckBrokeAudioClip;
     [SerializeField, BoxGroup("DefaultSoundsCar")] private AudioClip _frictionAudioClip;
+    [SerializeField, BoxGroup("DefaultSoundsCar")] private AudioClip _wheelHitAudioClip;
     
     public AudioClip BrakeAudioClip => _brakeAudioClip;
     public AudioClip EngineStopAudioClip => _engineStopAudioClip;
@@ -26,4 +27,5 @@ public class CarDefaultAudioClipProvider : ScriptableObject
     public AudioClip MetalBendsAudioClip => _metalBendsAudioClip; 
     public AudioClip DriverNeckBrokeAudioClip => _driverNeckBrokeAudioClip;
     public AudioClip FrictionAudioClip => _frictionAudioClip;
+    public AudioClip WheelHitAudioClip => _wheelHitAudioClip;
 }

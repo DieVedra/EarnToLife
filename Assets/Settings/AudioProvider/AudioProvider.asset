@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _clipBackground: {fileID: 8300000, guid: 36a46b26af550ba4db0aaa4ce5d259e5, type: 3}
   _uiAudioClipProvider: {fileID: 11400000, guid: 70bbc6206cfde8d4589ac8927666f8d4, type: 2}
-  _carAudioClipProvider: {fileID: 11400000, guid: c872dfeaee80ccf45aed92f25e536d91, type: 2}
+  carsAudioClipsProvider: {fileID: 11400000, guid: c872dfeaee80ccf45aed92f25e536d91, type: 2}
   _levelAudioClipProvider: {fileID: 11400000, guid: f072dee8264eccd408d2f28045462849, type: 2}

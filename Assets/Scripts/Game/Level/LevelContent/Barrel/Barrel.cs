@@ -25,11 +25,11 @@ public class Barrel : DestructibleObject, IHitable, IShotable, ICutable
     public Transform TargetTransform => _transform;
 
     [Inject]
-    private void Construct(ILevel level, LevelAudioHandler levelAudioHandler)
+    private void Construct(ILevel level)
     {
         _barrelPoolEffects = level.BarrelPool;
         DebrisParentForDestroy = level.DebrisParent;
-        _barrelAudioHandler = levelAudioHandler.BarrelAudioHandler;
+        _barrelAudioHandler = level.LevelAudio.BarrelAudioHandler;
         _transform = transform;
         Rigidbody2D = GetComponent<Rigidbody2D>();
         _blastWave = new BlastWave(level.BarrelPool, WholeObjectTransform, _extinctionBlastWaveCurve, _blastWaveMask,

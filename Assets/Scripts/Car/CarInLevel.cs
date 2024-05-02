@@ -11,12 +11,12 @@ public class CarInLevel : Car
     [SerializeField, BoxGroup("Engine"), HorizontalLine(color:EColor.White)] private AnimationCurve _engineAccelerationCurve;
     [SerializeField, BoxGroup("Engine")] private ParticleSystem _exhaustParticleSystem;
 
-    [SerializeField, Range(0f, 1f), BoxGroup("Gyroscope"), HorizontalLine(color:EColor.Green)] private float _gyroscopePower;
+    [SerializeField, Range(0f, 1f), BoxGroup("_gyroscope"), HorizontalLine(color:EColor.Green)] private float _gyroscopePower;
 
-    [SerializeField, BoxGroup("WheelGroundInteraction"), HorizontalLine(color:EColor.Yellow)] private LayerMask _groundsLayerMask;
+    [SerializeField, BoxGroup("WheelGroundInteraction"), HorizontalLine(color:EColor.Yellow)] private LayerMask _groundContactMask;
     [SerializeField, BoxGroup("WheelGroundInteraction"), Layer] private int _asphaltLayer;
     [SerializeField, BoxGroup("WheelGroundInteraction"), Layer] private int _groundLayer;
-    [SerializeField, BoxGroup("WheelGroundInteraction")] private AnimationCurve _brakeVolumeCurve;
+    // [SerializeField, BoxGroup("WheelGroundInteraction")] private AnimationCurve _brakeVolumeCurve;
     [SerializeField, BoxGroup("WheelGroundInteraction")] private AnimationCurve _particlesSpeedCurveGasState;
     [SerializeField, BoxGroup("WheelGroundInteraction")] private AnimationCurve _particlesSpeedCurveStopState;
 
@@ -38,8 +38,8 @@ public class CarInLevel : Car
     [SerializeField, BoxGroup("Booster")] private Transform _screw;
     [SerializeField, BoxGroup("Booster")] private SpriteRenderer _blade1;
     [SerializeField, BoxGroup("Booster")] private SpriteRenderer _blade2;
-    [SerializeField, BoxGroup("Booster")] private AnimationCurve _increaseBoosterSoundCurve;
-    [SerializeField, BoxGroup("Booster")] private AnimationCurve _decreaseBoosterSoundCurve;
+    // [SerializeField, BoxGroup("Booster")] private AnimationCurve _increaseBoosterSoundCurve;
+    // [SerializeField, BoxGroup("Booster")] private AnimationCurve _decreaseBoosterSoundCurve;
 
     [SerializeField, BoxGroup("HotWheel"), HorizontalLine(color:EColor.Red)] private HotWheelRef _hotWheelRef;
     [SerializeField, BoxGroup("HotWheel"), Range(1f,50f)] private float _hotWheelRotationSpeed;
@@ -68,7 +68,6 @@ public class CarInLevel : Car
     private Engine _engine;
     private Transmission _transmission;
     private Exhaust _exhaust;
-    // private CarAudioInitializer _carAudioInitializer;
     private CarWheel _frontWheel;
     private CarWheel _backWheel;
     private Brakes _brakes;
@@ -80,14 +79,13 @@ public class CarInLevel : Car
     private HotWheel _hotWheel;
     private GroundAnalyzer _groundAnalyzer;
     private StopCauseHandler _stopCauseHandler;
+    private Gyroscope _gyroscope;
+    private CarMass _carMass;
+    private ControlCar _controlCar;
     public CarConfiguration CarConfiguration { get; private set; }
-    public CarMass CarMass { get; private set; }
-
-    public ControlCar ControlCar { get; private set; }
     public ControlCarUI ControlCarUI { get; private set; }
     public Speedometer Speedometer { get; private set; }
     public FuelTank FuelTank { get; private set; }
-    public Gyroscope Gyroscope { get; private set; }
     public Booster Booster { get; private set; }
     public CarGun CarGun { get; private set; }
     public bool BoosterAvailable => CarConfiguration.BoosterCountFuelQuantity > 0f ? true : false;
@@ -96,7 +94,6 @@ public class CarInLevel : Car
     public void Construct(CarConfiguration carConfiguration, NotificationsProvider notificationsProvider,
         LevelProgressCounter levelProgressCounter, Transform debrisParent,
         IGlobalAudio globalAudio, CarAudioClipProvider carAudioClipProvider,
-        
         CarControlMethod carControlMethod)
     {
         CarConfiguration = carConfiguration;
@@ -104,7 +101,7 @@ public class CarInLevel : Car
         InitCustomizeCar();
         _bodyRigidbody2D = GetComponent<Rigidbody2D>();
         _destructionCar = GetComponent<DestructionCar>();
-        CarMass = GetComponent<CarMass>();
+        _carMass = GetComponent<CarMass>();
         InitBase(_carAudio.SuspensionAudioHandler);
         _notificationsProvider = notificationsProvider;
         
@@ -113,25 +110,25 @@ public class CarInLevel : Car
         Speedometer = new Speedometer(_transmission, _bodyRigidbody2D);
         FuelTank = new FuelTank(carConfiguration.FuelQuantity, CarConfiguration.EngineOverclockingMultiplier);
         InitExhaust();
-
         _engine = new Engine(_engineAccelerationCurve, _carAudio.EngineAudioHandler, _exhaust, CarConfiguration.EngineOverclockingMultiplier);
         _propulsionUnit = new PropulsionUnit(_engine, _transmission, FuelTank);
         InitWheels();
-        _groundAnalyzer = new GroundAnalyzer(_frontWheel, _backWheel, _onCarBrokenIntoTwoPartsReactiveCommand, _groundsLayerMask, _asphaltLayer, _groundLayer);
-        _brakes = new Brakes(_carAudio.BrakeAudioHandler, Speedometer, _groundAnalyzer, _brakeVolumeCurve);
+        _groundAnalyzer = new GroundAnalyzer(_frontWheel, _backWheel, _onCarBrokenIntoTwoPartsReactiveCommand, _groundContactMask, _asphaltLayer, _groundLayer);
+        _brakes = new Brakes(_carAudio.WheelsAudioHandler.BrakeAudioHandler, Speedometer, _groundAnalyzer);
         _coupAnalyzer = new CoupAnalyzer(transform);
-        _carAudio.SuspensionAudioHandler.Init(_groundAnalyzer, Speedometer).Forget();
         _controlActive = true;
+        _carAudio.SuspensionAudioHandler.Init(_groundAnalyzer).Forget();
+        _carAudio.WheelsAudioHandler.Init(_groundAnalyzer);
         TryInitBooster();
         TryInitGun();
         TryInitHotWheel(_carAudio.HotWheelAudioHandler, debrisParent);
         InitCarFSM();
-        Gyroscope = new Gyroscope(_groundAnalyzer, _bodyRigidbody2D, CarMass, _gyroscopePower);
+        _gyroscope = new Gyroscope(_groundAnalyzer, _bodyRigidbody2D, _carMass, _gyroscopePower);
         InitControlCar(carControlMethod);
         InitCarMass();
         TryInitDestructionCar(debrisParent);
         SubscribeActions();
-        _moveAnalyzer = new MoveAnalyzer(Speedometer, ControlCar.DriveStarted);
+        _moveAnalyzer = new MoveAnalyzer(Speedometer, _controlCar.DriveStarted);
         TryInitStopCauseHandler();
         _bodyRigidbody2D.centerOfMass += _centerMassOffset;
         _carAudio.EngineAudioHandler.PlayStartEngine();
@@ -142,7 +139,7 @@ public class CarInLevel : Car
     {
         if (_controlActive == true)
         {
-            ControlCar.Update();
+            _controlCar.Update();
             _coupAnalyzer.Update();
             _moveAnalyzer.Update();
             _hotWheel?.Update();
@@ -182,7 +179,6 @@ public class CarInLevel : Car
     private void EndOfRide()
     {
         _controlActive = false;
-        _carAudio.EngineAudioHandler.StopPlayEngine();
         _carAudio.EngineAudioHandler.PlaySoundStopEngine();
         _carAudio.HotWheelAudioHandler.StopPlaySoundRotateWheels().Forget();
         _exhaust.StopPlayEffect();
@@ -290,13 +286,13 @@ public class CarInLevel : Car
     {
         if (carControlMethod == CarControlMethod.KeyboardMethod)
         {
-            ControlCar = new ControlCarKeyboard(new KeyboardInputMethod(BoosterAvailable, GunAvailable),
-                Gyroscope, _carFsm, _propulsionUnit, Booster, CarGun, Speedometer);
+            _controlCar = new ControlCarKeyboard(new KeyboardInputMethod(BoosterAvailable, GunAvailable),
+                _gyroscope, _carFsm, _propulsionUnit, Booster, CarGun, Speedometer);
         }
         else
         {
-            ControlCarUI = new ControlCarUI(new UIInputMethod(), Gyroscope, _carFsm, _propulsionUnit, Booster,Speedometer);
-            ControlCar = ControlCarUI;
+            ControlCarUI = new ControlCarUI(new UIInputMethod(), _gyroscope, _carFsm, _propulsionUnit, Booster,Speedometer);
+            _controlCar = ControlCarUI;
         }
     }
 
@@ -357,7 +353,7 @@ public class CarInLevel : Car
     {
         if (_destructionActive == true)
         {
-            _destructionCar.Construct(_carAudio.DestructionAudioHandler, _exhaust, CarGun, _hotWheel ,CarMass, Booster, Speedometer, _coupAnalyzer, _hotWheelRef,
+            _destructionCar.Construct(_carAudio.DestructionAudioHandler, _exhaust, CarGun, _hotWheel ,_carMass, Booster, Speedometer, _coupAnalyzer, _hotWheelRef,
                 _boosterRef, _gunRef,  debrisParent);
             if (_destructionCar.BottomDestructionOn == true)
             {
@@ -368,7 +364,7 @@ public class CarInLevel : Car
 
     private void InitCarMass()
     {
-        CarMass.Construct(_boosterRef.transform, _gunRef.transform, _hotWheelRef.transform, Booster, FuelTank);
+        _carMass.Construct(_boosterRef.transform, _gunRef.transform, _hotWheelRef.transform, Booster, FuelTank);
     }
 
     private void InitWheels()
@@ -395,7 +391,7 @@ public class CarInLevel : Car
     private void GunDestruct()
     {
         CarGun.OnGunDestruct -= GunDestruct;
-        ControlCar.TryTurnOffCheckGun();
+        _controlCar.TryTurnOffCheckGun();
         CarGun = null;
     }
 
@@ -404,13 +400,13 @@ public class CarInLevel : Car
         Booster.OnBoosterDisable -= BoosterDisable;
         Booster.BoosterFuelTank.OnTankEmpty -= Booster.StopBoosterOnOutFuel;
         Booster.BoosterFuelTank.OnTankEmpty -= _notificationsProvider.BoosterEmpty;
-        ControlCar.TryTurnOffCheckBooster();
+        _controlCar.TryTurnOffCheckBooster();
         Booster = null;
     }
     private void CarBrokenIntoTwoParts(WheelJoint2D joint2D, WheelCarValues wheelCarValues)
     {
         ReinitBackWheelAndSuspensionOnCarBrokenIntoTwoParts(joint2D, wheelCarValues);
-        ControlCar.TryTurnOffCheckBooster();
+        _controlCar.TryTurnOffCheckBooster();
         _onCarBrokenIntoTwoPartsReactiveCommand.Execute();
         _bodyRigidbody2D.centerOfMass += _centerMassAfterOnCarBrokenOffset;
     }
@@ -419,10 +415,11 @@ public class CarInLevel : Car
         FuelTank.OnTankEmpty -= _exhaust.StopPlayEffect;
         _stopCauseHandler.Dispose();
         _coupAnalyzer.Dispose();
+        _groundAnalyzer.Dispose();
         _onCarBrokenIntoTwoPartsReactiveCommand.Dispose();
-        ControlCar.DriveStarted.Dispose();
+        _controlCar.DriveStarted.Dispose();
         _carFsm.Dispose();
-        // base.Dispose();
+        _carAudio.Dispose();
         if (Booster != null)
         {
             BoosterDisable();

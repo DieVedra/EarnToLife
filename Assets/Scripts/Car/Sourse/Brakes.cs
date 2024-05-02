@@ -8,26 +8,29 @@ public class Brakes
     private readonly GroundAnalyzer _groundAnalyzer;
     private readonly Speedometer _speedometer;
     private readonly BrakeAudioHandler _brakeAudioHandler;
-    private readonly AnimationCurve _brakeVolumeCurve;
     private bool GroundContact => _groundAnalyzer.FrontWheelContact || _groundAnalyzer.BackWheelContact;
-    public Brakes(BrakeAudioHandler brakeAudioHandler, Speedometer speedometer, GroundAnalyzer groundAnalyzer, AnimationCurve brakeVolumeCurve)
+    public Brakes(BrakeAudioHandler brakeAudioHandler, Speedometer speedometer, GroundAnalyzer groundAnalyzer)
     {
         _speedometer = speedometer;
         _groundAnalyzer = groundAnalyzer;
         _brakeAudioHandler = brakeAudioHandler;
-        _brakeVolumeCurve = brakeVolumeCurve;
     }
     public void BrakeSoundOn()
     {
         _brakeAudioHandler.SetMuteVolumeBrake();
-        _brakeAudioHandler.PlayBrake();
+        TrySetClip();
+        if (CheckSpeedAndGroundContact())
+        {
+            _brakeAudioHandler.PlayBrake();
+        }
     }
 
     public void Update()
     {
-        if (GroundContact && CheckSpeed())
+        if (CheckSpeedAndGroundContact())
         {
             _brakeAudioHandler.SetVolumeBrake(_speedometer.CurrentSpeedFloat);
+            TrySetClip();
         }
         else
         {
@@ -38,12 +41,24 @@ public class Brakes
     {
         _brakeAudioHandler.StopPlayBrake();
     }
-    private bool CheckSpeed()
+    private bool CheckSpeedAndGroundContact()
     {
-        if (_speedometer.CurrentSpeedInt > MINSPEED)
+        if (GroundContact == true && _speedometer.CurrentSpeedInt > MINSPEED)
         {
             return true;
         }
         else return false;
+    }
+
+    private void TrySetClip()
+    {
+        if(_groundAnalyzer.FrontWheelOnGroundReactiveProperty.Value == true )
+        {
+            _brakeAudioHandler.TrySetGroundClip();
+        }
+        else
+        {
+            _brakeAudioHandler.TrySetAsphaltClip();
+        }
     }
 }

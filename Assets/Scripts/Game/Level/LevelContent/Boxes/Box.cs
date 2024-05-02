@@ -15,10 +15,10 @@ public class Box : DestructibleObject, IHitable, ICutable
     public IReadOnlyList<DebrisFragment> DebrisFragments => base.FragmentsDebris;
 
     [Inject]
-    private void Construct(ILevel level, LevelAudioHandler levelAudioHandler)
+    private void Construct(ILevel level)
     {
         DebrisParentForDestroy = level.DebrisParent;
-        _woodDestructibleAudioHandler = levelAudioHandler.WoodDestructibleAudioHandler;
+        _woodDestructibleAudioHandler = level.LevelAudio.WoodDestructibleAudioHandler;
         Rigidbody2D = GetComponent<Rigidbody2D>();
         _transform = transform;
     }
@@ -35,8 +35,6 @@ public class Box : DestructibleObject, IHitable, ICutable
 
     public bool TryBreakOnImpact(float forceHit)
     {
-        // Debug.Log($"Hit");
-
         bool result;
         if (IsBroken == false)
         {
