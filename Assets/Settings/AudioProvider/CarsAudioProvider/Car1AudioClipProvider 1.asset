@@ -12,12 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d5657b02b8b7d242a892cdef7f6ccf8, type: 3}
   m_Name: Car1AudioClipProvider 1
   m_EditorClassIdentifier: 
-  _engineRunAudioClip: {fileID: 8300000, guid: ebd39e30b3c81f54c9b514e05954fac7, type: 3}
-  _engineStartAudioClip: {fileID: 8300000, guid: 8708bfe6d23d050419156b889c3e05d3, type: 3}
-  _boosterRunAudioClip: {fileID: 8300000, guid: 1427dd41c3bef234eb04e5d75dd4e422, type: 3}
-  _boosterEndFuelAudioClip: {fileID: 8300000, guid: 038ba3a2958532f448fb4c35fa707648, type: 3}
-  _carHotweelAudioClip: {fileID: 8300000, guid: 38c9a817aba061b4c9c9399dfcfb509a, type: 3}
-  _carHotweelSlitAudioClip: {fileID: 8300000, guid: 1ab0d2f57e347744282ba3338f82a74b, type: 3}
-  _shotGunAudioClip: {fileID: 8300000, guid: 2bca117339c30c945897748a35efab8d, type: 3}
-  _engineBrokenAudioClip: {fileID: 8300000, guid: 8ff231994ff63fd479c1217751ee1d2a, type: 3}
-  _suspensionAudioClip: {fileID: 8300000, guid: c6aecf192cae70c429e697f4b68600bc, type: 3}
+  _engineRunAudioClip: {fileID: 8300000, guid: 07c8142e63e5e72468e1a855c364e621, type: 3}
+  _engineStartAudioClip: {fileID: 8300000, guid: ff80bf887bd188a4a9d8c4cc52a77ddd, type: 3}
+  _boosterRunAudioClip: {fileID: 8300000, guid: 2c07f4d405259a84bbe97614b2f1e2af, type: 3}
+  _boosterEndFuelAudioClip: {fileID: 8300000, guid: 0ea88fcc4d9402d4c9a191fce0fb7d04, type: 3}
+  _carHotweelAudioClip: {fileID: 8300000, guid: fc8292e44ddb784468287ef8539c13a6, type: 3}
+  _carHotweelSlitAudioClip: {fileID: 8300000, guid: bb37d574b4c7be845bb14ae0fceac7be, type: 3}
+  _shotGunAudioClip: {fileID: 8300000, guid: 8db03c7ea69431e4fb46d3da53b4424a, type: 3}
+  _engineBrokenAudioClip: {fileID: 8300000, guid: 37574e558efb026449630e5275790245, type: 3}
+  _suspensionAudioClip: {fileID: 8300000, guid: 13a5dcd6e7179944fb2150a36c0f28d2, type: 3}

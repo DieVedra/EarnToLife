@@ -40,20 +40,23 @@ public class CarAudio : MonoBehaviour
         InitHotWheelAudio();
         InitSuspensionAudio();
         InitWheelsAudio();
+        
+        // EngineAudioHandler.PlayStartEngine().Forget();
+        
     }
     public void Dispose()
     {
         EngineAudioHandler.Dispose();
-        _globalAudio.SoundReactiveProperty.Dispose();
+        DestructionAudioHandler.Dispose();
         HotWheelAudioHandler.Dispose();
-        SuspensionAudioHandler.Dispose();
+        // SuspensionAudioHandler.Dispose();
         WheelsAudioHandler.Dispose();
     }
 
     private void InitEngineAudio()
     {
         EngineAudioHandler = new EngineAudioHandler(_forEngine,
-            _globalAudio.SoundReactiveProperty,
+            _globalAudio.SoundReactiveProperty, _globalAudio.AudioPauseReactiveProperty,
             _carAudioClipProvider.EngineStartAudioClip,
             _carAudioClipProvider.CarDefaultAudioClipProvider.EngineStopAudioClip,
             _carAudioClipProvider.EngineRunAudioClip);
@@ -61,7 +64,8 @@ public class CarAudio : MonoBehaviour
 
     private void InitBoosterAudio()
     {
-        BoosterAudioHandler = new BoosterAudioHandler(_forBooster, _globalAudio.SoundReactiveProperty,
+        BoosterAudioHandler = new BoosterAudioHandler(_forBooster,
+            _globalAudio.SoundReactiveProperty, _globalAudio.AudioPauseReactiveProperty,
             _carAudioClipProvider.BoosterRunAudioClip,
             _carAudioClipProvider.BoosterEndFuelAudioClip,
             _increaseBoosterSoundCurve, _decreaseBoosterSoundCurve);
@@ -70,13 +74,14 @@ public class CarAudio : MonoBehaviour
     private void InitGunAudio()
     {
         GunAudioHandler = new GunAudioHandler(_forGun,
-            _globalAudio.SoundReactiveProperty,
+            _globalAudio.SoundReactiveProperty, _globalAudio.AudioPauseReactiveProperty,
             _carAudioClipProvider.ShotGunAudioClip);
     }
 
     private void InitDestructionAudio()
     {
-        DestructionAudioHandler = new DestructionAudioHandler(_forDestruction, _globalAudio.SoundReactiveProperty,
+        DestructionAudioHandler = new DestructionAudioHandler(_forDestruction,
+            _globalAudio.SoundReactiveProperty, _globalAudio.AudioPauseReactiveProperty,
             _carAudioClipProvider.CarDefaultAudioClipProvider.CarBurnAudioClip,
             _carAudioClipProvider.CarDefaultAudioClipProvider.CarHardHitAudioClip,
             _carAudioClipProvider.CarDefaultAudioClipProvider.CarSoftHitAudioClip,
@@ -91,7 +96,7 @@ public class CarAudio : MonoBehaviour
     {
         HotWheelAudioHandler = new HotWheelAudioHandler(
             _forHotWheels1, _forHotWheels2,
-            _globalAudio.SoundReactiveProperty,
+            _globalAudio.SoundReactiveProperty, _globalAudio.AudioPauseReactiveProperty,
             _carAudioClipProvider.CarHotweelAudioClip,
             _carAudioClipProvider.CarHotweelSlitAudioClip);
     }
@@ -100,14 +105,14 @@ public class CarAudio : MonoBehaviour
     {
         SuspensionAudioHandler = new SuspensionAudioHandler(
             _frontSuspension, _backSuspension,
-            _globalAudio.SoundReactiveProperty,
+            _globalAudio.SoundReactiveProperty, _globalAudio.AudioPauseReactiveProperty,
             _carAudioClipProvider.SuspensionAudioClip);
     }
 
     private void InitWheelsAudio()
     {
         WheelsAudioHandler = new WheelsAudioHandler(_forWheelsFriction, _forWheelsHit,
-            _globalAudio.SoundReactiveProperty, 
+            _globalAudio.SoundReactiveProperty, _globalAudio.AudioPauseReactiveProperty,
             _carAudioClipProvider.CarDefaultAudioClipProvider.BrakeAudioClip,
             _carAudioClipProvider.CarDefaultAudioClipProvider.FrictionAudioClip,
             _carAudioClipProvider.CarDefaultAudioClipProvider.WheelHitAudioClip,

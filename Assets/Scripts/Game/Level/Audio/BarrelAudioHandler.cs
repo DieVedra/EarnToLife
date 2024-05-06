@@ -8,15 +8,14 @@ public class BarrelAudioHandler  : AudioPlayer
     private readonly AudioClip _hitBarrelAudioClip;
     private readonly AudioClip _hitDebrisBarrelAudioClip;
     private readonly AudioClip _explodeBarrelAudioClip;
-    public BarrelAudioHandler(AudioSource audioSource, ReactiveProperty<bool> soundReactiveProperty,
+    public BarrelAudioHandler(AudioSource audioSource, ReactiveProperty<bool> soundReactiveProperty, ReactiveProperty<bool> audioPauseReactiveProperty,
         AudioClip hitBarrelAudioClip, AudioClip hitDebrisBarrelAudioClip, AudioClip explodeBarrelAudioClip)
-        : base(audioSource, soundReactiveProperty)
+        : base(audioSource, soundReactiveProperty, audioPauseReactiveProperty)
     {
         _hitBarrelAudioClip = hitBarrelAudioClip;
         _hitDebrisBarrelAudioClip = hitDebrisBarrelAudioClip;
         _explodeBarrelAudioClip = explodeBarrelAudioClip;
     }
-
     public void PlayBarrelExplosionSound()
     {
         // TryPlayOneShotClipWithRandomSectionVolumeAndPitch(_explodeBarrelAudioClip, _volumeSection, _pitchSection);

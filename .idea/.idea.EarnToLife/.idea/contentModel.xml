@@ -341,6 +341,7 @@
             <e p="AudioHandlers" t="Include">
               <e p="AudioHandlerUI.cs" t="Include" />
             </e>
+            <e p="AudioPlayer.cs" t="Include" />
             <e p="AudioSettingSwitch.cs" t="Include" />
             <e p="GlobalAudio.cs" t="Include" />
             <e p="GlobalAudioValues.cs" t="Include" />
@@ -364,7 +365,6 @@
           <e p="Car" t="Include">
             <e p="Car.cs" t="Include" />
             <e p="CarAudio" t="Include">
-              <e p="AudioPlayer.cs" t="Include" />
               <e p="BoosterAudioHandler.cs" t="Include" />
               <e p="BrakeAudioHandler.cs" t="Include" />
               <e p="CarAudio.cs" t="Include" />

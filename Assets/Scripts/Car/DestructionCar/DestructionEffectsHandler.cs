@@ -39,6 +39,7 @@ public class DestructionEffectsHandler :IDispose
     {
         _engineSmokeEffect.Stop();
         _engineBurnEffect.Stop();
+        _compositeDisposable.Clear();
     }
 
     public void TryPlayEngineSmokeEffect(DestructionMode destructionMode)

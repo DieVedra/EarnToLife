@@ -31,23 +31,6 @@ public class Car : MonoBehaviour
         InitSuspension(out BackSuspension, BackSuspensionValues, joint2D);
     }
 
-    // protected void Init(SuspensionAudioHandler suspensionAudioHandler)
-    // {
-    //     SuspensionAudioHandler = suspensionAudioHandler;
-    //     Init();
-    // }
-
-    // protected void Init()
-    // {
-    //     CustomizeCar ??= GetComponent<CustomizeCar>();
-    //     CustomizeCar.OnSetWheels += InitWheelsAndSuspension;
-    // }
-
-    // protected void Dispose()
-    // {
-    //     CustomizeCar.OnSetWheels -= InitWheelsAndSuspension;
-    // }
-
     protected void InitWheelsAndSuspension(IReadOnlyList<GameObject> parts)
     {
         ResetValues();

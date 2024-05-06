@@ -1,3 +1,4 @@
+[System.Serializable]
 public struct SaveData
 {
     public int CurrentSelectLotCarIndex;

@@ -5,39 +5,36 @@ public class SaveService
     private const string FILE_NAME = "/SaveData.dat";
     private readonly string _savePath;
     private ISaveMetod _saveMetod;
-    private bool _saveOn;
-    public SaveService(bool key)
+    public SaveService()
     {
         //_savePath = Path.Combine(Application.persistentDataPath, FILE_NAME);
         _savePath = Application.dataPath + FILE_NAME;
         _saveMetod = new BinarySave();
-        _saveOn = key;
     }
-    public PlayerData GetPlayerConfigAfterLoading(int countConfigurations, int testMoney)
+    public PlayerData GetPlayerConfigAfterLoading(int countConfigurations, int testMoney, bool saveOn)
     {
-        SaveData saveData;
-        if (_saveOn == true)
+        if (saveOn == true)
         {
-            saveData = (SaveData)_saveMetod.Load(_savePath);
-            return CreatePlayerConfig(saveData);
+            var objectData = _saveMetod.Load(_savePath);
+            PlayerData playerData;
+            if (objectData != null)
+            {
+                playerData = CreatePlayerConfig((SaveData)objectData);
+            }
+            else
+            {
+                playerData = CreatePlayerConfigDefault(countConfigurations, testMoney);
+            }
+            return playerData;
         }
         else
         {
             return CreatePlayerConfigDefault(countConfigurations, testMoney);
         }
-
-        // if (saveData != null)
-        // {
-        //     return CreatePlayerConfig(saveData);
-        // }
-        // else
-        // {
-        //     return CreatePlayerConfigDefault(countConfigurations, testMoney);
-        // }
     }
-    public void SetPlayerDataToSaving(IPlayerData playerData)
+    public void SetPlayerDataToSaving(IPlayerData playerData, bool saveOn)
     {
-        if (_saveOn == true)
+        if (saveOn == true)
         {
             _saveMetod.Save(_savePath, CreateSaveData(playerData));
         }
@@ -57,7 +54,6 @@ public class SaveService
                 saveData.SavesParkingsIndexes[i].FuelQuantityCurrentIndex
                 );
         }
-
         return new PlayerData(
             new Wallet(saveData.Money),
             new GarageConfig(parkingLotIndexes, saveData.CurrentSelectLotCarIndex, saveData.AvailableLotCarIndex),
@@ -67,7 +63,6 @@ public class SaveService
             saveData.SoundOn,
             saveData.MusicOn
             );
-
     }
     private PlayerData CreatePlayerConfigDefault(int countConfigurations, int testMoney)
     {

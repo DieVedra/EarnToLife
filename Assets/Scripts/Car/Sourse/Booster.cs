@@ -8,8 +8,8 @@ public class Booster
     private readonly BoosterAudioHandler _boosterAudioHandler;
     private readonly ParticleSystem _particleSystemBooster;
     private bool _isRun = false;
+    private bool _isBroken = false;
     public BoosterFuelTank BoosterFuelTank { get; private set; }
-    private CompositeDisposable _compositeDisposable => _boosterScrew.CompositeDisposable;
     public bool FuelAvailability => BoosterFuelTank.CheckFuel();
     public event Action OnBoosterDisable;
     public Booster(BoosterAudioHandler boosterAudioHandler, BoosterFuelTank boosterFuelTank,
@@ -24,7 +24,8 @@ public class Booster
     {
         if (_isRun == true)
         {
-            StopBoosterDecrease();
+            StopBooster();
+            _boosterAudioHandler.SetDecreaseBooster();
         }
     }
     public void StopBoosterOnOutFuel()
@@ -35,44 +36,51 @@ public class Booster
             _boosterAudioHandler.PlayBoosterEndFuel();
         }
     }
-    public void RunBooster()
-    {
-        _isRun = true;
-        _boosterAudioHandler.PlayRunBooster();
-        _compositeDisposable.Clear();
-        Observable.EveryUpdate().Subscribe(_ =>
-        {
-            _boosterScrew.RotateScrew();
-        }).AddTo(_compositeDisposable);
-        _particleSystemBooster.Play();
-    }
-    public void BoosterDisable()
+
+    public void Update()
     {
         if (_isRun == true)
         {
-            _particleSystemBooster.Stop();
-            _boosterAudioHandler.StopPlayRunBoosterImmediately();
+            _boosterScrew.RotateScrew();
         }
-        _isRun = false;
-        _compositeDisposable.Clear();
-        OnBoosterDisable?.Invoke();
-    }
 
-    private void StopBoosterDecrease()
+        if (_boosterScrew.IsSmoothStop == true)
+        {
+            _boosterScrew.SmoothStopScrew();
+        }
+
+        if (_boosterAudioHandler.VolumeIncreaseValue == true)
+        {
+            _boosterAudioHandler.VolumeIncrease();
+        }
+
+        if (_boosterAudioHandler.VolumeDecreaseValue == true)
+        {
+            _boosterAudioHandler.VolumeDecrease();
+        }
+    }
+    public void RunBooster()
     {
-        StopBooster();
-        _boosterAudioHandler.StopPlayRunBoosterDecrease();
+        if (_isBroken == false)
+        {
+            _isRun = true;
+            _boosterAudioHandler.SetAudioIncreaseBooster();
+            _particleSystemBooster.Play();
+        }
+    }
+    public void BoosterDisable()
+    {
+        _particleSystemBooster.Stop();
+        _boosterAudioHandler.StopPlayRunBoosterImmediately();
+        _isBroken = true;
+        _isRun = false;
+        OnBoosterDisable?.Invoke();
     }
     private void StopBooster()
     {
         _isRun = false;
-        _compositeDisposable.Clear();
+        _boosterScrew.IsSmoothStop = true;
         _boosterScrew.SetDefaultRotationSpeed();
         _particleSystemBooster.Stop();
-        Observable.EveryUpdate().Subscribe(_ =>
-        {
-            _boosterScrew.SmoothStopScrew();
-        }).AddTo(_compositeDisposable);
-        
     }
 }

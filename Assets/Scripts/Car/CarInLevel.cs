@@ -16,7 +16,6 @@ public class CarInLevel : Car
     [SerializeField, BoxGroup("WheelGroundInteraction"), HorizontalLine(color:EColor.Yellow)] private LayerMask _groundContactMask;
     [SerializeField, BoxGroup("WheelGroundInteraction"), Layer] private int _asphaltLayer;
     [SerializeField, BoxGroup("WheelGroundInteraction"), Layer] private int _groundLayer;
-    // [SerializeField, BoxGroup("WheelGroundInteraction")] private AnimationCurve _brakeVolumeCurve;
     [SerializeField, BoxGroup("WheelGroundInteraction")] private AnimationCurve _particlesSpeedCurveGasState;
     [SerializeField, BoxGroup("WheelGroundInteraction")] private AnimationCurve _particlesSpeedCurveStopState;
 
@@ -38,8 +37,6 @@ public class CarInLevel : Car
     [SerializeField, BoxGroup("Booster")] private Transform _screw;
     [SerializeField, BoxGroup("Booster")] private SpriteRenderer _blade1;
     [SerializeField, BoxGroup("Booster")] private SpriteRenderer _blade2;
-    // [SerializeField, BoxGroup("Booster")] private AnimationCurve _increaseBoosterSoundCurve;
-    // [SerializeField, BoxGroup("Booster")] private AnimationCurve _decreaseBoosterSoundCurve;
 
     [SerializeField, BoxGroup("HotWheel"), HorizontalLine(color:EColor.Red)] private HotWheelRef _hotWheelRef;
     [SerializeField, BoxGroup("HotWheel"), Range(1f,50f)] private float _hotWheelRotationSpeed;
@@ -117,7 +114,7 @@ public class CarInLevel : Car
         _brakes = new Brakes(_carAudio.WheelsAudioHandler.BrakeAudioHandler, Speedometer, _groundAnalyzer);
         _coupAnalyzer = new CoupAnalyzer(transform);
         _controlActive = true;
-        _carAudio.SuspensionAudioHandler.Init(_groundAnalyzer).Forget();
+        _carAudio.SuspensionAudioHandler.Init(_groundAnalyzer);
         _carAudio.WheelsAudioHandler.Init(_groundAnalyzer);
         TryInitBooster();
         TryInitGun();
@@ -131,8 +128,6 @@ public class CarInLevel : Car
         _moveAnalyzer = new MoveAnalyzer(Speedometer, _controlCar.DriveStarted);
         TryInitStopCauseHandler();
         _bodyRigidbody2D.centerOfMass += _centerMassOffset;
-        _carAudio.EngineAudioHandler.PlayStartEngine();
-
     }
 
     public void UpdateCar()
@@ -148,6 +143,7 @@ public class CarInLevel : Car
         _carFsm.Update();
         if (Booster != null)
         {
+            Booster.Update();
             _currentBoosterFuelQuantity = Booster.BoosterFuelTank.FuelQuantity;
         }
         _groundAnalyzer.Update();

@@ -41,7 +41,7 @@ public class CarsConfigurationsStartSettings : ScriptableObject
     //private List<CarComfiguration> _startConfigurationsCarsInGarage;
     //public IReadOnlyList<CarInGarage> CarsInGarage => _carsInGarage;
     //public IReadOnlyList<CarComfiguration> StartConfigurationsCarsInGarage => _startConfigurationsCarsInGarage;
-    //public void Init()
+    //public void InitFromEntryScene()
     //{
     //    _carsInGarage = new List<CarInGarage>() { _car1InGaragePrefab, _car2InGaragePrefab, _car3InGaragePrefab, _car4InGaragePrefab};
     //    _startConfigurationsCarsInGarage = new List<CarComfiguration>() 

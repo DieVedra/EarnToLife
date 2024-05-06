@@ -22,11 +22,11 @@ public class Map : MonoBehaviour
         //     _segmentsMaps[i].gameObject.SetActive(true);
         //     if (i < _garageConfig.AvailableLotCarIndex)
         //     {
-        //         _segmentsMaps[i].Init(false);
+        //         _segmentsMaps[i].InitFromEntryScene(false);
         //     }
         //     else
         //     {
-        //         _segmentsMaps[i].Init();
+        //         _segmentsMaps[i].InitFromEntryScene();
         //     }
         // }
     }

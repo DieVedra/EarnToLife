@@ -13,23 +13,25 @@ public class EngineAudioHandler : AudioPlayer
     private readonly AudioClip _engineRunAudioClip;
     private readonly CancellationTokenSource _cancellationTokenSource = new CancellationTokenSource();
 
-    public EngineAudioHandler(AudioSource audioSource, ReactiveProperty<bool> soundReactiveProperty,
+    public EngineAudioHandler(AudioSource audioSource, ReactiveProperty<bool> soundReactiveProperty, ReactiveProperty<bool> audioPauseReactiveProperty,
         AudioClip engineStartAudioClip, AudioClip engineStopAudioClip, AudioClip engineRunAudioClip)
-    : base(audioSource, soundReactiveProperty)
+    : base(audioSource, soundReactiveProperty, audioPauseReactiveProperty)
     {
         _engineStartAudioClip = engineStartAudioClip;
         _engineStopAudioClip = engineStopAudioClip;
         _engineRunAudioClip = engineRunAudioClip;
+        PlayStartEngine().Forget();
     }
 
     public void Dispose()
     {
         _cancellationTokenSource.Cancel();
     }
-    public async void PlayStartEngine()
+
+    private async UniTaskVoid PlayStartEngine()
     {
         TryPlayOneShotClip(_engineStartAudioClip);
-        await UniTask.Delay(TimeSpan.FromSeconds(_engineStartAudioClip.length), cancellationToken:_cancellationTokenSource.Token);
+        await UniTask.Delay(TimeSpan.FromSeconds(_engineStartAudioClip.length * 0.3f), cancellationToken:_cancellationTokenSource.Token);
         PlayRun();
     }
     public void PitchControl(float value)
@@ -38,8 +40,9 @@ public class EngineAudioHandler : AudioPlayer
     }
     public void PlaySoundStopEngine()
     {
-        StopPlay();
-        TryPlayClip(_engineStopAudioClip);
+        // StopPlay();
+        StopPlayAndSetNull();
+        TryPlayOneShotClip(_engineStopAudioClip);
     }
     // public void PlaySoundSoftStopEngine()
     // {
@@ -53,8 +56,9 @@ public class EngineAudioHandler : AudioPlayer
     {
         StopPlay();
     }
-    public void PlayRun()
+
+    private void PlayRun()
     {
-        TryPlayClip(_engineRunAudioClip, true);
+        TryPlayClip(_engineRunAudioClip);
     }
 }

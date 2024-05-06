@@ -44,7 +44,7 @@ public class Beam1 : Beam, IHitable, ICutable
             }
             else
             {
-                WoodDestructibleAudioHandler.PlayWoodNotBreakingSound();
+                WoodDestructibleAudioHandler.PlayWoodNotBreakingSound(forceHit);
                 result = false;
             }
         }

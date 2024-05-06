@@ -27,10 +27,9 @@ public class Box : DestructibleObject, IHitable, ICutable
     {
         if (ObjectIsBroken == false)
         {
-            _woodDestructibleAudioHandler.PlayWoodNotBreakingSound();
+            _woodDestructibleAudioHandler.PlayWoodBreakingSound();
             Destruct();
         }
-        Debug.Log($"Cut");
     }
 
     public bool TryBreakOnImpact(float forceHit)
@@ -40,14 +39,14 @@ public class Box : DestructibleObject, IHitable, ICutable
         {
             if (forceHit > Hardness)
             {
-                Debug.Log($"{forceHit}  {Hardness}");
+                // Debug.Log($"{forceHit}  {Hardness}");
                 _woodDestructibleAudioHandler.PlayWoodBreakingSound();
                 Destruct();
                 result = true;
             }
             else
             {
-                _woodDestructibleAudioHandler.PlayWoodNotBreakingSound();
+                _woodDestructibleAudioHandler.PlayWoodNotBreakingSound(forceHit);
                 result = false;
             }
         }

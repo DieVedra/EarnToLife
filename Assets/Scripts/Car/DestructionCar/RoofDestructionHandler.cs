@@ -228,7 +228,7 @@ public class RoofDestructionHandler : DestructionHandler, IDispose
 
     private bool CollisionHandlingRoof(Collision2D collision)
     {
-        Debug.Log($"Overriding CollisionHandling roof ");
+        // Debug.Log($"Overriding CollisionHandling roof ");
 
         bool result = false;
         if (1 << _fallingContentLayer == 1 << collision.gameObject.layer && _isСrushed == false)
@@ -252,7 +252,7 @@ public class RoofDestructionHandler : DestructionHandler, IDispose
         }
         if (_coupAnalyzer.CarIsCoup == true)
         {
-            Debug.Log($"Overriding CollisionHandling roof   CarIsCoup");
+            // Debug.Log($"Overriding CollisionHandling roof   CarIsCoup");
 
             if ((base.CheckCollision(collision) == true)
                 && _carHasBeenCoup == false)

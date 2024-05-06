@@ -62,4 +62,14 @@ public class PlayerDataHandler
     {
         _playerData.NewLevelHasBeenOpen = false;
     }
+
+    public void SetSoundKey(bool key)
+    {
+        _playerData.SoundOn = key;
+    }
+
+    public void SetMusicKey(bool key)
+    {
+        _playerData.MusicOn = key;
+    }
 }

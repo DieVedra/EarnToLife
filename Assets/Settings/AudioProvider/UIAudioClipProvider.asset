@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c11ec62c058f98a4c87bb9da47100150, type: 3}
   m_Name: UIAudioClipProvider
   m_EditorClassIdentifier: 
-  _clipClick: {fileID: 8300000, guid: 4203ea631bc030a4081aa601ff810a40, type: 3}
-  _clipPaySuccess: {fileID: 8300000, guid: b39c6fe2bf3df834ba8296e06877ac05, type: 3}
-  _clipFailPayAudio: {fileID: 8300000, guid: ad0f6183288eba44c9c4b135b6460e7e, type: 3}
+  _clipClick: {fileID: 8300000, guid: e66488c02f3804a498589593a0731d4f, type: 3}
+  _clipPaySuccess: {fileID: 8300000, guid: c8f9da61675ad7b44a2b20670b56f6be, type: 3}
+  _clipFailPayAudio: {fileID: 8300000, guid: 86aaa8f00a1688e4da9a5e13eccd124e, type: 3}

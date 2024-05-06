@@ -9,12 +9,9 @@ public class BinarySave : ISaveMetod
     {
         if (File.Exists(path) == true)
         {
-            using (FileStream file = new FileStream(path, FileMode.Open))
-            {
-                Debug.Log("Load File");
-
-                return _binaryFormatter.Deserialize(file);
-            }
+            using FileStream file = new FileStream(path, FileMode.Open);
+            Debug.Log("File is Loaded");
+            return _binaryFormatter.Deserialize(file);
         }
         else
         {
@@ -27,7 +24,7 @@ public class BinarySave : ISaveMetod
     {
         using (FileStream file = new FileStream(path, FileMode.Create))
         {
-            Debug.Log("Save File");
+            Debug.Log("File Saved");
 
             _binaryFormatter.Serialize(file, data);
         }

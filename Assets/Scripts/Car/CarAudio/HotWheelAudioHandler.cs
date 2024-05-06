@@ -9,18 +9,16 @@ public class HotWheelAudioHandler
 {
     private readonly float _endPitchValue = 0.1f;
     private readonly float _durationPitchChange = 1.5f;
-    // private readonly float _audioClipsDurationMultiplier = 0.3f;
     private readonly AudioPlayer _audioPlayerForWheelsRotate;
     private readonly AudioPlayer _audioPlayerForSlit;
     private readonly AudioClip _wheelsRotateAudioClip;
     private readonly AudioClip _slitAudioClip;
     private readonly CancellationTokenSource _cancellationToken = new CancellationTokenSource();
-    // private bool _oneShotClipIsPlay = false;
-    public HotWheelAudioHandler(AudioSource audioSource1, AudioSource audioSource2, ReactiveProperty<bool> soundReactiveProperty,
+    public HotWheelAudioHandler(AudioSource audioSource1, AudioSource audioSource2, ReactiveProperty<bool> soundReactiveProperty, ReactiveProperty<bool> audioPauseReactiveProperty,
         AudioClip wheelsRotateAudioClip, AudioClip slitAudioClip)
     {
-        _audioPlayerForWheelsRotate = new AudioPlayer(audioSource1, soundReactiveProperty);
-        _audioPlayerForSlit = new AudioPlayer(audioSource2, soundReactiveProperty);
+        _audioPlayerForWheelsRotate = new AudioPlayer(audioSource1, soundReactiveProperty, audioPauseReactiveProperty);
+        _audioPlayerForSlit = new AudioPlayer(audioSource2, soundReactiveProperty, audioPauseReactiveProperty);
         _wheelsRotateAudioClip = wheelsRotateAudioClip;
         _slitAudioClip = slitAudioClip;
     }
@@ -31,12 +29,11 @@ public class HotWheelAudioHandler
     }
     public void PlayRotateWheels()
     {
-        _audioPlayerForWheelsRotate.TryPlayClip(_wheelsRotateAudioClip, true);
+        _audioPlayerForWheelsRotate.TryPlayClip(_wheelsRotateAudioClip);
     }
 
     public async UniTaskVoid StopPlaySoundRotateWheels()
     {
-        // Debug.Log($"StopPlayRotateWheels");
         await _audioPlayerForWheelsRotate.AudioSource.DOPitch(_endPitchValue, _durationPitchChange).WithCancellation(_cancellationToken.Token);
         _audioPlayerForWheelsRotate.StopPlay();
     }

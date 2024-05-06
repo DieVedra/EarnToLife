@@ -3,135 +3,104 @@ using NaughtyAttributes;
 using UniRx;
 using UnityEngine;
 using UnityEngine.Audio;
+using Zenject;
 
 public class GlobalAudio : MonoBehaviour, ISoundPause, IAudioSettingSwitch, IGlobalAudio, IUIAudio
 {
     [SerializeField, BoxGroup("AudioSources"), HorizontalLine(color:EColor.White)] private AudioSource _audioSourceBackground;
     [SerializeField, BoxGroup("AudioSources")] private AudioSource _uI;
-    [SerializeField, BoxGroup("AudioSources")] private AudioSource _forLevel;
-    
-    [SerializeField, BoxGroup("AudioGroups"), HorizontalLine(color:EColor.Yellow)] private AudioMixerGroup _masterMixer;
-    [SerializeField, BoxGroup("AudioGroups")] private AudioMixerGroup _levelMixer;
-    [SerializeField, BoxGroup("AudioGroups")] private AudioMixerGroup _backgroundMixer;
-    private GlobalAudioValues _globalAudioValues = new GlobalAudioValues();
-    private AudioClip _clipBackground;
+    private readonly GlobalAudioValues _globalAudioValues = new GlobalAudioValues();
+    private PlayerDataHandler _playerDataHandler;
     public UIAudioClipProvider UIAudioClipProvider { get; private set; }
     public AudioSource UI => _uI;
-    private AudioSource[] _audioSourcesAll;
-
-    // public event Action OnSoundChange; 
     public bool SoundOn => SoundReactiveProperty.Value;
-    public bool MusicOn => MusicReactiveProperty.Value;
-    public ReactiveProperty<bool> SoundReactiveProperty { get; private set; } = new ReactiveProperty<bool>();
-    public ReactiveProperty<bool> MusicReactiveProperty { get; private set; } = new ReactiveProperty<bool>();
-
-    public void Construct(UIAudioClipProvider uIAudioClipProvider, AudioClip clipBackground, bool keySound, bool keyMusic)
+    public bool MusicOn { get; private set; }
+    public ReactiveProperty<bool> SoundReactiveProperty { get; private set; }
+    public ReactiveProperty<bool> AudioPauseReactiveProperty { get; private set; }
+    
+    [Inject]
+    private void Construct(AudioClipProvider audioClipProvider)
     {
-        UIAudioClipProvider = uIAudioClipProvider;
-        _clipBackground = clipBackground;
-        SoundReactiveProperty.Value = keySound;
-        MusicReactiveProperty.Value = keyMusic;
+        UIAudioClipProvider ??= audioClipProvider.UIAudioClipProvider;
+        _audioSourceBackground.clip ??= audioClipProvider.ClipBackground;
+    }
+    public void InitFromEntryScene(PlayerDataHandler playerDataHandler)
+    {
+        _playerDataHandler ??= playerDataHandler;
+        InitReactiveProperties();
+        MusicOn = playerDataHandler.PlayerData.MusicOn;
         if (MusicOn == true)
         {
-            SetAndPlayBackground();
+            PlayBackground();
         }
-        _audioSourcesAll = new[]
-        {
-            _uI
-        };
     }
-    private void StopBackground()
+
+    private void InitReactiveProperties()
     {
-        _audioSourceBackground.Stop();
-        _audioSourceBackground.clip = null;
+        SoundReactiveProperty = new ReactiveProperty<bool> { Value = _playerDataHandler.PlayerData.SoundOn };
+        AudioPauseReactiveProperty = new ReactiveProperty<bool> { Value = false };
+    }
+    public void DisposeAndReInit()
+    {
+        SoundReactiveProperty.Dispose();
+        AudioPauseReactiveProperty.Dispose();
+        InitReactiveProperties();
     }
     public void SetMusicOff()
     {
-        MusicReactiveProperty.Value = false;
-        // OnMusicChange?.Invoke(MusicOn);
+        SetMusic(false);
         StopBackground();
     }
     public void SetMusicOn()
     {
-        MusicReactiveProperty.Value = true;
-        // OnMusicChange?.Invoke(MusicOn);
-        SetAndPlayBackground();
+        SetMusic(true);
+        PlayBackground();
     }
     public void SetSoundsOff()
     {
-        SoundReactiveProperty.Value = false;
-        StopAllSources();
-        MuteMaster();
+        SetSounds(false);
     }
     public void SetSoundsOn()
     {
-        SoundReactiveProperty.Value = true;
-        UnmuteMaster();
+        SetSounds(true);
     }
-    private void SetAndPlayBackground()
+    private void SetSounds(bool key)
     {
-        _audioSourceBackground.clip = _clipBackground;
+        SoundReactiveProperty.Value = key;
+        _playerDataHandler.SetSoundKey(SoundReactiveProperty.Value);
+    }
+    private void SetMusic(bool key)
+    {
+        MusicOn = key;
+        _playerDataHandler.SetMusicKey(MusicOn);
+    }
+    private void SetPauseVolumeMusic()
+    {
+        _audioSourceBackground.volume = _globalAudioValues.VolumeBackgroundMusicLow;
+    }
+    private void SetNormalVolumeMusic()
+    {
+        _audioSourceBackground.volume = _globalAudioValues.VolumeBackgroundMusicNormal;
+    }
+    private void PlayBackground()
+    {
         _audioSourceBackground.Play();
     }
-
-    private void MuteMaster()
+    private void StopBackground()
     {
-        StopAllSources();
-        _masterMixer.audioMixer.SetFloat(_globalAudioValues.NameVolumeMaster, _globalAudioValues.VolumeLevelLow);
-    }
-    private void UnmuteMaster()
-    {
-        PlayAllSources();
-        _masterMixer.audioMixer.SetFloat(_globalAudioValues.NameVolumeMaster, _globalAudioValues.VolumeNormal);
-    }
-
-    private void PauseAllSources()
-    {
-        SelectionSources(PauseSource);
-    }
-    private void StopAllSources()
-    {
-        Debug.Log($"StopAllSources");
-        SelectionSources(StopSource);
-    }
-    private void PlayAllSources()
-    {
-        SelectionSources(PlaySource);
-    }
-
-    private void SelectionSources(Action<AudioSource> operation)
-    {
-        for (int i = 0; i < _audioSourcesAll.Length; i++)
-        {
-            operation.Invoke(_audioSourcesAll[i]);
-        }
-    }
-
-    private void PauseSource(AudioSource audioSource)
-    {
-        audioSource.Pause();
-    }
-    private void StopSource(AudioSource audioSource)
-    {
-        audioSource.Stop();
-    }
-    private void PlaySource(AudioSource audioSource)
-    {
-        audioSource.Play();
+        _audioSourceBackground.Stop();
     }
     public void SoundOnPause(bool pause)
     {
+        AudioPauseReactiveProperty.Value = pause;
+
         if (pause == true)
         {
-            PauseAllSources();
-            _levelMixer.audioMixer.SetFloat(_globalAudioValues.NameVolumeLevel, _globalAudioValues.VolumeLevelLow);
-            _backgroundMixer.audioMixer.SetFloat(_globalAudioValues.NameVolumeBackgroundMusic, _globalAudioValues.VolumeBackgroundMusicLow);
+            SetPauseVolumeMusic();
         }
         else
         {
-            PlayAllSources();
-            _levelMixer.audioMixer.SetFloat(_globalAudioValues.NameVolumeLevel, _globalAudioValues.VolumeNormal);
-            _backgroundMixer.audioMixer.SetFloat(_globalAudioValues.NameVolumeBackgroundMusic, _globalAudioValues.VolumeBackgroundNormal);
+            SetNormalVolumeMusic();
         }
     }
 }

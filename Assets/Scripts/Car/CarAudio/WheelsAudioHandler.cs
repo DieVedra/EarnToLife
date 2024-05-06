@@ -1,18 +1,12 @@
-﻿using System.Threading;
-using Cysharp.Threading.Tasks;
-using DG.Tweening;
-using UniRx;
+﻿using UniRx;
 using UnityEngine;
 
 public class WheelsAudioHandler : AudioPlayer
 {
     private readonly float _volumeDefault = 0.01f;
-    private readonly float _valueEndTimer = 1f;
-    private readonly float _duration = 1.5f;
     private readonly float _deltaTimeMultiplier = 0.33f;
     private readonly AudioClip _wheelHitAudioClip;
-    private CancellationTokenSource _cancellationTokenSource = new CancellationTokenSource();
-    private CompositeDisposable _compositeDisposable = new CompositeDisposable();
+    private readonly CompositeDisposable _compositeDisposable = new CompositeDisposable();
     private GroundAnalyzer _groundAnalyzer;
     private float _wheelsVolume;
     private bool _previousFrontWheelContactValue;
@@ -21,12 +15,12 @@ public class WheelsAudioHandler : AudioPlayer
     private ReactiveProperty<bool> _frontWheelContactReactiveProperty => _groundAnalyzer.FrontWheelContactReactiveProperty;
     private ReactiveProperty<bool> _backWheelContactReactiveProperty => _groundAnalyzer.BackWheelContactReactiveProperty;
     public BrakeAudioHandler BrakeAudioHandler { get; private set; }
-    public WheelsAudioHandler(AudioSource forWheelsFriction, AudioSource forWheelsHit, ReactiveProperty<bool> soundReactiveProperty,
+    public WheelsAudioHandler(AudioSource forWheelsFriction, AudioSource forWheelsHit, ReactiveProperty<bool> soundReactiveProperty, ReactiveProperty<bool> audioPauseReactiveProperty,
         AudioClip brakeAudioClip, AudioClip brake2AudioClip, AudioClip wheelHitAudioClip, AnimationCurve brakeVolumeCurve)
-        : base(forWheelsHit, soundReactiveProperty)
+        : base(forWheelsHit, soundReactiveProperty, audioPauseReactiveProperty)
     {
         _wheelHitAudioClip = wheelHitAudioClip;
-        BrakeAudioHandler = new BrakeAudioHandler(forWheelsFriction, soundReactiveProperty, brakeAudioClip, brake2AudioClip, brakeVolumeCurve);
+        BrakeAudioHandler = new BrakeAudioHandler(forWheelsFriction, soundReactiveProperty, audioPauseReactiveProperty, brakeAudioClip, brake2AudioClip, brakeVolumeCurve);
         SetVolume(_volumeDefault);
     }
 
@@ -66,7 +60,6 @@ public class WheelsAudioHandler : AudioPlayer
             TryStartTimer();
         }
     }
-
     private void TryStartTimer()
     {
         if (_timerOn == false)
@@ -85,19 +78,6 @@ public class WheelsAudioHandler : AudioPlayer
             }).AddTo(_compositeDisposable);
         }
     }
-
-    // private async UniTaskVoid TryStartTimer()
-    // {
-    //     if (_timerOn == false)
-    //     {
-    //         _timerOn = true;
-    //         _wheelsVolume = _volumeDefault;
-    //         await DOTween.To(() => _wheelsVolume, x => _wheelsVolume = x, _valueEndTimer, _duration).WithCancellation(_cancellationTokenSource.Token);
-    //         SetVolume(_wheelsVolume);
-    //         _timerOn = false;
-    //     }
-    // }
-
     private void TryStopTimer()
     {
         _compositeDisposable.Clear();

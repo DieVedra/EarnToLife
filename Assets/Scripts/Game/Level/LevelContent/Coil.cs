@@ -34,7 +34,7 @@ public class Coil : DestructibleObject, IHitable
             }
             else
             {
-                _woodDestructibleAudioHandler.PlayWoodNotBreakingSound();
+                _woodDestructibleAudioHandler.PlayWoodNotBreakingSound(forceHit);
                 result = false;
             }
         }

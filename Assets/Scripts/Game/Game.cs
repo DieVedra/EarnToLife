@@ -48,15 +48,15 @@ public class Game : MonoBehaviour
     private void Construct()
     {
         // _cinemachineVirtualCamera.
-        // _pool.Init(_spawner);
+        // _pool.InitFromEntryScene(_spawner);
         // for (int i = 0; i < _botsWithAK.Length; i++)
         // {
-        //     _botsWithAK[i].Init(_car.transform, _pool.BulletAKReservoir, _killsCounter);
+        //     _botsWithAK[i].InitFromEntryScene(_car.transform, _pool.BulletAKReservoir, _killsCounter);
         // }
         // _towers = _buildingsParent.GetComponentsInChildren<Tower>();
         // for (int i = 0; i < _towers.Length; i++)
         // {
-        //     _towers[i].Init(_car.transform, _pool.BulletAKReservoir, _spawner, _killsCounter);
+        //     _towers[i].InitFromEntryScene(_car.transform, _pool.BulletAKReservoir, _spawner, _killsCounter);
         // }
     }
 
@@ -80,7 +80,7 @@ public class Game : MonoBehaviour
 
     private void InitLevel()
     {
-        // _level.Init(_factory, _levelPrefabsProvider);
+        // _level.InitFromEntryScene(_factory, _levelPrefabsProvider);
     }
     private void InitCar()
     {
@@ -149,18 +149,20 @@ public class Game : MonoBehaviour
     }
     private void OnApplicationQuit()
     {
-        _saveService.SetPlayerDataToSaving(_playerDataHandler.PlayerData);
+        // Debug.Log($"OnApplicationQuit Game    SaveOn: {_gameData.SaveOn}");
+        _saveService.SetPlayerDataToSaving(_playerDataHandler.PlayerData, _gameData.SaveOn);
     }
     private void OnApplicationPause(bool pause)
     {
         if (pause is true)
         {
-            _saveService.SetPlayerDataToSaving(_playerDataHandler.PlayerData);
+            _saveService.SetPlayerDataToSaving(_playerDataHandler.PlayerData, _gameData.SaveOn);
         }
     }
 
-    private void OnDisable()
+    private void OnDestroy()
     {
         _resultsLevelProvider.Dispose();
+        _globalAudio.DisposeAndReInit();
     }
 }

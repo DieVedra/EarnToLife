@@ -7,9 +7,9 @@ public class BrakeAudioHandler : AudioPlayer
     private readonly AudioClip _brake2AudioClip;
     private readonly AnimationCurve _brakeVolumeCurve;
 
-    public BrakeAudioHandler(AudioSource audioSource, ReactiveProperty<bool> soundReactiveProperty, 
+    public BrakeAudioHandler(AudioSource audioSource, ReactiveProperty<bool> soundReactiveProperty, ReactiveProperty<bool> audioPauseReactiveProperty,
         AudioClip brakeAudioClip, AudioClip brake2AudioClip, AnimationCurve brakeVolumeCurve)
-        : base(audioSource, soundReactiveProperty)
+        : base(audioSource, soundReactiveProperty, audioPauseReactiveProperty)
     {
         _brakeAudioClip = brakeAudioClip;
         _brake2AudioClip = brake2AudioClip;
@@ -18,7 +18,7 @@ public class BrakeAudioHandler : AudioPlayer
 
     public void PlayBrake()
     {
-        TryPlayClip(true);
+        TryPlayClip();
     }
     public void TrySetGroundClip()
     {

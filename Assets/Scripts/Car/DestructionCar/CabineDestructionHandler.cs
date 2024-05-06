@@ -33,7 +33,7 @@ public class CabineDestructionHandler :DestructionHandler, IDispose
             SetParentDebris(_headrest);
             _destructionAudioHandler.PlayDriverNeckBroke();
             OnDriverCrushed?.Invoke();
-            Debug.Log("game over driver crushed");
+            // Debug.Log("game over driver crushed");
         }
     }
     public void Dispose()

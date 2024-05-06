@@ -13,51 +13,41 @@ public class BoosterAudioHandler : AudioPlayer
     private readonly float _startDecreaseValue = 1f;
     private readonly AudioClip _boosterRunAudioClip;
     private readonly AudioClip _boosterEndFuel;
-    private readonly CompositeDisposable _compositeDisposable = new CompositeDisposable();
     private readonly AnimationCurve _increaseBoosterSoundCurve;
     private readonly AnimationCurve _decreaseBoosterSoundCurve;
     private float _currentAudioValue;
     private float _currentEvaluateCurveValue;
-    public BoosterAudioHandler(AudioSource audioSource, ReactiveProperty<bool> soundReactiveProperty,
+    public bool VolumeIncreaseValue = false;
+    public bool VolumeDecreaseValue = false;
+    public BoosterAudioHandler(AudioSource audioSource, ReactiveProperty<bool> soundReactiveProperty, ReactiveProperty<bool> audioPauseReactiveProperty,
         AudioClip boosterRunAudioClip, AudioClip boosterEndFuel,
         AnimationCurve increaseBoosterSoundCurve, AnimationCurve decreaseBoosterSoundCurve)
-    :base(audioSource, soundReactiveProperty)
+    :base(audioSource, soundReactiveProperty, audioPauseReactiveProperty)
     {
         _boosterRunAudioClip = boosterRunAudioClip;
         _boosterEndFuel = boosterEndFuel;
         _increaseBoosterSoundCurve = increaseBoosterSoundCurve;
         _decreaseBoosterSoundCurve = decreaseBoosterSoundCurve;
-    }
-    public void PlayRunBooster()
-    {
         _currentAudioValue = _startIncreaseValue;
-        _compositeDisposable.Clear();
-        TryPlayClip(_boosterRunAudioClip, true);
-        Observable.EveryUpdate().Subscribe(_ =>
-        {
-            VolumeIncrease();
-        }).AddTo(_compositeDisposable);
     }
-    public void StopPlayRunBoosterDecrease()
+    public void SetAudioIncreaseBooster()
     {
-        StopPlayRunBooster();
-        Observable.EveryUpdate().Subscribe(_ =>
-        {
-            VolumeDecrease();
-        }).AddTo(_compositeDisposable);
+        TryPlayClip(_boosterRunAudioClip);
+        VolumeIncreaseValue = true;
+        VolumeDecreaseValue = false;
+    }
+    public void SetDecreaseBooster()
+    {
+        VolumeDecreaseValue = true;
+        VolumeIncreaseValue = false;
     }
     public void StopPlayRunBoosterImmediately()
     {
-        StopPlayRunBooster();
-        StopPlay();
+        VolumeDecreaseValue = false;
+        VolumeIncreaseValue = false;
+        StopPlayAndSetNull();
     }
-
-    private void StopPlayRunBooster()
-    {
-        _currentAudioValue = _startDecreaseValue;
-        _compositeDisposable.Clear();
-    }
-    private void VolumeIncrease() //++
+    public void VolumeIncrease() //++
     {
         if (_currentAudioValue < _startDecreaseValue)
         {
@@ -66,11 +56,10 @@ public class BoosterAudioHandler : AudioPlayer
         }
         else
         {
-            _compositeDisposable.Clear();
+            VolumeIncreaseValue = false;
         }
     }
-
-    private void VolumeDecrease() // --
+    public void VolumeDecrease() // --
     {
         if (_currentAudioValue > _startIncreaseValue)
         {
@@ -79,11 +68,10 @@ public class BoosterAudioHandler : AudioPlayer
         }
         else
         {
-            _compositeDisposable.Clear();
-            StopPlay();
+            VolumeDecreaseValue = false;
+            StopPlayAndSetNull();
         }
     }
-
     private float GetIncreaseValue()
     {
         return _increaseBoosterSoundCurve.Evaluate(_currentAudioValue);

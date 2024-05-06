@@ -15,9 +15,4 @@ public class LevelAudio : MonoBehaviour
         _levelAudioSource = GetComponent<AudioSource>();
         _levelAudioHandler = new LevelAudioHandler(_levelAudioSource, globalAudio, audioClipProvider.LevelAudioClipProvider);
     }
-
-    private void OnDisable()
-    {
-        _levelAudioHandler.Dispose();
-    }
 }

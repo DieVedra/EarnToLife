@@ -13,7 +13,7 @@ public class BoosterScrew
     private SpriteRenderer _blade2;
     private float _smoothRotationSpeed;
     private float _screwRotationX => _screw.rotation.eulerAngles.x;
-    public CompositeDisposable CompositeDisposable = new CompositeDisposable();
+    public bool IsSmoothStop = false;
 
     public BoosterScrew(Transform screw, SpriteRenderer blade1, SpriteRenderer blade2, float rotationSpeed)
     {
@@ -37,7 +37,7 @@ public class BoosterScrew
         }
         else
         {
-            CompositeDisposable.Clear();
+            IsSmoothStop = false;
         }
     }
 

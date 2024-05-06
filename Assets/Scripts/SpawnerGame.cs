@@ -9,7 +9,7 @@ public class SpawnerGame : Spawner
     private CarInLevel _carInLevelPrefab;
     // private Bot _botWitgAK;
     private Transform[] _positionsSpawnBots;
-    // public void Init(PrefabStorage prefabStorage, out Car car, out Bot[] bots)
+    // public void InitFromEntryScene(PrefabStorage prefabStorage, out Car car, out Bot[] bots)
     // {
     //     InitPrefabs(prefabStorage);
     //     car = Spawn(_carPrefab, _positionSpawnCar, _positionSpawnCar);

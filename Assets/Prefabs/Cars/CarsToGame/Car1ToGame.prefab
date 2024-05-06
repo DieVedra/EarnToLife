@@ -9364,7 +9364,7 @@ MonoBehaviour:
   _rateFire: 1
   _forceGun: 100
   _boosterRef: {fileID: 9042794177794335303}
-  _rotationSpeed: 20
+  _rotationSpeed: 40
   _force: 500
   _boosterParticleSystem: {fileID: 3661841303187386640}
   _screw: {fileID: 7361724965616973970}
@@ -38588,7 +38588,7 @@ AudioSource:
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
   m_Volume: 1
-  m_Pitch: 1
+  m_Pitch: -1
   Loop: 0
   Mute: 0
   Spatialize: 0

@@ -18,10 +18,10 @@ public class DestructionAudioHandler : AudioPlayer, IDispose
     private AnimationCurve _destructionAudioCurve;
     private bool _hitSoundIsPlay = false;
 
-    public DestructionAudioHandler(AudioSource audioSource, ReactiveProperty<bool> soundReactiveProperty,
+    public DestructionAudioHandler(AudioSource audioSource, ReactiveProperty<bool> soundReactiveProperty, ReactiveProperty<bool> audioPauseReactiveProperty,
         AudioClip carBurnAudioClip, AudioClip carHardHitAudioClip, AudioClip carSoftHitAudioClip, AudioClip glassBreakingAudioClip,
         AudioClip metalBendsAudioClip, AudioClip engineBrokenAudioClip, AudioClip driverNeckBrokeAudioClip)
-        : base(audioSource, soundReactiveProperty)
+        : base(audioSource, soundReactiveProperty, audioPauseReactiveProperty)
     {
         _carBurnAudioClip = carBurnAudioClip;
         _carHardHitAudioClip = carHardHitAudioClip;
@@ -85,7 +85,7 @@ public class DestructionAudioHandler : AudioPlayer, IDispose
         TryPlayOneShotClip(_engineBrokenAudioClip);
         Observable.Timer(TimeSpan.FromSeconds(_engineBrokenAudioClip.length)).Subscribe(_ =>
         {
-            TryPlayClip(_carBurnAudioClip, true);
+            TryPlayClip(_carBurnAudioClip);
             _compositeDisposableBurn.Clear();
         }).AddTo(_compositeDisposableBurn);
     }
@@ -98,7 +98,7 @@ public class DestructionAudioHandler : AudioPlayer, IDispose
     public void PlayRoofBends()
     {
         SetVolume(_defaultVolume);
-        Debug.Log($"                         PlayRoofBends:                     {AudioSource.volume}");
+        // Debug.Log($"                         PlayRoofBends:                     {AudioSource.volume}");
         TryPlayOneShotClip(_metalBendsAudioClip);
     }
 

@@ -51,7 +51,7 @@ public class Beam2 : Beam, IHitable, ICutable
                         }
                         else
                         {
-                                WoodDestructibleAudioHandler.PlayWoodNotBreakingSound();
+                                WoodDestructibleAudioHandler.PlayWoodNotBreakingSound(forceHit);
                                 result = false;
                         }
                 }
@@ -89,8 +89,6 @@ public class Beam2 : Beam, IHitable, ICutable
 
         private Vector3 GetMediumPositionFragment()
         {
-                // Vector2 newPos = _sprite.transform.position;
-                // newPos.x += _sprite.size.x * HalfWidthMultiplier + _offsetPositionMediumFragment;
                 return CalculatePosition(_sprite.size.x * HalfWidthMultiplier );
         }
 
