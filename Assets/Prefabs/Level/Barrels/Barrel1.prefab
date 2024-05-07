@@ -390,12 +390,17 @@ MonoBehaviour:
   WholeObjectTransform: {fileID: 2967043129396640925}
   Hardness: 20
   _debrisParentLocal: {fileID: 8844812032683728171}
-  _force: 230
+  _forceBlastWave: 300
   _radiusShockWave: 5
   _radiusBurnWave: 1.6666666
+  _startDelay: 1.5
+  _explosionDelay: 0.5
   _blastWaveMask:
     serializedVersion: 2
     m_Bits: 7864832
+  _groundMask:
+    serializedVersion: 2
+    m_Bits: 8847360
   _extinctionBlastWaveCurve:
     serializedVersion: 2
     m_Curve:

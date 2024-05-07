@@ -28,7 +28,6 @@ public class Game : MonoBehaviour
     [Inject] private GarageData _garageData;
     [Inject] private IInstantiator _instantiator;
     [Inject] private LevelPrefabsProvider _levelPrefabsProvider;
-    // [Inject] private CarAudioInitializer _carAudioInitializer;
     [Inject] private AudioClipProvider _audioClipProvider;
 
 

@@ -77,8 +77,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/Analyzers/GroundAnalyzer.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/ScriptableObjectScripts/Providers/AudioClipsProviders/LevelAudioClipProvider.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Installers/LevelScenesInstallers/LevelContentInstaller.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Audio/AudioSettingSwitch.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Interfaces/IUIAudio.cs" />
@@ -89,7 +87,6 @@
         <option value="$PROJECT_DIR$/Assets/Scripts/UI/UILevelScene/Model/PanelsHandler.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Game/Level/Level.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Interfaces/ILevel.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Game/Level/LevelContent/Barrel/Barrel.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Audio/GlobalAudioValues.cs" />
         <option value="$PROJECT_DIR$/Assets/Settings/AudioProvider/curvetest.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Interfaces/IGlobalAudio.cs" />
@@ -100,8 +97,6 @@
         <option value="$PROJECT_DIR$/Assets/Scripts/Game/Player/PlayerDataHandler.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Game/Level/LevelContent/Beam/Beam1.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Game/Level/LevelContent/Coil.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Game/Level/Audio/BarrelAudioHandler.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Game/Level/Audio/LevelAudioHandler.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Game/Level/Audio/LevelAudio.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Car/CarAudio/GunAudioHandler.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Car/CarAudio/HotWheelAudioHandler.cs" />
@@ -127,7 +122,12 @@
         <option value="$PROJECT_DIR$/Assets/Scripts/Audio/GlobalAudio.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Car/CarAudio/EngineAudioHandler.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Car/CarAudio/BoosterAudioHandler.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/ScriptableObjectScripts/Providers/AudioClipsProviders/LevelAudioClipProvider.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Game/Level/Audio/LevelAudioHandler.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Game/Level/Audio/BarrelAudioHandler.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Game/Game.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Game/Level/LevelContent/Barrel/Barrel.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Game/Level/LevelContent/Barrel/BlastWave.cs" />
       </list>
     </option>
   </component>
@@ -219,6 +219,7 @@
       <workItem from="1714730053442" duration="15485000" />
       <workItem from="1714853748471" duration="5211000" />
       <workItem from="1714988891037" duration="24801000" />
+      <workItem from="1715073570318" duration="8695000" />
     </task>
     <task id="LOCAL-00001" summary="Roof Destruction changed&#10;Back Wing Destruction changed">
       <created>1710195340693</created>

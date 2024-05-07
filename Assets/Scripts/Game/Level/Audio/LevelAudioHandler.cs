@@ -17,7 +17,9 @@ public class LevelAudioHandler
         BarrelAudioHandler = new BarrelAudioHandler(levelAudioSource,
             globalAudio.SoundReactiveProperty, globalAudio.AudioPauseReactiveProperty,
             levelAudioClipProvider.HitBarrelAudioClip,
-            levelAudioClipProvider.HitDebrisBarrelAudioClip,
-            levelAudioClipProvider.ExplodeBarrelAudioClip);
+            levelAudioClipProvider.Hit1DebrisBarrelAudioClip,
+            levelAudioClipProvider.Hit2DebrisBarrelAudioClip,
+            levelAudioClipProvider.Explode1BarrelAudioClip,
+            levelAudioClipProvider.Explode2BarrelAudioClip);
     }
 }

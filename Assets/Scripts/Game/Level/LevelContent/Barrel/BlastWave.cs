@@ -10,7 +10,7 @@ public class BlastWave
     private readonly BarrelPool _barrelPool;
     private readonly Transform _transformPointReference;
     private readonly AnimationCurve _extinctionBlastWaveCurve;
-    private readonly ContactFilter2D _contactFilter = new ContactFilter2D();
+    private readonly ContactFilter2D _contactFilter;
     private float _forceShockWaveInRadius;
     private List<Collider2D> _hitCollidersAfterSphereCast = new List<Collider2D>(200);
     public BlastWave(BarrelPool barrelPool, Transform transformPointReference, AnimationCurve extinctionBlastWaveCurve, LayerMask blastWaveMask,
@@ -22,6 +22,7 @@ public class BlastWave
         _radiusShockWave = radiusShockWave;
         _radiusBurnWave = radiusBurnWave;
         _force = force;
+        _contactFilter = new ContactFilter2D();
         _contactFilter.SetLayerMask(blastWaveMask);
     }
 
@@ -29,6 +30,7 @@ public class BlastWave
     {
         if (TryCastSphere())
         {
+            Debug.Log($" hitCollidersAfterSphereCast {_hitCollidersAfterSphereCast.Count}");
             for (int i = 0; i < _hitCollidersAfterSphereCast.Count; i++)
             {
 
@@ -41,8 +43,23 @@ public class BlastWave
     }
     private bool TryHitableInteract(Collider2D collider2D)
     {
-        if (collider2D.transform.parent.TryGetComponent(out IHitable hitable))
+        if (collider2D.transform.parent.TryGetComponent(out Barrel barrel))
         {
+            Debug.Log($"      barrel");
+
+            _forceShockWaveInRadius = CalculateForceShockWaveInRadius(barrel.Position);
+            if (barrel.IsBroken == false)
+            {
+                AddForceBlastWaveToBarrel(barrel);
+                barrel.TryBreakOnExplosion(_forceShockWaveInRadius);
+            }
+            return true;
+
+        }
+        else if (collider2D.transform.parent.TryGetComponent(out IHitable hitable))
+        {
+            Debug.Log($"    hitable");
+
             if (hitable.IsBroken == false)
             {
                 _forceShockWaveInRadius = CalculateForceShockWaveInRadius(hitable.Position);
@@ -60,6 +77,8 @@ public class BlastWave
         }
         else
         {
+            Debug.Log($"    HitableInteract   false");
+
             return false;
         }
     }
@@ -73,6 +92,9 @@ public class BlastWave
             rigidbody2D.AddForce(force);
             
             TryAddEffectToDebrisPiece(rigidbody2D.transform);
+            
+            Debug.Log($"    force  {force}");
+
         }
     }
     private void AddForceBlastWaveToDebris(IReadOnlyList<DebrisFragment> debrisFragments)
@@ -83,6 +105,13 @@ public class BlastWave
                 CalculateDirectionBlastWave(debrisFragments[i].FragmentTransform.position, _transformPointReference.position)
                 * CalculateForceShockWaveInRadius(debrisFragments[i].FragmentTransform.position));
             TryAddEffectToDebrisPiece(debrisFragments[i].FragmentTransform);
+
+
+
+            var a = CalculateDirectionBlastWave(debrisFragments[i].FragmentTransform.position,
+                        _transformPointReference.position)
+                    * CalculateForceShockWaveInRadius(debrisFragments[i].FragmentTransform.position);
+            Debug.Log($"debrisFragment   index: {i}      force:{a}");
         }
     }
     
@@ -98,6 +127,12 @@ public class BlastWave
     {
         hitable.AddForce(
             CalculateDirectionBlastWave(hitable.Position, _transformPointReference.position)
+            * _forceShockWaveInRadius);
+    }
+    private void AddForceBlastWaveToBarrel(Barrel barrel)
+    {
+        barrel.AddForce(
+            CalculateDirectionBlastWave(barrel.Position, _transformPointReference.position)
             * _forceShockWaveInRadius);
     }
     private bool TryCastSphere()

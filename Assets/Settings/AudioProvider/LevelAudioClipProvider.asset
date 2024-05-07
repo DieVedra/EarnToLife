@@ -18,6 +18,8 @@ MonoBehaviour:
   _hitWood1AudioClip: {fileID: 8300000, guid: 5f9ff61bd5152e84e865f887d4b2f5d6, type: 3}
   _hitWood2AudioClip: {fileID: 8300000, guid: a144976e3f2095646b1e8080a18ef348, type: 3}
   _hitWood3AudioClip: {fileID: 8300000, guid: 6b785640256cf5f438b30364f6613408, type: 3}
-  _hitBarrelAudioClip: {fileID: 0}
-  _hitDebrisBarrelAudioClip: {fileID: 0}
-  _explodeBarrelAudioClip: {fileID: 0}
+  _hitBarrelAudioClip: {fileID: 8300000, guid: 4ee5396b3b2015446b5e3a33e2dda34b, type: 3}
+  _hit1DebrisBarrelAudioClip: {fileID: 8300000, guid: 571d211c359625c48bf37643b0b04295, type: 3}
+  _hit2DebrisBarrelAudioClip: {fileID: 8300000, guid: d72c11dd8dc41c44ea47ccca40da8a79, type: 3}
+  _explode1BarrelAudioClip: {fileID: 8300000, guid: 0d1eed6dca699b745b5a3448ae2a5480, type: 3}
+  _explode2BarrelAudioClip: {fileID: 8300000, guid: 0c130d9d07a7bbf4cb1fcb3389d552cd, type: 3}
