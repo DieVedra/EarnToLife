@@ -109,7 +109,7 @@ public class CarGunDetector
     }
     private bool CheckLiveTarget(IShotable shotable)
     {
-        if (shotable.IsLive == true)
+        if (shotable.IsBroken == false)
         {
             return true;
         }

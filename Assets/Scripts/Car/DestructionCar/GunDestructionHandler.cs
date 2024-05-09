@@ -50,8 +50,6 @@ public sealed class GunDestructionHandler : DestructionHandler, IDispose
 
     private bool CollisionHandlingGun(Collision2D collision)
     {
-        Debug.Log($"Overriding CollisionHandling GUN Start ");
-
         bool result = false;
         if (1 << _fallingContentLayer == 1 << collision.gameObject.layer && _isСrushed == false)
         {
@@ -73,8 +71,6 @@ public sealed class GunDestructionHandler : DestructionHandler, IDispose
         }
         if (_coupAnalyzer.CarIsCoup == true || _coupAnalyzer.CarIsTilted == true)
         {
-            Debug.Log($"Overriding CollisionHandling gun   CarIsCoup: {_coupAnalyzer.CarIsCoup}");
-
             if ((base.CheckCollision(collision) == true)
                 && _carHasBeenCoup == false)
             {
@@ -102,25 +98,19 @@ public sealed class GunDestructionHandler : DestructionHandler, IDispose
                 result = false;
             }
         }
-        Debug.Log($"Overriding CollisionHandling GUN end   result: {result} ");
-
         return result;
     }
     protected override void TrySwitchMode()
     {
-        Debug.Log($" GunDestruction  TrySwitchMode   ImpulseNormalValue: {ImpulseNormalValue}  MaxStrength: {MaxStrength}");
-
         if (ImpulseNormalValue > MaxStrength)
         {
             PlayEffect();
             TryDestruct();
-            Debug.Log($" GunDestruction 1");
         }
         else
         {
             RecalculateStrength();
             PlaySoftHitSound();
-            Debug.Log($"GunDestruction 2");
         }
     }
 

@@ -22,7 +22,9 @@ public class Level : MonoBehaviour, ILevel
         _levelPool = new LevelPool(
             new BarrelPool(
                 levelPrefabsProvider.LevelParticlesProvider.BarrelExplosion,
-                levelPrefabsProvider.LevelParticlesProvider.DebrisBarrelEffect, factory, _barrelPoolEffectsParent)
+                levelPrefabsProvider.LevelParticlesProvider.BarrelBurnEffect,
+                levelPrefabsProvider.LevelParticlesProvider.DebrisBarrelEffect,
+                factory, _barrelPoolEffectsParent)
             );
         _levelAudio.Init(audioClipProvider, globalAudio);
     }

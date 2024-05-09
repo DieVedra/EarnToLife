@@ -39,12 +39,18 @@ public class GlassDestructionHandler : DestructionHandler, IDispose
 
     public void TryBreakGlassFromWings()
     {
-        TryBreakGlass(_glassRef.transform.position, ImpulseNormalValue);
+        if (_isBreaked == false)
+        {
+            TryBreakGlass(_glassRef.transform.position, ImpulseNormalValue);
+        }
     }
 
     private void TryBreakGlassFromHit()
     {
-        TryBreakGlass(HitPosition, ImpulseNormalValue);
+        if (_isBreaked == false)
+        {
+            TryBreakGlass(HitPosition, ImpulseNormalValue);
+        }
     }
     private void TryBreakGlass(Vector2 position, float force)
     {

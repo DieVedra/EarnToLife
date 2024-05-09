@@ -103,12 +103,6 @@ public class GroundAnalyzer
             wheelOnAsphaltReactiveProperty.Value = false;
             setContactPointWheel(hit);
         }
-        // else if (hit.transform.gameObject.layer == _asphaltLayer)
-        // {
-        //     wheelOnGroundReactiveProperty.Value = false;
-        //     wheelOnAsphaltReactiveProperty.Value = true;
-        //     setContactPointWheel(hit);
-        // }
         else
         {
             wheelOnGroundReactiveProperty.Value = false;

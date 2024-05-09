@@ -4,7 +4,7 @@ using UnityEngine;
 using Zenject;
 
 [RequireComponent(typeof(Rigidbody2D))]
-public class Coil : DestructibleObject, IHitable
+public class Coil : DestructibleObject, IHitable, IExplosive, ICutable
 {
     private Transform _transform;
     private WoodDestructibleAudioHandler _woodDestructibleAudioHandler;
@@ -44,8 +44,39 @@ public class Coil : DestructibleObject, IHitable
         }
         return result;
     }
+    public void DestructFromCut(Vector2 cutPos)
+    {
+        if (IsBroken == false)
+        {
+            _woodDestructibleAudioHandler.PlayWoodBreakingSound();
+            Destruct();
+        }
+    }
+    public bool TryBreakOnExplosion(Vector2 direction, float forceHit)
+    {
+        bool result;
+        if (IsBroken == false)
+        {
+            if (forceHit > Hardness)
+            {
+                _woodDestructibleAudioHandler.PlayWoodBreakingSound();
+                Destruct();
+                result = true;
+            }
+            else
+            {
+                AddForce(direction * forceHit);
+                result = false;
+            }
+        }
+        else
+        {
+            result = false;
+        }
+        return result;
+    }
 
-    public void AddForce(Vector2 force)
+    private void AddForce(Vector2 force)
     {
         Rigidbody2D.AddForce(force * ForceMultiplierWholeObject);
     }

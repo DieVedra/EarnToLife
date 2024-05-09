@@ -41,7 +41,6 @@ public class DestructionEffectsHandler :IDispose
         _engineBurnEffect.Stop();
         _compositeDisposable.Clear();
     }
-
     public void TryPlayEngineSmokeEffect(DestructionMode destructionMode)
     {
         _engineSmokeEffect.gameObject.SetActive(true);
@@ -66,11 +65,15 @@ public class DestructionEffectsHandler :IDispose
             _destructionAudioHandler.PlayEngineBurn();
         }
     }
-    public void GlassBrokenEffect(Vector2 position, float force)
+    public void GlassBrokenEffect(Transform transformPoint, float force)
     {
-        PlayEffect(_glassEffects, () => { _destructionAudioHandler.PlayGlassBreak();}, position);
+        PlayEffect(_glassEffects, () => { _destructionAudioHandler.PlayGlassBreak();}, transformPoint.position);
     }
 
+    public void HitBrokenEffect(Transform transformPoint, float force)
+    {
+        PlayEffect(_hitEffects, () => { _destructionAudioHandler.PlayHardHit(force);}, transformPoint.position);
+    }
     public void HitBrokenEffect(Vector2 position, float force)
     {
         PlayEffect(_hitEffects, () => { _destructionAudioHandler.PlayHardHit(force);}, position);

@@ -1990,8 +1990,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   AudioSource: {fileID: 430485867}
-  Clip1: {fileID: 8300000, guid: 1ab0d2f57e347744282ba3338f82a74b, type: 3}
-  Clip2: {fileID: 8300000, guid: 38c9a817aba061b4c9c9399dfcfb509a, type: 3}
+  Clip1: {fileID: 8300000, guid: 212c2250036f0564d8d61efab837c0ee, type: 3}
+  Clip2: {fileID: 8300000, guid: 5ab8ff880329d824b82ce6700149c0ec, type: 3}
 --- !u!82 &430485867
 AudioSource:
   m_ObjectHideFlags: 0
@@ -2002,11 +2002,11 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 1ab0d2f57e347744282ba3338f82a74b, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 212c2250036f0564d8d61efab837c0ee, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 0.48
-  m_Pitch: -1
-  Loop: 1
+  m_Pitch: 1
+  Loop: 0
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0

@@ -54,7 +54,8 @@ public class DestructionCar : MonoBehaviour
     [SerializeField, BoxGroup("Frame")] private ArmoredRoofFrameRef _armoredRoofFrameRef;
     [SerializeField, BoxGroup("Frame")] private SafetyFrameworkRef _safetyFrameworkRef;
     [SerializeField, BoxGroup("Frame")] private BottomRef _bottomRef;
-
+    public Transform testTrans;
+    public float force;
 
     private DestructionEffectsHandler _destructionEffectsHandler;
     private DestructionAudioHandler _destructionAudioHandler;
@@ -384,5 +385,16 @@ public class DestructionCar : MonoBehaviour
         {
             _backCarHandler.OnCarBrokenIntoTwoParts -= CarBrokenIntoTwoParts;
         }
+    }
+
+    [Button("Hit")]
+    private void a()
+    {
+        _destructionEffectsHandler.HitBrokenEffect(testTrans, force);
+    }
+    [Button("glaas")]
+    private void b()
+    {
+        _destructionEffectsHandler.GlassBrokenEffect(testTrans, force);
     }
 }

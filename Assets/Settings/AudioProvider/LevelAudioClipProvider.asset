@@ -23,3 +23,4 @@ MonoBehaviour:
   _hit2DebrisBarrelAudioClip: {fileID: 8300000, guid: d72c11dd8dc41c44ea47ccca40da8a79, type: 3}
   _explode1BarrelAudioClip: {fileID: 8300000, guid: 0d1eed6dca699b745b5a3448ae2a5480, type: 3}
   _explode2BarrelAudioClip: {fileID: 8300000, guid: 0c130d9d07a7bbf4cb1fcb3389d552cd, type: 3}
+  _burnBarrelAudioClip: {fileID: 8300000, guid: aabc61317adcb5546a011664a2d96086, type: 3}

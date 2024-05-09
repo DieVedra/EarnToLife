@@ -4,14 +4,16 @@ using UnityEngine;
 using Zenject;
 
 [RequireComponent(typeof(Rigidbody2D))]
-public class Box : DestructibleObject, IHitable, ICutable
+public class Box : DestructibleObject, IHitable, ICutable, IExplosive
 {
     private readonly float _forceMultiplier = 3f;
     private Transform _transform;
     private WoodDestructibleAudioHandler _woodDestructibleAudioHandler;
 
     public Vector2 Position => _transform.position;
+
     public bool IsBroken => base.ObjectIsBroken;
+
     public IReadOnlyList<DebrisFragment> DebrisFragments => base.FragmentsDebris;
 
     [Inject]
@@ -21,6 +23,30 @@ public class Box : DestructibleObject, IHitable, ICutable
         _woodDestructibleAudioHandler = level.LevelAudio.WoodDestructibleAudioHandler;
         Rigidbody2D = GetComponent<Rigidbody2D>();
         _transform = transform;
+    }
+
+    public bool TryBreakOnExplosion(Vector2 direction, float forceHit)
+    {
+        bool result;
+        if (IsBroken == false)
+        {
+            if (forceHit > Hardness)
+            {
+                _woodDestructibleAudioHandler.PlayWoodBreakingSound();
+                Destruct();
+                result = true;
+            }
+            else
+            {
+                AddForce(direction * forceHit);
+                result = false;
+            }
+        }
+        else
+        {
+            result = false;
+        }
+        return result;
     }
 
     public void DestructFromCut(Vector2 cutPos)

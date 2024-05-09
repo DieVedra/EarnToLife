@@ -11,7 +11,7 @@ public class Beam1 : Beam, IHitable, ICutable
     private Transform _transform;
     public Vector2 Position => _transform.position;
     public bool IsBroken => ObjectIsBroken;
-    public IReadOnlyList<DebrisFragment> DebrisFragments => base.FragmentsDebris;
+    // public IReadOnlyList<DebrisFragment> DebrisFragments => base.FragmentsDebris;
 
     [Inject]
     private void Construct(ILevel level)

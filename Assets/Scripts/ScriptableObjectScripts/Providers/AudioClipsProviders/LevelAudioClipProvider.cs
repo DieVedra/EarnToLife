@@ -18,6 +18,7 @@ public class LevelAudioClipProvider : ScriptableObject
     [SerializeField, BoxGroup("Barrel")] private AudioClip _hit2DebrisBarrelAudioClip;
     [SerializeField, BoxGroup("Barrel")] private AudioClip _explode1BarrelAudioClip;
     [SerializeField, BoxGroup("Barrel")] private AudioClip _explode2BarrelAudioClip;
+    [SerializeField, BoxGroup("Barrel")] private AudioClip _burnBarrelAudioClip;
 
     public AudioClip WoodBreaking1AudioClip => _woodBreaking1AudioClip;
     public AudioClip WoodBreaking2AudioClip => _woodBreaking2AudioClip;
@@ -31,4 +32,5 @@ public class LevelAudioClipProvider : ScriptableObject
     public AudioClip Hit2DebrisBarrelAudioClip => _hit2DebrisBarrelAudioClip;
     public AudioClip Explode1BarrelAudioClip => _explode1BarrelAudioClip;
     public AudioClip Explode2BarrelAudioClip => _explode2BarrelAudioClip;
+    public AudioClip BurnBarrelAudioClip => _burnBarrelAudioClip;
 }

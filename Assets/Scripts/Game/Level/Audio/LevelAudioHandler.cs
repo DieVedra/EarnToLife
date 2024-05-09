@@ -20,6 +20,7 @@ public class LevelAudioHandler
             levelAudioClipProvider.Hit1DebrisBarrelAudioClip,
             levelAudioClipProvider.Hit2DebrisBarrelAudioClip,
             levelAudioClipProvider.Explode1BarrelAudioClip,
-            levelAudioClipProvider.Explode2BarrelAudioClip);
+            levelAudioClipProvider.Explode2BarrelAudioClip,
+            levelAudioClipProvider.BurnBarrelAudioClip);
     }
 }

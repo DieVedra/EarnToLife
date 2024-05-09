@@ -55,6 +55,8 @@ MonoBehaviour:
   _radiusShockWave: 8
   _radiusBurnWave: 2.6666667
   _startDelay: 1.5
+  _explosionDelay: {x: 0.6, y: 0.8}
+  _burnOffset: 0.306
   _blastWaveMask:
     serializedVersion: 2
     m_Bits: 7864832

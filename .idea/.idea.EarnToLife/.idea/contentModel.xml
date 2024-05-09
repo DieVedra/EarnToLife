@@ -614,6 +614,7 @@
             <e p="IDamageble.cs" t="Include" />
             <e p="IDispose.cs" t="Include" />
             <e p="IExplodable.cs" t="Include" />
+            <e p="IExplosive.cs" t="Include" />
             <e p="IGlobalAudio.cs" t="Include" />
             <e p="IHitable.cs" t="Include" />
             <e p="ILevel.cs" t="Include" />

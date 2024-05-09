@@ -8,19 +8,24 @@ public class BarrelPool
     private readonly int _preloadExplosionEffectsCount = 2;
     private readonly int _preloadDebrisBarrelEffectsCount = 8;
     private readonly ParticleSystem _barrelExplosionPrefab;
+    private readonly ParticleSystem _barrelBurnPrefab;
     private readonly DebrisBarrelEffect _debrisBarrelEffectPrefab;
     private readonly Factory _factory;
     private readonly Transform _barrelPoolEffectsParent;
     private CancellationTokenSource _cancellationTokenSource = new CancellationTokenSource();
     private PoolBase<ParticleSystem> _barrelExplosionsPool;
+    private PoolBase<ParticleSystem> _barrelBurnPool;
     private PoolBase<DebrisBarrelEffect> _debrisBarrelEffectsPool;
-    public BarrelPool(ParticleSystem barrelExplosionPrefab, DebrisBarrelEffect debrisBarrelEffectPrefab, Factory factory, Transform barrelPoolEffectsParent)
+    public BarrelPool(ParticleSystem barrelExplosionPrefab, ParticleSystem barrelBurnPrefab, DebrisBarrelEffect debrisBarrelEffectPrefab,
+        Factory factory, Transform barrelPoolEffectsParent)
     {
         _barrelExplosionPrefab = barrelExplosionPrefab;
         _debrisBarrelEffectPrefab = debrisBarrelEffectPrefab;
+        _barrelBurnPrefab = barrelBurnPrefab;
         _factory = factory;
         _barrelPoolEffectsParent = barrelPoolEffectsParent;
         _barrelExplosionsPool = new PoolBase<ParticleSystem>(CreateBarrelExplosionEffect, GetAction, ReturnAction, _preloadExplosionEffectsCount);
+        _barrelBurnPool = new PoolBase<ParticleSystem>(CreateBarrelBurnEffect, GetAction, ReturnAction, _preloadExplosionEffectsCount);
         _debrisBarrelEffectsPool = new PoolBase<DebrisBarrelEffect>(CreateDebrisBarrelEffect, GetAction, ReturnAction, _preloadDebrisBarrelEffectsCount);
     }
 
@@ -28,13 +33,13 @@ public class BarrelPool
     {
         _cancellationTokenSource.Cancel();
     }
-    public async UniTaskVoid PlayBarrelExplosionEffect(Vector2 point)
+    public void PlayBarrelExplosionEffect(Vector2 point)
     {
-        var effect = _barrelExplosionsPool.Get();
-        effect.transform.position = point;
-        effect.Play();
-        await UniTask.Delay(TimeSpan.FromSeconds(effect.main.duration), cancellationToken: _cancellationTokenSource.Token);
-        _barrelExplosionsPool.Return(effect);
+        PlayEffect(_barrelExplosionsPool, point).Forget();
+    }
+    public void PlayBarrelBurnEffect(Vector2 point, float duration)
+    {
+        PlayEffect(_barrelBurnPool, point, duration).Forget();
     }
     public DebrisBarrelEffect GetDebrisBarrelEffect(Transform parent)
     {
@@ -47,6 +52,10 @@ public class BarrelPool
     private ParticleSystem CreateBarrelExplosionEffect()
     {
         return _factory.CreateEffect(_barrelExplosionPrefab, _barrelPoolEffectsParent);
+    }
+    private ParticleSystem CreateBarrelBurnEffect()
+    {
+        return _factory.CreateEffect(_barrelBurnPrefab, _barrelPoolEffectsParent);
     }
     private DebrisBarrelEffect CreateDebrisBarrelEffect()
     {
@@ -68,5 +77,14 @@ public class BarrelPool
     private void ReturnAction(ParticleSystem effect)
     {
         effect.gameObject.SetActive(false);
+    }
+
+    private async UniTaskVoid PlayEffect(PoolBase<ParticleSystem> pool, Vector2 point, float duration = 0f)
+    {
+        var effect = pool.Get();
+        effect.transform.position = point;
+        effect.Play();
+        await UniTask.Delay(TimeSpan.FromSeconds(duration > 0f ? duration : effect.main.duration), cancellationToken: _cancellationTokenSource.Token);
+        pool.Return(effect);
     }
 }

@@ -44,7 +44,7 @@ public class FrontDoorDestructionHandler : DestructionHandler
             }
             else
             {
-                _destructionEffectsHandler.GlassBrokenEffect(_doorRef.PointEffect.position, ImpulseNormalValue);
+                _destructionEffectsHandler.GlassBrokenEffect(_doorRef.PointEffect, ImpulseNormalValue);
             }
         }
     }

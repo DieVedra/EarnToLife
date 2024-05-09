@@ -7,9 +7,11 @@ using UnityEngine;
 public class LevelParticlesProvider : ScriptableObject
 {
     [SerializeField, BoxGroup("Barrel"), HorizontalLine(color: EColor.Green)] private ParticleSystem _barrelExplosion;
+    [SerializeField, BoxGroup("Barrel")] private ParticleSystem _barrelBurnEffect;
     [SerializeField, BoxGroup("Barrel")] private DebrisBarrelEffect _debrisBarrelEffect;
 
     
     public ParticleSystem BarrelExplosion => _barrelExplosion;
+    public ParticleSystem BarrelBurnEffect => _barrelBurnEffect;
     public DebrisBarrelEffect DebrisBarrelEffect => _debrisBarrelEffect;
 }

@@ -13,4 +13,5 @@ MonoBehaviour:
   m_Name: LevelParticlesProvider
   m_EditorClassIdentifier: 
   _barrelExplosion: {fileID: 8582804870544612220, guid: dbcec5583369e8e4ab51b33155dfa835, type: 3}
+  _barrelBurnEffect: {fileID: 1112529689745578760, guid: 067a3925a50f961498591aaed072b0f3, type: 3}
   _debrisBarrelEffect: {fileID: 577551032073301119, guid: 2e5d899f62a727b49a99e5b72a5428bf, type: 3}

@@ -6,6 +6,7 @@ using UnityEngine;
 public class Test : MonoBehaviour, IShotable
 {
     public bool IsLive { get; private set; }
+    public bool IsBroken { get; }
     public Transform TargetTransform { get; private set; }
     public void DestructFromShoot(Vector2 force)
     {

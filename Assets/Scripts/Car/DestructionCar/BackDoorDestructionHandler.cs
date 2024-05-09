@@ -4,7 +4,7 @@ using UnityEngine;
 public class BackDoorDestructionHandler : DestructionHandler
 {
     private readonly DoorRef _doorRef;
-    private readonly Action<Vector2, float> _effect;
+    private readonly Action<Transform, float> _effect;
     public readonly int StrengthDoor;
     private readonly Transform _doorNormal;
     private readonly Transform _doorDamaged1;
@@ -12,7 +12,7 @@ public class BackDoorDestructionHandler : DestructionHandler
     private readonly Transform[] _parts;
     private bool _isBroken = false;
 
-    public BackDoorDestructionHandler(DoorRef doorRef, DestructionHandlerContent destructionHandlerContent, Action<Vector2, float> effect) 
+    public BackDoorDestructionHandler(DoorRef doorRef, DestructionHandlerContent destructionHandlerContent, Action<Transform, float> effect) 
         : base(doorRef, destructionHandlerContent, " BackDoor ", maxStrength: doorRef.StrengthDoors)
     {
         _doorRef = doorRef;
@@ -65,6 +65,6 @@ public class BackDoorDestructionHandler : DestructionHandler
 
     private void PlayEffect()
     {
-        _effect.Invoke(_doorRef.PointEffect.position, ImpulseNormalValue);
+        _effect.Invoke(_doorRef.PointEffect, ImpulseNormalValue);
     }
 }
