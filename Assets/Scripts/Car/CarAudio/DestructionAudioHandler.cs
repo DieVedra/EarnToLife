@@ -98,7 +98,6 @@ public class DestructionAudioHandler : AudioPlayer, IDispose
     public void PlayRoofBends()
     {
         SetVolume(_defaultVolume);
-        // Debug.Log($"                         PlayRoofBends:                     {AudioSource.volume}");
         TryPlayOneShotClip(_metalBendsAudioClip);
     }
 

@@ -46,6 +46,7 @@ public class CarInLevel : Car
     [SerializeField, BoxGroup("HotWheel"), Layer] private int _layerAfterBreaking;
 
     [HorizontalLine(color:EColor.Orange)]
+    [SerializeField, BoxGroup("Settings")] private SpeedEffect _speedEffect;
     [SerializeField, BoxGroup("Settings")] private Rigidbody2D _bodyRigidbody2D;
     [SerializeField, BoxGroup("Settings")] private Vector2 _centerMassOffset;
     [SerializeField, BoxGroup("Settings")] private Vector2 _centerMassAfterOnCarBrokenOffset;
@@ -79,6 +80,7 @@ public class CarInLevel : Car
     private Gyroscope _gyroscope;
     private CarMass _carMass;
     private ControlCar _controlCar;
+    private SpeedEffectHandler _speedEffectHandler;
     public CarConfiguration CarConfiguration { get; private set; }
     public ControlCarUI ControlCarUI { get; private set; }
     public Speedometer Speedometer { get; private set; }
@@ -105,6 +107,7 @@ public class CarInLevel : Car
         _levelProgressCounter = levelProgressCounter;
         _transmission = new Transmission(carConfiguration.GearRatio);
         Speedometer = new Speedometer(_transmission, _bodyRigidbody2D);
+        _speedEffectHandler = new SpeedEffectHandler(Speedometer, _speedEffect);
         FuelTank = new FuelTank(carConfiguration.FuelQuantity, CarConfiguration.EngineOverclockingMultiplier);
         InitExhaust();
         _engine = new Engine(_engineAccelerationCurve, _carAudio.EngineAudioHandler, _exhaust, CarConfiguration.EngineOverclockingMultiplier);
@@ -114,7 +117,7 @@ public class CarInLevel : Car
         _brakes = new Brakes(_carAudio.WheelsAudioHandler.BrakeAudioHandler, Speedometer, _groundAnalyzer);
         _coupAnalyzer = new CoupAnalyzer(transform);
         _controlActive = true;
-        _carAudio.SuspensionAudioHandler.Init(_groundAnalyzer);
+        _carAudio.SuspensionAudioHandler.Init(_groundAnalyzer, Speedometer);
         _carAudio.WheelsAudioHandler.Init(_groundAnalyzer);
         TryInitBooster();
         TryInitGun();
@@ -146,6 +149,7 @@ public class CarInLevel : Car
             Booster.Update();
             _currentBoosterFuelQuantity = Booster.BoosterFuelTank.FuelQuantity;
         }
+        _speedEffectHandler.Update();
         _groundAnalyzer.Update();
         FrontSuspension.Calculate();
         BackSuspension.Calculate();

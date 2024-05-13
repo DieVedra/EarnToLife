@@ -69,14 +69,19 @@ public class DestructionEffectsHandler :IDispose
     {
         PlayEffect(_glassEffects, () => { _destructionAudioHandler.PlayGlassBreak();}, transformPoint.position);
     }
-
+    public void GlassBrokenEffect(Vector2 position)
+    {
+        PlayEffect(_glassEffects, () => { _destructionAudioHandler.PlayGlassBreak();}, position);
+    }
     public void HitBrokenEffect(Transform transformPoint, float force)
     {
         PlayEffect(_hitEffects, () => { _destructionAudioHandler.PlayHardHit(force);}, transformPoint.position);
+        // Debug.Log($"1 HitBrokenEffect");
     }
     public void HitBrokenEffect(Vector2 position, float force)
     {
         PlayEffect(_hitEffects, () => { _destructionAudioHandler.PlayHardHit(force);}, position);
+        // Debug.Log($"2 HitBrokenEffect");
     }
     private ParticleSystem PreloadGlassEffect()
     {

@@ -39,25 +39,25 @@ public class GlassDestructionHandler : DestructionHandler, IDispose
 
     public void TryBreakGlassFromWings()
     {
+        
         if (_isBreaked == false)
         {
-            TryBreakGlass(_glassRef.transform.position, ImpulseNormalValue);
+            TryBreakGlass(_currentGlass.transform.position);
         }
     }
-
     private void TryBreakGlassFromHit()
     {
         if (_isBreaked == false)
         {
-            TryBreakGlass(HitPosition, ImpulseNormalValue);
+            TryBreakGlass(HitPosition);
         }
     }
-    private void TryBreakGlass(Vector2 position, float force)
+    private void TryBreakGlass(Vector2 position)
     {
         if (_isBreaked == false)
         {
             _isBreaked = true;
-            _destructionEffectsHandler.HitBrokenEffect(position, force);
+            _destructionEffectsHandler.GlassBrokenEffect(position);
             CompositeDisposable.Clear();
             TrySwitchSprites();
         }

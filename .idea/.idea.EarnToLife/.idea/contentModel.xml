@@ -476,6 +476,10 @@
                 <e p="WheelGroundInteraction.cs" t="Include" />
               </e>
             </e>
+            <e p="SpeedEffect" t="Include">
+              <e p="SpeedEffect.cs" t="Include" />
+              <e p="SpeedEffectHandler.cs" t="Include" />
+            </e>
             <e p="StopCauseHandler.cs" t="Include" />
           </e>
           <e p="DebrisBarrelEffect.cs" t="Include" />

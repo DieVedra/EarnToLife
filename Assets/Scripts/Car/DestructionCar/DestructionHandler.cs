@@ -42,35 +42,31 @@ public abstract class DestructionHandler
         _monoBehaviour = monoBehaviour;
     }
     protected virtual void TrySwitchMode(){}
-
     protected void PlaySoftHitSound()
     {
-        // _soundSoftHit?.Invoke(ImpulseNormalValue, _name);
         _destructionAudioHandler?.PlaySoftHit(ImpulseNormalValue, _name);
     }
 
     protected bool CollisionHandling(Collision2D collision)
     {
+        ImpulseNormalValue = SetImpulseNormalAndHitPosition(collision);
         if (CheckCollisionAndMinSpeed(collision) == true)
         {
-            ImpulseNormalValue = SetImpulseNormalAndHitPosition(collision);
-            // Debug.Log($"Base CollisionHandling {_name}  true");
             return true;
         }
         else
         {
             PlaySoftHitSound();
-            // Debug.Log($"Base CollisionHandling {_name}  false");
             return false;
         }
     }
-    protected void SubscribeCollider(Collider2D collider2D, Predicate<Collision2D> condition = null, Action operation = null)
+    protected void SubscribeCollider(Collider2D collider2D, Predicate<Collision2D> condition /*= null*/, Action operation/* = null*/)
     {
         collider2D.OnCollisionEnter2DAsObservable()
             .Where(condition.Invoke)
             .Subscribe(_ =>
             {
-                operation();
+                operation?.Invoke();
             })
             .AddTo(CompositeDisposable);
     }

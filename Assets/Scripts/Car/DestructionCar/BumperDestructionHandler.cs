@@ -6,14 +6,11 @@ using UnityEngine;
 public class BumperDestructionHandler : DestructionHandler, IDispose
 {
     private readonly DestructionEffectsHandler _destructionEffectsHandler;
-    private readonly DestructionAudioHandler _destructionAudioHandler;
     private readonly float _delay = 2f;
     private readonly Transform _bumperNormal;
     private readonly Transform _bumperDamaged;
     private readonly Collider2D _collider2DBumperNormal;
-    private readonly Collider2D _collider2DBumperDamaged;
     private HingeJoint2D _hingeJoint2D;
-    private Transform _currentbumper;
     private CancellationTokenSource _cancellationTokenSource = new CancellationTokenSource();
     private bool _isBroken = false;
     public BumperDestructionHandler(BumperRef bumperRef, DestructionHandlerContent destructionHandlerContent,
@@ -21,16 +18,13 @@ public class BumperDestructionHandler : DestructionHandler, IDispose
     :base(bumperRef, destructionHandlerContent, " bumper ", destructionAudioHandler, bumperRef.StrengthBumper)
     {
         _destructionEffectsHandler = destructionEffectsHandler;
-        _destructionAudioHandler = destructionAudioHandler;
         _collider2DBumperNormal = bumperRef.BumperNormal.GetComponent<Collider2D>();
-        _collider2DBumperDamaged = bumperRef.BumperDamaged.GetComponent<Collider2D>();
         _bumperNormal = bumperRef.BumperNormal;
         _bumperDamaged = bumperRef.BumperDamaged;
         _bumperNormal.gameObject.SetActive(true);
         _bumperDamaged.gameObject.SetActive(false);
         _hingeJoint2D = _bumperDamaged.GetComponent<HingeJoint2D>();
         _hingeJoint2D.useMotor = true;
-        _currentbumper = _bumperNormal;
         SubscribeCollider(_collider2DBumperNormal, CollisionHandling, TrySwitchMode);
     }
 

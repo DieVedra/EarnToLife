@@ -57,24 +57,19 @@ public class BottomDestructionHandler : DestructionHandler, IDispose
             DestructionMode2();
             RecalculateStrength();
             _destructionAudioHandler.PlayHardHit(ImpulseNormalValue);
-            Debug.Log($" bottom impulse: {ImpulseNormalValue}");
         }
         else if (ImpulseNormalValue > HalfStrength)
         {
             DestructionMode1();
             RecalculateStrength();
             _destructionAudioHandler.PlayHardHit(ImpulseNormalValue);
-            Debug.Log($" bottom impulse: {ImpulseNormalValue}");
-
         }
         else if (ImpulseNormalValue > MinStrength)
         {
             RecalculateStrength();
             _destructionAudioHandler.PlayHardHit(ImpulseNormalValue);
-            Debug.Log($" bottom impulse: {ImpulseNormalValue}");
         }
     }
-
     private void DestructionMode1()
     {
         _frontDoorDestructionHandler.TryThrowDoor();

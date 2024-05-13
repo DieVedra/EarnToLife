@@ -63,6 +63,7 @@ public class WheelGroundInteraction
     {
         CompositeDisposableFrontWheel.Clear();
         CompositeDisposableBackWheel.Clear();
+        _cancellationTokenSource.Cancel();
         StopAndDisableEffects(_effects);
     }
 

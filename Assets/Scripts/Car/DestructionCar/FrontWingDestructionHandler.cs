@@ -64,21 +64,25 @@ public class FrontWingDestructionHandler : DestructionHandler, IDispose
     }
     protected override void TrySwitchMode()
     {
-
         if (ImpulseNormalValue > MaxStrength)
         {
             PlayEffect();
+            Debug.Log($"1");
             DestructionMode3AndSubscribe();
         }
         else if (ImpulseNormalValue > HalfStrength)
         {
             PlayEffect();
+            Debug.Log($"2");
+
             RecalculateStrength();
             DestructionMode2AndSubscribe();
         }
         else if (ImpulseNormalValue > MinStrength)
         {
             PlayEffect();
+            Debug.Log($"3");
+
             RecalculateStrength();
             if (DestructionMode == DestructionMode.Mode2)
             {
@@ -98,6 +102,7 @@ public class FrontWingDestructionHandler : DestructionHandler, IDispose
     private void PlayEffect()
     {
         _destructionEffectsHandler.HitBrokenEffect(HitPosition, ImpulseNormalValue);
+        // Debug.Log($"HitPosition:  {HitPosition}");
     }
 
     private void DestructionMode1AndSubscribe()

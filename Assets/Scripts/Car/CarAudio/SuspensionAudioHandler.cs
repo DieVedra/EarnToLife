@@ -4,10 +4,12 @@ using UnityEngine;
 
 public class SuspensionAudioHandler
 {
+    private readonly float _minSoundSpeed = 5f;
     private readonly AudioPlayer _audioPlayerFrontSuspension;
     private readonly AudioPlayer _audioPlayerBackSuspension;
     private readonly AudioClip _suspensionAudioClip;
     private GroundAnalyzer _groundAnalyzer;
+    private Speedometer _speedometer;
     private float _speedValueToPitch;
     private float _arithmeticMean;
     private float _pitchValue;
@@ -21,15 +23,16 @@ public class SuspensionAudioHandler
     }
     public void CalculateVolumeFrontSuspension(float value)
     {
-        _audioPlayerFrontSuspension.SetVolume(value);
+        SetVolumeSuspension(_audioPlayerFrontSuspension, value);
     }
     public void CalculateVolumeBackSuspension(float value)
     {
-        _audioPlayerBackSuspension.SetVolume(value);
+        SetVolumeSuspension(_audioPlayerBackSuspension, value);
     }
-    public void Init(GroundAnalyzer groundAnalyzer)
+    public void Init(GroundAnalyzer groundAnalyzer, Speedometer speedometer)
     {
         _groundAnalyzer = groundAnalyzer;
+        _speedometer = speedometer;
         _groundAnalyzer.FrontWheelContactReactiveProperty.Subscribe(_ =>
         {
             SetFrontSourceStatus(_groundAnalyzer.FrontWheelContactReactiveProperty.Value);
@@ -42,6 +45,14 @@ public class SuspensionAudioHandler
         _audioPlayerFrontSuspension.SetVolume(0f);
         _audioPlayerBackSuspension.SetVolume(0f);
         _audioPlayerBackSuspension.TryPlayClip(_suspensionAudioClip);
+    }
+
+    private void SetVolumeSuspension(AudioPlayer audioPlayer, float value)
+    {
+        if (_speedometer.CurrentSpeedFloat > _minSoundSpeed)
+        {
+            audioPlayer.SetVolume(value);
+        }
     }
     private void SetFrontSourceStatus(bool key)
     {
