@@ -53,6 +53,10 @@ public class SuspensionAudioHandler
         {
             audioPlayer.SetVolume(value);
         }
+        else
+        {
+            audioPlayer.SetVolume(0f);
+        }
     }
     private void SetFrontSourceStatus(bool key)
     {

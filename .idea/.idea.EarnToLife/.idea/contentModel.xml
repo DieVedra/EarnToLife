@@ -758,6 +758,9 @@
               </e>
             </e>
           </e>
+          <e p="Zombie" t="Include">
+            <e p="Zombie.cs" t="Include" />
+          </e>
         </e>
         <e p="Settings" t="Include">
           <e p="AudioProvider" t="Include">

@@ -60,6 +60,7 @@
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/ScriptableObjectScripts/Providers/AudioClipsProviders/LevelAudioClipProvider.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/2A3B1FC1-40AE-44E9-A447-6E34A2A29726/85/7e4b73a1/AnimationCurve.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/44EB8A48-9200-44DB-A0E4-4D8431223846/9e/73ec0ec4/ContactFilter2D.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Zombie/Zombie.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.dbrizov.naughtyattributes@8a8fa5a965/Scripts/Core/DrawerAttributes/CurveRangeAttribute.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Car/SpeedEffect/SpeedEffectHandler.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.cysharp.unitask@66de0d3a58/Runtime/UniTask.WhenAll.cs" root0="SKIP_HIGHLIGHTING" />
@@ -79,7 +80,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/Assets/Scripts/SaveService/SaveService.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/SaveService/SaveMetods/BinarySave.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Game/Level/LevelContent/Beam/Beam2.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Game/Level/Audio/WoodDestructibleAudioHandler.cs" />
@@ -124,12 +124,13 @@
         <option value="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/WheelGroundInteractions/WheelGroundInteraction.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Car/DestructionCar/BottomDestructionHandler.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Car/DestructionCar/DestructionHandler.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Car/CarAudio/SuspensionAudioHandler.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Car/DestructionCar/DestructionCar.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Car/SpeedEffect.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Car/SpeedEffect/SpeedEffect.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Car/SpeedEffect/SpeedEffectHandler.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Car/CarInLevel.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Car/CarAudio/SuspensionAudioHandler.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Zombie/Zombie.cs" />
       </list>
     </option>
   </component>
@@ -225,7 +226,9 @@
       <workItem from="1715244275669" duration="15628000" />
       <workItem from="1715597867051" duration="13566000" />
       <workItem from="1715616913626" duration="2402000" />
-      <workItem from="1715631287476" duration="3824000" />
+      <workItem from="1715631287476" duration="4142000" />
+      <workItem from="1716050973974" duration="1316000" />
+      <workItem from="1716111873459" duration="3123000" />
     </task>
     <task id="LOCAL-00001" summary="Roof Destruction changed&#10;Back Wing Destruction changed">
       <created>1710195340693</created>
