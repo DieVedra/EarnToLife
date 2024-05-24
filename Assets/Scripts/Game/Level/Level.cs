@@ -17,14 +17,15 @@ public class Level : MonoBehaviour, ILevel
     public BarrelPool BarrelPool => _levelPool.BarrelPool;
     
     [Inject]
-    public void Init(Factory factory, LevelPrefabsProvider levelPrefabsProvider, AudioClipProvider audioClipProvider, IGlobalAudio globalAudio)
+    public void Construct(Factory factory, LevelPrefabsProvider levelPrefabsProvider, AudioClipProvider audioClipProvider, IGlobalAudio globalAudio)
     {
         _levelPool = new LevelPool(
             new BarrelPool(
                 levelPrefabsProvider.LevelParticlesProvider.BarrelExplosion,
                 levelPrefabsProvider.LevelParticlesProvider.BarrelBurnEffect,
                 levelPrefabsProvider.LevelParticlesProvider.DebrisBarrelEffect,
-                factory, _barrelPoolEffectsParent)
+                factory, _barrelPoolEffectsParent),
+            new BloodPool()
             );
         _levelAudio.Init(audioClipProvider, globalAudio);
     }

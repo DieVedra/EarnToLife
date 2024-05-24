@@ -65,7 +65,7 @@ public class Coil : DestructibleObject, IHitable, IExplosive, ICutable
             }
             else
             {
-                AddForce(direction * forceHit);
+                Rigidbody2D.AddForce(direction * forceHit * ForceMultiplierWholeObject);
                 result = false;
             }
         }
@@ -74,11 +74,6 @@ public class Coil : DestructibleObject, IHitable, IExplosive, ICutable
             result = false;
         }
         return result;
-    }
-
-    private void AddForce(Vector2 force)
-    {
-        Rigidbody2D.AddForce(force * ForceMultiplierWholeObject);
     }
     private new void OnEnable()
     {

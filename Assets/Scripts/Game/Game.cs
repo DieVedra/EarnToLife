@@ -26,15 +26,15 @@ public class Game : MonoBehaviour
     [Inject] private IGlobalAudio _globalAudioForCar;
     [Inject] private GameData _gameData;
     [Inject] private GarageData _garageData;
-    [Inject] private IInstantiator _instantiator;
+    // [Inject] private IInstantiator _instantiator;
     [Inject] private LevelPrefabsProvider _levelPrefabsProvider;
     [Inject] private AudioClipProvider _audioClipProvider;
+    [Inject] private GamePause _gamePause;
 
 
     private Factory _factory;
     private CarInLevel _carInLevel;
     private PresenterUILevel _presenterUILevel;
-    private GamePause _gamePause;
     private KillsCount _killsCount;
     private ResultsLevelProvider _resultsLevelProvider;
     private LevelProgressCounter _levelProgressCounter;
@@ -62,13 +62,13 @@ public class Game : MonoBehaviour
     private void Awake()
     {
         _playerDataHandler = _playerDataProvider.PlayerDataHandler;
-        _factory = new Factory(_instantiator);
+        _factory = new Factory();
         _notificationsProvider = new NotificationsProvider();
         InitLevel();
         InitCar();
         _limitRideBack.Init(_limitRideBackIsOn);
         InitViewUILevel();
-        _gamePause = new GamePause(_globalAudio);
+        // _gamePause = new GamePause(_globalAudio);
         _killsCount = new KillsCount();
         _resultsLevelProvider = new ResultsLevelProvider(_playerDataHandler, _carConfiguration, _killsCount,
             _levelProgressCounter, _notificationsProvider, _timeWaitingOnEndLevel);

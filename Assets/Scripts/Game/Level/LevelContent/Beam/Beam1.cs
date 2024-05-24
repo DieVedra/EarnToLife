@@ -55,10 +55,10 @@ public class Beam1 : Beam, IHitable, ICutable
         return result;
     }
 
-    public void AddForce(Vector2 force)
-    {
-        Rigidbody2D.AddForce(force * ForceMultiplierWholeObject);
-    }
+    // public void AddForce(Vector2 force)
+    // {
+    //     Rigidbody2D.AddForce(force * ForceMultiplierWholeObject);
+    // }
 
     protected override void SetPositionsFragments()
     {

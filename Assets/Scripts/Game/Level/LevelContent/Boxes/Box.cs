@@ -38,7 +38,7 @@ public class Box : DestructibleObject, IHitable, ICutable, IExplosive
             }
             else
             {
-                AddForce(direction * forceHit);
+                Rigidbody2D.AddForce(direction * forceHit * _forceMultiplier);
                 result = false;
             }
         }
@@ -65,7 +65,6 @@ public class Box : DestructibleObject, IHitable, ICutable, IExplosive
         {
             if (forceHit > Hardness)
             {
-                // Debug.Log($"{forceHit}  {Hardness}");
                 _woodDestructibleAudioHandler.PlayWoodBreakingSound();
                 Destruct();
                 result = true;
@@ -81,11 +80,6 @@ public class Box : DestructibleObject, IHitable, ICutable, IExplosive
             result = false;
         }
         return result;
-    }
-
-    public void AddForce(Vector2 force)
-    {
-        Rigidbody2D.AddForce(force * _forceMultiplier);
     }
 
     private new void OnEnable()

@@ -3,6 +3,6 @@
 public interface ILevel
 {
     public Transform DebrisParent { get; }
-    public BarrelPool BarrelPool { get; }
+    public LevelPool LevelPool { get; }
     public LevelAudio LevelAudio { get; }
 }

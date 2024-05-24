@@ -33,12 +33,12 @@ public class Barrel : DestructibleObject, IHitable, IShotable, ICutable, IExplos
     [Inject]
     private void Construct(ILevel level)
     {
-        _barrelPoolEffects = level.BarrelPool;
+        _barrelPoolEffects = level.LevelPool.BarrelPool;
         DebrisParentForDestroy = level.DebrisParent;
         _barrelAudioHandler = level.LevelAudio.BarrelAudioHandler;
         _transform = transform;
         Rigidbody2D = GetComponent<Rigidbody2D>();
-        _blastWave = new BlastWave(level.BarrelPool, WholeObjectTransform, _extinctionBlastWaveCurve, _blastWaveMask,
+        _blastWave = new BlastWave(level.LevelPool.BarrelPool, WholeObjectTransform, _extinctionBlastWaveCurve, _blastWaveMask,
             _radiusShockWave, _radiusBurnWave, _forceBlastWave);
     }
 
@@ -85,15 +85,15 @@ public class Barrel : DestructibleObject, IHitable, IShotable, ICutable, IExplos
     {
         if (IsBroken == false)
         {
-            AddForce(direction * forceHit);
+            Rigidbody2D.AddForce(direction * forceHit);
             if (forceHit > Hardness)
             {
                 ObjectIsBroken = true;
                 float delay = UnityEngine.Random.Range(_explosionDelay.x, _explosionDelay.y);
-                _barrelPoolEffects.PlayBarrelBurnEffect(new Vector2(WholeObjectTransform.position.x, WholeObjectTransform.position.y + _burnOffset),
-                    delay);
+                _barrelPoolEffects.PlayBarrelBurnEffect(new Vector2(WholeObjectTransform.position.x,
+                        WholeObjectTransform.position.y + _burnOffset), delay);
                 _barrelAudioHandler.PlayBarrelBurn(delay).Forget();
-                StartCoroutine(ExplosionDelay(DestructAndExplosion, delay));
+                StartCoroutine(ExplosionDelay(DestructAndExplosion));
             }
             else
             {
@@ -102,11 +102,6 @@ public class Barrel : DestructibleObject, IHitable, IShotable, ICutable, IExplos
         }
         return false;
     }
-    private void AddForce(Vector2 force)
-    {
-        Rigidbody2D.AddForce(force);
-    }
-
     private void DestructAndExplosion()
     {
         Destruct();
@@ -141,7 +136,7 @@ public class Barrel : DestructibleObject, IHitable, IShotable, ICutable, IExplos
         }
     }
 
-    private IEnumerator ExplosionDelay(Action operation, float delay)
+    private IEnumerator ExplosionDelay(Action operation)
     {
         yield return new WaitForSeconds(UnityEngine.Random.Range(_explosionDelay.x, _explosionDelay.y));
         operation?.Invoke();

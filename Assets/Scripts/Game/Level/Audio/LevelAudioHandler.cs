@@ -5,6 +5,8 @@ public class LevelAudioHandler
 {
     public readonly WoodDestructibleAudioHandler WoodDestructibleAudioHandler;
     public readonly BarrelAudioHandler BarrelAudioHandler;
+    public readonly ZombieAudioHandler ZombieAudioHandler;
+
     public LevelAudioHandler(AudioSource levelAudioSource, IGlobalAudio globalAudio, LevelAudioClipProvider levelAudioClipProvider)
     {
         WoodDestructibleAudioHandler = new WoodDestructibleAudioHandler(levelAudioSource,
@@ -22,5 +24,7 @@ public class LevelAudioHandler
             levelAudioClipProvider.Explode1BarrelAudioClip,
             levelAudioClipProvider.Explode2BarrelAudioClip,
             levelAudioClipProvider.BurnBarrelAudioClip);
+        ZombieAudioHandler = new ZombieAudioHandler(levelAudioSource,
+            globalAudio.SoundReactiveProperty, globalAudio.AudioPauseReactiveProperty);
     }
 }

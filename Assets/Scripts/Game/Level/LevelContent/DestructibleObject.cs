@@ -36,7 +36,7 @@ public class DestructibleObject : MonoBehaviour
         for (int i = 0; i < FragmentsDebris.Count; i++)
         {
             AddRigidBodyTo(FragmentsDebris[i]);
-            // SetDebrisParent(_debris[i].FragmentTransform);
+            SetDebrisParent(FragmentsDebris[i].FragmentTransform);
         }
     }
     private void CollectDebrisChilds(Transform debris)

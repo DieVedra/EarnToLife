@@ -10,7 +10,7 @@ public class GlobalAudioInstaller : MonoInstaller
     [SerializeField, Expandable] private AudioClipProvider _audioClipProvider;
     public override void InstallBindings()
     {
-        Container.BindInterfacesAndSelfTo<GlobalAudio>().FromInstance(_globalAudio).AsSingle();
+        Container.BindInterfacesAndSelfTo<GlobalAudio>().FromInstance(_globalAudio).AsSingle().NonLazy();
         Container.Bind<AudioClipProvider>().FromInstance(_audioClipProvider).AsSingle();
     }
 }

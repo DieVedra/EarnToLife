@@ -8,7 +8,6 @@ using Zenject;
 public class Beam2 : Beam, IHitable, ICutable
 {
         [SerializeField, BoxGroup("Debris")] private SpriteRenderer _spriteFragment3;
-        // [SerializeField, BoxGroup("Settings"), Range(-1f, 1f), InfoBox("Offset size fragment 0.33 / offset position medium -0.03", EInfoBoxType.Normal)] protected float _offsetPositionMediumFragment = 1f;
 
         private readonly float _oneThirdMultiplier = 0.33f;
 
@@ -62,10 +61,10 @@ public class Beam2 : Beam, IHitable, ICutable
                 return result;
         }
 
-        public void AddForce(Vector2 force)
-        {
-                Rigidbody2D.AddForce(force * ForceMultiplierWholeObject);
-        }
+        // public void AddForce(Vector2 force)
+        // {
+        //         Rigidbody2D.AddForce(force * ForceMultiplierWholeObject);
+        // }
 
         protected override void SetSizeToFragments()
         {

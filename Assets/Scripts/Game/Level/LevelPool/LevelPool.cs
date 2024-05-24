@@ -3,10 +3,11 @@ using UnityEngine;
 
 public class LevelPool
 {
-    private readonly BarrelPool _barrelPool;
-    public BarrelPool BarrelPool => _barrelPool;
-    public LevelPool(BarrelPool barrelPool)
+    public readonly BarrelPool BarrelPool;
+    public readonly BloodPool BloodPool;
+    public LevelPool(BarrelPool barrelPool, BloodPool bloodPool)
     {
-        _barrelPool = barrelPool;
+        BarrelPool = barrelPool;
+        BloodPool = bloodPool;
     }
 }

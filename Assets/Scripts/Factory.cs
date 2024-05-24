@@ -7,11 +7,11 @@ public class Factory
 {
     private readonly Spawner _spawner;
     // private readonly DiContainer _container;
-    private readonly IInstantiator _instantiator;
-    public Factory(IInstantiator instantiator)
+    // private readonly IInstantiator _instantiator;
+    public Factory(/*IInstantiator instantiator*/)
     {
         _spawner = new Spawner();
-        _instantiator = instantiator;
+        // _instantiator = instantiator;
     }
 
     public CarInLevel CreateCar(CarInLevel prefab, Transform position)

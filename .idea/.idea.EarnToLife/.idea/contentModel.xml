@@ -492,6 +492,10 @@
           <e p="Enums" t="Include">
             <e p="CarControlMethod.cs" t="Include" />
             <e p="PanelsInMenu.cs" t="Include" />
+            <e p="ZombieDirection.cs" t="Include" />
+          </e>
+          <e p="Extensions" t="Include">
+            <e p="Extensions.cs" t="Include" />
           </e>
           <e p="Factory.cs" t="Include" />
           <e p="Game" t="Include">
@@ -525,6 +529,7 @@
                 <e p="LevelAudio.cs" t="Include" />
                 <e p="LevelAudioHandler.cs" t="Include" />
                 <e p="WoodDestructibleAudioHandler.cs" t="Include" />
+                <e p="ZombieAudioHandler.cs" t="Include" />
               </e>
               <e p="KillsCount.cs" t="Include" />
               <e p="Level.cs" t="Include" />
@@ -554,6 +559,7 @@
               <e p="LevelPart.cs" t="Include" />
               <e p="LevelPool" t="Include">
                 <e p="BarrelPool.cs" t="Include" />
+                <e p="BloodPool.cs" t="Include" />
                 <e p="LevelPool.cs" t="Include" />
               </e>
               <e p="LevelProgressCounter.cs" t="Include" />
@@ -607,6 +613,7 @@
             <e p="LevelScenesInstallers" t="Include">
               <e p="LevelContentInstaller.cs" t="Include" />
               <e p="LevelInstaller.cs" t="Include" />
+              <e p="PauseInstaller.cs" t="Include" />
             </e>
           </e>
           <e p="Interfaces" t="Include">
@@ -619,6 +626,7 @@
             <e p="IDispose.cs" t="Include" />
             <e p="IExplodable.cs" t="Include" />
             <e p="IExplosive.cs" t="Include" />
+            <e p="IGamePause.cs" t="Include" />
             <e p="IGlobalAudio.cs" t="Include" />
             <e p="IHitable.cs" t="Include" />
             <e p="ILevel.cs" t="Include" />
@@ -760,6 +768,7 @@
           </e>
           <e p="Zombie" t="Include">
             <e p="Zombie.cs" t="Include" />
+            <e p="ZombieMove.cs" t="Include" />
           </e>
         </e>
         <e p="Settings" t="Include">

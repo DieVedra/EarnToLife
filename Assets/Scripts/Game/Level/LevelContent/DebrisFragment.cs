@@ -22,6 +22,14 @@ public class DebrisFragment
         _compositeDisposable = new CompositeDisposable();
         _cancellationTokenSource = new CancellationTokenSource();
     }
+    public DebrisFragment(Rigidbody2D rigidbody2D)
+    {
+        _fragmentTransform = rigidbody2D.transform;
+        _fragmentCollider2D = rigidbody2D.GetComponent<Collider2D>();
+        _rigidbody2D = rigidbody2D;
+        _compositeDisposable = new CompositeDisposable();
+        _cancellationTokenSource = new CancellationTokenSource();
+    }
 
     public void Dispose()
     {
