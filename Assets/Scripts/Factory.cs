@@ -29,7 +29,7 @@ public class Factory
     {
         return _spawner.Spawn(prefab, transform, transform);
     }
-    public DebrisBarrelEffect CreateEffect(DebrisBarrelEffect prefab, Transform transform)
+    public DebrisEffect CreateEffect(DebrisEffect prefab, Transform transform)
     {
         return _spawner.Spawn(prefab, transform, transform);
     }

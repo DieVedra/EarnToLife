@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using NaughtyAttributes;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class DestructibleObject : MonoBehaviour
@@ -16,6 +17,12 @@ public class DestructibleObject : MonoBehaviour
     protected List<DebrisFragment> FragmentsDebris;
     protected bool ObjectIsBroken;
     protected event Action OnDebrisHit;
+
+    private void Awake()
+    {
+        FragmentsDebris = new List<DebrisFragment>();
+        CollectDebrisChilds(_debrisParentLocal);
+    }
 
     protected void Destruct()
     {
@@ -49,7 +56,12 @@ public class DestructibleObject : MonoBehaviour
             }
             else
             {
-                FragmentsDebris.Add(new DebrisFragment(debris.GetChild(i)));
+                if (debris.GetChild(i).TryGetComponent(out Collider2D collider2D) == true)
+                {
+                    DebrisFragment debrisFragment = debris.GetChild(i).AddComponent<DebrisFragment>();
+                    debrisFragment.Init();
+                    FragmentsDebris.Add(debrisFragment);
+                }
             }
         }
     }
@@ -75,8 +87,6 @@ public class DestructibleObject : MonoBehaviour
     protected void OnEnable()
     {
         ObjectIsBroken = false;
-        FragmentsDebris = new List<DebrisFragment>();
-        CollectDebrisChilds(_debrisParentLocal);
     }
     protected void OnDisable()
     {

@@ -22,6 +22,7 @@ public class Barrel : DestructibleObject, IHitable, IShotable, ICutable, IExplos
     private BarrelPool _barrelPoolEffects;
     private BlastWave _blastWave;
     private BarrelAudioHandler _barrelAudioHandler;
+    private DebrisAudioHandler _debrisAudioHandler;
     private Transform _transform;
     private readonly CompositeDisposable _compositeDisposable = new CompositeDisposable();
     private Collider2D _collider2D => WholeObjectTransform.GetComponent<Collider2D>();
@@ -38,7 +39,7 @@ public class Barrel : DestructibleObject, IHitable, IShotable, ICutable, IExplos
         _barrelAudioHandler = level.LevelAudio.BarrelAudioHandler;
         _transform = transform;
         Rigidbody2D = GetComponent<Rigidbody2D>();
-        _blastWave = new BlastWave(level.LevelPool.BarrelPool, WholeObjectTransform, _extinctionBlastWaveCurve, _blastWaveMask,
+        _blastWave = new BlastWave(level.LevelPool.DebrisPool, WholeObjectTransform, _extinctionBlastWaveCurve, _blastWaveMask,
             _radiusShockWave, _radiusBurnWave, _forceBlastWave);
     }
 
@@ -154,12 +155,12 @@ public class Barrel : DestructibleObject, IHitable, IShotable, ICutable, IExplos
     private new void OnEnable()
     {
         StartCoroutine(SubscribeCheckCollision());
-        OnDebrisHit += _barrelAudioHandler.PlayBarrelHitSound;
+        OnDebrisHit += _debrisAudioHandler.PlayDebrisHitSound;
         base.OnEnable();
     }
     private new void OnDisable()
     {
-        OnDebrisHit -= _barrelAudioHandler.PlayBarrelHitSound;
+        OnDebrisHit -= _debrisAudioHandler.PlayDebrisHitSound;
         _compositeDisposable.Clear();
         _barrelAudioHandler.Dispose();
         base.OnDisable();

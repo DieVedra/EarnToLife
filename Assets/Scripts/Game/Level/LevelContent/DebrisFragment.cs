@@ -1,35 +1,46 @@
 ﻿using System;
+using System.Linq;
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using UniRx;
 using UniRx.Triggers;
 using UnityEngine;
 
-public class DebrisFragment
+public class DebrisFragment : MonoBehaviour
 {
-    private readonly CompositeDisposable _compositeDisposable;
-    private readonly CancellationTokenSource _cancellationTokenSource;
-    private readonly Transform _fragmentTransform;
-    private readonly Collider2D _fragmentCollider2D;
+    private readonly float _defaultSize = 0.5f;
+    private CompositeDisposable _compositeDisposable;
+    private CancellationTokenSource _cancellationTokenSource;
+    private Transform _fragmentTransform;
+    private Collider2D _fragmentCollider2D;
     private Rigidbody2D _rigidbody2D;
 
     public Transform FragmentTransform => _fragmentTransform;
+    public Rigidbody2D Rigidbody2D => _rigidbody2D;
+    public float SizeFragment { get; private set; }
 
-    public DebrisFragment(Transform fragmentTransform)
+    public void Init()
     {
-        _fragmentTransform = fragmentTransform;
-        _fragmentCollider2D = fragmentTransform.GetComponent<Collider2D>();
+        _fragmentTransform = transform;
         _compositeDisposable = new CompositeDisposable();
         _cancellationTokenSource = new CancellationTokenSource();
+        TryCalculateSizeFragmentAndSetCollider();
     }
-    public DebrisFragment(Rigidbody2D rigidbody2D)
-    {
-        _fragmentTransform = rigidbody2D.transform;
-        _fragmentCollider2D = rigidbody2D.GetComponent<Collider2D>();
-        _rigidbody2D = rigidbody2D;
-        _compositeDisposable = new CompositeDisposable();
-        _cancellationTokenSource = new CancellationTokenSource();
-    }
+    // public DebrisFragment(Transform fragmentTransform)
+    // {
+    //     _fragmentTransform = fragmentTransform;
+    //     _compositeDisposable = new CompositeDisposable();
+    //     _cancellationTokenSource = new CancellationTokenSource();
+    //     TryCalculateSizeFragmentAndSetCollider();
+    // }
+    // public DebrisFragment(Rigidbody2D rigidbody2D)
+    // {
+    //     _fragmentTransform = rigidbody2D.transform;
+    //     _rigidbody2D = rigidbody2D;
+    //     _compositeDisposable = new CompositeDisposable();
+    //     _cancellationTokenSource = new CancellationTokenSource();
+    //     TryCalculateSizeFragmentAndSetCollider();
+    // }
 
     public void Dispose()
     {
@@ -62,5 +73,69 @@ public class DebrisFragment
         _compositeDisposable.Clear();
         _fragmentTransform.gameObject.layer = layer;
     }
-    
+
+    private void TryCalculateSizeFragmentAndSetCollider()
+    {
+        if (_fragmentTransform.TryGetComponent(out PolygonCollider2D polygonCollider2D))
+        {
+            CalculateSizePolygonCollider(polygonCollider2D);
+            SetCollider(polygonCollider2D);
+        }
+        else if(_fragmentTransform.TryGetComponent(out BoxCollider2D boxCollider2D))
+        {
+            CalculateSizeBoxCollider(boxCollider2D);
+            SetCollider(boxCollider2D);
+        }
+        else if(_fragmentTransform.TryGetComponent(out CapsuleCollider2D capsuleCollider2D))
+        {
+            CalculateSizeCapsuleCollider(capsuleCollider2D);
+            SetCollider(capsuleCollider2D);
+        }
+        else if(_fragmentTransform.TryGetComponent(out CircleCollider2D circleCollider2D))
+        {
+            CalculateSizeCircleCollider(circleCollider2D);
+            SetCollider(circleCollider2D);
+        }
+        else
+        {
+            SizeFragment = _defaultSize;
+            SetCollider();
+        }
+    }
+
+    private void CalculateSizePolygonCollider(PolygonCollider2D polygonCollider2D)
+    {
+        Vector2[] pathPoints = polygonCollider2D.GetPath(0);
+        float maxY = pathPoints.OrderByDescending(p => p.y).FirstOrDefault().y;
+        float maxX = pathPoints.OrderByDescending(p => p.x).FirstOrDefault().x;
+
+        float minY = pathPoints.OrderBy(p => p.y).FirstOrDefault().y;
+        float minX = pathPoints.OrderBy(p => p.x).FirstOrDefault().x;
+        SizeFragment = Vector2.Distance(new Vector2(maxX, maxY), new Vector2(minX, minY));
+    }
+    private void CalculateSizeBoxCollider(BoxCollider2D boxCollider2D)
+    {
+        SizeFragment = Mathf.Sqrt(boxCollider2D.size.x * boxCollider2D.size.x + boxCollider2D.size.y * boxCollider2D.size.y);
+    }
+    private void CalculateSizeCapsuleCollider(CapsuleCollider2D capsuleCollider2D)
+    {
+        float height = capsuleCollider2D.size.y - capsuleCollider2D.size.x;
+        SizeFragment = Mathf.Sqrt(capsuleCollider2D.size.x * capsuleCollider2D.size.x + height * height);
+    }
+    private void CalculateSizeCircleCollider(CircleCollider2D circleCollider2D)
+    {
+        SizeFragment = circleCollider2D.radius;
+    }
+
+    private void SetCollider(Collider2D collider2D = null)
+    {
+        if (collider2D != null)
+        {
+            _fragmentCollider2D = collider2D;
+        }
+        else
+        {
+            _fragmentCollider2D = _fragmentTransform.GetComponent<Collider2D>();
+        }
+    }
 }

@@ -4,9 +4,12 @@ using UnityEngine;
 
 public class ZombieAudioHandler: AudioPlayer
 {
-    public ZombieAudioHandler(AudioSource audioSource, ReactiveProperty<bool> soundReactiveProperty, ReactiveProperty<bool> audioPauseReactiveProperty)
+    private readonly AudioClip _hitZombieRemains;
+
+    public ZombieAudioHandler(AudioSource audioSource, ReactiveProperty<bool> soundReactiveProperty, ReactiveProperty<bool> audioPauseReactiveProperty,
+        AudioClip hitZombieRemains )
         :base(audioSource, soundReactiveProperty, audioPauseReactiveProperty)
     {
-        
+        _hitZombieRemains = hitZombieRemains;
     }
 }

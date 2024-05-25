@@ -482,7 +482,7 @@
             </e>
             <e p="StopCauseHandler.cs" t="Include" />
           </e>
-          <e p="DebrisBarrelEffect.cs" t="Include" />
+          <e p="DebrisEffect.cs" t="Include" />
           <e p="Editor" t="Include">
             <e p="SceneSwitchTool" t="Include">
               <e p="SceneSetupData.cs" t="Include" />
@@ -526,8 +526,8 @@
             <e p="Level" t="Include">
               <e p="Audio" t="Include">
                 <e p="BarrelAudioHandler.cs" t="Include" />
+                <e p="DebrisAudioHandler.cs" t="Include" />
                 <e p="LevelAudio.cs" t="Include" />
-                <e p="LevelAudioHandler.cs" t="Include" />
                 <e p="WoodDestructibleAudioHandler.cs" t="Include" />
                 <e p="ZombieAudioHandler.cs" t="Include" />
               </e>
@@ -559,8 +559,10 @@
               <e p="LevelPart.cs" t="Include" />
               <e p="LevelPool" t="Include">
                 <e p="BarrelPool.cs" t="Include" />
-                <e p="BloodPool.cs" t="Include" />
+                <e p="DebrisPool.cs" t="Include" />
                 <e p="LevelPool.cs" t="Include" />
+                <e p="Pool.cs" t="Include" />
+                <e p="ZombiePool.cs" t="Include" />
               </e>
               <e p="LevelProgressCounter.cs" t="Include" />
               <e p="LevelProgressSliderSectionsValuesProvider.cs" t="Include" />

@@ -7,9 +7,11 @@ using Zenject;
 
 public class Level : MonoBehaviour, ILevel
 {
-    [SerializeField] private Transform _debrisParent;
+    [SerializeField, HorizontalLine(color: EColor.White)] private Transform _debrisParent;
+    [SerializeField, HorizontalLine(color: EColor.Green)] private Transform _debrisPoolEffectsParent;
     [SerializeField] private Transform _barrelPoolEffectsParent;
-    [SerializeField] private LevelAudio _levelAudio;
+    [SerializeField] private Transform _bloodEffectsParent;
+    [SerializeField, HorizontalLine(color: EColor.Yellow)] private LevelAudio _levelAudio;
     private LevelPool _levelPool;
     public Transform DebrisParent => _debrisParent;
     public LevelPool LevelPool => _levelPool;
@@ -19,15 +21,21 @@ public class Level : MonoBehaviour, ILevel
     [Inject]
     public void Construct(Factory factory, LevelPrefabsProvider levelPrefabsProvider, AudioClipProvider audioClipProvider, IGlobalAudio globalAudio)
     {
+        _levelAudio.Init(audioClipProvider, globalAudio);
         _levelPool = new LevelPool(
             new BarrelPool(
                 levelPrefabsProvider.LevelParticlesProvider.BarrelExplosion,
-                levelPrefabsProvider.LevelParticlesProvider.BarrelBurnEffect,
-                levelPrefabsProvider.LevelParticlesProvider.DebrisBarrelEffect,
+                levelPrefabsProvider.LevelParticlesProvider.BurnEffect,
                 factory, _barrelPoolEffectsParent),
-            new BloodPool()
+            new ZombiePool(
+                levelPrefabsProvider.LevelParticlesProvider.BloodEffect,
+                factory, _bloodEffectsParent),
+            new DebrisPool(
+                levelPrefabsProvider.LevelParticlesProvider.BurnEffect,
+                levelPrefabsProvider.LevelParticlesProvider.SmokeEffect,
+                levelPrefabsProvider.LevelParticlesProvider.DebrisEffect,
+                factory, _debrisPoolEffectsParent)
             );
-        _levelAudio.Init(audioClipProvider, globalAudio);
     }
 
     private void OnDisable()

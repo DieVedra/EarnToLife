@@ -7,17 +7,17 @@ public class BlastWave
     private readonly float _force;
     private readonly float _radiusShockWave;
     private readonly float _radiusBurnWave;
-    private readonly BarrelPool _barrelPool;
+    private readonly DebrisPool _debrisPoolEffects;
     private readonly Transform _transformPointReference;
     private readonly AnimationCurve _extinctionBlastWaveCurve;
     private readonly ContactFilter2D _contactFilter;
     private readonly List<Collider2D> _hitCollidersAfterSphereCast = new List<Collider2D>();
     private float _forceShockWaveInRadius;
 
-    public BlastWave(BarrelPool barrelPool, Transform transformPointReference, AnimationCurve extinctionBlastWaveCurve, LayerMask blastWaveMask,
+    public BlastWave(DebrisPool debrisPool, Transform transformPointReference, AnimationCurve extinctionBlastWaveCurve, LayerMask blastWaveMask,
         float radiusShockWave, float radiusBurnWave, float force)
     {
-        _barrelPool = barrelPool;
+        _debrisPoolEffects = debrisPool;
         _transformPointReference = transformPointReference;
         _extinctionBlastWaveCurve = extinctionBlastWaveCurve;
         _radiusShockWave = radiusShockWave;
@@ -39,12 +39,19 @@ public class BlastWave
     }
     private void TryInteract(Collider2D collider2D)
     {
-        if (collider2D.TryGetComponent(out Rigidbody2D rigidbody2D))
+        // if (collider2D.TryGetComponent(out Rigidbody2D rigidbody2D))
+        // {
+        //     var forceDirection = CalculateDirectionBlastWave(rigidbody2D.position, _transformPointReference.position)
+        //                 * CalculateForceShockWaveInRadius(rigidbody2D.position);
+        //     rigidbody2D.AddForce(forceDirection);
+        //     TryAddEffectToDebrisPiece(rigidbody2D.transform);
+        // }
+        if (collider2D.TryGetComponent(out DebrisFragment debrisFragment))
         {
-            var forceDirection = CalculateDirectionBlastWave(rigidbody2D.position, _transformPointReference.position)
-                        * CalculateForceShockWaveInRadius(rigidbody2D.position);
-            rigidbody2D.AddForce(forceDirection);
-            TryAddEffectToDebrisPiece(rigidbody2D.transform);
+            var forceDirection = CalculateDirectionBlastWave(debrisFragment.FragmentTransform.position, _transformPointReference.position)
+                                 * CalculateForceShockWaveInRadius(debrisFragment.FragmentTransform.position);
+            debrisFragment.Rigidbody2D.AddForce(forceDirection);
+            TryAddEffectToDebrisPiece(debrisFragment);
         }
         else if (collider2D.transform.parent.TryGetComponent(out IExplosive explosive))
         {
@@ -63,18 +70,26 @@ public class BlastWave
             debrisFragments[i].TryAddForce(
                 CalculateDirectionBlastWave(debrisFragments[i].FragmentTransform.position, _transformPointReference.position)
                 * CalculateForceShockWaveInRadius(debrisFragments[i].FragmentTransform.position));
-            TryAddEffectToDebrisPiece(debrisFragments[i].FragmentTransform);
+            TryAddEffectToDebrisPiece(debrisFragments[i]);
         }
     }
     
-    private void TryAddEffectToDebrisPiece(Transform transform)
+    private void TryAddEffectToDebrisPiece(DebrisFragment debrisFragment)
     {
-        float distance = CalculateDistance(transform.position);
-        if (transform.childCount < 1 && distance < _radiusBurnWave)
+        float distance = CalculateDistance(debrisFragment.FragmentTransform.position);
+        if (distance < _radiusBurnWave)
         {
-            _barrelPool.GetDebrisBarrelEffect(transform).PlayEffect(CalculateIntensitySmoke(distance));
+            _debrisPoolEffects.GetDebrisBarrelEffect().PlayEffectTo(debrisFragment, CalculateIntensitySmoke(distance));
         }
     }
+    // private void TryAddEffectToDebrisPiece(Transform transform)
+    // {
+    //     float distance = CalculateDistance(transform.position);
+    //     if (distance < _radiusBurnWave)
+    //     {
+    //         _debrisPoolEffects.GetDebrisBarrelEffect().PlayEffectTo(transform, CalculateIntensitySmoke(distance));
+    //     }
+    // }
     private bool TryCastSphere()
     {
         if (Physics2D.OverlapCircle(_transformPointReference.position, _radiusShockWave, _contactFilter, _hitCollidersAfterSphereCast) > 0)

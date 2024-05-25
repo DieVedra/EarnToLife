@@ -1,19 +1,41 @@
 ﻿using System;
 using UnityEngine;
 
-[RequireComponent(typeof(AudioSource))]
 public class LevelAudio : MonoBehaviour
 {
-    private AudioSource _levelAudioSource;
+    [SerializeField] private AudioSource _otherAudioSource;
+    [SerializeField] private AudioSource _zombieAudioSource;
+    [SerializeField] private AudioSource _debrisAudioSource;
     private LevelAudioClipProvider _levelAudioClipProvider;
-    private LevelAudioHandler _levelAudioHandler;
-    public WoodDestructibleAudioHandler WoodDestructibleAudioHandler => _levelAudioHandler.WoodDestructibleAudioHandler;
-    public BarrelAudioHandler BarrelAudioHandler => _levelAudioHandler.BarrelAudioHandler;
-    public ZombieAudioHandler ZombieAudioHandler => _levelAudioHandler.ZombieAudioHandler;
+    public WoodDestructibleAudioHandler WoodDestructibleAudioHandler { get; private set; }
+    public BarrelAudioHandler BarrelAudioHandler { get; private set; }
+    public ZombieAudioHandler ZombieAudioHandler { get; private set; }
+    public DebrisAudioHandler DebrisAudioHandler { get; private set; }
+
 
     public void Init(AudioClipProvider audioClipProvider, IGlobalAudio globalAudio)
     {
-        _levelAudioSource = GetComponent<AudioSource>();
-        _levelAudioHandler = new LevelAudioHandler(_levelAudioSource, globalAudio, audioClipProvider.LevelAudioClipProvider);
+        _levelAudioClipProvider = audioClipProvider.LevelAudioClipProvider;
+        WoodDestructibleAudioHandler = new WoodDestructibleAudioHandler(_otherAudioSource,
+            globalAudio.SoundReactiveProperty, globalAudio.AudioPauseReactiveProperty,
+            _levelAudioClipProvider.WoodBreaking1AudioClip,
+            _levelAudioClipProvider.WoodBreaking2AudioClip,
+            _levelAudioClipProvider.HitWood1AudioClip,
+            _levelAudioClipProvider.HitWood2AudioClip,
+            _levelAudioClipProvider.HitWood3AudioClip);
+        BarrelAudioHandler = new BarrelAudioHandler(_otherAudioSource,
+            globalAudio.SoundReactiveProperty, globalAudio.AudioPauseReactiveProperty,
+            _levelAudioClipProvider.HitBarrelAudioClip,
+            _levelAudioClipProvider.Explode1BarrelAudioClip,
+            _levelAudioClipProvider.Explode2BarrelAudioClip,
+            _levelAudioClipProvider.BurnBarrelAudioClip);
+        ZombieAudioHandler = new ZombieAudioHandler(_zombieAudioSource,
+            globalAudio.SoundReactiveProperty, globalAudio.AudioPauseReactiveProperty,
+            _levelAudioClipProvider.HitZombieRemainsAudioClip);
+        DebrisAudioHandler = new DebrisAudioHandler(_debrisAudioSource, globalAudio.SoundReactiveProperty, globalAudio.AudioPauseReactiveProperty,
+            _levelAudioClipProvider.Hit1DebrisBarrelAudioClip,
+            _levelAudioClipProvider.Hit2DebrisBarrelAudioClip,
+            _levelAudioClipProvider.BurnBarrelAudioClip
+            );
     }
 }

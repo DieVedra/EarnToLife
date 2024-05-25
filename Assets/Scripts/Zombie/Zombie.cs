@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using NaughtyAttributes;
 using UniRx;
 using UniRx.Triggers;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.U2D.IK;
 using Zenject;
@@ -23,7 +24,7 @@ public class Zombie : MonoBehaviour, IHitable, IExplosive, IShotable, ICutable
     [SerializeField] private IKManager2D _ikManager;
     [SerializeField] private Animation _animation;
     [SerializeField, HorizontalLine(color: EColor.Red)] private HingeJoint2D[] _hingeJoints2DForTearingUp;
-    [SerializeField] private Rigidbody2D[] _rigidbodies2DForTearingUp;
+    [SerializeField] private Transform[] _forTearingUp;
 
 
     
@@ -35,7 +36,7 @@ public class Zombie : MonoBehaviour, IHitable, IExplosive, IShotable, ICutable
     private Transform _transform;
     private Transform _debrisParentForDestroy;
     private IGamePause _gamePause;
-    private BloodPool _bloodPool;
+    private ZombiePool _zombiePool;
     private CompositeDisposable _compositeDisposable = new CompositeDisposable();
     private CompositeDisposable _compositeDisposableForUpdate = new CompositeDisposable();
     private Collision2D _collision2D;
@@ -55,8 +56,20 @@ public class Zombie : MonoBehaviour, IHitable, IExplosive, IShotable, ICutable
         _gamePause = gamePause;
         _debrisParentForDestroy = level.DebrisParent;
         _zombieAudioHandler = level.LevelAudio.ZombieAudioHandler;
-        _bloodPool = level.LevelPool.BloodPool;
+        _zombiePool = level.LevelPool.ZombiePool;
         _zombieMove = new ZombieMove(transform, _rigidbody2D, _collider2D, gamePause, _contactMask, (float)_direction, _speed);
+    }
+
+    private void Awake()
+    {
+        _debrisFragments = new List<DebrisFragment>(_forTearingUp.Length);
+
+        for (int i = 0; i < _forTearingUp.Length; i++)
+        {
+            DebrisFragment debrisFragment = _forTearingUp[i].AddComponent<DebrisFragment>();
+            debrisFragment.Init();
+            _debrisFragments.Add(debrisFragment);
+        }
     }
 
     public void DestructFromShoot(Vector2 force)
@@ -145,7 +158,6 @@ public class Zombie : MonoBehaviour, IHitable, IExplosive, IShotable, ICutable
             joint2D.enabled = false;
         }
     }
-    [Button("EnableRagdoll")]
     private void EnableRagdoll()
     {
         IsBroken = true;
@@ -186,18 +198,16 @@ public class Zombie : MonoBehaviour, IHitable, IExplosive, IShotable, ICutable
     private void OnEnable()
     {
         _transform = transform;
-        _debrisFragments = new List<DebrisFragment>();
-
-        for (int i = 0; i < _rigidbodies2DForTearingUp.Length; i++)
-        {
-            _debrisFragments.Add(new DebrisFragment(_rigidbodies2DForTearingUp[i]));
-        }
         _animation.Play();
     }
 
     private void OnDisable()
     {
         _animation.Stop();
+        for (int i = 0; i < _debrisFragments.Count; i++)
+        {
+            _debrisFragments[i].Dispose();
+        }
         _debrisFragments = null;
     }
 }

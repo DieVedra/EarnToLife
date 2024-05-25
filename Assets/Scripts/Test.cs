@@ -1,37 +1,61 @@
 using System;
+using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
+using NaughtyAttributes;
 using UnityEngine;
-[ExecuteInEditMode]
+// [ExecuteInEditMode]
 public class Test : MonoBehaviour
 {
-    [SerializeField] private float _distance;
-    [SerializeField] private Transform _origin;
-    [SerializeField] private Transform _normal;
-    private Vector3 pos;
-
-    private RaycastHit2D _frontWheelHit;
-
+    [SerializeField] private PolygonCollider2D _polygonCollider2D;
+    [SerializeField] private CircleCollider2D _circleCollider2D;
+    [SerializeField] private ParticleSystem _particle;
+    [SerializeField] private float _sizeFragment;
+    [SerializeField,Range(-5f,5f)] private float _correction = 0f;
     private void Start()
     {
     }
 
     private void OnDrawGizmos()
     {
-        // Gizmos.color = Color.red;
-        // Gizmos.DrawLine(_origin.position, _normal.position);
-        // Gizmos.color = Color.yellow;
-        //
-        // Gizmos.DrawLine(_origin.position, Vector3.Cross(_normal.position, Vector3.up));
-        
     }
 
     private void Update()
     {
+        // Debug.Log($"{_normal.up}     {_normal.forward}    {cross}");
+        // Debug.DrawLine(_normal.position, _normal.position + _normal.up, Color.green);
+        // Debug.DrawLine(_normal.position, _normal.position + cross, Color.magenta);
+    }
+    [Button("test")]
+    private void CalculateSizePolygonCollider()
+    {
+        _sizeFragment = _circleCollider2D.radius;
 
-        var cross = Vector3.Cross(_normal.up, _normal.forward) * -1f;
-        Debug.Log($"{_normal.up}     {_normal.forward}    {cross}");
-        Debug.DrawLine(_normal.position, _normal.position + _normal.up, Color.green);
-        Debug.DrawLine(_normal.position, _normal.position + cross, Color.magenta);
+        ParticleSystem.MainModule mainModule = _particle.main;
+
+        mainModule.startSize = _sizeFragment + _correction;
+        _particle.Play();
+    }
+    // private void CalculateSizePolygonCollider()
+    // {
+    //     Vector2[] pathPoints = _polygonCollider2D.GetPath(0);
+    //     float maxY = pathPoints.OrderByDescending(p => p.y).FirstOrDefault().y;
+    //     float maxX = pathPoints.OrderByDescending(p => p.x).FirstOrDefault().x;
+    //
+    //     float minY = pathPoints.OrderBy(p => p.y).FirstOrDefault().y;
+    //     float minX = pathPoints.OrderBy(p => p.x).FirstOrDefault().x;
+    //     _sizeFragment = Vector2.Distance(new Vector2(maxX, maxY), new Vector2(minX, minY));
+    //
+    //
+    //
+    //     ParticleSystem.MainModule mainModule = _particle.main;
+    //
+    //     mainModule.startSize = _sizeFragment + _correction;
+    //     _particle.Play();
+    // }
+    [Button("stop")]
+    private void stop()
+    {
+        _particle.Stop();
     }
 }
