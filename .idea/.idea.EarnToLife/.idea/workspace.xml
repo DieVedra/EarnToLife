@@ -80,9 +80,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/Assets/Scripts/Car/DestructionCar/GlassDestructionHandler.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Car/CarAudio/DestructionAudioHandler.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Car/CarAudio/CarAudio.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Car/DestructionCar/DestructionEffectsHandler.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/WheelGroundInteractions/WheelGroundInteraction.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Car/DestructionCar/BottomDestructionHandler.cs" />
@@ -99,12 +96,7 @@
         <option value="$PROJECT_DIR$/Assets/Scripts/Game/Level/LevelPool/BloodPool.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Interfaces/ILevel.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Interfaces/IHitable.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Game/Level/LevelContent/Boxes/Box.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Game/Level/LevelContent/Coil.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Game/Level/LevelContent/Beam/Beam1.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Game/Level/LevelContent/Beam/Beam2.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Installers/GlobalInstallers/GlobalAudioInstaller.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Game/GamePause.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Editor/SceneSwitchTool/SceneSetupLoader.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Installers/LevelScenesInstallers/PauseInstaller.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Enums/ZombieDirection.cs" />
@@ -113,24 +105,32 @@
         <option value="$PROJECT_DIR$/Assets/Scripts/Game/Level/LevelPool/ZombiePool.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/DebrisBarrelEffect.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/ScriptableObjectScripts/Providers/PrefabsProviders/LevelPrefabs/LevelParticlesProvider.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Game/Level/LevelPool/Pool.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Game/Level/LevelPool/BarrelPool.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Game/Level/LevelPool/LevelPool.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Game/Level/Level.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Game/Level/LevelContent/Barrel/Barrel.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Game/Level/Audio/BarrelAudioHandler.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Game/Level/Audio/LevelAudioHandler.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Game/Level/Audio/ZombieAudioHandler.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/ScriptableObjectScripts/Providers/AudioClipsProviders/LevelAudioClipProvider.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Game/Level/Audio/LevelAudio.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Game/Level/Audio/DebrisAudioHandler.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Enums/TypeCollider.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/PoolBase.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Game/Level/LevelPool/Pool.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Game/Level/LevelPool/DebrisPool.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Game/Level/LevelContent/DestructibleObject.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Zombie/Zombie.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Game/Level/LevelContent/DebrisFragment.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Game/Level/LevelContent/Barrel/BlastWave.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/DebrisEffect.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Game/Level/LevelContent/Barrel/Barrel.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Game/Level/LevelContent/Beam/Beam1.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Game/Level/LevelContent/Beam/Beam2.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Game/Level/LevelContent/Boxes/Box.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Game/Level/LevelContent/Coil.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Game/GamePause.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Test.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Game/Level/LevelContent/DebrisFragment.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Interfaces/IShotable.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Zombie/Zombie.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/DebrisEffect.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Game/Level/LevelContent/Barrel/BlastWave.cs" />
       </list>
     </option>
   </component>
@@ -236,6 +236,8 @@
       <workItem from="1716478733523" duration="12815000" />
       <workItem from="1716532293279" duration="29180000" />
       <workItem from="1716632778206" duration="23373000" />
+      <workItem from="1716831629153" duration="12555000" />
+      <workItem from="1716893674753" duration="13966000" />
     </task>
     <task id="LOCAL-00001" summary="Roof Destruction changed&#10;Back Wing Destruction changed">
       <created>1710195340693</created>

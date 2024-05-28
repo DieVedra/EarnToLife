@@ -4,7 +4,7 @@ using UniRx;
 using UnityEngine;
 using UnityEngine.Audio;
 
-public class GamePause : IGamePause
+public class GamePause /*: IGamePause*/
 {
     private const float MIN_VALUE_TIME = 0f;
     private const float NORMAL_VALUE_TIME = 1f;

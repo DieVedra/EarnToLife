@@ -392,7 +392,7 @@ MonoBehaviour:
   _debrisParentLocal: {fileID: 8844812032683728171}
   _forceBlastWave: 500
   _radiusShockWave: 5
-  _radiusBurnWave: 1.6666666
+  _radiusBurnWave: 2.15
   _startDelay: 1.5
   _explosionDelay: {x: 0.5, y: 0.7}
   _burnOffset: 0.316

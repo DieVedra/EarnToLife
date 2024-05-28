@@ -492,6 +492,7 @@
           <e p="Enums" t="Include">
             <e p="CarControlMethod.cs" t="Include" />
             <e p="PanelsInMenu.cs" t="Include" />
+            <e p="TypeCollider.cs" t="Include" />
             <e p="ZombieDirection.cs" t="Include" />
           </e>
           <e p="Extensions" t="Include">

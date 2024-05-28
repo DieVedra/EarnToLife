@@ -21,6 +21,7 @@ public class Box : DestructibleObject, IHitable, ICutable, IExplosive
     {
         DebrisParentForDestroy = level.DebrisParent;
         _woodDestructibleAudioHandler = level.LevelAudio.WoodDestructibleAudioHandler;
+        DebrisHitSound = level.LevelAudio.WoodDestructibleAudioHandler.PlayHitWoodSound;
         Rigidbody2D = GetComponent<Rigidbody2D>();
         _transform = transform;
     }
@@ -84,13 +85,13 @@ public class Box : DestructibleObject, IHitable, ICutable, IExplosive
 
     private new void OnEnable()
     {
-        OnDebrisHit += _woodDestructibleAudioHandler.PlayHitWoodSound;
+        // debrisHitSound += _woodDestructibleAudioHandler.PlayHitWoodSound;
         base.OnEnable();
     }
 
     private new void OnDisable()
     {
-        OnDebrisHit -= _woodDestructibleAudioHandler.PlayHitWoodSound;
+        // debrisHitSound -= _woodDestructibleAudioHandler.PlayHitWoodSound;
         base.OnDisable();
     }
 }

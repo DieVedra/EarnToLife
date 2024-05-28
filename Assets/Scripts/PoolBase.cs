@@ -19,7 +19,6 @@ public class PoolBase<T>
             Return(preloadFunc());
         }
     }
-
     public T Get()
     {
         T item = _pool.Count > 0 ? _pool.Dequeue() : _preloadFunc();
@@ -27,7 +26,6 @@ public class PoolBase<T>
         _active.Add(item);
         return item;
     }
-
     public void Return(T item)
     {
         _returnAction(item);
@@ -35,7 +33,6 @@ public class PoolBase<T>
         _active.Remove(item);
 
     }
-
     public void ReturnAll()
     {
         foreach (T item in _active)

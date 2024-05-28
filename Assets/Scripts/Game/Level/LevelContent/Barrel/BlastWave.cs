@@ -77,19 +77,17 @@ public class BlastWave
     private void TryAddEffectToDebrisPiece(DebrisFragment debrisFragment)
     {
         float distance = CalculateDistance(debrisFragment.FragmentTransform.position);
-        if (distance < _radiusBurnWave)
+        if (distance <= _radiusBurnWave)
         {
-            _debrisPoolEffects.GetDebrisBarrelEffect().PlayEffectTo(debrisFragment, CalculateIntensitySmoke(distance));
+            _debrisPoolEffects.GetDebrisBarrelEffect().PlayEffectTo(debrisFragment, CalculateIntensity(distance), true);
         }
+        else
+        {
+            _debrisPoolEffects.GetDebrisBarrelEffect().PlayEffectTo(debrisFragment, CalculateIntensity(distance), false);
+        }
+
+        // Debug.Log($"debrisFragment {debrisFragment.gameObject.name} / {distance}/ _radiusBurnWave  {_radiusBurnWave} / Intensity {CalculateIntensity(distance)}");
     }
-    // private void TryAddEffectToDebrisPiece(Transform transform)
-    // {
-    //     float distance = CalculateDistance(transform.position);
-    //     if (distance < _radiusBurnWave)
-    //     {
-    //         _debrisPoolEffects.GetDebrisBarrelEffect().PlayEffectTo(transform, CalculateIntensitySmoke(distance));
-    //     }
-    // }
     private bool TryCastSphere()
     {
         if (Physics2D.OverlapCircle(_transformPointReference.position, _radiusShockWave, _contactFilter, _hitCollidersAfterSphereCast) > 0)
@@ -114,9 +112,9 @@ public class BlastWave
     {
         return Vector2.Distance(_transformPointReference.position, positionHit);
     }
-    private float CalculateIntensitySmoke(float distance)
+    private float CalculateIntensity(float distance)
     {
-        return Mathf.InverseLerp(_radiusBurnWave, _pointReference, distance);
+        return Mathf.InverseLerp(_radiusShockWave, _pointReference, distance);
     }
     private Vector2 CalculateDirectionBlastWave(Vector2 hitPoint, Vector2 referencePoint)
     {

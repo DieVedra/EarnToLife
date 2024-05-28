@@ -14,9 +14,10 @@ public class DebrisFragment : MonoBehaviour
     private Transform _fragmentTransform;
     private Collider2D _fragmentCollider2D;
     private Rigidbody2D _rigidbody2D;
-
     public Transform FragmentTransform => _fragmentTransform;
     public Rigidbody2D Rigidbody2D => _rigidbody2D;
+
+    public TypeCollider TypeCollider { get; private set;}
     public float SizeFragment { get; private set; }
 
     public void Init()
@@ -26,22 +27,6 @@ public class DebrisFragment : MonoBehaviour
         _cancellationTokenSource = new CancellationTokenSource();
         TryCalculateSizeFragmentAndSetCollider();
     }
-    // public DebrisFragment(Transform fragmentTransform)
-    // {
-    //     _fragmentTransform = fragmentTransform;
-    //     _compositeDisposable = new CompositeDisposable();
-    //     _cancellationTokenSource = new CancellationTokenSource();
-    //     TryCalculateSizeFragmentAndSetCollider();
-    // }
-    // public DebrisFragment(Rigidbody2D rigidbody2D)
-    // {
-    //     _fragmentTransform = rigidbody2D.transform;
-    //     _rigidbody2D = rigidbody2D;
-    //     _compositeDisposable = new CompositeDisposable();
-    //     _cancellationTokenSource = new CancellationTokenSource();
-    //     TryCalculateSizeFragmentAndSetCollider();
-    // }
-
     public void Dispose()
     {
         _compositeDisposable.Clear();
@@ -49,7 +34,14 @@ public class DebrisFragment : MonoBehaviour
     }
     public void InitRigidBody()
     {
-        _rigidbody2D = _fragmentTransform.gameObject.AddComponent<Rigidbody2D>(); 
+        if (_fragmentTransform.TryGetComponent(out Rigidbody2D rigidbody2D))
+        {
+            _rigidbody2D = rigidbody2D;
+        }
+        else
+        {
+            _rigidbody2D = _fragmentTransform.gameObject.AddComponent<Rigidbody2D>();
+        }
     }
 
     public void TryAddForce(Vector2 force)
@@ -78,26 +70,31 @@ public class DebrisFragment : MonoBehaviour
     {
         if (_fragmentTransform.TryGetComponent(out PolygonCollider2D polygonCollider2D))
         {
+            TypeCollider = TypeCollider.Polygon;
             CalculateSizePolygonCollider(polygonCollider2D);
             SetCollider(polygonCollider2D);
         }
         else if(_fragmentTransform.TryGetComponent(out BoxCollider2D boxCollider2D))
         {
+            TypeCollider = TypeCollider.Box;
             CalculateSizeBoxCollider(boxCollider2D);
             SetCollider(boxCollider2D);
         }
         else if(_fragmentTransform.TryGetComponent(out CapsuleCollider2D capsuleCollider2D))
         {
+            TypeCollider = TypeCollider.Capsule;
             CalculateSizeCapsuleCollider(capsuleCollider2D);
             SetCollider(capsuleCollider2D);
         }
         else if(_fragmentTransform.TryGetComponent(out CircleCollider2D circleCollider2D))
         {
+            TypeCollider = TypeCollider.Circle;
             CalculateSizeCircleCollider(circleCollider2D);
             SetCollider(circleCollider2D);
         }
         else
         {
+            TypeCollider = TypeCollider.Other;
             SizeFragment = _defaultSize;
             SetCollider();
         }

@@ -16,8 +16,7 @@ public class DestructibleObject : MonoBehaviour
     protected Transform DebrisParentForDestroy;
     protected List<DebrisFragment> FragmentsDebris;
     protected bool ObjectIsBroken;
-    protected event Action OnDebrisHit;
-
+    protected Action DebrisHitSound;
     private void Awake()
     {
         FragmentsDebris = new List<DebrisFragment>();
@@ -77,12 +76,8 @@ public class DestructibleObject : MonoBehaviour
     {
         for (int i = 0; i < FragmentsDebris.Count; i++)
         {
-            FragmentsDebris[i].SubscribeFragment(DebrisHit, _layerDebris, _delayChangeLayer);
+            FragmentsDebris[i].SubscribeFragment(DebrisHitSound, _layerDebris, _delayChangeLayer);
         }
-    }
-    private void DebrisHit()
-    {
-        OnDebrisHit?.Invoke();
     }
     protected void OnEnable()
     {

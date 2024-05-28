@@ -20,7 +20,7 @@ public class DebrisPool : PoolMetods
         _factory = factory;
         _debrisPoolEffectsParent = debrisPoolEffectsParent;
         
-        _debrisBarrelEffectsPool = new PoolBase<DebrisEffect>(CreateDebrisEffect, GetAction, ReturnAction, _preloadDebrisEffectsCount);
+        _debrisBarrelEffectsPool = new PoolBase<DebrisEffect>(CreateDebrisEffect, GetAction, this.ReturnAction, _preloadDebrisEffectsCount);
 
     }
     private DebrisEffect CreateDebrisEffect()
@@ -29,9 +29,14 @@ public class DebrisPool : PoolMetods
         debrisEffect.Construct(
             _factory.CreateEffect(_smokeEffectPrefab, debrisEffect.transform),
             _factory.CreateEffect(_burnEffectPrefab, debrisEffect.transform),
-            _debrisBarrelEffectsPool.Return);
+            this.ReturnAction);
 
         return debrisEffect;
+    }
+    protected override void ReturnAction(DebrisEffect effect)
+    {
+        effect.transform.SetParent(_debrisPoolEffectsParent);
+        base.ReturnAction(effect);
     }
     public DebrisEffect GetDebrisBarrelEffect()
     {

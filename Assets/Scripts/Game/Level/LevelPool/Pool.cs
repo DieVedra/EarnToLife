@@ -10,7 +10,7 @@ public class PoolMetods
     {
         effect.gameObject.SetActive(true);
     }
-    protected  void ReturnAction(DebrisEffect effect)
+    protected virtual void ReturnAction(DebrisEffect effect)
     {
         // effect.transform.SetParent(_barrelPoolEffectsParent);
         effect.gameObject.SetActive(false);

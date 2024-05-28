@@ -35,7 +35,6 @@ public class Zombie : MonoBehaviour, IHitable, IExplosive, IShotable, ICutable
     private readonly float _forceTearingUpMultiplier = 0.5f;
     private Transform _transform;
     private Transform _debrisParentForDestroy;
-    private IGamePause _gamePause;
     private ZombiePool _zombiePool;
     private CompositeDisposable _compositeDisposable = new CompositeDisposable();
     private CompositeDisposable _compositeDisposableForUpdate = new CompositeDisposable();
@@ -48,16 +47,17 @@ public class Zombie : MonoBehaviour, IHitable, IExplosive, IShotable, ICutable
     public IReadOnlyList<DebrisFragment> DebrisFragments => _debrisFragments;
 
     public bool IsBroken { get; private set; }
-    public Transform TargetTransform => _transform;
+    public Transform TargetTransform { get; private set; }
+
 
     [Inject]
     private void Construct(GamePause gamePause, ILevel level)
     {
-        _gamePause = gamePause;
         _debrisParentForDestroy = level.DebrisParent;
         _zombieAudioHandler = level.LevelAudio.ZombieAudioHandler;
         _zombiePool = level.LevelPool.ZombiePool;
         _zombieMove = new ZombieMove(transform, _rigidbody2D, _collider2D, gamePause, _contactMask, (float)_direction, _speed);
+        TargetTransform = _bodyRigidbody2D.transform;
     }
 
     private void Awake()
@@ -66,8 +66,9 @@ public class Zombie : MonoBehaviour, IHitable, IExplosive, IShotable, ICutable
 
         for (int i = 0; i < _forTearingUp.Length; i++)
         {
-            DebrisFragment debrisFragment = _forTearingUp[i].AddComponent<DebrisFragment>();
+            DebrisFragment debrisFragment = _forTearingUp[i].gameObject.AddComponent<DebrisFragment>();
             debrisFragment.Init();
+            debrisFragment.InitRigidBody();
             _debrisFragments.Add(debrisFragment);
         }
     }
@@ -181,11 +182,11 @@ public class Zombie : MonoBehaviour, IHitable, IExplosive, IShotable, ICutable
         }
     }
 
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(_collider2D.OriginLowerCirclePosition(transform), _collider2D.RadiusCircle());
-    }
+    // private void OnDrawGizmos()
+    // {
+    //     Gizmos.color = Color.red;
+    //     Gizmos.DrawWireSphere(_collider2D.OriginLowerCirclePosition(transform), _collider2D.RadiusCircle());
+    // }
 
     private void FixedUpdate()
     {

@@ -22,6 +22,7 @@ public class Beam2 : Beam, IHitable, ICutable
         {
                 DebrisParentForDestroy = level.DebrisParent;
                 WoodDestructibleAudioHandler = level.LevelAudio.WoodDestructibleAudioHandler;
+                DebrisHitSound = level.LevelAudio.WoodDestructibleAudioHandler.PlayHitWoodSound;
                 Rigidbody2D = GetComponent<Rigidbody2D>();
                 _transform = transform;
                 SetPositionsFragments();
@@ -93,13 +94,13 @@ public class Beam2 : Beam, IHitable, ICutable
 
         private new void OnEnable()
         {
-                OnDebrisHit += WoodDestructibleAudioHandler.PlayHitWoodSound;
+                // debrisHitSound += WoodDestructibleAudioHandler.PlayHitWoodSound;
                 base.OnEnable();
         }
 
         private new void OnDisable()
         {
-                OnDebrisHit -= WoodDestructibleAudioHandler.PlayHitWoodSound;
+                // debrisHitSound -= WoodDestructibleAudioHandler.PlayHitWoodSound;
                 base.OnDisable();
         }
 }
