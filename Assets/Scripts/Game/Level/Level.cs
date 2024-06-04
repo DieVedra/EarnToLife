@@ -16,7 +16,6 @@ public class Level : MonoBehaviour, ILevel
     public Transform DebrisParent => _debrisParent;
     public LevelPool LevelPool => _levelPool;
     public LevelAudio LevelAudio =>_levelAudio;
-    public BarrelPool BarrelPool => _levelPool.BarrelPool;
     
     [Inject]
     public void Construct(Factory factory, LevelPrefabsProvider levelPrefabsProvider, AudioClipProvider audioClipProvider, IGlobalAudio globalAudio)
@@ -27,7 +26,7 @@ public class Level : MonoBehaviour, ILevel
                 levelPrefabsProvider.LevelParticlesProvider.BarrelExplosion,
                 levelPrefabsProvider.LevelParticlesProvider.BurnEffect,
                 factory, _barrelPoolEffectsParent),
-            new ZombiePool(
+            new ZombiePool(levelPrefabsProvider.LevelParticlesProvider.BloodHitEffect,
                 levelPrefabsProvider.LevelParticlesProvider.BloodEffect,
                 factory, _bloodEffectsParent),
             new DebrisPool(
@@ -40,6 +39,6 @@ public class Level : MonoBehaviour, ILevel
 
     private void OnDisable()
     {
-        BarrelPool.Dispose();
+        LevelPool.Dispose();
     }
 }

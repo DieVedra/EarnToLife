@@ -80,16 +80,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/Assets/Scripts/Car/DestructionCar/DestructionEffectsHandler.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/WheelGroundInteractions/WheelGroundInteraction.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Car/DestructionCar/BottomDestructionHandler.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Car/DestructionCar/DestructionHandler.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Car/DestructionCar/DestructionCar.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Car/SpeedEffect.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Car/SpeedEffect/SpeedEffect.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Car/SpeedEffect/SpeedEffectHandler.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Car/CarInLevel.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Car/CarAudio/SuspensionAudioHandler.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Interfaces/IGamePause.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Factory.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Game/Game.cs" />
@@ -101,23 +91,13 @@
         <option value="$PROJECT_DIR$/Assets/Scripts/Installers/LevelScenesInstallers/PauseInstaller.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Enums/ZombieDirection.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Extensions/Extensions.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Zombie/ZombieMove.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Game/Level/LevelPool/ZombiePool.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/DebrisBarrelEffect.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/ScriptableObjectScripts/Providers/PrefabsProviders/LevelPrefabs/LevelParticlesProvider.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Game/Level/LevelPool/BarrelPool.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Game/Level/LevelPool/LevelPool.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Game/Level/Level.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Game/Level/Audio/BarrelAudioHandler.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Game/Level/Audio/LevelAudioHandler.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Game/Level/Audio/ZombieAudioHandler.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/ScriptableObjectScripts/Providers/AudioClipsProviders/LevelAudioClipProvider.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Game/Level/Audio/LevelAudio.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Game/Level/Audio/DebrisAudioHandler.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Enums/TypeCollider.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/PoolBase.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Game/Level/LevelPool/Pool.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Game/Level/LevelPool/DebrisPool.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Game/Level/LevelContent/DestructibleObject.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Game/Level/LevelContent/Barrel/Barrel.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Game/Level/LevelContent/Beam/Beam1.cs" />
@@ -126,11 +106,31 @@
         <option value="$PROJECT_DIR$/Assets/Scripts/Game/Level/LevelContent/Coil.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Game/GamePause.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Test.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Game/Level/LevelContent/DebrisFragment.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Interfaces/IShotable.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Zombie/Zombie.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/DebrisEffect.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Game/Level/LevelContent/Barrel/BlastWave.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Zombie/ZombieEffects.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Game/Level/LevelPool/DebrisPool.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Game/Level/LevelPool/BarrelPool.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Game/Level/LevelPool/LevelPool.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Game/Level/Level.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/ScriptableObjectScripts/Providers/PrefabsProviders/LevelPrefabs/LevelParticlesProvider.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Game/Level/LevelPool/ZombiePool.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Game/Garage/InGarageCarCustomize/WheelCarValues.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/CarWheel.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Car/CarInLevel.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Zombie/ZombieMove.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/Analyzers/GroundAnalyzer.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/WheelGroundInteractions/WheelGroundInteraction.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/CarFSM/CarFSM.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Game/Level/LevelContent/DebrisFragment.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Zombie/Batya.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/ScriptableObjectScripts/Providers/AudioClipsProviders/LevelAudioClipProvider.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Game/Level/Audio/LevelAudio.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Audio/AudioPlayer.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Game/Level/Audio/ZombieAudioHandler.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Zombie/ZombieBoozer.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Zombie/Zombie.cs" />
       </list>
     </option>
   </component>
@@ -238,6 +238,11 @@
       <workItem from="1716632778206" duration="23373000" />
       <workItem from="1716831629153" duration="12555000" />
       <workItem from="1716893674753" duration="13966000" />
+      <workItem from="1717062847392" duration="5494000" />
+      <workItem from="1717094150890" duration="1212000" />
+      <workItem from="1717182064015" duration="7756000" />
+      <workItem from="1717443519466" duration="3444000" />
+      <workItem from="1717490880830" duration="17371000" />
     </task>
     <task id="LOCAL-00001" summary="Roof Destruction changed&#10;Back Wing Destruction changed">
       <created>1710195340693</created>

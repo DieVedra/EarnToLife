@@ -771,6 +771,7 @@
           </e>
           <e p="Zombie" t="Include">
             <e p="Zombie.cs" t="Include" />
+            <e p="ZombieBoozer.cs" t="Include" />
             <e p="ZombieMove.cs" t="Include" />
           </e>
         </e>

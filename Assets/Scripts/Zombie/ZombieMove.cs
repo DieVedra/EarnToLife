@@ -7,7 +7,8 @@ public class ZombieMove
 {
     private readonly float _dotValue = -0.03f;
     private readonly float _distance = 0.05f;
-    private readonly float _radiusIincrease = 0.05f;
+    private readonly float _radiusSphere;
+    private readonly Vector2 _offsetSphere;
     private readonly float _directionMultiplier;
     private readonly Vector2 _direction = new Vector2(1f,1f);
     private readonly Transform _transform;
@@ -20,7 +21,7 @@ public class ZombieMove
     private ContactFilter2D _contactFilter;
     private Vector2 _normal => _hits[0].normal;
     public ZombieMove(Transform transform, Rigidbody2D rigidbody2D, CapsuleCollider2D capsuleCollider2D, 
-        GamePause gamePause, LayerMask contactMask, float direction, float speed)
+        GamePause gamePause, LayerMask contactMask, Vector2 offsetSphere, float direction, float speed, float radiusSphere)
     {
         _transform = transform;
         _rigidbody2D = rigidbody2D;
@@ -28,6 +29,8 @@ public class ZombieMove
         _gamePause = gamePause;
         _directionMultiplier = direction;
         _speed = speed;
+        _radiusSphere = radiusSphere;
+        _offsetSphere = offsetSphere;
         _contactFilter.useTriggers = false;
         _contactFilter.useLayerMask = true;
         _contactFilter.layerMask = contactMask.value;
@@ -37,8 +40,7 @@ public class ZombieMove
     {
         if (_gamePause.IsPause == false)
         {
-            if (Physics2D.CircleCast(_capsuleCollider2D.OriginLowerCirclePosition(_transform),
-                _capsuleCollider2D.RadiusCircle() + _radiusIincrease,
+            if (Physics2D.CircleCast(_transform.PositionVector2() + _offsetSphere, _radiusSphere,
                 _direction, _contactFilter, _hits, _distance) > 0)
             {
                 // Debug.Log($"Hit true  {result}    {_hits.Count}");

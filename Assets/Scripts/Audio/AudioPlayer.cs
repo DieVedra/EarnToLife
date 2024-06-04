@@ -4,6 +4,7 @@ using UnityEngine;
 public class AudioPlayer
 {
     private readonly AudioSource _audioSource;
+    private int _previousRandomValue = 0;
     public bool SoundOn { get; private set; }
     public AudioSource AudioSource => _audioSource;
     public AudioPlayer(AudioSource audioSource, ReactiveProperty<bool> soundReactiveProperty, ReactiveProperty<bool> audioPauseReactiveProperty)
@@ -121,6 +122,11 @@ public class AudioPlayer
     }
     private int GetRandomIntValue(int min, int max)
     {
+        int newValue = max;
+        while (_previousRandomValue == newValue)
+        {
+            newValue = Random.Range(min, max);
+        }
         return Random.Range(min, max);
     }
     private float GetRandomFloatValue(float min, float max)

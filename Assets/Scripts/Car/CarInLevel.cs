@@ -16,6 +16,7 @@ public class CarInLevel : Car
     [SerializeField, BoxGroup("WheelGroundInteraction"), HorizontalLine(color:EColor.Yellow)] private LayerMask _groundContactMask;
     [SerializeField, BoxGroup("WheelGroundInteraction"), Layer] private int _asphaltLayer;
     [SerializeField, BoxGroup("WheelGroundInteraction"), Layer] private int _groundLayer;
+    [SerializeField, BoxGroup("WheelGroundInteraction"), Layer] private int _zombieBloodLayer;
     [SerializeField, BoxGroup("WheelGroundInteraction")] private AnimationCurve _particlesSpeedCurveGasState;
     [SerializeField, BoxGroup("WheelGroundInteraction")] private AnimationCurve _particlesSpeedCurveStopState;
 
@@ -113,7 +114,7 @@ public class CarInLevel : Car
         _engine = new Engine(_engineAccelerationCurve, _carAudio.EngineAudioHandler, _exhaust, CarConfiguration.EngineOverclockingMultiplier);
         _propulsionUnit = new PropulsionUnit(_engine, _transmission, FuelTank);
         InitWheels();
-        _groundAnalyzer = new GroundAnalyzer(_frontWheel, _backWheel, _onCarBrokenIntoTwoPartsReactiveCommand, _groundContactMask, _asphaltLayer, _groundLayer);
+        _groundAnalyzer = new GroundAnalyzer(_frontWheel, _backWheel, _onCarBrokenIntoTwoPartsReactiveCommand, _groundContactMask, _asphaltLayer, _groundLayer, _zombieBloodLayer);
         _brakes = new Brakes(_carAudio.WheelsAudioHandler.BrakeAudioHandler, Speedometer, _groundAnalyzer);
         _coupAnalyzer = new CoupAnalyzer(transform);
         _controlActive = true;
@@ -158,6 +159,10 @@ public class CarInLevel : Car
         Speedometer.Update();
     }
 
+    public void UpdateCarFixed()
+    {
+        
+    }
     private void StopCarOther()
     {
         EndOfRide();
@@ -370,9 +375,9 @@ public class CarInLevel : Car
     private void InitWheels()
     {
         _frontWheel = new CarWheel(FrontWheelJoint, FrontWheelCarValues.WheelRigidbody2D, _corpusTransform, 
-            FrontWheelCarValues.SmokeWheelParticleSystem, FrontWheelCarValues.DirtWheelParticleSystem);
+            FrontWheelCarValues.SmokeWheelParticleSystem, FrontWheelCarValues.DirtWheelParticleSystem, FrontWheelCarValues.BloodWheelParticleSystem);
         _backWheel = new CarWheel(BackWheelJoint, BackWheelCarValues.WheelRigidbody2D, _corpusTransform,
-            BackWheelCarValues.SmokeWheelParticleSystem, BackWheelCarValues.DirtWheelParticleSystem);
+            BackWheelCarValues.SmokeWheelParticleSystem, BackWheelCarValues.DirtWheelParticleSystem, BackWheelCarValues.BloodWheelParticleSystem);
     }
 
     private void InitExhaust()

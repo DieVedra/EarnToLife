@@ -12,4 +12,9 @@ public class LevelPool
         ZombiePool = zombiePool;
         DebrisPool = debrisPool;
     }
+    public void Dispose()
+    {
+        BarrelPool.Dispose();
+        ZombiePool.Dispose();
+    }
 }

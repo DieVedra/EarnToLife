@@ -6,6 +6,7 @@ public class GroundAnalyzer
 {
     private readonly int _asphaltLayer;
     private readonly int _groundLayer;
+    private readonly int _zombieBloodLayer;
     private readonly float _distance = 0.1f;
     private readonly float _delay = 0.06f;
     private readonly CarWheel _frontWheel;
@@ -18,24 +19,28 @@ public class GroundAnalyzer
     public Vector2 FrontWheelPointContact { get; private set; }
     public Vector2 BackWheelPointContact { get; private set; }
 
-    public ReactiveProperty<bool> FrontWheelOnGroundReactiveProperty = new ReactiveProperty<bool>();
-    public ReactiveProperty<bool> BackWheelOnGroundReactiveProperty = new ReactiveProperty<bool>();
+    public ReactiveProperty<bool> FrontWheelOnGroundReactiveProperty { get; private set; } = new ReactiveProperty<bool>();
+    public ReactiveProperty<bool> BackWheelOnGroundReactiveProperty { get; private set; } = new ReactiveProperty<bool>();
     
-    public ReactiveProperty<bool> FrontWheelOnAsphaltReactiveProperty = new ReactiveProperty<bool>();
-    public ReactiveProperty<bool> BackWheelOnAsphaltReactiveProperty = new ReactiveProperty<bool>();
+    public ReactiveProperty<bool> FrontWheelOnAsphaltReactiveProperty { get; private set; } = new ReactiveProperty<bool>();
+    public ReactiveProperty<bool> BackWheelOnAsphaltReactiveProperty { get; private set; } = new ReactiveProperty<bool>();
     
-    public ReactiveProperty<bool> FrontWheelContactReactiveProperty = new ReactiveProperty<bool>();
-    public ReactiveProperty<bool> BackWheelContactReactiveProperty = new ReactiveProperty<bool>();
+    public ReactiveProperty<bool> FrontWheelOnZombieReactiveProperty { get; private set; } = new ReactiveProperty<bool>();
+    public ReactiveProperty<bool> BackWheelOnZombieReactiveProperty { get; private set; } = new ReactiveProperty<bool>();
+    
+    public ReactiveProperty<bool> FrontWheelContactReactiveProperty { get; private set; } = new ReactiveProperty<bool>();
+    public ReactiveProperty<bool> BackWheelContactReactiveProperty { get; private set; } = new ReactiveProperty<bool>();
     public bool FrontWheelContact => FrontWheelContactReactiveProperty.Value;
     public bool BackWheelContact => BackWheelContactReactiveProperty.Value;
     public GroundAnalyzer(CarWheel frontWheel, CarWheel backWheel, ReactiveCommand onCarBrokenIntoTwoParts,
-        LayerMask contactMask, int asphaltLayer, int groundLayer)
+        LayerMask contactMask, int asphaltLayer, int groundLayer, int zombieBloodLayer)
     {
         _frontWheel = frontWheel;
         _backWheel = backWheel;
         _contactMask = contactMask;
         _asphaltLayer = asphaltLayer;
         _groundLayer = groundLayer;
+        _zombieBloodLayer = zombieBloodLayer;
         onCarBrokenIntoTwoParts.Subscribe(_ => { CarBrokenIntoTwoParts();});
     }
 
@@ -70,8 +75,7 @@ public class GroundAnalyzer
             Vector2.down, _distance, _contactMask.value);
         if (_frontWheelHit)
         {
-            CheckLayer(FrontWheelOnGroundReactiveProperty, FrontWheelOnAsphaltReactiveProperty, _frontWheelHit,
-            SetContactPointFrontWheelAndSetKeyTrue);
+            CheckLayerFront();
         }
         else
         {
@@ -84,30 +88,55 @@ public class GroundAnalyzer
             Vector2.down, _distance, _contactMask.value);
         if (_backWheelHit)
         {
-            CheckLayer(BackWheelOnGroundReactiveProperty, BackWheelOnAsphaltReactiveProperty, _backWheelHit,
-                SetContactPointBackWheelAndSetKeyTrue);
+            CheckLayerBack();
         }
         else
         {
             SetKeyFalseBackWheelContact();
         }
     }
-
+    private void CheckLayerFront()
+    {
+        CheckLayer(FrontWheelOnGroundReactiveProperty, FrontWheelOnAsphaltReactiveProperty, FrontWheelOnZombieReactiveProperty,
+            SetContactPointFrontWheelAndSetKeyTrue, _frontWheelHit);
+    }
+    private void CheckLayerBack()
+    {
+        CheckLayer(BackWheelOnGroundReactiveProperty, BackWheelOnAsphaltReactiveProperty, BackWheelOnZombieReactiveProperty,
+            SetContactPointBackWheelAndSetKeyTrue, _backWheelHit);
+    }
     private void CheckLayer(ReactiveProperty<bool> wheelOnGroundReactiveProperty,
-        ReactiveProperty<bool> wheelOnAsphaltReactiveProperty, RaycastHit2D hit,
-        Action<RaycastHit2D> setContactPointWheel)
+        ReactiveProperty<bool> wheelOnAsphaltReactiveProperty,
+        ReactiveProperty<bool> wheelOnZombieReactiveProperty,
+        Action<RaycastHit2D> setContactPointWheel,
+        RaycastHit2D hit)
     {
         if (hit.transform.gameObject.layer == _groundLayer)
         {
             wheelOnGroundReactiveProperty.Value = true;
             wheelOnAsphaltReactiveProperty.Value = false;
+            wheelOnZombieReactiveProperty.Value = false;
+            setContactPointWheel(hit);
+        }
+        else if(hit.transform.gameObject.layer == _asphaltLayer)
+        {
+            wheelOnGroundReactiveProperty.Value = false;
+            wheelOnAsphaltReactiveProperty.Value = true;
+            wheelOnZombieReactiveProperty.Value = false;
+            setContactPointWheel(hit);
+        }
+        else if(hit.transform.gameObject.layer == _zombieBloodLayer)
+        {
+            wheelOnGroundReactiveProperty.Value = false;
+            wheelOnAsphaltReactiveProperty.Value = false;
+            wheelOnZombieReactiveProperty.Value = true;
             setContactPointWheel(hit);
         }
         else
         {
             wheelOnGroundReactiveProperty.Value = false;
-            wheelOnAsphaltReactiveProperty.Value = true;
-            setContactPointWheel(hit);
+            wheelOnAsphaltReactiveProperty.Value = false;
+            wheelOnZombieReactiveProperty.Value = false;
         }
     }
     private void SetContactPointFrontWheelAndSetKeyTrue(RaycastHit2D wheelHit)

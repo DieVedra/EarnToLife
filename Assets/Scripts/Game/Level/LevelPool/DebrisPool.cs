@@ -9,7 +9,7 @@ public class DebrisPool : PoolMetods
     private readonly DebrisEffect _debrisEffectPrefab;
     private readonly Factory _factory;
     private readonly Transform _debrisPoolEffectsParent;
-    private PoolBase<DebrisEffect> _debrisBarrelEffectsPool;
+    private readonly PoolBase<DebrisEffect> _debrisBarrelEffectsPool;
 
     public DebrisPool(ParticleSystem burnEffectPrefab, ParticleSystem smokeEffectPrefab, DebrisEffect debrisEffectPrefab,
         Factory factory, Transform debrisPoolEffectsParent)

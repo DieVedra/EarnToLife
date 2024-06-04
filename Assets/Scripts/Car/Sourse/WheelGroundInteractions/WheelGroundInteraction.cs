@@ -17,15 +17,23 @@ public class WheelGroundInteraction
     private readonly CancellationTokenSource _cancellationTokenSource = new CancellationTokenSource();
     private readonly ParticleSystem[] _effects;
     private readonly ParticleSystem[] _backWheelEffects;
+
+
+    private readonly ParticleSystem _frontWheelDirtWheelParticleSystem;
+    private readonly ParticleSystem _backWheelDirtWheelParticleSystem;
+    private readonly ParticleSystem _frontWheelSmokeWheelParticleSystem;
+    private readonly ParticleSystem _backWheelSmokeWheelParticleSystem;
+    private readonly ParticleSystem _frontWheelZombieBloodParticleSystem;
+    private readonly ParticleSystem _backWheelZombieBloodParticleSystem;
+
+    private readonly Transform _frontWheelSmokeEffectTransform;
+    private readonly Transform _backWheelSmokeEffectTransform;
+    private readonly Transform _frontWheelZombieBloodEffectTransform;
+    private readonly Transform _backWheelZombieBloodEffectTransform;
+    protected readonly Transform FrontWheelDirtEffectTransform;
+    protected readonly Transform BackWheelDirtEffectTransform;
     private float _evaluatedValue;
-    protected Transform FrontWheelDirtEffectTransform => _frontWheel.DirtWheelParticleSystem.transform;
-    protected Transform BackWheelDirtEffectTransform => _backWheel.DirtWheelParticleSystem.transform;
-    private Transform _frontWheelSmokeEffectTransform => _frontWheel.SmokeWheelParticleSystem.transform;
-    private Transform _backWheelSmokeEffectTransform => _backWheel.SmokeWheelParticleSystem.transform;
-    private ParticleSystem _frontWheelDirtWheelParticleSystem => _frontWheel.DirtWheelParticleSystem;
-    private ParticleSystem _backWheelDirtWheelParticleSystem => _backWheel.DirtWheelParticleSystem;
-    private ParticleSystem _frontWheelSmokeWheelParticleSystem => _frontWheel.SmokeWheelParticleSystem;
-    private ParticleSystem _backWheelSmokeWheelParticleSystem => _backWheel.SmokeWheelParticleSystem;
+
     protected WheelGroundInteraction(GroundAnalyzer groundAnalyzer, Speedometer speedometer,
         CarWheel frontWheel, CarWheel backWheel, AnimationCurve particlesSpeedCurve, ReactiveCommand onCarBrokenIntoTwoParts)
     {
@@ -34,14 +42,30 @@ public class WheelGroundInteraction
         _backWheel = backWheel;
         Speedometer = speedometer;
         _particlesSpeedCurve = particlesSpeedCurve;
+        
+        FrontWheelDirtEffectTransform = _frontWheel.DirtWheelParticleSystem.transform;
+        BackWheelDirtEffectTransform = _backWheel.DirtWheelParticleSystem.transform;
+        _frontWheelSmokeEffectTransform = _frontWheel.SmokeWheelParticleSystem.transform;
+        _backWheelSmokeEffectTransform = _backWheel.SmokeWheelParticleSystem.transform;
+        _frontWheelZombieBloodEffectTransform = _frontWheel.BloodWheelParticleSystem.transform;
+        _backWheelZombieBloodEffectTransform = _backWheel.BloodWheelParticleSystem.transform;
+        
+        _frontWheelDirtWheelParticleSystem = _frontWheel.DirtWheelParticleSystem;
+        _backWheelDirtWheelParticleSystem = _backWheel.DirtWheelParticleSystem;
+        _frontWheelSmokeWheelParticleSystem = _frontWheel.SmokeWheelParticleSystem;
+        _backWheelSmokeWheelParticleSystem = _backWheel.SmokeWheelParticleSystem;
+        _frontWheelZombieBloodParticleSystem = _frontWheel.BloodWheelParticleSystem;
+        _backWheelZombieBloodParticleSystem = _backWheel.BloodWheelParticleSystem;
+        
         _effects = new[]
         {
-            _frontWheelDirtWheelParticleSystem, _backWheelDirtWheelParticleSystem, _frontWheelSmokeWheelParticleSystem,
-            _backWheelSmokeWheelParticleSystem
+            _frontWheelDirtWheelParticleSystem, _backWheelDirtWheelParticleSystem,
+            _frontWheelSmokeWheelParticleSystem, _backWheelSmokeWheelParticleSystem,
+            _frontWheelZombieBloodParticleSystem, _backWheelZombieBloodParticleSystem
         };
         _backWheelEffects = new[]
         {
-            _backWheelDirtWheelParticleSystem, _backWheelSmokeWheelParticleSystem
+            _backWheelDirtWheelParticleSystem, _backWheelSmokeWheelParticleSystem, _backWheelZombieBloodParticleSystem
         };
         onCarBrokenIntoTwoParts.Subscribe(_ => { CarBrokenIntoTwoParts();});
     }
@@ -50,12 +74,13 @@ public class WheelGroundInteraction
     {
         SubscribeReactiveProperty(GroundAnalyzer.FrontWheelOnGroundReactiveProperty, PlayEffectFrontWheelOnGround, CompositeDisposableFrontWheel);
         SubscribeReactiveProperty(GroundAnalyzer.FrontWheelOnAsphaltReactiveProperty, PlayEffectFrontWheelOnAsphalt, CompositeDisposableFrontWheel);
+        SubscribeReactiveProperty(GroundAnalyzer.FrontWheelOnZombieReactiveProperty, PlayEffectFrontWheelOnZombie, CompositeDisposableFrontWheel);
         if (carBroken == false)
         {
             SubscribeReactiveProperty(GroundAnalyzer.BackWheelOnGroundReactiveProperty, PlayEffectBackWheelOnGround, CompositeDisposableBackWheel);
             SubscribeReactiveProperty(GroundAnalyzer.BackWheelOnAsphaltReactiveProperty, PlayEffectBackWheelOnAsphalt, CompositeDisposableBackWheel);
+            SubscribeReactiveProperty(GroundAnalyzer.BackWheelOnZombieReactiveProperty, PlayEffectBackWheelOnZombie, CompositeDisposableBackWheel);
         }
-        
         EnableEffects();
     }
 
@@ -73,12 +98,13 @@ public class WheelGroundInteraction
         {
             FrontWheelDirtEffectTransform.position = GroundAnalyzer.FrontWheelPointContact;
             _frontWheelSmokeEffectTransform.position = GroundAnalyzer.FrontWheelPointContact;
+            _frontWheelZombieBloodEffectTransform.position = GroundAnalyzer.FrontWheelPointContact;
         }
-
         if (GroundAnalyzer.BackWheelContact == true)
         {
             BackWheelDirtEffectTransform.position = GroundAnalyzer.BackWheelPointContact;
             _backWheelSmokeEffectTransform.position = GroundAnalyzer.BackWheelPointContact;
+            _backWheelZombieBloodEffectTransform.position = GroundAnalyzer.BackWheelPointContact;
         }
     }
     protected virtual void SetRotation() { }
@@ -93,11 +119,13 @@ public class WheelGroundInteraction
     protected virtual void ChangesParticlesSpeeds()
     {
         EvaluateCurve();
-        ChangeParticlesSpeed(_frontWheel.DirtWheelParticleSystem, _evaluatedValue);
-        ChangeParticlesSpeed(_frontWheel.SmokeWheelParticleSystem, _evaluatedValue);
+        ChangeParticlesSpeed(_frontWheelDirtWheelParticleSystem, _evaluatedValue);
+        ChangeParticlesSpeed(_frontWheelSmokeWheelParticleSystem, _evaluatedValue);
+        ChangeParticlesSpeed(_frontWheelZombieBloodParticleSystem, _evaluatedValue);
         
-        ChangeParticlesSpeed(_backWheel.DirtWheelParticleSystem, _evaluatedValue);
-        ChangeParticlesSpeed(_backWheel.SmokeWheelParticleSystem, _evaluatedValue);
+        ChangeParticlesSpeed(_backWheelDirtWheelParticleSystem, _evaluatedValue);
+        ChangeParticlesSpeed(_backWheelSmokeWheelParticleSystem, _evaluatedValue);
+        ChangeParticlesSpeed(_backWheelZombieBloodParticleSystem, _evaluatedValue);
     }
 
     protected void SubscribeReactiveProperty(ReactiveProperty<bool> property, Action operation, CompositeDisposable compositeDisposable)
@@ -146,7 +174,15 @@ public class WheelGroundInteraction
     {
         TryPlayEffect(_backWheelSmokeWheelParticleSystem, value);
     }
+    private void PlayEffectFrontWheelOnZombie(bool value)
+    {
+        TryPlayEffect(_frontWheelZombieBloodParticleSystem, value);
+    }
 
+    private void PlayEffectBackWheelOnZombie(bool value)
+    {
+        TryPlayEffect(_backWheelZombieBloodParticleSystem, value);
+    }
     private void TryPlayEffect(ParticleSystem particleSystem, bool value)
     {
         if (value == true)

@@ -56,13 +56,13 @@ public class DebrisFragment : MonoBehaviour
         _fragmentCollider2D.OnCollisionEnter2DAsObservable().Subscribe(_ =>
         {
             operation?.Invoke();
+            _compositeDisposable.Clear();
             SetLayerFragments(layer, delayChangeLayer).Forget();
         }).AddTo(_compositeDisposable);
     }
     private async UniTaskVoid SetLayerFragments(int layer, float delayChangeLayer)
     {
         await UniTask.Delay(TimeSpan.FromSeconds(delayChangeLayer), cancellationToken: _cancellationTokenSource.Token);
-        _compositeDisposable.Clear();
         _fragmentTransform.gameObject.layer = layer;
     }
 

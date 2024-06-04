@@ -8,6 +8,7 @@ public class LevelParticlesProvider : ScriptableObject
 {
     [SerializeField, HorizontalLine(color: EColor.Green)] private ParticleSystem _barrelExplosion;
     [SerializeField] private ParticleSystem _burnEffect;
+    [SerializeField] private ParticleSystem _bloodHitEffect;
     [SerializeField] private ParticleSystem _bloodEffect;
     [SerializeField] private ParticleSystem _smokeEffect;
     [SerializeField] private DebrisEffect _debrisEffect;
@@ -16,6 +17,7 @@ public class LevelParticlesProvider : ScriptableObject
     public ParticleSystem BarrelExplosion => _barrelExplosion;
     public ParticleSystem BurnEffect => _burnEffect;
     public ParticleSystem SmokeEffect => _smokeEffect;
+    public ParticleSystem BloodHitEffect => _bloodHitEffect;
     public ParticleSystem BloodEffect => _bloodEffect;
     public DebrisEffect DebrisEffect => _debrisEffect;
 }

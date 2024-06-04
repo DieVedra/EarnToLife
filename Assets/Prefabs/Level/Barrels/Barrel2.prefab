@@ -53,13 +53,13 @@ MonoBehaviour:
   _debrisParentLocal: {fileID: 2312071061043425578}
   _forceBlastWave: 320
   _radiusShockWave: 8
-  _radiusBurnWave: 2.6666667
+  _radiusBurnWave: 3.66
   _startDelay: 1.5
   _explosionDelay: {x: 0.6, y: 0.8}
   _burnOffset: 0.306
   _blastWaveMask:
     serializedVersion: 2
-    m_Bits: 7864832
+    m_Bits: 1081606656
   _groundMask:
     serializedVersion: 2
     m_Bits: 0
