@@ -11,6 +11,7 @@ using UnityEngine.U2D.IK;
 using Zenject;
 using Random = UnityEngine.Random;
 
+[RequireComponent(typeof(AudioSource))]
 public class Zombie : MonoBehaviour, IHitable, IExplosive, IShotable, ICutable
 {
     [SerializeField, HorizontalLine(color: EColor.Green)] private Rigidbody2D _rigidbody2D;
@@ -42,6 +43,7 @@ public class Zombie : MonoBehaviour, IHitable, IExplosive, IShotable, ICutable
     private Transform _transform;
     private Transform _debrisParentForDestroy;
     private ZombiePool _zombiePool;
+    private IGamePause _gamePause;
     private CompositeDisposable _compositeDisposable = new CompositeDisposable();
     private CompositeDisposable _compositeDisposableForUpdate = new CompositeDisposable();
     private Collision2D _collision2D;
@@ -60,14 +62,14 @@ public class Zombie : MonoBehaviour, IHitable, IExplosive, IShotable, ICutable
 
 
     [Inject]
-    private void Construct(GamePause gamePause, ILevel level)
+    private void Construct(GamePause gamePause, AudioClipProvider audioClipProvider, IGlobalAudio globalAudio,  ILevel level)
     {
         _debrisParentForDestroy = level.DebrisParent;
-        ZombieAudioHandler = level.LevelAudio.ZombieAudioHandler;
         _zombiePool = level.LevelPool.ZombiePool;
-        _zombieMove = new ZombieMove(transform, _rigidbody2D, _collider2D, gamePause, _contactMask,
-            new Vector2(_offsetXSphereCast, _offsetYSphereCast), (float)_direction, _speed, _radiusSphereCast);
         TargetTransform = _bodyRigidbody2D.transform;
+        _gamePause = gamePause;
+        ZombieAudioHandler = new ZombieAudioHandler(GetComponent<AudioSource>(),
+            globalAudio.SoundReactiveProperty, globalAudio.AudioPauseReactiveProperty, audioClipProvider.LevelAudioClipProvider);
     }
 
     private void Awake()
@@ -87,6 +89,8 @@ public class Zombie : MonoBehaviour, IHitable, IExplosive, IShotable, ICutable
             debrisFragment.InitRigidBody();
             _debrisFragments.Add(debrisFragment);
         }
+        _zombieMove = new ZombieMove(transform, _rigidbody2D, _gamePause, _contactMask,
+                    new Vector2(_offsetXSphereCast, _offsetYSphereCast), (float)_direction, _speed, _radiusSphereCast);
     }
 
     public void DestructFromShoot(Vector2 force)
@@ -116,6 +120,7 @@ public class Zombie : MonoBehaviour, IHitable, IExplosive, IShotable, ICutable
         bool result;
         if (IsBroken == false)
         {
+            ZombieAudioHandler.PlayHit();
             if (forceHit > _forceTearingUp)
             {
                 EnableRagdoll();
@@ -152,6 +157,7 @@ public class Zombie : MonoBehaviour, IHitable, IExplosive, IShotable, ICutable
                 AddBlood();
             }
 
+            ZombieAudioHandler.PlayHit();
             ZombieAudioHandler.PlayDeath();
             return true;
         }
@@ -225,7 +231,7 @@ public class Zombie : MonoBehaviour, IHitable, IExplosive, IShotable, ICutable
     }
     private void OnDrawGizmos()
     {
-        if (Application.isEditor)
+        if (Application.isPlaying == false)
         {
             Gizmos.color = Color.red;
             Gizmos.DrawWireSphere(transform.PositionVector2() + new Vector2(_offsetXSphereCast, _offsetYSphereCast), _radiusSphereCast);
