@@ -6,21 +6,18 @@ using Zenject;
 [RequireComponent(typeof(Rigidbody2D))]
 public class Coil : DestructibleObject, IHitable, IExplosive, ICutable
 {
-    private Transform _transform;
     private WoodDestructibleAudioHandler _woodDestructibleAudioHandler;
-    public Vector2 Position => _transform.position;
+    public Vector2 Position => TransformBase.position;
     public bool IsBroken => ObjectIsBroken;
     public IReadOnlyList<DebrisFragment> DebrisFragments => base.FragmentsDebris;
     
     [Inject]
     private void Construct(ILevel level)
     {
-        DebrisParentForDestroy = level.DebrisParent;
+        CameraTransform = level.CameraTransform;
         _woodDestructibleAudioHandler = level.LevelAudio.WoodDestructibleAudioHandler;
         DebrisHitSound = level.LevelAudio.WoodDestructibleAudioHandler.PlayHitWoodSound;
         Rigidbody2D = GetComponent<Rigidbody2D>();
-
-        _transform = transform;
     }
     public bool TryBreakOnImpact(float forceHit)
     {

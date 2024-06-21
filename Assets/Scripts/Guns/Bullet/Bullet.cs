@@ -27,7 +27,7 @@ public class Bullet : MonoBehaviour
         SetStartPosition(firePoint);
         gameObject.SetActive(true);
         _currentLifetime = _lifetime;
-        //_particleSystem.Play();
+        //_particleSystem.PlayFall();
         _isActive = true;
     }
     public void UpdateBullet()

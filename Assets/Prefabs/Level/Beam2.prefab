@@ -242,7 +242,7 @@ GameObject:
   m_Layer: 22
   m_Name: Beam2
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 7250588514170254948, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -277,12 +277,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _layerDebris: 20
   WholeObjectTransform: {fileID: 48090269791492088}
-  Hardness: 100
+  Hardness: 15
   _debrisParentLocal: {fileID: 3723734724087198669}
   _sprite: {fileID: 1007616268473741468}
   _spriteFragment1: {fileID: 8291457196404356086}
   _spriteFragment2: {fileID: 7716670098436952874}
   _offsetSizeFragment: 0.375
+  NotDestructible: 0
   _spriteFragment3: {fileID: 7918904520845679741}
 --- !u!50 &2784460502421744776
 Rigidbody2D:

@@ -53,7 +53,7 @@ public class Gun : MonoBehaviour
         {
             _persecuteHands.Update();
         }
-        // _rateFire.Update(targetDetected);
+        // _rateFire.FixedUpdate(targetDetected);
     }
     private void Shoot()
     {

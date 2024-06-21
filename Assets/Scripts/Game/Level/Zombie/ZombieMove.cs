@@ -13,18 +13,21 @@ public class ZombieMove
     private readonly Vector2 _direction = new Vector2(1f,1f);
     private readonly Transform _transform;
     private readonly Rigidbody2D _rigidbody2D;
-    private readonly IGamePause _gamePause;
+    private readonly GamePause _gamePause;
+    private readonly ReactiveProperty<bool> _isBrokenReactiveProperty;
+    private readonly CompositeDisposable _compositeDisposable = new CompositeDisposable();
     private readonly float _speed;
     private float _dotNormal;
     private List<RaycastHit2D> _hits = new List<RaycastHit2D>();
     private ContactFilter2D _contactFilter;
     private Vector2 _normal => _hits[0].normal;
-    public ZombieMove(Transform transform, Rigidbody2D rigidbody2D, IGamePause gamePause, 
+    public ZombieMove(Transform transform, Rigidbody2D rigidbody2D, GamePause gamePause, ReactiveProperty<bool> isBrokenReactiveProperty,
         LayerMask contactMask, Vector2 offsetSphere, float direction, float speed, float radiusSphere)
     {
         _transform = transform;
         _rigidbody2D = rigidbody2D;
         _gamePause = gamePause;
+        _isBrokenReactiveProperty = isBrokenReactiveProperty;
         _directionMultiplier = direction;
         _speed = speed;
         _radiusSphere = radiusSphere;
@@ -32,11 +35,35 @@ public class ZombieMove
         _contactFilter.useTriggers = false;
         _contactFilter.useLayerMask = true;
         _contactFilter.layerMask = contactMask.value;
+        SubscribePause();
+        SubscribeFixedUpdate();
     }
 
-    public void Update()
+    private void SubscribePause()
     {
-        if (_gamePause.IsPause == false)
+        _gamePause.PauseReactiveProperty.Subscribe(_ =>
+        {
+            if (_gamePause.PauseReactiveProperty.Value == true)
+            {
+                _compositeDisposable.Clear();
+            }
+            else
+            {
+                SubscribeFixedUpdate();
+            }
+        });
+    }
+
+    private void SubscribeFixedUpdate()
+    {
+        Observable.EveryFixedUpdate().Subscribe(_ =>
+        {
+            FixedUpdate();
+        }).AddTo(_compositeDisposable);
+    }
+    private void FixedUpdate()
+    {
+        if (_isBrokenReactiveProperty.Value ==false /*&& _gamePause.IsPause == false*/)
         {
             if (Physics2D.CircleCast(_transform.PositionVector2() + _offsetSphere, _radiusSphere,
                 _direction, _contactFilter, _hits, _distance) > 0)

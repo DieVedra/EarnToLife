@@ -147,7 +147,24 @@ public abstract class DestructionHandler
             gameObject.AddComponent<Rigidbody2D>();
         }
     }
-
+    protected Rigidbody2D GetNotSimulatedRigidBodyOrTryAdd(GameObject gameObject)
+    {
+        if (gameObject.TryGetComponent(out Rigidbody2D rigidbody2D) == true)
+        {
+            rigidbody2D.simulated = false;
+            return rigidbody2D;
+        }
+        else
+        {
+            Rigidbody2D rb = gameObject.AddComponent<Rigidbody2D>();
+            rb.simulated = false;
+            return rb;
+        }
+    }
+    protected void RigidBodySetSimulated(Rigidbody2D rigidbody2D)
+    {
+        rigidbody2D.simulated = true;
+    }
     private void CalculateStrength(float strength)
     {
         if (strength > 0)

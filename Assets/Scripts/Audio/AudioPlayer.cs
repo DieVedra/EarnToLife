@@ -3,24 +3,24 @@ using UnityEngine;
 
 public class AudioPlayer
 {
-    private readonly AudioSource _audioSource;
     private int _previousRandomValue = 0;
+    public readonly AudioSource AudioSource;
     public bool SoundOn { get; private set; }
-    public AudioSource AudioSource => _audioSource;
+
     public AudioPlayer(AudioSource audioSource, ReactiveProperty<bool> soundReactiveProperty, ReactiveProperty<bool> audioPauseReactiveProperty)
     {
-        _audioSource = audioSource;
+        AudioSource = audioSource;
         soundReactiveProperty.Subscribe(SetSoundStatus);
         audioPauseReactiveProperty.Subscribe(SetPauseStatus);
         SoundOn = soundReactiveProperty.Value;
     }
     public void TryPlayClip(AudioClip audioClip, bool loop = true)
     {
-        _audioSource.clip = audioClip;
+        AudioSource.clip = audioClip;
         if (SoundOn == true)
         {
-            _audioSource.loop = loop;
-            _audioSource.Play();
+            AudioSource.loop = loop;
+            AudioSource.Play();
         }
     }
 
@@ -28,37 +28,37 @@ public class AudioPlayer
     {
         if (SoundOn == true)
         {
-            if (_audioSource.clip != null)
+            if (AudioSource.clip != null)
             {
-                _audioSource.loop = loop;
-                _audioSource.Play();
+                AudioSource.loop = loop;
+                AudioSource.Play();
             }
         }
     }
 
     public void SetClip(AudioClip audioClip)
     {
-        _audioSource.clip = audioClip;
+        AudioSource.clip = audioClip;
     }
 
     private void Play()
     {
-        if (SoundOn == true && _audioSource.isPlaying != true)
+        if (SoundOn == true && AudioSource.isPlaying != true)
         {
-            _audioSource.loop = true;
-            _audioSource.Play();
+            AudioSource.loop = true;
+            AudioSource.Play();
         }
     }
 
     private void Pause()
     {
-        _audioSource.Pause();
+        AudioSource.Pause();
     }
     public void TryPlayOneShotClip(AudioClip audioClip)
     {
         if (SoundOn == true)
         {
-            _audioSource.PlayOneShot(audioClip);
+            AudioSource.PlayOneShot(audioClip);
         }
     }
     public void TryPlayOneShotClipWithRandomSectionVolumeAndPitch(AudioClip audioClip, Vector2 volumeSection, Vector2 pitchSection)
@@ -67,24 +67,24 @@ public class AudioPlayer
         {
             SetPitch(GetRandomFloatValue(pitchSection.x, pitchSection.y));
             SetVolume(GetRandomFloatValue(volumeSection.x, volumeSection.y));
-            _audioSource.PlayOneShot(audioClip);
+            AudioSource.PlayOneShot(audioClip);
         }
     }
     public void SetVolume(float volume)
     {
-        _audioSource.volume = volume;
+        AudioSource.volume = volume;
     }
     public void SetPitch(float pitch)
     {
-        _audioSource.pitch = pitch;
+        AudioSource.pitch = pitch;
     }
     public void StopPlay()
     {
-        _audioSource.Stop();
+        AudioSource.Stop();
     }
     public void StopPlayAndSetNull()
     {
-        _audioSource.Stop();
+        AudioSource.Stop();
         SetClip(null);
     }
     protected AudioClip GetRandomAudioClip(AudioClip[] clips)
@@ -103,7 +103,6 @@ public class AudioPlayer
     }
     private void SetSoundStatus(bool value)
     {
-        SoundOn = value;
         if (value == false)
         {
             StopPlay();

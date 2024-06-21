@@ -2,6 +2,8 @@
   "dependencies": {
     "com.cysharp.unitask": "https://github.com/Cysharp/UniTask.git?path=src/UniTask/Assets/Plugins/UniTask",
     "com.dbrizov.naughtyattributes": "https://github.com/dbrizov/NaughtyAttributes.git#upm",
+    "com.febucci.custom-hierarchy": "https://github.com/febucci/unitypackage-custom-hierarchy.git",
+    "com.marijnzwemmer.unity-toolbar-extender": "https://github.com/marijnz/unity-toolbar-extender.git",
     "com.svermeulen.extenject": "https://github.com/Mathijs-Bakker/Extenject.git?path=/UnityProject/Assets/Plugins/Zenject/Source/",
     "com.unity.cinemachine": "2.8.9",
     "com.unity.collab-proxy": "2.2.0",
@@ -16,6 +18,7 @@
     "com.unity.timeline": "1.6.5",
     "com.unity.ugui": "1.0.0",
     "com.unity.visualscripting": "1.9.1",
+    "www.nulltale.huefolders": "https://github.com/NullTale/HueFolders.git",
     "com.unity.modules.ai": "1.0.0",
     "com.unity.modules.androidjni": "1.0.0",
     "com.unity.modules.animation": "1.0.0",

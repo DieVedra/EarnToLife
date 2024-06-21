@@ -97,7 +97,7 @@ public class Bot : MonoBehaviour, IHitable, IShotable, IExplodable
         //else if (IsLive2 == true)
         //{
         //    _gun.UpdateGun(false, false , _flipBot.IsFliped);
-        //    //_lookAt.Update();
+        //    //_lookAt.FixedUpdate();
 
         //}
         _isFlipped = _flipBot.IsFliped;

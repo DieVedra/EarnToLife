@@ -19,8 +19,13 @@ public class RollState : CarState
     public override void Update()
     {
         BreakingEngine();
+    }
+
+    public override void FixedUpdate()
+    {
         PropulsionUnit.FuelTank.BurnFuelOnIdling();
     }
+
     private void BreakingEngine()
     {
         PropulsionUnit.Engine.BreakingEngine();

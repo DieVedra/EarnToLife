@@ -8,6 +8,7 @@ public abstract class Beam : DestructibleObject
     [SerializeField, BoxGroup("Debris"), HorizontalLine(color: EColor.Green)] protected SpriteRenderer _spriteFragment1;
     [SerializeField, BoxGroup("Debris")] protected SpriteRenderer _spriteFragment2;
     [SerializeField, BoxGroup("Settings"), Range(0f, 1f), HorizontalLine(color: EColor.Green)] protected float _offsetSizeFragment;
+    [SerializeField, BoxGroup("Settings")] protected bool NotDestructible;
     protected WoodDestructibleAudioHandler WoodDestructibleAudioHandler;
 
     protected abstract void SetSizeToFragments();

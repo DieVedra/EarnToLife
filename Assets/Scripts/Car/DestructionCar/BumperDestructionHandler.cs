@@ -10,6 +10,7 @@ public class BumperDestructionHandler : DestructionHandler, IDispose
     private readonly Transform _bumperNormal;
     private readonly Transform _bumperDamaged;
     private readonly Collider2D _collider2DBumperNormal;
+    private readonly Collider2D _collider2DBumperDamaged;
     private HingeJoint2D _hingeJoint2D;
     private CancellationTokenSource _cancellationTokenSource = new CancellationTokenSource();
     private bool _isBroken = false;
@@ -19,6 +20,7 @@ public class BumperDestructionHandler : DestructionHandler, IDispose
     {
         _destructionEffectsHandler = destructionEffectsHandler;
         _collider2DBumperNormal = bumperRef.BumperNormal.GetComponent<Collider2D>();
+        _collider2DBumperDamaged = bumperRef.BumperDamaged.GetComponent<Collider2D>();
         _bumperNormal = bumperRef.BumperNormal;
         _bumperDamaged = bumperRef.BumperDamaged;
         _bumperNormal.gameObject.SetActive(true);
@@ -118,5 +120,6 @@ public class BumperDestructionHandler : DestructionHandler, IDispose
     {
         CompositeDisposable.Clear();
         SwitchSprites();
+        SubscribeCollider(_collider2DBumperDamaged, CollisionHandling, TrySwitchMode);
     }
 }

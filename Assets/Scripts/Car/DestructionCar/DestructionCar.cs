@@ -37,7 +37,10 @@ public class DestructionCar : MonoBehaviour
     [SerializeField, BoxGroup("Glasses")] private GlassRef _standartGlassRefBack;
     [SerializeField, BoxGroup("Glasses")] private GlassRef _armoredGlassRefFront;
     [SerializeField, BoxGroup("Glasses")] private GlassRef _armoredGlassRefBack;
-
+    [SerializeField, BoxGroup("Glasses"), Layer] private int _layerLevelContentForGlass;
+    [SerializeField, BoxGroup("Glasses"), Layer] private int _layerNotDestructibleLevelContentForGlass;
+    
+    
     [SerializeField, BoxGroup("Doors"), HorizontalLine(color:EColor.Green)] private DoorRef _standartFrontDoorRef;
     [SerializeField, BoxGroup("Doors")] private DoorRef _standartBackDoorRef;
     [SerializeField, BoxGroup("Doors")] private DoorRef _armoredFrontDoorRef;
@@ -171,22 +174,22 @@ public class DestructionCar : MonoBehaviour
         {
             if (CheckPart(_standartGlassRefFront))
             {
-                _frontGlassDestructionHandler = new GlassDestructionHandler(_standartGlassRefFront, _destructionHandlerContent, _destructionEffectsHandler);
+                _frontGlassDestructionHandler = new StandartGlassDestructionHandler(_standartGlassRefFront, _destructionHandlerContent, _destructionEffectsHandler, _layerLevelContentForGlass, _layerNotDestructibleLevelContentForGlass);
             }
 
             if (CheckPart(_standartGlassRefBack))
             {
-                _backGlassDestructionHandler = new GlassDestructionHandler(_standartGlassRefBack, _destructionHandlerContent, _destructionEffectsHandler);
+                _backGlassDestructionHandler = new StandartGlassDestructionHandler(_standartGlassRefBack, _destructionHandlerContent, _destructionEffectsHandler, _layerLevelContentForGlass, _layerNotDestructibleLevelContentForGlass);
             }
 
             if (CheckPart(_armoredGlassRefFront))
             {
-                _frontGlassDestructionHandler = new GlassDestructionHandler(_armoredGlassRefFront, _destructionHandlerContent, _destructionEffectsHandler);
+                _frontGlassDestructionHandler = new ArmoredGlassDestructionHandler(_armoredGlassRefFront, _destructionHandlerContent, _destructionEffectsHandler, _layerLevelContentForGlass, _layerNotDestructibleLevelContentForGlass);
             }
 
             if (CheckPart(_armoredGlassRefBack))
             {
-                _backGlassDestructionHandler = new GlassDestructionHandler(_armoredGlassRefBack, _destructionHandlerContent, _destructionEffectsHandler);
+                _backGlassDestructionHandler = new ArmoredGlassDestructionHandler(_armoredGlassRefBack, _destructionHandlerContent, _destructionEffectsHandler, _layerLevelContentForGlass, _layerNotDestructibleLevelContentForGlass);
             }
             AddToDispose(_frontGlassDestructionHandler);
             AddToDispose(_backGlassDestructionHandler);

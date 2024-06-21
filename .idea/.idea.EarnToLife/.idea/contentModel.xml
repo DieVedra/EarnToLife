@@ -335,6 +335,17 @@
               </e>
             </e>
           </e>
+          <e p="unity-custom-play-button-main" t="Include">
+            <e p="unity-custom-play-button-main" t="Include">
+              <e p="Editor" t="Include">
+                <e p="com.antonysze.custom-play-button.Editor.asmdef" t="Include" />
+                <e p="CustomPlayButton.cs" t="Include" />
+                <e p="EditorSelectScenePopup.cs" t="Include" />
+                <e p="SceneBookmark.cs" t="Include" />
+              </e>
+              <e p="package.json" t="Include" />
+            </e>
+          </e>
         </e>
         <e p="Scripts" t="Include">
           <e p="Audio" t="Include">
@@ -393,7 +404,11 @@
               <e p="ExhaustHandler.cs" t="Include" />
               <e p="FrontDoorDestructionHandler.cs" t="Include" />
               <e p="FrontWingDestructionHandler.cs" t="Include" />
-              <e p="GlassDestructionHandler.cs" t="Include" />
+              <e p="GlassDestructionHandlers" t="Include">
+                <e p="ArmoredGlassDestructionHandler.cs" t="Include" />
+                <e p="GlassDestructionHandler.cs" t="Include" />
+                <e p="StandartGlassDestructionHandler.cs" t="Include" />
+              </e>
               <e p="GunDestructionHandler.cs" t="Include" />
               <e p="HotWheelDestructionHandler.cs" t="Include" />
               <e p="RoofDestructionHandler.cs" t="Include" />
@@ -529,11 +544,21 @@
                 <e p="BarrelAudioHandler.cs" t="Include" />
                 <e p="DebrisAudioHandler.cs" t="Include" />
                 <e p="LevelAudio.cs" t="Include" />
+                <e p="TrapAudioHandler.cs" t="Include" />
                 <e p="WoodDestructibleAudioHandler.cs" t="Include" />
                 <e p="ZombieAudioHandler.cs" t="Include" />
+                <e p="ZombieBoozerAudioHandler.cs" t="Include" />
+              </e>
+              <e p="Background" t="Include">
+                <e p="Cloud.cs" t="Include" />
+                <e p="CloudsGenerator.cs" t="Include" />
+                <e p="CloudShape.cs" t="Include" />
+                <e p="LevelBackGround.cs" t="Include" />
               </e>
               <e p="KillsCount.cs" t="Include" />
               <e p="Level.cs" t="Include" />
+              <e p="LevelBlock.cs" t="Include" />
+              <e p="LevelBlocksHandler.cs" t="Include" />
               <e p="LevelConfig.cs" t="Include" />
               <e p="LevelContent" t="Include">
                 <e p="Barrel" t="Include">
@@ -571,6 +596,11 @@
               <e p="NotificationsProvider.cs" t="Include" />
               <e p="ResultsLevel.cs" t="Include" />
               <e p="ResultsLevelProvider.cs" t="Include" />
+              <e p="Zombie" t="Include">
+                <e p="Zombie.cs" t="Include" />
+                <e p="ZombieBoozer.cs" t="Include" />
+                <e p="ZombieMove.cs" t="Include" />
+              </e>
             </e>
             <e p="Map" t="Include">
               <e p="BezierPointCalculator.cs" t="Include" />
@@ -634,7 +664,6 @@
             <e p="IHitable.cs" t="Include" />
             <e p="ILevel.cs" t="Include" />
             <e p="IMovementForward.cs" t="Include" />
-            <e p="IPause.cs" t="Include" />
             <e p="IPlayerData.cs" t="Include" />
             <e p="IShotable.cs" t="Include" />
             <e p="ISoundPause.cs" t="Include" />
@@ -769,11 +798,6 @@
               </e>
             </e>
           </e>
-          <e p="Zombie" t="Include">
-            <e p="Zombie.cs" t="Include" />
-            <e p="ZombieBoozer.cs" t="Include" />
-            <e p="ZombieMove.cs" t="Include" />
-          </e>
         </e>
         <e p="Settings" t="Include">
           <e p="AudioProvider" t="Include">
@@ -820,6 +844,7 @@
           </e>
         </e>
       </e>
+      <e p="CustomPlayButton.Editor.csproj" t="IncludeRecursive" />
       <e p="EarnToLife.sln" t="IncludeFlat" />
       <e p="obj" t="ExcludeRecursive" />
       <e p="Packages" t="ExcludeRecursive" />

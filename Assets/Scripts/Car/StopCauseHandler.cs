@@ -65,6 +65,7 @@ public class StopCauseHandler
     {
         _notificationsProvider.FuelTankEmpty();
         _stopCarOnFuelTankEmptyOperation?.Invoke();
+        Debug.Log($"                                          FuelTankEmpty");
     }
     private void PointDestinationGot()
     {

@@ -15,11 +15,11 @@ TagManager:
   - 
   - 
   - Car
-  - 
+  - CarBottom
   - WheelsCar
   - Driver
   - CarHotWheels
-  - 
+  - CarGlass
   - 
   - Ground
   - Underground
@@ -30,7 +30,7 @@ TagManager:
   - LevelContent
   - PhysicalLevelContent
   - FallingContent
-  - 
+  - NotDistructibleLevelContent
   - LimitRideBack
   - 
   - 
@@ -38,8 +38,14 @@ TagManager:
   - ZombieDebris
   - UI2
   m_SortingLayers:
+  - name: LevelDecorations
+    uniqueID: 4108439597
+    locked: 0
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Ground
+    uniqueID: 306235141
     locked: 0
   - name: Pipes
     uniqueID: 1615938377

@@ -72,7 +72,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -981213219
-  m_SortingLayer: 7
+  m_SortingLayer: 8
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: b72b18a3076fd654f8fa2bdaca5be234, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -94,7 +94,7 @@ PolygonCollider2D:
   m_GameObject: {fileID: 1126562473836278832}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 2151713eab0114248a49f9453a47db44, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
@@ -186,7 +186,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -981213219
-  m_SortingLayer: 7
+  m_SortingLayer: 8
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 4814e0cc7b1692d41af7cb158eb2a18b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -208,7 +208,7 @@ PolygonCollider2D:
   m_GameObject: {fileID: 1241231840895555335}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 2151713eab0114248a49f9453a47db44, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
@@ -300,7 +300,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -981213219
-  m_SortingLayer: 7
+  m_SortingLayer: 8
   m_SortingOrder: 3
   m_Sprite: {fileID: 21300000, guid: 2364b6fe68ad2ba48aa61179b72b178f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -322,7 +322,7 @@ PolygonCollider2D:
   m_GameObject: {fileID: 1306182023646607524}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 2151713eab0114248a49f9453a47db44, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
@@ -481,7 +481,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -981213219
-  m_SortingLayer: 7
+  m_SortingLayer: 8
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 578f7d94496127b478ece0bf22bd88c5, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -503,7 +503,7 @@ PolygonCollider2D:
   m_GameObject: {fileID: 2021319309388556956}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 2151713eab0114248a49f9453a47db44, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
@@ -595,7 +595,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -981213219
-  m_SortingLayer: 7
+  m_SortingLayer: 8
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 98c34081a34280c409ddbaa117ea58c4, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -617,7 +617,7 @@ PolygonCollider2D:
   m_GameObject: {fileID: 2652257468855274844}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 2151713eab0114248a49f9453a47db44, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
@@ -709,7 +709,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -981213219
-  m_SortingLayer: 7
+  m_SortingLayer: 8
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 8062db345c35a334a942075e04fa24c5, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -731,7 +731,7 @@ PolygonCollider2D:
   m_GameObject: {fileID: 3287438617577924289}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 2151713eab0114248a49f9453a47db44, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
@@ -765,7 +765,7 @@ GameObject:
   m_Layer: 22
   m_Name: Box1
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -800,7 +800,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _layerDebris: 20
   WholeObjectTransform: {fileID: 4943213145973641512}
-  Hardness: 80
+  Hardness: 20
   _debrisParentLocal: {fileID: 5972001448311523935}
 --- !u!50 &822814804786215414
 Rigidbody2D:
@@ -928,7 +928,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -306634265
-  m_SortingLayer: 5
+  m_SortingLayer: 6
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: d47dba3f4e517814baf7add2044250fa, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -1074,7 +1074,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -981213219
-  m_SortingLayer: 7
+  m_SortingLayer: 8
   m_SortingOrder: 2
   m_Sprite: {fileID: 21300000, guid: 8a8501e44faf57c4687dfbdb2bbbd645, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -1096,7 +1096,7 @@ PolygonCollider2D:
   m_GameObject: {fileID: 4643123905101524998}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 2151713eab0114248a49f9453a47db44, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
@@ -1188,7 +1188,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -981213219
-  m_SortingLayer: 7
+  m_SortingLayer: 8
   m_SortingOrder: 2
   m_Sprite: {fileID: 21300000, guid: 1b35d1cb3383b1b4d85b9b129b5f1d26, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -1210,7 +1210,7 @@ PolygonCollider2D:
   m_GameObject: {fileID: 4648020756703724451}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 2151713eab0114248a49f9453a47db44, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
@@ -1302,7 +1302,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -981213219
-  m_SortingLayer: 7
+  m_SortingLayer: 8
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 1d1c963c5d4111e4da69c619e9e2c2da, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -1324,7 +1324,7 @@ PolygonCollider2D:
   m_GameObject: {fileID: 4851397991247650152}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 2151713eab0114248a49f9453a47db44, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
@@ -1416,7 +1416,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -981213219
-  m_SortingLayer: 7
+  m_SortingLayer: 8
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 1136a661d2cac0d4d930d28a338f3740, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -1438,7 +1438,7 @@ PolygonCollider2D:
   m_GameObject: {fileID: 4968098617495610053}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 2151713eab0114248a49f9453a47db44, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
@@ -1565,7 +1565,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -981213219
-  m_SortingLayer: 7
+  m_SortingLayer: 8
   m_SortingOrder: 3
   m_Sprite: {fileID: 21300000, guid: 0bc8e071e93c5db47a204ee5c72f391c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -1587,7 +1587,7 @@ PolygonCollider2D:
   m_GameObject: {fileID: 5741050118228280689}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 2151713eab0114248a49f9453a47db44, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
@@ -1679,7 +1679,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -981213219
-  m_SortingLayer: 7
+  m_SortingLayer: 8
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 02eaccda17d60cf4a8cd9c168fbb9c63, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -1701,7 +1701,7 @@ PolygonCollider2D:
   m_GameObject: {fileID: 5781104216475282279}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 2151713eab0114248a49f9453a47db44, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
@@ -1793,7 +1793,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -981213219
-  m_SortingLayer: 7
+  m_SortingLayer: 8
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 325a299b3cdf1a649baa16a9affa2ccb, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -1815,7 +1815,7 @@ PolygonCollider2D:
   m_GameObject: {fileID: 6140741153851655891}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 2151713eab0114248a49f9453a47db44, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
@@ -1978,7 +1978,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -981213219
-  m_SortingLayer: 7
+  m_SortingLayer: 8
   m_SortingOrder: 3
   m_Sprite: {fileID: 21300000, guid: ea5e1df8a134322438f0eb46ee1c65bf, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -2000,7 +2000,7 @@ PolygonCollider2D:
   m_GameObject: {fileID: 6521057462985146201}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 2151713eab0114248a49f9453a47db44, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
@@ -2158,7 +2158,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -981213219
-  m_SortingLayer: 7
+  m_SortingLayer: 8
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 8f08d9a1cf2cb064282b3dbe936e279c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -2180,7 +2180,7 @@ PolygonCollider2D:
   m_GameObject: {fileID: 8304751490618578857}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 2151713eab0114248a49f9453a47db44, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
@@ -2305,7 +2305,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -981213219
-  m_SortingLayer: 7
+  m_SortingLayer: 8
   m_SortingOrder: 3
   m_Sprite: {fileID: 21300000, guid: 5a114baec051dcb488953216a58d7bdc, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -2327,7 +2327,7 @@ PolygonCollider2D:
   m_GameObject: {fileID: 8702378646125411933}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 2151713eab0114248a49f9453a47db44, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
@@ -2419,7 +2419,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -981213219
-  m_SortingLayer: 7
+  m_SortingLayer: 8
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 1ac3c8d7d99d87b42a7383cd2ca74ffb, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -2441,7 +2441,7 @@ PolygonCollider2D:
   m_GameObject: {fileID: 8757413316099834826}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 2151713eab0114248a49f9453a47db44, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
@@ -2534,7 +2534,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -981213219
-  m_SortingLayer: 7
+  m_SortingLayer: 8
   m_SortingOrder: 4
   m_Sprite: {fileID: 21300000, guid: 2d0d73a1dadcb564591e302d58abf7c3, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -2556,7 +2556,7 @@ PolygonCollider2D:
   m_GameObject: {fileID: 8935935970953112499}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 2151713eab0114248a49f9453a47db44, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
@@ -2651,7 +2651,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -981213219
-  m_SortingLayer: 7
+  m_SortingLayer: 8
   m_SortingOrder: 2
   m_Sprite: {fileID: 21300000, guid: 38450c8fd864f2f4da474e428aa6ad5d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -2673,7 +2673,7 @@ PolygonCollider2D:
   m_GameObject: {fileID: 9048940976889636898}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 2151713eab0114248a49f9453a47db44, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
@@ -2765,7 +2765,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -981213219
-  m_SortingLayer: 7
+  m_SortingLayer: 8
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 31ee171b571009245b59bb07ade0834a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -2787,7 +2787,7 @@ PolygonCollider2D:
   m_GameObject: {fileID: 9199985759376410353}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 2151713eab0114248a49f9453a47db44, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0

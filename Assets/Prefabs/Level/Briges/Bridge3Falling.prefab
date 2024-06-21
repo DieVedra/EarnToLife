@@ -9,10 +9,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6972623940134584202}
+  - component: {fileID: 8819007613904234962}
+  - component: {fileID: 1766143051856028036}
   m_Layer: 18
   m_Name: Bridge3Falling
   m_TagString: Untagged
-  m_Icon: {fileID: 5721338939258241955, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 7250588514170254948, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -24,7 +26,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1937767814356121960}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 315.47, y: 19.56, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -32,9 +34,127 @@ Transform:
   - {fileID: 932471938648999534}
   - {fileID: 6590966386708293051}
   - {fileID: 7620567577895642174}
+  - {fileID: 7053927742738247929}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8819007613904234962
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1937767814356121960}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d06668e992a0ff4aac470dc77c53db8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _trigger: {fileID: 5232798823166571663}
+  _rigidbodies2D:
+  - {fileID: 3949892944473998596}
+  - {fileID: 7404089134171546426}
+  - {fileID: 8595937974233668099}
+  _targetLayerTriggering: 9
+  _targetLayerMaskHitSound:
+    serializedVersion: 2
+    m_Bits: 65536
+--- !u!82 &1766143051856028036
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1937767814356121960}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 327240991636244043, guid: 4d53ab34b46a35f48b143d811a785290, type: 2}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 0.1
+  MaxDistance: 18
+  Pan2D: 0
+  rolloffMode: 2
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0.0125
+      value: 1.0037804
+      inSlope: -2.3053315
+      outSlope: -2.3053315
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.07064527
+    - serializedVersion: 3
+      time: 1
+      value: 0.0125
+      inSlope: -0.22487532
+      outSlope: -0.22487532
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.21606843
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &2528082001075989973
 GameObject:
   m_ObjectHideFlags: 0
@@ -46,6 +166,7 @@ GameObject:
   - component: {fileID: 6590966386708293051}
   - component: {fileID: 1241357046422157215}
   - component: {fileID: 1118114612931104845}
+  - component: {fileID: 8595937974233668099}
   m_Layer: 24
   m_Name: Railing3
   m_TagString: Untagged
@@ -107,7 +228,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -306634265
-  m_SortingLayer: 5
+  m_SortingLayer: 6
   m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 0676cae1563e76247b969090ed83e92a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -150,6 +271,27 @@ PolygonCollider2D:
       - {x: 2.26, y: -0.065}
       - {x: 2.56, y: -0.385}
       - {x: 2.37, y: -0.965}
+--- !u!50 &8595937974233668099
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2528082001075989973}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 6200000, guid: 39b7d0fb1192526449b18ee17be95785, type: 2}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1 &5218339547703381687
 GameObject:
   m_ObjectHideFlags: 0
@@ -161,6 +303,7 @@ GameObject:
   - component: {fileID: 5755947715333700330}
   - component: {fileID: 8428451623928825351}
   - component: {fileID: 792876259388973049}
+  - component: {fileID: 3949892944473998596}
   m_Layer: 18
   m_Name: Bridge4
   m_TagString: Untagged
@@ -222,7 +365,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -306634265
-  m_SortingLayer: 5
+  m_SortingLayer: 6
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 38abf82e61a1bd547996d61d049552fc, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -264,6 +407,27 @@ PolygonCollider2D:
       - {x: -3.9199998, y: 0.45499998}
       - {x: 3.87, y: 0.435}
       - {x: 1.68, y: -0.625}
+--- !u!50 &3949892944473998596
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5218339547703381687}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 6200000, guid: 39b7d0fb1192526449b18ee17be95785, type: 2}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1 &6678565627684979096
 GameObject:
   m_ObjectHideFlags: 0
@@ -275,6 +439,7 @@ GameObject:
   - component: {fileID: 932471938648999534}
   - component: {fileID: 1043177349213691091}
   - component: {fileID: 4234117627459331296}
+  - component: {fileID: 7404089134171546426}
   m_Layer: 18
   m_Name: Bridge5
   m_TagString: Untagged
@@ -336,7 +501,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -306634265
-  m_SortingLayer: 5
+  m_SortingLayer: 6
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 8f956e637948bb042ad0200cfc943bac, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -380,6 +545,85 @@ PolygonCollider2D:
       - {x: -3.0249999, y: 0.26}
       - {x: 5.145, y: 0.26}
       - {x: 5.045, y: -0.84999996}
+--- !u!50 &7404089134171546426
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6678565627684979096}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 6200000, guid: 39b7d0fb1192526449b18ee17be95785, type: 2}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
+--- !u!1 &7832848670101250529
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7053927742738247929}
+  - component: {fileID: 5232798823166571663}
+  m_Layer: 18
+  m_Name: Trigger
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7053927742738247929
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7832848670101250529}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 3.53, y: 0.98, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6972623940134584202}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!61 &5232798823166571663
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7832848670101250529}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1}
+  m_EdgeRadius: 0
 --- !u!1 &8822985640649329721
 GameObject:
   m_ObjectHideFlags: 0
@@ -451,7 +695,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -306634265
-  m_SortingLayer: 5
+  m_SortingLayer: 6
   m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: de359b029bcda604c81878d55598ba54, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

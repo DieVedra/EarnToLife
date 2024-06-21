@@ -31,7 +31,6 @@ public class MoveAnalyzer
             }
 
             _speedInPreviousFrame = _speedometer.CurrentSpeedInt;
-            // Debug.Log(_speedometer.CurrentSpeedFloat);
         }
     }
 

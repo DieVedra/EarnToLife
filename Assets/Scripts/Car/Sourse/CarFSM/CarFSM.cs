@@ -6,6 +6,7 @@ public class CarFSM : IStateSetter
 {
     private Dictionary<Type, CarState> _dictionaryStates;
     public CarState CurrentState { get; private set; }
+    private bool _isLastState = false;
     public CarFSM(Dictionary<Type, CarState> dictionaryStates)
     {
         _dictionaryStates = dictionaryStates;
@@ -17,23 +18,39 @@ public class CarFSM : IStateSetter
     }
     public void SetState<T>() where T : CarState
     {
-        var type = typeof(T);
-        if (CurrentState != null)
+        if (_isLastState == false)
         {
-            if (CurrentState?.GetType() == type)
+            var type = typeof(T);
+            if (CurrentState != null)
             {
-                return;
+                if (CurrentState?.GetType() == type)
+                {
+                    return;
+                }
+                CurrentState.Exit();
             }
-            CurrentState.Exit();
+
+            if (_dictionaryStates.TryGetValue(type, out var extractState))
+            {
+                CurrentState = extractState;
+                Debug.Log($"CurrentState: {CurrentState}");
+
+                CurrentState.Enter();
+            }
         }
-        if (_dictionaryStates.TryGetValue(type, out var extractState))
-        {
-            CurrentState = extractState;
-            CurrentState.Enter();
-        }
+    }
+
+    public void SetKeyLastState()
+    {
+        _isLastState = true;
     }
     public void Update()
     {
         CurrentState?.Update();
+        // Debug.Log($"CurrentState: {CurrentState}");
+    }
+    public void FixedUpdate()
+    {
+        CurrentState?.FixedUpdate();
     }
 }

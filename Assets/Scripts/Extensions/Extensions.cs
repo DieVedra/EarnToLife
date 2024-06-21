@@ -6,7 +6,10 @@ public static class Extensions
     {
         return new Vector2(transform.position.x, transform.position.y);
     }
-
+    public static Vector2 LocalPositionVector2(this Transform transform)
+    {
+        return new Vector2(transform.localPosition.x, transform.localPosition.y);
+    }
     public static Vector2 UpVector2(this Transform transform)
     {
         return new Vector2(transform.up.x, transform.up.y);

@@ -28,6 +28,11 @@ public class SoftStopState : CarState
 
     public override void Update()
     {
+        
+    }
+
+    public override void FixedUpdate()
+    {
         SetMotorSpeed(FrontWheelJoint);
         SetMotorSpeed(BackWheelJoint);
     }

@@ -41,8 +41,9 @@ public class CarInLevel : Car
 
     [SerializeField, BoxGroup("HotWheel"), HorizontalLine(color:EColor.Red)] private HotWheelRef _hotWheelRef;
     [SerializeField, BoxGroup("HotWheel"), Range(1f,50f)] private float _hotWheelRotationSpeed;
-    [SerializeField, BoxGroup("HotWheel"), Range(0f,1f)] private float _radiusWheel1;
-    [SerializeField, BoxGroup("HotWheel"), Range(0f,1f)] private float _radiusWheel2;
+    [SerializeField, BoxGroup("HotWheel"), Range(0f,1f)] private float _radiusCastHotWheel;
+    [SerializeField, BoxGroup("HotWheel"), Range(-1f,1f)] private float _positionYHotWheelCast;
+    [SerializeField, BoxGroup("HotWheel"), Range(-1f,1f)] private float _positionXHotWheelCast;
     [SerializeField, BoxGroup("HotWheel")] private LayerMask _contactMask;
     [SerializeField, BoxGroup("HotWheel"), Layer] private int _layerAfterBreaking;
 
@@ -141,7 +142,6 @@ public class CarInLevel : Car
             _controlCar.Update();
             _coupAnalyzer.Update();
             _moveAnalyzer.Update();
-            _hotWheel?.Update();
             CarGun?.Update();
         }
         _carFsm.Update();
@@ -159,26 +159,34 @@ public class CarInLevel : Car
         Speedometer.Update();
     }
 
-    public void UpdateCarFixed()
+    public void FixedUpdateCar()
     {
-        
+        if (_controlActive == true)
+        {
+            _hotWheel?.FixedUpdate();
+        }
+
+        _carFsm.FixedUpdate();
     }
     private void StopCarOther()
     {
         EndOfRide();
         _carFsm.SetState<StopState>();
+        _carFsm.SetKeyLastState();
     }
 
     private void SoftStopCarOnDestinationPoint()
     {
         EndOfRide();
         _carFsm.SetState<SoftStopState>();
+        _carFsm.SetKeyLastState();
     }
 
     private void StopCarOnFuelTankEmpty()
     {
         EndOfRide();
-        _carFsm.SetState<RollState>();
+        _carFsm.SetState<SoftStopState>();
+        _carFsm.SetKeyLastState();
     }
 
     private void EndOfRide()
@@ -186,6 +194,7 @@ public class CarInLevel : Car
         _controlActive = false;
         _carAudio.EngineAudioHandler.PlaySoundStopEngine();
         _carAudio.HotWheelAudioHandler.StopPlaySoundRotateWheels().Forget();
+        _carAudio.SuspensionAudioHandler.Dispose();
         _exhaust.StopPlayEffect();
     }
 
@@ -241,29 +250,14 @@ public class CarInLevel : Car
             if (_hotWheelRef.gameObject.activeSelf == true)
             {
                 Gizmos.color = Color.cyan;
-                Gizmos.DrawWireSphere(_hotWheelRef.Wheel1.position, _radiusWheel1);
-                Gizmos.DrawWireSphere(_hotWheelRef.Wheel2.position, _radiusWheel2);
+                Gizmos.DrawWireSphere(_hotWheelRef.Wheel2.position + new Vector3(_positionXHotWheelCast, _positionYHotWheelCast), _radiusCastHotWheel);
+                // Gizmos.DrawWireSphere(_hotWheelRef.Wheel2.position, _radiusWheel2);
             }
         }
     }
 
     private void SubscribeActions()
     {
-        // FuelTank.OnTankEmpty += _notificationsProvider.FuelTankEmpty;
-        // FuelTank.OnTankEmpty += EndOfRide;
-        // _levelProgressCounter.OnGotPointDestination += EndOfRide;
-        // _coupAnalyzer.OnCarCouped += _notificationsProvider.CarTurnOver;
-        // _coupAnalyzer.OnCarCouped +=EndOfRide;
-        // if (_destructionCar.FrontWingDestructionHandler != null)
-        // {
-        //     _destructionCar.FrontWingDestructionHandler.OnEngineBroken += EndOfRide;
-        //     _destructionCar.FrontWingDestructionHandler.OnEngineBroken += _notificationsProvider.EngineBroken;
-        // }
-        // if (_destructionCar.CabineDestructionHandler != null)
-        // {
-        //     _destructionCar.CabineDestructionHandler.OnDriverCrushed += EndOfRide;
-        //     _destructionCar.CabineDestructionHandler.OnDriverCrushed += _notificationsProvider.DriverCrushed;
-        // }
         
     }
 
@@ -389,7 +383,8 @@ public class CarInLevel : Car
     {
         if (_hotWheelRef.gameObject.activeSelf == true)
         {
-            _hotWheel = new HotWheel(_hotWheelRef, hotWheelAudioHandler, debrisParent, _contactMask, _layerAfterBreaking, _hotWheelRotationSpeed, _radiusWheel1, _radiusWheel2);
+            _hotWheel = new HotWheel(_hotWheelRef, hotWheelAudioHandler, debrisParent, _contactMask, new Vector3(_positionXHotWheelCast, _positionYHotWheelCast),
+                _layerAfterBreaking, _hotWheelRotationSpeed, _radiusCastHotWheel);
         } 
     }
 

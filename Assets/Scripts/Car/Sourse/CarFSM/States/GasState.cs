@@ -26,12 +26,17 @@ public class GasState : CarState
         CalculateSpeed();
         _gasStateWheelGroundInteraction.Update();
         SetMotorSpeed(FrontWheelJoint);
+        SmoothMovement();
+    }
+
+    public override void FixedUpdate()
+    {
+        SetMotorSpeed(FrontWheelJoint);
         if (CarBroken == false)
         {
             SetMotorSpeed(BackWheelJoint);
         }
         PropulsionUnit.FuelTank.BurnFuelOnMoving();
-        SmoothMovement();
     }
 
     public override void Exit()

@@ -14,6 +14,20 @@
       "dependencies": {},
       "hash": "8a8fa5a9659a6d63f196391c71e06c4286c8acd7"
     },
+    "com.febucci.custom-hierarchy": {
+      "version": "https://github.com/febucci/unitypackage-custom-hierarchy.git",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "093baf4e09c2cd21c284303a977ec112a43041a7"
+    },
+    "com.marijnzwemmer.unity-toolbar-extender": {
+      "version": "https://github.com/marijnz/unity-toolbar-extender.git",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "dbd76ed996483d219c39d240f785b1790aa039ed"
+    },
     "com.svermeulen.extenject": {
       "version": "https://github.com/Mathijs-Bakker/Extenject.git?path=/UnityProject/Assets/Plugins/Zenject/Source/",
       "depth": 0,
@@ -293,6 +307,13 @@
         "com.unity.modules.jsonserialize": "1.0.0"
       },
       "url": "https://packages.unity.com"
+    },
+    "www.nulltale.huefolders": {
+      "version": "https://github.com/NullTale/HueFolders.git",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "9685d63f9a5c910b48499f48766b7153beb424eb"
     },
     "com.unity.modules.ai": {
       "version": "1.0.0",

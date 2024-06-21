@@ -123,19 +123,9 @@ public class Game : MonoBehaviour
     {
         if (_gamePause.IsPause == false)
         {
+            _carInLevel.UpdateCar();
 
-            // for (int i = 0; i < _botsWithAK.Length; i++)
-            // {
-            //     _botsWithAK[i].UpdateBot();
-            // }
-            // _pool.UpdatePool();
-            // if (_towers.Length != 0)
-            // {
-            //     for (int i = 0; i < _towers.Length; i++)
-            //     {
-            //         _towers[i]?.UpdateTower();
-            //     }
-            // }
+            
             _resultsLevelProvider.LevelProgressCounter.CalculateProgress();
         }
     }
@@ -143,7 +133,7 @@ public class Game : MonoBehaviour
     {
         if (_gamePause.IsPause == false)
         {
-            _carInLevel.UpdateCar();
+            _carInLevel.FixedUpdateCar();
         }
     }
     private void OnApplicationQuit()

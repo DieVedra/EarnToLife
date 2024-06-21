@@ -14,7 +14,7 @@ GameObject:
   m_Layer: 22
   m_Name: Barrel2
   m_TagString: Untagged
-  m_Icon: {fileID: -1412012063857583412, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -52,8 +52,8 @@ MonoBehaviour:
   Hardness: 20
   _debrisParentLocal: {fileID: 2312071061043425578}
   _forceBlastWave: 320
-  _radiusShockWave: 8
-  _radiusBurnWave: 3.66
+  _radiusShockWave: 4
+  _radiusBurnWave: 2
   _startDelay: 1.5
   _explosionDelay: {x: 0.6, y: 0.8}
   _burnOffset: 0.306

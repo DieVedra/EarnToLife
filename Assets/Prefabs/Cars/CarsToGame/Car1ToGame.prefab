@@ -237,7 +237,7 @@ GameObject:
   - component: {fileID: 7340951579749063325}
   - component: {fileID: 5140062901781421180}
   - component: {fileID: 6779538709047782878}
-  m_Layer: 11
+  m_Layer: 10
   m_Name: InvisibleWheel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7217,7 +7217,8 @@ GameObject:
   - component: {fileID: 8743044353575205929}
   - component: {fileID: 8175274031557170163}
   - component: {fileID: 8733614638871742180}
-  m_Layer: 9
+  - component: {fileID: 6139436961520159148}
+  m_Layer: 14
   m_Name: Grass Normal
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7320,6 +7321,27 @@ PolygonCollider2D:
       - {x: -0.074999996, y: 0.45999998}
       - {x: 0.024999999, y: 0.47}
       - {x: 0.105, y: -0.45999998}
+--- !u!50 &6139436961520159148
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1157745360923661728}
+  m_BodyType: 0
+  m_Simulated: 0
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 0.3
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 6200000, guid: 17d9ae3f8ddfc674a8f884e7144b9185, type: 2}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1 &1193517030216836746
 GameObject:
   m_ObjectHideFlags: 0
@@ -8034,7 +8056,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &3064617820839119277
 Transform:
   m_ObjectHideFlags: 0
@@ -8043,7 +8065,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1515419668347490589}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 2.7770002, y: -1.8030002, z: 0}
+  m_LocalPosition: {x: 2.7770002, y: -1.597, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -8127,16 +8149,15 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: -0.01, y: -0.24499999}
-      - {x: 0.01, y: 0.005}
-      - {x: -0.19999999, y: 0.015}
-      - {x: -0.26999998, y: 0.105}
-      - {x: -0.19, y: 0.205}
-      - {x: 0.06, y: 0.195}
-      - {x: 0.14999999, y: 0.265}
-      - {x: 0.24, y: 0.205}
-      - {x: 0.26, y: -0.085}
-      - {x: 0.11, y: -0.255}
+    - - {x: 0.06, y: -0.185}
+      - {x: -0.19, y: -0.195}
+      - {x: -0.25, y: -0.125}
+      - {x: -0.21, y: -0.035}
+      - {x: 0.02, y: -0.005}
+      - {x: 0.02, y: 0.24499999}
+      - {x: 0.19999999, y: 0.085}
+      - {x: 0.22, y: -0.095}
+      - {x: 0.16, y: -0.255}
 --- !u!50 &6071704420511717076
 Rigidbody2D:
   serializedVersion: 4
@@ -8172,16 +8193,16 @@ HingeJoint2D:
   m_BreakForce: Infinity
   m_BreakTorque: Infinity
   m_AutoConfigureConnectedAnchor: 1
-  m_Anchor: {x: -0.1542087, y: 0.10727556}
-  m_ConnectedAnchor: {x: 1.5742562, y: 0.0059240647}
+  m_Anchor: {x: -0.13282494, y: -0.12081736}
+  m_ConnectedAnchor: {x: 1.5838789, y: -0.004017681}
   m_UseMotor: 1
   m_Motor:
     m_MotorSpeed: 0
     m_MaximumMotorForce: 10000
   m_UseLimits: 1
   m_AngleLimits:
-    m_LowerAngle: 15
-    m_UpperAngle: -10
+    m_LowerAngle: -18.38
+    m_UpperAngle: 22.52
 --- !u!1 &1598427704761363799
 GameObject:
   m_ObjectHideFlags: 0
@@ -9147,7 +9168,7 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   _exhaustParticleSystem: {fileID: 929571869933985420}
-  _gyroscopePower: 0.5
+  _gyroscopePower: 0.7
   _groundContactMask:
     serializedVersion: 2
     m_Bits: 13565952
@@ -9232,8 +9253,9 @@ MonoBehaviour:
   _blade2: {fileID: 6330121747525239475}
   _hotWheelRef: {fileID: 2981068929045813636}
   _hotWheelRotationSpeed: 12.5
-  _radiusWheel1: 0.225
-  _radiusWheel2: 0.315
+  _radiusCastHotWheel: 0.428
+  _positionYHotWheelCast: -0.02
+  _positionXHotWheelCast: -0.11
   _contactMask:
     serializedVersion: 2
     m_Bits: 4718592
@@ -9266,7 +9288,7 @@ MonoBehaviour:
   _fallingContentLayer: 24
   _canCollisionsLayerMasks:
     serializedVersion: 2
-    m_Bits: 25624576
+    m_Bits: 59179008
   _glassBrokenEffectPrefab: {fileID: 6928945955730111512, guid: f504b60a68fb95448b531a8efe40a98c, type: 3}
   _hitEffectPrefab: {fileID: 7162352459235145121, guid: a97ee402aefc51e49bccd6495937e542, type: 3}
   _engineSmokeEffect: {fileID: 6775915201014375143}
@@ -9312,6 +9334,8 @@ MonoBehaviour:
   _standartGlassRefBack: {fileID: 6423169982749865986}
   _armoredGlassRefFront: {fileID: 3039983612652359237}
   _armoredGlassRefBack: {fileID: 5394638489487405351}
+  _layerLevelContentForGlass: 22
+  _layerNotDestructibleLevelContentForGlass: 25
   _standartFrontDoorRef: {fileID: 8175038959157822975}
   _standartBackDoorRef: {fileID: 1765335903397058528}
   _armoredFrontDoorRef: {fileID: 6940980254594068851}
@@ -11072,7 +11096,7 @@ CapsuleCollider2D:
   m_GameObject: {fileID: 2069876205304410496}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 17d9ae3f8ddfc674a8f884e7144b9185, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
@@ -16256,7 +16280,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2328941686821054628}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 2.782, y: -1.769, z: 0}
+  m_LocalPosition: {x: 2.787, y: -1.591, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -16340,17 +16364,15 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: 0.065, y: -0.265}
-      - {x: 0.044999998, y: -0.024999999}
-      - {x: -0.205, y: -0.024999999}
-      - {x: -0.275, y: 0.065}
-      - {x: -0.21499999, y: 0.16499999}
-      - {x: 0.024999999, y: 0.16499999}
+    - - {x: 0.145, y: -0.265}
+      - {x: 0.024999999, y: -0.16499999}
+      - {x: -0.21499999, y: -0.16499999}
+      - {x: -0.265, y: -0.065}
+      - {x: -0.205, y: 0.015}
+      - {x: 0.044999998, y: 0.015}
       - {x: 0.095, y: 0.265}
-      - {x: 0.205, y: 0.255}
-      - {x: 0.265, y: 0.074999996}
-      - {x: 0.265, y: -0.055}
-      - {x: 0.195, y: -0.235}
+      - {x: 0.255, y: 0.055}
+      - {x: 0.255, y: -0.085}
 --- !u!1 &2339469505085916471
 GameObject:
   m_ObjectHideFlags: 0
@@ -16454,10 +16476,10 @@ Rigidbody2D:
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: -0.1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 17d9ae3f8ddfc674a8f884e7144b9185, type: 2}
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 0
 --- !u!233 &6873576618762306771
 HingeJoint2D:
@@ -17002,6 +17024,7 @@ GameObject:
   - component: {fileID: 3858831140503002387}
   - component: {fileID: 7554255384149695627}
   - component: {fileID: 6814273398936247078}
+  - component: {fileID: 4393777626336735820}
   m_Layer: 9
   m_Name: ArmoredGrass
   m_TagString: Untagged
@@ -17108,6 +17131,27 @@ PolygonCollider2D:
       - {x: 0.11, y: 0.13}
       - {x: 0.12, y: -0.31}
       - {x: 0.089999996, y: -0.47}
+--- !u!50 &4393777626336735820
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2677471266641553572}
+  m_BodyType: 0
+  m_Simulated: 0
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 0.3
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 6200000, guid: 17d9ae3f8ddfc674a8f884e7144b9185, type: 2}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1 &2711191819835457676
 GameObject:
   m_ObjectHideFlags: 0
@@ -17167,7 +17211,7 @@ GameObject:
   - component: {fileID: 9153136211874766378}
   - component: {fileID: 2800900508248562663}
   - component: {fileID: 8303089209094933277}
-  m_Layer: 9
+  m_Layer: 10
   m_Name: Exhaust2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -22796,7 +22840,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3236373621562782418}
   m_LocalRotation: {x: -0, y: -0, z: -0.116670705, w: 0.9931707}
-  m_LocalPosition: {x: -4.544, y: -1.571, z: 0}
+  m_LocalPosition: {x: -4.466, y: -1.649, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -22881,17 +22925,14 @@ PolygonCollider2D:
   m_Points:
     m_Paths:
     - - {x: -0.17999999, y: -0.22}
-      - {x: -0.31, y: -0.07}
-      - {x: -0.29999998, y: 0.07}
-      - {x: -0.25, y: 0.21}
-      - {x: -0.17999999, y: 0.22999999}
-      - {x: -0.08, y: 0.14999999}
-      - {x: 0.14999999, y: 0.13}
-      - {x: 0.31, y: 0}
-      - {x: 0.28, y: -0.11}
-      - {x: 0.099999994, y: -0.07}
-      - {x: -0.06, y: -0.06}
-      - {x: -0.04, y: -0.22}
+      - {x: -0.25, y: -0.11}
+      - {x: -0.26999998, y: 0.08}
+      - {x: -0.12, y: 0.19}
+      - {x: -0.16, y: 0.049999997}
+      - {x: 0.29, y: 0.099999994}
+      - {x: 0.31, y: 0.01}
+      - {x: 0.16, y: -0.12}
+      - {x: -0.089999996, y: -0.14999999}
 --- !u!50 &6568406147510719257
 Rigidbody2D:
   serializedVersion: 4
@@ -22928,7 +22969,7 @@ HingeJoint2D:
   m_BreakTorque: Infinity
   m_AutoConfigureConnectedAnchor: 1
   m_Anchor: {x: 0.21137838, y: -0.022538146}
-  m_ConnectedAnchor: {x: -1.5606197, y: 0.030140195}
+  m_ConnectedAnchor: {x: -1.5255197, y: -0.004959848}
   m_UseMotor: 1
   m_Motor:
     m_MotorSpeed: 0
@@ -28438,7 +28479,7 @@ GameObject:
   m_Component:
   - component: {fileID: 380512765207526081}
   - component: {fileID: 8291158325667833157}
-  m_Layer: 9
+  m_Layer: 14
   m_Name: FrontStandartGlass
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -28528,6 +28569,8 @@ MonoBehaviour:
   _wheel2: {fileID: 2043315436244874703}
   _wheel1Collider: {fileID: 8569608622640788443}
   _wheel2Collider: {fileID: 6101549188953246209}
+  _rigidbody2DWheel1: {fileID: 3708557192336884956}
+  _rigidbody2DWheel2: {fileID: 3464241060933098116}
 --- !u!1 &3987507966017866730
 GameObject:
   m_ObjectHideFlags: 0
@@ -34084,7 +34127,8 @@ GameObject:
   - component: {fileID: 5166964656784774701}
   - component: {fileID: 2555175717019516961}
   - component: {fileID: 1319405129024869844}
-  m_Layer: 9
+  - component: {fileID: 4859185720982033174}
+  m_Layer: 14
   m_Name: Grass Normal
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -34187,6 +34231,27 @@ PolygonCollider2D:
       - {x: -0.024999999, y: 0.465}
       - {x: 0.055, y: 0.445}
       - {x: 0.095, y: -0.405}
+--- !u!50 &4859185720982033174
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4439639783074425330}
+  m_BodyType: 0
+  m_Simulated: 0
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 0.3
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 6200000, guid: 17d9ae3f8ddfc674a8f884e7144b9185, type: 2}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1 &4489162175136296375
 GameObject:
   m_ObjectHideFlags: 0
@@ -34936,7 +35001,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5054661446231016933}
   - component: {fileID: 6423169982749865986}
-  m_Layer: 9
+  m_Layer: 14
   m_Name: BackStandartGlass
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -45161,6 +45226,7 @@ GameObject:
   - component: {fileID: 41433776639015408}
   - component: {fileID: 3713624520804175964}
   - component: {fileID: 3879565964749898600}
+  - component: {fileID: 2261534639154593381}
   m_Layer: 9
   m_Name: Armored Grass Normal
   m_TagString: Untagged
@@ -45264,6 +45330,27 @@ PolygonCollider2D:
       - {x: -0.06, y: 0.475}
       - {x: 0.03, y: 0.45499998}
       - {x: 0.089999996, y: -0.405}
+--- !u!50 &2261534639154593381
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5820879385997779445}
+  m_BodyType: 0
+  m_Simulated: 0
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 0.3
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 6200000, guid: 17d9ae3f8ddfc674a8f884e7144b9185, type: 2}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1 &5862099311614986150
 GameObject:
   m_ObjectHideFlags: 0
@@ -45275,7 +45362,8 @@ GameObject:
   - component: {fileID: 2500283599132175498}
   - component: {fileID: 3979429505596233211}
   - component: {fileID: 692329449450628751}
-  m_Layer: 9
+  - component: {fileID: 8415598813665038055}
+  m_Layer: 14
   m_Name: Grass Damaged
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -45378,6 +45466,27 @@ PolygonCollider2D:
       - {x: 0.024999999, y: 0.45}
       - {x: 0.105, y: 0.44}
       - {x: 0.085, y: -0.41}
+--- !u!50 &8415598813665038055
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5862099311614986150}
+  m_BodyType: 0
+  m_Simulated: 0
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 0.3
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 6200000, guid: 17d9ae3f8ddfc674a8f884e7144b9185, type: 2}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1 &5964429513222074981
 GameObject:
   m_ObjectHideFlags: 0
@@ -45610,7 +45719,8 @@ GameObject:
   - component: {fileID: 3518982192327882851}
   - component: {fileID: 7844386088564946394}
   - component: {fileID: 759595912386438540}
-  m_Layer: 9
+  - component: {fileID: 2289275221095473476}
+  m_Layer: 14
   m_Name: Grass Damaged
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -45713,6 +45823,27 @@ PolygonCollider2D:
       - {x: -0.024999999, y: 0.45499998}
       - {x: 0.055, y: 0.45499998}
       - {x: 0.105, y: -0.465}
+--- !u!50 &2289275221095473476
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6020460104887156520}
+  m_BodyType: 0
+  m_Simulated: 0
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 0.3
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 6200000, guid: 17d9ae3f8ddfc674a8f884e7144b9185, type: 2}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1 &6035340132108972153
 GameObject:
   m_ObjectHideFlags: 0
@@ -51024,7 +51155,7 @@ GameObject:
   - component: {fileID: 7704075005433338969}
   - component: {fileID: 1584677833543761677}
   - component: {fileID: 4300287249349511992}
-  m_Layer: 9
+  m_Layer: 10
   m_Name: BottomHandler
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -51058,7 +51189,7 @@ BoxCollider2D:
   m_GameObject: {fileID: 6344685302752890473}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 6200000, guid: 17d9ae3f8ddfc674a8f884e7144b9185, type: 2}
+  m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
@@ -51316,6 +51447,7 @@ GameObject:
   - component: {fileID: 7919500688108234693}
   - component: {fileID: 5057942137357038851}
   - component: {fileID: 8569608622640788443}
+  - component: {fileID: 3708557192336884956}
   m_Layer: 13
   m_Name: Wheel1
   m_TagString: Untagged
@@ -51406,6 +51538,27 @@ CircleCollider2D:
   m_Offset: {x: 0.00000023841858, y: -0.000000059604645}
   serializedVersion: 2
   m_Radius: 0.45
+--- !u!50 &3708557192336884956
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6469243764675997535}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 6200000, guid: 17d9ae3f8ddfc674a8f884e7144b9185, type: 2}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1 &6607620438205078783
 GameObject:
   m_ObjectHideFlags: 0
@@ -52620,7 +52773,7 @@ GameObject:
   - component: {fileID: 1221468920182407973}
   - component: {fileID: 2153865226603787670}
   - component: {fileID: 4321400122722342927}
-  m_Layer: 9
+  m_Layer: 10
   m_Name: ArmoredBottom
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -58243,7 +58396,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8113509178716376037}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -4.588, y: -1.679, z: 0}
+  m_LocalPosition: {x: -4.477, y: -1.626, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -58327,17 +58480,15 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: -0.235, y: -0.21499999}
-      - {x: -0.315, y: -0.074999996}
-      - {x: -0.325, y: 0.044999998}
-      - {x: -0.265, y: 0.235}
-      - {x: -0.185, y: 0.255}
-      - {x: -0.095, y: 0.155}
-      - {x: 0.275, y: 0.145}
-      - {x: 0.325, y: 0.044999998}
-      - {x: 0.295, y: -0.055}
-      - {x: -0.095, y: -0.055}
-      - {x: -0.105, y: -0.24499999}
+    - - {x: -0.195, y: -0.24499999}
+      - {x: -0.305, y: -0.074999996}
+      - {x: -0.305, y: 0.035}
+      - {x: -0.185, y: 0.195}
+      - {x: -0.16499999, y: 0.044999998}
+      - {x: 0.285, y: 0.044999998}
+      - {x: 0.315, y: -0.044999998}
+      - {x: 0.265, y: -0.145}
+      - {x: -0.105, y: -0.145}
 --- !u!1 &8144765523267570336
 GameObject:
   m_ObjectHideFlags: 0
@@ -58935,6 +59086,7 @@ GameObject:
   - component: {fileID: 2043315436244874703}
   - component: {fileID: 8714526685009463981}
   - component: {fileID: 6101549188953246209}
+  - component: {fileID: 3464241060933098116}
   m_Layer: 13
   m_Name: Wheel2
   m_TagString: Untagged
@@ -59025,6 +59177,27 @@ CircleCollider2D:
   m_Offset: {x: 0, y: -0.00000008940697}
   serializedVersion: 2
   m_Radius: 0.45
+--- !u!50 &3464241060933098116
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8258303538908474632}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 6200000, guid: 17d9ae3f8ddfc674a8f884e7144b9185, type: 2}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1 &8289711365620339418
 GameObject:
   m_ObjectHideFlags: 0
@@ -59319,7 +59492,7 @@ Rigidbody2D:
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 0
 --- !u!233 &1416445475945209882
 HingeJoint2D:

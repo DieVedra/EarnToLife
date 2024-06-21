@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.Threading;
 using Cysharp.Threading.Tasks;
-using UniRx;
-using UniRx.Triggers;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -14,40 +12,43 @@ public class HotWheel
     private readonly float _torqueMin = -30f;
     private readonly float _torqueMax = -100f;
     private readonly float _hotWheelRotationSpeed;
-    private readonly float _distance = 0.05f;
-    private readonly float _radiusWheel1;
+    private readonly float _distance = 0.1f;
     private readonly float _radiusWheel2;
     private readonly LayerMask _contactMask;
+    private readonly Vector3 _offset;
     private readonly int _layerAfterBreaking;
     private readonly HotWheelAudioHandler _hotWheelAudioHandler;
     private readonly Transform _debrisParent;
     private readonly Transform _wheel1;
     private readonly Transform _wheel2;
-    private RaycastHit2D _wheel1Hit;
-    private RaycastHit2D _wheel2Hit;
+    private RaycastHit2D _wheelHit;
     private CancellationTokenSource _cancellationToken = new CancellationTokenSource();
-    // private Rigidbody2D _wheel1Rigidbody2D;
-    // private Rigidbody2D _wheel2Rigidbody2D;
-    // private CircleCollider2D _wheel1Collider;
-    // private CircleCollider2D _wheel2Collider;
+    private Rigidbody2D _wheel1Rigidbody2D;
+    private Rigidbody2D _wheel2Rigidbody2D;
+    private CircleCollider2D _wheel1Collider;
+    private CircleCollider2D _wheel2Collider;
     private List<Collider2D> _colliders = new List<Collider2D>(50);
     private bool _isBroken = false;
     private bool _circleCastOn = true;
-    public HotWheel(HotWheelRef hotWheelRef, HotWheelAudioHandler hotWheelAudioHandler, Transform debrisParent, LayerMask contactMask, int layerAfterBreaking,
-        float hotWheelRotationSpeed, float radiusWheel1, float radiusWheel2)
+    public HotWheel(HotWheelRef hotWheelRef, HotWheelAudioHandler hotWheelAudioHandler, Transform debrisParent, LayerMask contactMask, Vector3 offset,
+        int layerAfterBreaking, float hotWheelRotationSpeed, float radiusWheel2)
     {
         HotWheelRef = hotWheelRef;
         _hotWheelAudioHandler = hotWheelAudioHandler;
         _debrisParent = debrisParent;
         _hotWheelRotationSpeed = hotWheelRotationSpeed;
-        _radiusWheel1 = radiusWheel1;
         _radiusWheel2 = radiusWheel2;
         _contactMask = contactMask;
+        _offset = offset;
         _layerAfterBreaking = layerAfterBreaking;
         _wheel1 = hotWheelRef.Wheel1;
         _wheel2 = hotWheelRef.Wheel2;
-        // _wheel1Collider = hotWheelRef.Wheel1Collider;
-        // _wheel2Collider = hotWheelRef.Wheel2Collider;
+        _wheel1Collider = hotWheelRef.Wheel1Collider;
+        _wheel2Collider = hotWheelRef.Wheel2Collider;
+        _wheel1Rigidbody2D = hotWheelRef.Rigidbody2DWheel1;
+        _wheel2Rigidbody2D = hotWheelRef.Rigidbody2DWheel2;
+        _wheel1Rigidbody2D.simulated = false;
+        _wheel2Rigidbody2D.simulated = false;
         _hotWheelAudioHandler.PlayRotateWheels();
     }
     public void Dispose()
@@ -59,12 +60,12 @@ public class HotWheel
     {
         _isBroken = true;
         HotWheelRef.transform.SetParent(_debrisParent);
-        HotWheelRef.Wheel1.gameObject.AddComponent<Rigidbody2D>().AddTorque(GetRandomTorque());
-        HotWheelRef.Wheel2.gameObject.AddComponent<Rigidbody2D>().AddTorque(GetRandomTorque());
-        // _wheel1Rigidbody2D = HotWheelRef.Wheel1.gameObject.AddComponent<Rigidbody2D>();
-        // _wheel2Rigidbody2D = HotWheelRef.Wheel2.gameObject.AddComponent<Rigidbody2D>();
-        // _wheel1Rigidbody2D.AddTorque(GetRandomTorque());
-        // _wheel2Rigidbody2D.AddTorque(GetRandomTorque());
+        _wheel1Collider.enabled = true;
+        _wheel2Collider.enabled = true;
+        _wheel1Rigidbody2D.simulated = true;
+        _wheel2Rigidbody2D.simulated = true;
+        _wheel1Rigidbody2D.AddTorque(GetRandomTorque());
+        _wheel2Rigidbody2D.AddTorque(GetRandomTorque());
         Physics2D.IgnoreLayerCollision(
             HotWheelRef.Wheel1.gameObject.layer, 
             _layerAfterBreaking,
@@ -72,15 +73,13 @@ public class HotWheel
         _hotWheelAudioHandler.StopPlaySoundRotateWheels().Forget();
         DelayCircleCastOff().Forget();
     }
-
-    public void Update()
+    public void FixedUpdate()
     {
         if (_isBroken == false)
         {
             _wheel1.Rotate(Vector3.forward, _hotWheelRotationSpeed);
             _wheel2.Rotate(Vector3.forward, _hotWheelRotationSpeed);
         }
-
         if (_circleCastOn == true)
         {
             CheckContact();
@@ -93,19 +92,12 @@ public class HotWheel
     }
     private void CheckContact()
     {
-        _wheel1Hit = Physics2D.CircleCast(_wheel1.position, _radiusWheel1,
+        _wheelHit = Physics2D.CircleCast(_wheel2.position + _offset, _radiusWheel2,
             Vector2.right, _distance, _contactMask.value);
-        _wheel2Hit = Physics2D.CircleCast(_wheel2.position, _radiusWheel2,
-            Vector2.right, _distance, _contactMask.value);
-        
-        TryCut(ref _wheel1Hit);
-        TryCut(ref _wheel2Hit);
-    }
-    private void TryCut(ref RaycastHit2D wheelHit)
-    {
-        if (wheelHit == true && wheelHit.collider.transform.parent.TryGetComponent(out ICutable cutable))
+        if (_wheelHit == true
+            && _wheelHit.collider.transform.parent.TryGetComponent(out ICutable cutable))
         {
-            cutable.DestructFromCut(wheelHit.point);
+            cutable.DestructFromCut(_wheelHit.point);
             _hotWheelAudioHandler.TryPlayCut();
         }
     }

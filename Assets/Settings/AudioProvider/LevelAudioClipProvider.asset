@@ -26,15 +26,17 @@ MonoBehaviour:
   _burnBarrelAudioClip: {fileID: 8300000, guid: aabc61317adcb5546a011664a2d96086, type: 3}
   _hit1ZombieAudioClip: {fileID: 8300000, guid: ff3600836b544184ba4ae6b471c0e5d2, type: 3}
   _hit2ZombieAudioClip: {fileID: 8300000, guid: 5aa72f81746b4ea439c29afba6faee5a, type: 3}
-  _death1ZombieAudioClip: {fileID: 8300000, guid: 73b9c0f40663c8f46a900a9688bead0e, type: 3}
-  _death2ZombieAudioClip: {fileID: 8300000, guid: 9421e539d5bae764f8142d1c1170b28b, type: 3}
-  _death3ZombieAudioClip: {fileID: 8300000, guid: e41737ff7395c064e8c890d2bcea67e9, type: 3}
-  _death4ZombieAudioClip: {fileID: 8300000, guid: 7402ca0d61e261844951967ac22d2fc8, type: 3}
-  _death5ZombieAudioClip: {fileID: 8300000, guid: e9196f24e0d5a7544afa96296fe18c56, type: 3}
-  _talk1ZombieAudioClip: {fileID: 8300000, guid: e30f90c4b5988b241a286740bdb95ce5, type: 3}
+  _death1ZombieAudioClip: {fileID: 8300000, guid: c934c20edf7bbf74797f3fc86a72f41a, type: 3}
+  _death2ZombieAudioClip: {fileID: 8300000, guid: 51dbd89fe13bf3045a1c1ed580dd8e58, type: 3}
+  _death3ZombieAudioClip: {fileID: 8300000, guid: bea1969ff28395b4382dc1095b794036, type: 3}
+  _death4ZombieAudioClip: {fileID: 8300000, guid: 8628d64348df2264ba056fdefcd359b8, type: 3}
+  _death5ZombieAudioClip: {fileID: 8300000, guid: 2cb10c18bb8ca6a4fa78a74d52e0fb3c, type: 3}
+  _talk1ZombieAudioClip: {fileID: 8300000, guid: 12866b8692c32b341b9924e8b7cc8ebc, type: 3}
   _talk2ZombieAudioClip: {fileID: 8300000, guid: dffce4b4c233cb046b28de65e0c00d6d, type: 3}
   _talk3ZombieAudioClip: {fileID: 8300000, guid: a5c8d08290137e4438267a469eb07933, type: 3}
   _talk4ZombieAudioClip: {fileID: 8300000, guid: b6efd9988c626e944896446fa4f81471, type: 3}
   _talk5ZombieAudioClip: {fileID: 8300000, guid: ac7d97e607065a842b0102084b47f8bc, type: 3}
   _talk6ZombieAudioClip: {fileID: 8300000, guid: 443d104321287c14ba80ac7a1ed0f97c, type: 3}
   _fartZombieAudioClip: {fileID: 8300000, guid: e9d7aa3cf9d824547846ff2529e11216, type: 3}
+  _collapsing: {fileID: 8300000, guid: 1fa68601a535fa44185dbc64a63e0585, type: 3}
+  _impactOfTheFall: {fileID: 8300000, guid: 8caa4561d3175774dacf8f725b3ea452, type: 3}

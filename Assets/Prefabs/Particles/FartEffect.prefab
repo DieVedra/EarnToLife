@@ -25,7 +25,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2307968007809091105}
-  m_LocalRotation: {x: -0.6025698, y: 0.3700129, z: -0.37001297, w: 0.6025699}
+  m_LocalRotation: {x: -0.60256886, y: 0.37001455, z: -0.37001455, w: 0.60256886}
   m_LocalPosition: {x: 27.93895, y: 16.515963, z: 0.08462914}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -41,22 +41,22 @@ ParticleSystem:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2307968007809091105}
   serializedVersion: 8
-  lengthInSec: 5
+  lengthInSec: 1
   simulationSpeed: 1
   stopAction: 0
   cullingMode: 0
   ringBufferMode: 0
   ringBufferLoopRange: {x: 0, y: 1}
   emitterVelocityMode: 1
-  looping: 1
+  looping: 0
   prewarm: 0
-  playOnAwake: 1
+  playOnAwake: 0
   useUnscaledTime: 0
   autoRandomSeed: 1
   startDelay:
     serializedVersion: 2
     minMaxState: 0
-    scalar: 2
+    scalar: 0
     minScalar: 0
     maxCurve:
       serializedVersion: 2
@@ -116,7 +116,7 @@ ParticleSystem:
     startLifetime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 1.2
+      scalar: 0.5
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -169,7 +169,7 @@ ParticleSystem:
     startSpeed:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 5
+      scalar: 1
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -285,7 +285,7 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 4.26
+      scalar: 0.5
       minScalar: 1
       maxCurve:
         serializedVersion: 2
@@ -668,7 +668,7 @@ ParticleSystem:
     radiusThickness: 1
     donutRadius: 0.2
     m_Position: {x: 0, y: 0, z: 0}
-    m_Rotation: {x: 0, y: 0, z: 0}
+    m_Rotation: {x: -45, y: 90, z: 0}
     m_Scale: {x: 1, y: 1, z: 1}
     placementMode: 0
     m_MeshMaterialIndex: 0
@@ -1786,7 +1786,7 @@ ParticleSystem:
         ctime6: 0
         ctime7: 0
         atime0: 0
-        atime1: 45296
+        atime1: 42598
         atime2: 65535
         atime3: 0
         atime4: 0
@@ -5243,9 +5243,9 @@ ParticleSystemRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingLayerID: -306634265
+  m_SortingLayer: 5
+  m_SortingOrder: -10
   m_RenderMode: 0
   m_MeshDistribution: 0
   m_SortMode: 0

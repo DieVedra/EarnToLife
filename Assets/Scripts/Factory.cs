@@ -18,7 +18,10 @@ public class Factory
     {
         return _spawner.Spawn(prefab, position);
     }
-
+    public SpriteRenderer CreateCloud(SpriteRenderer prefab, Transform transform)
+    {
+        return _spawner.Spawn(prefab, transform, transform);
+    }
     public ViewUILevel CreateCanvas(ViewUILevel prefab)
     {
         return _spawner.Spawn(prefab);

@@ -8,59 +8,66 @@ using Zenject;
 public class Beam1 : Beam, IHitable, ICutable
 {
     private float _halfBeamLength;
-    private Transform _transform;
-    public Vector2 Position => _transform.position;
+    public Vector2 Position => TransformBase.position;
     public bool IsBroken => ObjectIsBroken;
-    // public IReadOnlyList<DebrisFragment> DebrisFragments => base.FragmentsDebris;
 
     [Inject]
     private void Construct(ILevel level)
     {
-        DebrisParentForDestroy = level.DebrisParent;
+        CameraTransform = level.CameraTransform;
         WoodDestructibleAudioHandler = level.LevelAudio.WoodDestructibleAudioHandler;
         DebrisHitSound = level.LevelAudio.WoodDestructibleAudioHandler.PlayHitWoodSound;
         Rigidbody2D = GetComponent<Rigidbody2D>();
-        _transform = transform;
         SetPositionsFragments();
         SetSizeToFragments();
     }
     public void DestructFromCut(Vector2 cutPos)
     {
-        if (IsBroken == false)
+        if (NotDestructible == true)
         {
             WoodDestructibleAudioHandler.PlayWoodBreakingSound();
-            Destruct();
+        }
+        else
+        {
+            if (IsBroken == false)
+            {
+                WoodDestructibleAudioHandler.PlayWoodBreakingSound();
+                Destruct();
+            }
         }
     }
     public bool TryBreakOnImpact(float forceHit)
     {
         bool result;
-        if (IsBroken == false)
+        if (NotDestructible == true)
         {
-            if (forceHit > Hardness)
-            {
-                WoodDestructibleAudioHandler.PlayWoodBreakingSound();
-                Destruct();
-                result = true;
-            }
-            else
-            {
-                WoodDestructibleAudioHandler.PlayWoodNotBreakingSound(forceHit);
-                result = false;
-            }
+            WoodDestructibleAudioHandler.PlayWoodNotBreakingSound(forceHit);
+            result = false;
         }
         else
         {
-            result = false;
+            if (IsBroken == false)
+            {
+                if (forceHit > Hardness)
+                {
+                    WoodDestructibleAudioHandler.PlayWoodBreakingSound();
+                    Destruct();
+                    result = true;
+                }
+                else
+                {
+                    WoodDestructibleAudioHandler.PlayWoodNotBreakingSound(forceHit);
+                    result = false;
+                }
+            }
+            else
+            {
+                result = false;
+            }
         }
+
         return result;
     }
-
-    // public void AddForce(Vector2 force)
-    // {
-    //     Rigidbody2D.AddForce(force * ForceMultiplierWholeObject);
-    // }
-
     protected override void SetPositionsFragments()
     {
         SetPositionFragment(_spriteFragment1, GetFirstPositionFragment());
@@ -80,13 +87,11 @@ public class Beam1 : Beam, IHitable, ICutable
 
     private new void OnEnable()
     {
-        // debrisHitSound += WoodDestructibleAudioHandler.PlayHitWoodSound;
         base.OnEnable();
     }
 
     private new void OnDisable()
     {
-        // debrisHitSound -= WoodDestructibleAudioHandler.PlayHitWoodSound;
         base.OnDisable();
     }
 }

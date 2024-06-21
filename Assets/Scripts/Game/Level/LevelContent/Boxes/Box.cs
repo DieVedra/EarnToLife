@@ -7,10 +7,9 @@ using Zenject;
 public class Box : DestructibleObject, IHitable, ICutable, IExplosive
 {
     private readonly float _forceMultiplier = 3f;
-    private Transform _transform;
     private WoodDestructibleAudioHandler _woodDestructibleAudioHandler;
 
-    public Vector2 Position => _transform.position;
+    public Vector2 Position => TransformBase.position;
 
     public bool IsBroken => base.ObjectIsBroken;
 
@@ -19,11 +18,10 @@ public class Box : DestructibleObject, IHitable, ICutable, IExplosive
     [Inject]
     private void Construct(ILevel level)
     {
-        DebrisParentForDestroy = level.DebrisParent;
+        CameraTransform = level.CameraTransform;
         _woodDestructibleAudioHandler = level.LevelAudio.WoodDestructibleAudioHandler;
         DebrisHitSound = level.LevelAudio.WoodDestructibleAudioHandler.PlayHitWoodSound;
         Rigidbody2D = GetComponent<Rigidbody2D>();
-        _transform = transform;
     }
 
     public bool TryBreakOnExplosion(Vector2 direction, float forceHit)

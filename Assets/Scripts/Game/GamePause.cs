@@ -1,38 +1,47 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UniRx;
 using UnityEngine;
 using UnityEngine.Audio;
 
-public class GamePause /*: IGamePause*/
+public class GamePause : IGamePause, IDisposable
 {
     private const float MIN_VALUE_TIME = 0f;
     private const float NORMAL_VALUE_TIME = 1f;
     private AudioMixerGroup _levelGroup;
     private ISoundPause _soundPause;
-    public ReactiveProperty<bool> PauseReactiveProperty { get; private set; }
+    private ReactiveProperty<bool> _pauseReactiveProperty = new ReactiveProperty<bool>();
+    public ReactiveProperty<bool> PauseReactiveProperty => _pauseReactiveProperty;
 
-    public bool IsPause { get; private set; }
+    public bool IsPause => PauseReactiveProperty.Value;
 
     public GamePause(ISoundPause soundPause)
     {
         _soundPause = soundPause;
-        PauseReactiveProperty = new ReactiveProperty<bool>();
-        IsPause = false;
+        _pauseReactiveProperty.Value = false;
         AbortPause();
     }
+
+    public void Dispose()
+    {
+        _pauseReactiveProperty.Dispose();
+    }
+
     public void SetPause()
     {
-        IsPause = true;
+        _pauseReactiveProperty.Value = true;
         _soundPause.SoundOnPause(IsPause);
         Time.timeScale = MIN_VALUE_TIME;
     }
+
     public void AbortPause()
     {
-        IsPause = false;
+        _pauseReactiveProperty.Value = false;
         _soundPause.SoundOnPause(IsPause);
         Time.timeScale = NORMAL_VALUE_TIME;
     }
+
     public void AbortPauseForLoad()
     {
         Time.timeScale = NORMAL_VALUE_TIME;

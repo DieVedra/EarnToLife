@@ -31,6 +31,10 @@ public class StopState : CarState
         _stateWheelGroundInteraction.Update();
         BreakingEngine();
         _brakes.Update();
+    }
+
+    public override void FixedUpdate()
+    {
         PropulsionUnit.FuelTank.BurnFuelOnIdling();
     }
 

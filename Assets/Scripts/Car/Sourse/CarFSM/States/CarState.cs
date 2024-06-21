@@ -19,6 +19,7 @@ public abstract class CarState
     }
     public abstract void Enter();
     public abstract void Update();
+    public abstract void FixedUpdate();
     public virtual void Exit(){}
     protected abstract void SetMotorSpeed(WheelJoint2D wheelJoint);
     private void CarBrokenIntoTwoParts()

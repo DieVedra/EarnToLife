@@ -20,7 +20,7 @@ public class Beam2 : Beam, IHitable, ICutable
         [Inject]
         private void Construct(ILevel level)
         {
-                DebrisParentForDestroy = level.DebrisParent;
+                CameraTransform = level.CameraTransform;
                 WoodDestructibleAudioHandler = level.LevelAudio.WoodDestructibleAudioHandler;
                 DebrisHitSound = level.LevelAudio.WoodDestructibleAudioHandler.PlayHitWoodSound;
                 Rigidbody2D = GetComponent<Rigidbody2D>();
@@ -31,42 +31,52 @@ public class Beam2 : Beam, IHitable, ICutable
 
         public void DestructFromCut(Vector2 cutPos)
         {
-                if (IsBroken == false)
+                if (NotDestructible == true)
                 {
                         WoodDestructibleAudioHandler.PlayWoodBreakingSound();
-                        Destruct();
+                }
+                else
+                {
+                        if (IsBroken == false)
+                        {
+                                WoodDestructibleAudioHandler.PlayWoodBreakingSound();
+                                Destruct();
+                        }
                 }
         }
 
         public bool TryBreakOnImpact(float forceHit)
         {
                 bool result;
-                if (IsBroken == false)
+                if (NotDestructible == true)
                 {
-                        if (forceHit > Hardness)
-                        {
-                                WoodDestructibleAudioHandler.PlayWoodBreakingSound();
-                                Destruct();
-                                result = true;
-                        }
-                        else
-                        {
-                                WoodDestructibleAudioHandler.PlayWoodNotBreakingSound(forceHit);
-                                result = false;
-                        }
+                        WoodDestructibleAudioHandler.PlayWoodNotBreakingSound(forceHit);
+                        result = false;
                 }
                 else
                 {
-                        result = false;
+                        if (IsBroken == false)
+                        {
+                                if (forceHit > Hardness)
+                                {
+                                        WoodDestructibleAudioHandler.PlayWoodBreakingSound();
+                                        Destruct();
+                                        result = true;
+                                }
+                                else
+                                {
+                                        WoodDestructibleAudioHandler.PlayWoodNotBreakingSound(forceHit);
+                                        result = false;
+                                }
+                        }
+                        else
+                        {
+                                result = false;
+                        }
                 }
+
                 return result;
         }
-
-        // public void AddForce(Vector2 force)
-        // {
-        //         Rigidbody2D.AddForce(force * ForceMultiplierWholeObject);
-        // }
-
         protected override void SetSizeToFragments()
         {
                 CalculateOneThirdBeamLength();
@@ -94,13 +104,11 @@ public class Beam2 : Beam, IHitable, ICutable
 
         private new void OnEnable()
         {
-                // debrisHitSound += WoodDestructibleAudioHandler.PlayHitWoodSound;
                 base.OnEnable();
         }
 
         private new void OnDisable()
         {
-                // debrisHitSound -= WoodDestructibleAudioHandler.PlayHitWoodSound;
                 base.OnDisable();
         }
 }

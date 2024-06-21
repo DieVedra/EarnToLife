@@ -1,11 +1,9 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using NaughtyAttributes;
 using UniRx;
-using UniRx.Triggers;
 using UnityEngine;
 using UnityEngine.U2D.IK;
 using Zenject;
@@ -40,12 +38,12 @@ public class Zombie : MonoBehaviour, IHitable, IExplosive, IShotable, ICutable
     [SerializeField, BoxGroup("Body")] private Rigidbody2D _bodyRigidbody2D;
     private readonly float _delayChangeLayer = 1f;
     private readonly float _forceTearingUpMultiplier = 0.5f;
+    private readonly float _addXRange = 20f;
     private Transform _transform;
-    private Transform _debrisParentForDestroy;
+    private Transform _cameraTransform;
     private ZombiePool _zombiePool;
-    private IGamePause _gamePause;
+    private GamePause _gamePause;
     private CompositeDisposable _compositeDisposable = new CompositeDisposable();
-    private CompositeDisposable _compositeDisposableForUpdate = new CompositeDisposable();
     private Collision2D _collision2D;
     private ZombieMove _zombieMove;
     private CancellationTokenSource _cancellationTokenSource = new CancellationTokenSource();
@@ -57,14 +55,15 @@ public class Zombie : MonoBehaviour, IHitable, IExplosive, IShotable, ICutable
     public Vector2 Position  => _transform.position;
     public IReadOnlyList<DebrisFragment> DebrisFragments => _debrisFragments;
 
-    public bool IsBroken { get; private set; }
+    public bool IsBroken => IsBrokenReactiveProperty.Value;
+    public ReactiveProperty<bool> IsBrokenReactiveProperty = new ReactiveProperty<bool>();
     public Transform TargetTransform { get; private set; }
 
 
     [Inject]
     private void Construct(GamePause gamePause, AudioClipProvider audioClipProvider, IGlobalAudio globalAudio,  ILevel level)
     {
-        _debrisParentForDestroy = level.DebrisParent;
+        _cameraTransform = level.CameraTransform;
         _zombiePool = level.LevelPool.ZombiePool;
         TargetTransform = _bodyRigidbody2D.transform;
         _gamePause = gamePause;
@@ -89,7 +88,7 @@ public class Zombie : MonoBehaviour, IHitable, IExplosive, IShotable, ICutable
             debrisFragment.InitRigidBody();
             _debrisFragments.Add(debrisFragment);
         }
-        _zombieMove = new ZombieMove(transform, _rigidbody2D, _gamePause, _contactMask,
+        _zombieMove = new ZombieMove(transform, _rigidbody2D, _gamePause, IsBrokenReactiveProperty, _contactMask,
                     new Vector2(_offsetXSphereCast, _offsetYSphereCast), (float)_direction, _speed, _radiusSphereCast);
     }
 
@@ -196,7 +195,8 @@ public class Zombie : MonoBehaviour, IHitable, IExplosive, IShotable, ICutable
     }
     private void EnableRagdoll()
     {
-        IsBroken = true;
+        // IsBroken = true;
+        IsBrokenReactiveProperty.Value = true;
         _bloodFall.Stop();
         _collider2D.enabled = false;
         _rigidbody2D.simulated = false;
@@ -219,6 +219,7 @@ public class Zombie : MonoBehaviour, IHitable, IExplosive, IShotable, ICutable
         OnBroken?.Invoke();
         SwitchLayerDelay().Forget();
         _cancellationTokenSourceForTalkSound.Cancel();
+        SubscribeDisableObserve();
     }
 
     private async UniTaskVoid SwitchLayerDelay()
@@ -229,6 +230,18 @@ public class Zombie : MonoBehaviour, IHitable, IExplosive, IShotable, ICutable
             bodyPart.layer = _zombieDebrisLayer;
         }
     }
+
+    private void SubscribeDisableObserve()
+    {
+        Observable.EveryUpdate().Do(_ =>
+        {
+            if (TargetTransform.position.x  + _addXRange < _cameraTransform.position.x)
+            {
+                _compositeDisposable.Clear();
+                gameObject.SetActive(false);
+            }
+        }).Subscribe().AddTo(_compositeDisposable);
+    }
     private void OnDrawGizmos()
     {
         if (Application.isPlaying == false)
@@ -238,13 +251,13 @@ public class Zombie : MonoBehaviour, IHitable, IExplosive, IShotable, ICutable
         }
     }
 
-    private void FixedUpdate()
-    {
-        if (IsBroken == false)
-        {
-            _zombieMove.Update();
-        }
-    }
+    // private void FixedUpdate()
+    // {
+    //     if (IsBroken == false)
+    //     {
+    //         _zombieMove.FixedUpdate();
+    //     }
+    // }
     protected async UniTaskVoid StartCyclePlaySound(CancellationTokenSource cancellationTokenSource, Action operation, float startDelay, float nextDelay)
     {
         await UniTask.Delay(TimeSpan.FromSeconds(startDelay), cancellationToken: cancellationTokenSource.Token);
@@ -273,5 +286,6 @@ public class Zombie : MonoBehaviour, IHitable, IExplosive, IShotable, ICutable
             _debrisFragments[i].Dispose();
         }
         _debrisFragments = null;
+        _compositeDisposable.Clear();
     }
 }

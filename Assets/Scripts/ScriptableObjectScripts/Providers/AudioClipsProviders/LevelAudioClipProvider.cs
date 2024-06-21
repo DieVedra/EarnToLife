@@ -35,6 +35,8 @@ public class LevelAudioClipProvider : ScriptableObject
     [SerializeField, BoxGroup("Zommbie")] private AudioClip _talk6ZombieAudioClip;
     [SerializeField, BoxGroup("Zommbie")] private AudioClip _fartZombieAudioClip;
 
+    [SerializeField, BoxGroup("Traps"), HorizontalLine(color: EColor.Gray)] private AudioClip _collapsing;
+    [SerializeField, BoxGroup("Traps")] private AudioClip _impactOfTheFall;
 
     public AudioClip WoodBreaking1AudioClip => _woodBreaking1AudioClip;
     public AudioClip WoodBreaking2AudioClip => _woodBreaking2AudioClip;
@@ -65,4 +67,6 @@ public class LevelAudioClipProvider : ScriptableObject
     public AudioClip Talk6ZombieAudioClip => _talk6ZombieAudioClip;
     
     public AudioClip FartZombieAudioClip => _fartZombieAudioClip;
+    public AudioClip Collapsing => _collapsing;
+    public AudioClip ImpactOfTheFall => _impactOfTheFall;
 }

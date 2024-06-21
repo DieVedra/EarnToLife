@@ -869,7 +869,16 @@ ScriptedImporter:
         boneIndex1: 0
         boneIndex2: 0
         boneIndex3: 0
-    spritePhysicsOutline: []
+    spritePhysicsOutline:
+    - outline:
+      - {x: 1.5, y: 27}
+      - {x: 3.5, y: -161}
+      - {x: -5.5, y: -161}
+      - {x: -5.5, y: 27}
+      - {x: -114.5, y: 26}
+      - {x: -114.5, y: 161}
+      - {x: 116.5, y: 162}
+      - {x: 113.5, y: 27}
     indices: 000000000600000001000000010000000600000004000000020000000300000004000000020000000400000006000000020000000600000007000000030000000500000004000000
     edges:
     - {x: 0, y: 1}
@@ -2513,7 +2522,51 @@ ScriptedImporter:
     dimension: {x: 0, y: 0}
     characterGroups: []
     boneReadOnly: 0
-  platformSettings: []
+  platformSettings:
+  - name: DefaultTexturePlatform
+    overridden: 0
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+    crunchedCompression: 1
+    allowsAlphaSplitting: 0
+    androidETC2FallbackOverride: 0
+  - name: Standalone
+    overridden: 0
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    androidETC2FallbackOverride: 0
+  - name: Server
+    overridden: 0
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    androidETC2FallbackOverride: 0
+  - name: WebGL
+    overridden: 0
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    androidETC2FallbackOverride: 0
   mosaicLayers: 1
   characterMode: 1
   documentPivot: {x: 0, y: 0}

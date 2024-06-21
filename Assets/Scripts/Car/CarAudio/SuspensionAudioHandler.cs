@@ -47,6 +47,11 @@ public class SuspensionAudioHandler
         _audioPlayerBackSuspension.TryPlayClip(_suspensionAudioClip);
     }
 
+    public void Dispose()
+    {
+        _audioPlayerFrontSuspension.StopPlay();
+        _audioPlayerBackSuspension.StopPlay();
+    }
     private void SetVolumeSuspension(AudioPlayer audioPlayer, float value)
     {
         if (_speedometer.CurrentSpeedFloat > _minSoundSpeed)

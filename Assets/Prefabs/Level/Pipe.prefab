@@ -14,7 +14,7 @@ GameObject:
   m_Layer: 17
   m_Name: Pipe
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 7250588514170254948, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
   m_IsActive: 1
@@ -100,7 +100,7 @@ PolygonCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
+    border: {x: 0.93, y: 0, z: 1.0699999, w: 0}
     pivot: {x: 0.5, y: 0.5}
     oldSize: {x: 7.28, y: 2.79}
     newSize: {x: 7.28, y: 2.79}

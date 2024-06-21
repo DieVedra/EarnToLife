@@ -20,19 +20,12 @@ public class LandGenerator : MonoBehaviour
     [SerializeField, Range(1f, 10f)] private float _bottom = 10f;
 
     private Vector3 _lastPos;
-    private Transform _transform;
     
     [SerializeField] private List<Vector3> _positions;
-
     
-    [Button("save")]
-    private void save()
-    {
-    }
     [Button("Save")]
     private void Save()
     {
-
         _positions = new List<Vector3>(_spriteShapeController.spline.GetPointCount());
         int count = _spriteShapeController.spline.GetPointCount();
         
@@ -45,11 +38,11 @@ public class LandGenerator : MonoBehaviour
     {
         if (_isOn == true)
         {
-            _transform = transform;
             _spriteShapeController.spline.Clear();
             for (int i = 0; i < _levelLenght; i++)
             {
-                _lastPos = _transform.position +
+                _lastPos = Vector3.zero +
+
                            new Vector3(i * _xMultiplier, Mathf.PerlinNoise(0, i * _noiseStep) * _yMultiplier);
                 _spriteShapeController.spline.InsertPointAt(i, _lastPos);
                 if (i != 0 && i != _levelLenght - 1)
@@ -60,12 +53,10 @@ public class LandGenerator : MonoBehaviour
                 }
 
             }
-
             _spriteShapeController.spline.InsertPointAt(_levelLenght,
-                new Vector3(_lastPos.x, _transform.position.y - _bottom));
+                new Vector3(_lastPos.x, Vector3.zero.y - _bottom));
             _spriteShapeController.spline.InsertPointAt(_levelLenght + 1,
-                new Vector3(_transform.position.x, _transform.position.y - _bottom));
-
+                new Vector3(Vector3.zero.x, Vector3.zero.y - _bottom));
         }
     }
 }

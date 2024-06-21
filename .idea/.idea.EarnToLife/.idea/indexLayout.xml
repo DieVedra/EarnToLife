@@ -5,6 +5,8 @@
     <explicitIncludes>
       <Path>Library/PackageCache/com.cysharp.unitask@66de0d3a58</Path>
       <Path>Library/PackageCache/com.dbrizov.naughtyattributes@8a8fa5a965</Path>
+      <Path>Library/PackageCache/com.febucci.custom-hierarchy@093baf4e09</Path>
+      <Path>Library/PackageCache/com.marijnzwemmer.unity-toolbar-extender@dbd76ed996</Path>
       <Path>Library/PackageCache/com.svermeulen.extenject@574bdc68ae</Path>
       <Path>Library/PackageCache/com.unity.2d.animation@7.0.13</Path>
       <Path>Library/PackageCache/com.unity.2d.aseprite@1.1.0</Path>
@@ -28,6 +30,7 @@
       <Path>Library/PackageCache/com.unity.textmeshpro@3.0.6</Path>
       <Path>Library/PackageCache/com.unity.timeline@1.6.5</Path>
       <Path>Library/PackageCache/com.unity.visualscripting@1.9.1</Path>
+      <Path>Library/PackageCache/www.nulltale.huefolders@9685d63f9a</Path>
       <Path>Packages</Path>
       <Path>ProjectSettings</Path>
     </explicitIncludes>
@@ -36,7 +39,6 @@
       <Path>.idea</Path>
       <Path>Library</Path>
       <Path>Logs</Path>
-      <Path>Temp</Path>
       <Path>UserSettings</Path>
       <Path>obj</Path>
     </explicitExcludes>

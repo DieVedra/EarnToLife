@@ -24,7 +24,7 @@ public class RateFire
         }
         CanShoot = true;
     }
-    // public void Update(bool canShoot)
+    // public void FixedUpdate(bool canShoot)
     // {
     //     if (_currentCountTime > 0f)
     //     {

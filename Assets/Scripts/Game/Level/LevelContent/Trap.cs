@@ -1,22 +1,81 @@
+using System.Collections.Generic;
+using NaughtyAttributes;
 using UniRx;
 using UniRx.Triggers;
 using UnityEngine;
+using Zenject;
 
-[RequireComponent(typeof(Rigidbody2D))]
 public class Trap : MonoBehaviour
 {
     [SerializeField] private Collider2D _trigger;
-    private Rigidbody2D _rigidbody2D;
+    [SerializeField] private Rigidbody2D[] _rigidbodies2D;
+    [SerializeField, Layer] private int _targetLayerTriggering;
+    [SerializeField] private LayerMask _targetLayerMaskHitSound;
     private CompositeDisposable _compositeDisposable = new CompositeDisposable();
+    private TrapAudioHandler _trapAudioHandler;
+    private List<Collider2D> _collider2Ds = new List<Collider2D>();
+    private List<CompositeDisposable> _compositeDisposables = new List<CompositeDisposable>();
 
-private void Start()
+    [Inject]
+    private void Construct(AudioClipProvider audioClipProvider, IGlobalAudio globalAudio)
     {
-        _rigidbody2D = GetComponent<Rigidbody2D>();
-        _rigidbody2D.isKinematic = true;
-        _trigger.OnTriggerEnter2DAsObservable().Subscribe(_trigger =>
+        _trapAudioHandler = new TrapAudioHandler(GetComponent<AudioSource>(),
+            globalAudio.SoundReactiveProperty, globalAudio.AudioPauseReactiveProperty, audioClipProvider.LevelAudioClipProvider);
+    }
+    private void Start()
+    {
+        SetKinematics(true);
+        for (int i = 0; i < _rigidbodies2D.Length; i++)
         {
-            _rigidbody2D.isKinematic = false;
+            _collider2Ds.Add(_rigidbodies2D[i].GetComponent<Collider2D>());
+            _compositeDisposables.Add(new CompositeDisposable());
+        }
+        _trigger.OnTriggerEnter2DAsObservable().Do(CheckTrigger).Subscribe().AddTo(_compositeDisposable);
+    }
+
+    private void CheckTrigger(Collider2D collider2D)
+    {
+        if (collider2D.gameObject.layer == _targetLayerTriggering)
+        {
+            SetKinematics(false);
+            _trapAudioHandler.PlayFall();
+            SubscribeToHit();
             _compositeDisposable.Clear();
-        }).AddTo(_compositeDisposable);
+        }
+    }
+
+    private void SubscribeToHit()
+    {
+        for (int i = 0; i < _collider2Ds.Count; i++)
+        {
+            _collider2Ds[i].OnCollisionEnter2DAsObservable().First().Where(CheckHitGround).Subscribe(_ =>
+            {
+                _trapAudioHandler.PlayHit();
+            }).AddTo(_compositeDisposables[i]);
+        }
+    }
+    private bool CheckHitGround(Collision2D collision2D)
+    {
+        if ((1 << collision2D.gameObject.layer & _targetLayerMaskHitSound.value) == 1 << collision2D.gameObject.layer)
+        {
+            return true;
+        }
+        else return false;
+    }
+    private void SetKinematics(bool key)
+    {
+        for (int i = 0; i < _rigidbodies2D.Length; i++)
+        {
+            _rigidbodies2D[i].isKinematic = key;
+        }
+    }
+
+    private void OnDisable()
+    {
+        for (int i = 0; i < _compositeDisposables.Count; i++)
+        {
+            _compositeDisposables[i].Clear();
+        }
+        _compositeDisposable.Clear();
     }
 }

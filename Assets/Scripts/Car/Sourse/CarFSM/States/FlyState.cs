@@ -28,9 +28,14 @@ public class FlyState : CarState
     public override void Update()
     {
         BreakingEngine();
+    }
+
+    public override void FixedUpdate()
+    {
         Booster.BoosterFuelTank.BurnBoosterFuelOnFly();
         MoveFly();
     }
+
     private void BreakingEngine()
     {
         PropulsionUnit.Engine.BreakingEngine();
