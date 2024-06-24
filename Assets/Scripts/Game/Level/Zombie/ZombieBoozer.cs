@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading;
 using Cysharp.Threading.Tasks;
+using Unity.VisualScripting;
 using UnityEngine;
 using Zenject;
 
@@ -18,14 +19,12 @@ public class ZombieBoozer : Zombie
         _zombieBoozerAudioHandler = new ZombieBoozerAudioHandler(GetComponent<AudioSource>(),
             globalAudio.SoundReactiveProperty, globalAudio.AudioPauseReactiveProperty, audioClipProvider.LevelAudioClipProvider);
     }
-    private void Start()
+    private void Awake()
     {
         _mainModule = _fartEffect.main;
         _mainModule.duration = _duration;
         _mainModule.loop = true;
-        StartCyclePlaySound(_cancellationTokenSource, PlayEffect,
-            _duration, _duration).Forget();
-        OnBroken += StopEffect;
+        
     }
     private void StopEffect()
     {
@@ -39,7 +38,13 @@ public class ZombieBoozer : Zombie
         _zombieBoozerAudioHandler.PlayFart();
 
     }
-    private new void OnDisable()
+    private void OnEnable()
+    {
+        StartCyclePlaySound(_cancellationTokenSource, PlayEffect,
+            _duration, _duration).Forget();
+        OnBroken += StopEffect;
+    }
+    private void OnDisable()
     {
         OnBroken -= StopEffect;
         StopEffect();

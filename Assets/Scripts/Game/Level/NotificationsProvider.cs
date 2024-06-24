@@ -11,6 +11,7 @@ public class NotificationsProvider
     private const string ENGINE_BROKEN = "Engine Broken!";
     private const string DRIVER_CRUSHED = "Driver crushed!";
     private const string CAR_STUCK = "Сar is stuck...";
+    private const string DRIVER_ASLEEP = "Are you sleeping?";
     private const string CAR_TURNED_OVER = "Turned over.";
     private const string DAY = "Day ";
     public event Action<string> OnShowNotification;
@@ -19,6 +20,7 @@ public class NotificationsProvider
     public event Action<string> OnEngineBroken;
     public event Action<string> OnDriverCrushed;
     public event Action<string> OnCarStuck;
+    public event Action<string> OnDriverAsleep;
     public event Action<string> OnCarTurnOver;
     public void ShowDayInfo(string day)
     {
@@ -54,6 +56,11 @@ public class NotificationsProvider
     {
         OnShowNotification?.Invoke(CAR_STUCK);
         OnCarStuck?.Invoke(CAR_STUCK);
+    }
+    public void DriverAsleep()
+    {
+        OnShowNotification?.Invoke(DRIVER_ASLEEP);
+        OnDriverAsleep?.Invoke(DRIVER_ASLEEP);
     }
     public void CarTurnOver()
     {

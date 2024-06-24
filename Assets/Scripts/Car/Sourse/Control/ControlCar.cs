@@ -7,13 +7,13 @@ using UnityEngine;
 
 public class ControlCar
 {
-    public readonly ReactiveProperty<bool> DriveStarted = new ReactiveProperty<bool>();
     private readonly InputMethod _currentInputMethod;
     private readonly Gyroscope _gyroscope;
     private readonly IStateSetter _stateSetterPropulsionUnit;
     private readonly PropulsionUnit _propulsionUnit;
     private readonly Booster _booster;
     private readonly Speedometer _speedometer;
+    public ReactiveCommand DriveStarted = new ReactiveCommand();
     private int _stayValue = 5;
 
     protected ControlCar(InputMethod currentInputMethod, Gyroscope gyroscope, IStateSetter stateSetterPropulsionUnit, PropulsionUnit propulsionUnit,
@@ -26,23 +26,23 @@ public class ControlCar
         _speedometer = speedometer;
         _currentInputMethod = currentInputMethod;
         ChangeStaySpeedAfterStartGame();
-        DriveStarted.Value = false;
     }
     public virtual void Update()
     {
         if (_currentInputMethod.CheckPressBreak())
         {
-            DriveStarted.Value = true;
+            FirstPress();
             Stop();
             return;
         }
         else if (_currentInputMethod.CheckPressBoost() && _booster.FuelAvailability == true)
         {
-            DriveStarted.Value = true;
+            FirstPress();
             Boost();
         }
         else if (_currentInputMethod.CheckPressGas() && _propulsionUnit.FuelAvailability == true)
         {
+            FirstPress();
             Gas(_currentInputMethod.SmoothnessTimerForGas.Value);
             return;
         }
@@ -87,5 +87,15 @@ public class ControlCar
     {
         await UniTask.Delay(TimeSpan.FromSeconds(1));
         _stayValue = 0;
+    }
+
+    private void FirstPress()
+    {
+        if (DriveStarted != null)
+        {
+            DriveStarted.Execute();
+            // DriveStarted.Dispose();
+            // DriveStarted = null;
+        }
     }
 }

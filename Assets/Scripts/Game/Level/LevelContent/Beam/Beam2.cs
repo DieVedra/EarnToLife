@@ -106,9 +106,4 @@ public class Beam2 : Beam, IHitable, ICutable
         {
                 base.OnEnable();
         }
-
-        private new void OnDisable()
-        {
-                base.OnDisable();
-        }
 }

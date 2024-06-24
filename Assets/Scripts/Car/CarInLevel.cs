@@ -417,7 +417,11 @@ public class CarInLevel : Car
         _coupAnalyzer.Dispose();
         _groundAnalyzer.Dispose();
         _onCarBrokenIntoTwoPartsReactiveCommand.Dispose();
-        _controlCar.DriveStarted.Dispose();
+        if (_controlCar.DriveStarted != null)
+        {
+            _controlCar.DriveStarted.Dispose();
+        }
+
         _carFsm.Dispose();
         _carAudio.Dispose();
         if (Booster != null)

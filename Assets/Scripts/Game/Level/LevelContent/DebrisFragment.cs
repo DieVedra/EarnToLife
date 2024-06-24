@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Linq;
 using System.Threading;
 using Cysharp.Threading.Tasks;
@@ -24,13 +25,13 @@ public class DebrisFragment : MonoBehaviour
     {
         _fragmentTransform = transform;
         _compositeDisposable = new CompositeDisposable();
-        _cancellationTokenSource = new CancellationTokenSource();
+        // _cancellationTokenSource = new CancellationTokenSource();
         TryCalculateSizeFragmentAndSetCollider();
     }
     public void Dispose()
     {
         _compositeDisposable.Clear();
-        _cancellationTokenSource.Cancel();
+        // _cancellationTokenSource.Cancel();
     }
     public void InitRigidBody()
     {
@@ -51,21 +52,31 @@ public class DebrisFragment : MonoBehaviour
             _rigidbody2D.AddForce(force);
         }
     }
-    public void SubscribeFragment(Action operation, int layer, float delayChangeLayer)
+    public void SubscribeFragment(Action operation)
     {
         _fragmentCollider2D.OnCollisionEnter2DAsObservable().Subscribe(_ =>
         {
             operation?.Invoke();
             _compositeDisposable.Clear();
-            SetLayerFragments(layer, delayChangeLayer).Forget();
+            // StartCorutineLayerFragments(layer, delayChangeLayer).Forget();
         }).AddTo(_compositeDisposable);
     }
-    private async UniTaskVoid SetLayerFragments(int layer, float delayChangeLayer)
+    public void StartCorutineLayerFragments(int layer, float delayChangeLayer)
     {
-        await UniTask.Delay(TimeSpan.FromSeconds(delayChangeLayer), cancellationToken: _cancellationTokenSource.Token);
-        _fragmentTransform.gameObject.layer = layer;
+        // Debug.Log($"                                        StartCorutineLayerFragments 1  {delayChangeLayer}");
+        // await UniTask.Delay(TimeSpan.FromSeconds(delayChangeLayer), cancellationToken: _cancellationTokenSource.Token);
+        // _fragmentTransform.gameObject.layer = layer;
+        // Debug.Log($"                                        StartCorutineLayerFragments 2");
+        StartCoroutine(LayerFragments(layer, delayChangeLayer));
     }
 
+    private IEnumerator LayerFragments(int layer, float delayChangeLayer)
+    {
+        // Debug.Log($"                                        StartCorutineLayerFragments 1  {delayChangeLayer}");
+        yield return new WaitForSeconds(delayChangeLayer);
+        _fragmentTransform.gameObject.layer = layer;
+        // Debug.Log($"                                        StartCorutineLayerFragments 2");
+    }
     private void TryCalculateSizeFragmentAndSetCollider()
     {
         if (_fragmentTransform.TryGetComponent(out PolygonCollider2D polygonCollider2D))

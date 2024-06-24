@@ -11,6 +11,7 @@ public class ResultsLevelProvider
     private readonly float _timePauseOnEndLevel;
     private readonly float _timeDelayOnEndLevelOnDriverCrushed = 3f;
     private readonly float _timeDelayOnEndLevelOnEngineBurn = 3f;
+    private readonly float _timeDelayOnEndLevelOnDriverAsleep = 1f;
     private readonly float _timeDelayOnEndLevelDefault = 3f;
     private readonly float _priceTagForTheWayMeter;
     private readonly float _priceTagForTheMurder;
@@ -45,6 +46,7 @@ public class ResultsLevelProvider
         NotificationsProvider.OnDriverCrushed += GameOverBecauseDriverCrushed;
         NotificationsProvider.OnCarTurnOver += GameOverBecauseTurnOver;
         NotificationsProvider.OnCarStuck += GameOverBecauseCarStuck;
+        NotificationsProvider.OnDriverAsleep += GameOverBecauseDriverAsleep;
     }
 
     public void Dispose()
@@ -55,6 +57,7 @@ public class ResultsLevelProvider
         NotificationsProvider.OnDriverCrushed -= GameOverBecauseDriverCrushed;
         NotificationsProvider.OnCarTurnOver -= GameOverBecauseTurnOver;
         NotificationsProvider.OnCarStuck -= GameOverBecauseCarStuck;
+        NotificationsProvider.OnDriverAsleep -= GameOverBecauseDriverAsleep;
         _cancellationTokenSource.Cancel();
     }
     private void GameOverBecauseTankEmpty(string reason)
@@ -83,7 +86,10 @@ public class ResultsLevelProvider
     {
         GameOver(false, true, reason, _timeDelayOnEndLevelDefault).Forget();
     }
-
+    private void GameOverBecauseDriverAsleep(string reason)
+    {
+        GameOver(false, true, reason, _timeDelayOnEndLevelOnDriverAsleep).Forget();
+    }
     private async UniTaskVoid GameOver(bool openNextLevel, bool availabilityResultLevel, string reason, float delay)
     {
         if (CheckGameStatus())

@@ -47,7 +47,6 @@ public class CarFSM : IStateSetter
     public void Update()
     {
         CurrentState?.Update();
-        // Debug.Log($"CurrentState: {CurrentState}");
     }
     public void FixedUpdate()
     {

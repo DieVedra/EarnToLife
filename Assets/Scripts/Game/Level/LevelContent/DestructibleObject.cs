@@ -26,6 +26,7 @@ public class DestructibleObject : MonoBehaviour
         FragmentsDebris = new List<DebrisFragment>();
         TransformBase = transform;
         CollectDebrisChilds(_debrisParentLocal);
+        SubscribeEnableAndDisableObserve();
     }
 
     protected void Destruct()
@@ -33,28 +34,37 @@ public class DestructibleObject : MonoBehaviour
         WholeObjectTransform.gameObject.SetActive(false);
         _debrisParentLocal.gameObject.SetActive(true);
         AddRigidBodiesToDebrisAndSubscribeDebrisForHitSound();
+        
         Rigidbody2D.isKinematic = true;
         Rigidbody2D.simulated = false;
         ObjectIsBroken = true;
-        Observable.EveryUpdate().Do(_ =>
+    }
+    private void SubscribeEnableAndDisableObserve()
+    {
+        gameObject.SetActive(false);
+        Observable.EveryUpdate().Subscribe(_ =>
         {
-            if (TransformBase.position.x + _addXRange < CameraTransform.position.x)
+            if (TransformBase.position.x  + _addXRange < CameraTransform.position.x)
             {
-                _compositeDisposable.Clear();
                 gameObject.SetActive(false);
             }
-        }).Subscribe().AddTo(_compositeDisposable);
+            else if(TransformBase.position.x < CameraTransform.position.x + _addXRange)
+            {
+                gameObject.SetActive(true);
+            }
+        }).AddTo(_compositeDisposable);
     }
     private void AddRigidBodiesToDebrisAndSubscribeDebrisForHitSound()
     {
-        AddRigidBodiesToDebrisAndSetParents();
+        AddRigidBodiesToDebris();
         SubscribeDebrisForHitSound();
     }
-    private void AddRigidBodiesToDebrisAndSetParents()
+    private void AddRigidBodiesToDebris()
     {
         for (int i = 0; i < FragmentsDebris.Count; i++)
         {
             AddRigidBodyTo(FragmentsDebris[i]);
+            FragmentsDebris[i].StartCorutineLayerFragments(_layerDebris, _delayChangeLayer);
         }
     }
     private void CollectDebrisChilds(Transform debris)
@@ -84,14 +94,14 @@ public class DestructibleObject : MonoBehaviour
     {
         for (int i = 0; i < FragmentsDebris.Count; i++)
         {
-            FragmentsDebris[i].SubscribeFragment(DebrisHitSound, _layerDebris, _delayChangeLayer);
+            FragmentsDebris[i].SubscribeFragment(DebrisHitSound);
         }
     }
     protected void OnEnable()
     {
         ObjectIsBroken = false;
     }
-    protected void OnDisable()
+    protected void OnDestroy()
     {
         for (int i = 0; i < FragmentsDebris.Count; i++)
         {

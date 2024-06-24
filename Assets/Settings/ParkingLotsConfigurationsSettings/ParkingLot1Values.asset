@@ -14,9 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _defaultEngineOverclockingMultiplier: 1
   _defaultGearRatio: 1.1
-  _defaultFuelQuantityValue: 10
-  _priceTagMurder: 10
-  _priceTagWayMeter: 20
+  _defaultFuelQuantityValue: 40
+  _priceTagMurder: 5
+  _priceTagWayMeter: 2
   _engineOverclockingMultiplierUpgrade:
   - Price: 101
     Value: 1.2
@@ -62,11 +62,11 @@ MonoBehaviour:
   - Price: 103
     Value: 40
   _fuelQuantityUpgrade:
-  - Price: 101
+  - Price: 100
+    Value: 50
+  - Price: 120
     Value: 60
-  - Price: 102
+  - Price: 140
     Value: 70
-  - Price: 103
+  - Price: 150
     Value: 80
-  - Price: 104
-    Value: 90

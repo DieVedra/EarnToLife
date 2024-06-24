@@ -4,43 +4,38 @@ using UnityEngine;
 
 public class MoveAnalyzer
 {
-    private readonly float _analyzeDelay = 3f;
+    private readonly float _analyzeDelayTime = 7f;
     private readonly Speedometer _speedometer;
-    private readonly TimerAsync _timerAsync;
-    private int _speedInPreviousFrame = 0;
+    private float _currentTime;
     private bool _isAnalyze = false;
     public event Action OnCarStands;
-    public MoveAnalyzer(Speedometer speedometer, ReactiveProperty<bool> driveStarted)
+    public MoveAnalyzer(Speedometer speedometer, ReactiveCommand driveStarted)
     {
         _speedometer = speedometer;
-        _timerAsync = new TimerAsync();
-        driveStarted.Subscribe(_ =>{ SetStartAnalyze();});
+        _currentTime = _analyzeDelayTime;
+        driveStarted.Subscribe(_ =>
+        {
+            _isAnalyze = true;
+        });
     }
 
     public void Update()
     {
         if (_isAnalyze == true)
         {
-            if (_speedInPreviousFrame == _speedometer.CurrentSpeedInt)
+            if (_speedometer.CurrentSpeedInt == 0)
             {
-                _timerAsync.TryStartTimer(CarStand, _analyzeDelay).Forget();
+                _currentTime -= Time.deltaTime;
+                if (_currentTime <= 0f)
+                {
+                    OnCarStands?.Invoke();
+                    _isAnalyze = false;
+                }
             }
-            else
+            else if(_speedometer.CurrentSpeedInt > 0)
             {
-                _timerAsync.TryStopTimer();
+                _currentTime = _analyzeDelayTime;
             }
-
-            _speedInPreviousFrame = _speedometer.CurrentSpeedInt;
         }
-    }
-
-    private void CarStand()
-    {
-        OnCarStands?.Invoke();
-    }
-
-    private void SetStartAnalyze()
-    {
-        _isAnalyze = true;
     }
 }

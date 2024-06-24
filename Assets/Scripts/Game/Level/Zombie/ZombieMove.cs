@@ -58,32 +58,36 @@ public class ZombieMove
     {
         Observable.EveryFixedUpdate().Subscribe(_ =>
         {
-            FixedUpdate();
+            if (_isBrokenReactiveProperty.Value == false)
+            {
+                FixedUpdate();
+            }
+            else
+            {
+                _compositeDisposable.Clear();
+            }
         }).AddTo(_compositeDisposable);
     }
     private void FixedUpdate()
     {
-        if (_isBrokenReactiveProperty.Value ==false /*&& _gamePause.IsPause == false*/)
+        if (Physics2D.CircleCast(_transform.PositionVector2() + _offsetSphere, _radiusSphere,
+            _direction, _contactFilter, _hits, _distance) > 0)
         {
-            if (Physics2D.CircleCast(_transform.PositionVector2() + _offsetSphere, _radiusSphere,
-                _direction, _contactFilter, _hits, _distance) > 0)
+            _dotNormal = Vector2.Dot(_normal, Vector2.right);
+            if (_dotNormal < _dotValue)
             {
-                _dotNormal = Vector2.Dot(_normal, Vector2.right);
-                if (_dotNormal < _dotValue)
-                {
-                    _rigidbody2D.isKinematic = false;
-                    Move((Vector2.right * _directionMultiplier) * _speed * Time.deltaTime);
-                }
-                else
-                {
-                    _rigidbody2D.isKinematic = true;
-                    Move(DirectionAlongNormal() * _speed * Time.deltaTime);
-                }
+                _rigidbody2D.isKinematic = false;
+                Move((Vector2.right * _directionMultiplier) * _speed * Time.deltaTime);
             }
             else
             {
-                _rigidbody2D.isKinematic = false;
+                _rigidbody2D.isKinematic = true;
+                Move(DirectionAlongNormal() * _speed * Time.deltaTime);
             }
+        }
+        else
+        {
+            _rigidbody2D.isKinematic = false;
         }
     }
     private Vector2 DirectionAlongNormal()

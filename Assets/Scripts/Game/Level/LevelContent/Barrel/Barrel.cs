@@ -101,6 +101,9 @@ public class Barrel : DestructibleObject, IHitable, IShotable, ICutable, IExplos
         }
         return false;
     }
+
+    public string Name => gameObject.name;
+
     private void DestructAndExplosion()
     {
         Destruct();
@@ -157,8 +160,9 @@ public class Barrel : DestructibleObject, IHitable, IShotable, ICutable, IExplos
     }
     private new void OnDisable()
     {
+        StopCoroutine(SubscribeCheckCollision());
+        // SubscribeCheckCollision()
         _compositeDisposable.Clear();
         _barrelAudioHandler.Dispose();
-        base.OnDisable();
     }
 }

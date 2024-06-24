@@ -9,6 +9,7 @@ public class Coil : DestructibleObject, IHitable, IExplosive, ICutable
     private WoodDestructibleAudioHandler _woodDestructibleAudioHandler;
     public Vector2 Position => TransformBase.position;
     public bool IsBroken => ObjectIsBroken;
+
     public IReadOnlyList<DebrisFragment> DebrisFragments => base.FragmentsDebris;
     
     [Inject]
@@ -75,12 +76,10 @@ public class Coil : DestructibleObject, IHitable, IExplosive, ICutable
     }
     private new void OnEnable()
     {
-        // debrisHitSound += _woodDestructibleAudioHandler.PlayHitWoodSound;
         base.OnEnable();
     }
-    private new void OnDisable()
+    private new void OnDestroy()
     {
-        // debrisHitSound -= _woodDestructibleAudioHandler.PlayHitWoodSound;
-        base.OnDisable();
+        base.OnDestroy();
     }
 }

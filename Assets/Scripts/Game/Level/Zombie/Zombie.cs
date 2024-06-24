@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
 using Cysharp.Threading.Tasks;
@@ -50,7 +51,7 @@ public class Zombie : MonoBehaviour, IHitable, IExplosive, IShotable, ICutable
     private CancellationTokenSource _cancellationTokenSourceForTalkSound = new CancellationTokenSource();
     private GameObject[] _bodyParts;
     private List<DebrisFragment> _debrisFragments;
-    protected ZombieAudioHandler ZombieAudioHandler;
+    private ZombieAudioHandler ZombieAudioHandler;
     protected event Action OnBroken;
     public Vector2 Position  => _transform.position;
     public IReadOnlyList<DebrisFragment> DebrisFragments => _debrisFragments;
@@ -58,8 +59,8 @@ public class Zombie : MonoBehaviour, IHitable, IExplosive, IShotable, ICutable
     public bool IsBroken => IsBrokenReactiveProperty.Value;
     public ReactiveProperty<bool> IsBrokenReactiveProperty = new ReactiveProperty<bool>();
     public Transform TargetTransform { get; private set; }
-
-
+    private Transform _headTransform;
+    
     [Inject]
     private void Construct(GamePause gamePause, AudioClipProvider audioClipProvider, IGlobalAudio globalAudio,  ILevel level)
     {
@@ -90,6 +91,9 @@ public class Zombie : MonoBehaviour, IHitable, IExplosive, IShotable, ICutable
         }
         _zombieMove = new ZombieMove(transform, _rigidbody2D, _gamePause, IsBrokenReactiveProperty, _contactMask,
                     new Vector2(_offsetXSphereCast, _offsetYSphereCast), (float)_direction, _speed, _radiusSphereCast);
+        gameObject.SetActive(false);
+
+        SubscribeEnableAndDisableObserve();
     }
 
     public void DestructFromShoot(Vector2 force)
@@ -101,8 +105,8 @@ public class Zombie : MonoBehaviour, IHitable, IExplosive, IShotable, ICutable
             if (UnityEngine.Random.Range(0, 2) == 1)
             {
                 _headRigidbody2D.AddForce(force);
-                _zombiePool.PlayBloodHitEffect(_headRigidbody2D.transform.position);
-                _zombiePool.PlayBloodEffect(_headRigidbody2D.transform);
+                _zombiePool.PlayBloodHitEffect(_headTransform.position);
+                _zombiePool.PlayBloodEffect(_headTransform);
 
                 _headHingeJoint2D.enabled = false;
             }
@@ -195,11 +199,10 @@ public class Zombie : MonoBehaviour, IHitable, IExplosive, IShotable, ICutable
     }
     private void EnableRagdoll()
     {
-        // IsBroken = true;
         IsBrokenReactiveProperty.Value = true;
         _bloodFall.Stop();
-        _collider2D.enabled = false;
         _rigidbody2D.simulated = false;
+        _collider2D.enabled = false;
         _ikManager.enabled = false;
         _animation.enabled = false;
         foreach (var rigidbody2D in _rigidbodies2D)
@@ -217,30 +220,41 @@ public class Zombie : MonoBehaviour, IHitable, IExplosive, IShotable, ICutable
             collider2D.enabled = true;
         }
         OnBroken?.Invoke();
-        SwitchLayerDelay().Forget();
+        // SwitchLayerDelay().Forget();
+        StartCoroutine(SwitchLayer());
         _cancellationTokenSourceForTalkSound.Cancel();
-        SubscribeDisableObserve();
     }
 
-    private async UniTaskVoid SwitchLayerDelay()
+    // private async UniTaskVoid SwitchLayerDelay()
+    // {
+    //     await UniTask.Delay(TimeSpan.FromSeconds(_delayChangeLayer), cancellationToken: _cancellationTokenSource.Token);
+    //     foreach (var bodyPart in _bodyParts)
+    //     {
+    //         bodyPart.layer = _zombieDebrisLayer;
+    //     }
+    // }
+    private IEnumerator SwitchLayer()
     {
-        await UniTask.Delay(TimeSpan.FromSeconds(_delayChangeLayer), cancellationToken: _cancellationTokenSource.Token);
+        yield return new WaitForSeconds(_delayChangeLayer);
         foreach (var bodyPart in _bodyParts)
         {
             bodyPart.layer = _zombieDebrisLayer;
         }
     }
-
-    private void SubscribeDisableObserve()
+    private void SubscribeEnableAndDisableObserve()
     {
-        Observable.EveryUpdate().Do(_ =>
+        Observable.EveryUpdate().Subscribe(_ =>
         {
             if (TargetTransform.position.x  + _addXRange < _cameraTransform.position.x)
             {
-                _compositeDisposable.Clear();
                 gameObject.SetActive(false);
             }
-        }).Subscribe().AddTo(_compositeDisposable);
+            
+            else if(TargetTransform.position.x   < _cameraTransform.position.x + _addXRange)
+            {
+                gameObject.SetActive(true);
+            }
+        }).AddTo(_compositeDisposable);
     }
     private void OnDrawGizmos()
     {
@@ -250,14 +264,6 @@ public class Zombie : MonoBehaviour, IHitable, IExplosive, IShotable, ICutable
             Gizmos.DrawWireSphere(transform.PositionVector2() + new Vector2(_offsetXSphereCast, _offsetYSphereCast), _radiusSphereCast);
         }
     }
-
-    // private void FixedUpdate()
-    // {
-    //     if (IsBroken == false)
-    //     {
-    //         _zombieMove.FixedUpdate();
-    //     }
-    // }
     protected async UniTaskVoid StartCyclePlaySound(CancellationTokenSource cancellationTokenSource, Action operation, float startDelay, float nextDelay)
     {
         await UniTask.Delay(TimeSpan.FromSeconds(startDelay), cancellationToken: cancellationTokenSource.Token);
@@ -275,17 +281,25 @@ public class Zombie : MonoBehaviour, IHitable, IExplosive, IShotable, ICutable
             Random.Range(1f, _zombieTalkSoundPeriod), _zombieTalkSoundPeriod).Forget();
     }
 
-    protected void OnDisable()
+    private void OnDisable()
+    
     {
         _animation.Stop();
         _bloodFall.Stop();
-        _cancellationTokenSource.Cancel();
         _cancellationTokenSourceForTalkSound.Cancel();
-        for (int i = 0; i < _debrisFragments.Count; i++)
-        {
-            _debrisFragments[i].Dispose();
-        }
-        _debrisFragments = null;
+    }
+
+    private void OnDestroy()
+    {
         _compositeDisposable.Clear();
+        if (_debrisFragments != null)
+        {
+            for (int i = 0; i < _debrisFragments.Count; i++)
+            {
+                _debrisFragments[i].Dispose();
+            }
+
+            _debrisFragments = null;
+        }
     }
 }

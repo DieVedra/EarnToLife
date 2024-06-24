@@ -10,7 +10,6 @@ public class CoupAnalyzer
     private readonly float _maxDotProduct = 0.7f;
     private readonly float _maxDotProductToTilted = -0.1f;
     private readonly Transform _carTransform;
-    private readonly CompositeDisposable _compositeDisposable = new CompositeDisposable();
     public bool CarIsCoup => IsCoup.Value;
     public bool CarIsTilted { get; private set; }
     private float _dot;
@@ -20,7 +19,6 @@ public class CoupAnalyzer
     }
     public void Dispose()
     {
-        _compositeDisposable.Clear();
     }
     public void Update()
     {

@@ -20,168 +20,30 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3af2ac40-862a-4bb0-a04f-e86f35a10e50" name="Default Changelist" comment="roof destruction handler changed">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.EarnToLife/.idea/contentModel.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.EarnToLife/.idea/contentModel.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.EarnToLife/.idea/indexLayout.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.EarnToLife/.idea/indexLayout.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.EarnToLife/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.EarnToLife/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Audio/LevelSounds/Zombie/Death/ZDeath1.ogg" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Audio/LevelSounds/Zombie/Death/ZDeath1.ogg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Audio/LevelSounds/Zombie/Death/ZDeath1.ogg.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Audio/LevelSounds/Zombie/Death/ZDeath1.ogg.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Audio/LevelSounds/Zombie/Death/ZDeath2.ogg" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Audio/LevelSounds/Zombie/Death/ZDeath2.ogg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Audio/LevelSounds/Zombie/Death/ZDeath2.ogg.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Audio/LevelSounds/Zombie/Death/ZDeath2.ogg.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Audio/LevelSounds/Zombie/Death/ZDeath3.ogg" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Audio/LevelSounds/Zombie/Death/ZDeath3.ogg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Audio/LevelSounds/Zombie/Death/ZDeath3.ogg.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Audio/LevelSounds/Zombie/Death/ZDeath3.ogg.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Audio/LevelSounds/Zombie/Death/ZDeath4.ogg" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Audio/LevelSounds/Zombie/Death/ZDeath4.ogg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Audio/LevelSounds/Zombie/Death/ZDeath4.ogg.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Audio/LevelSounds/Zombie/Death/ZDeath4.ogg.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Audio/LevelSounds/Zombie/Death/ZDeath5.ogg" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Audio/LevelSounds/Zombie/Death/ZDeath5.ogg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Audio/LevelSounds/Zombie/Death/ZDeath5.ogg.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Audio/LevelSounds/Zombie/Death/ZDeath5.ogg.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Audio/LevelSounds/Zombie/Hits/BodyPartHit1.ogg" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Audio/LevelSounds/Zombie/Hits/BodyPartHit1.ogg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Audio/LevelSounds/Zombie/Hits/BodyPartHit2.ogg" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Audio/LevelSounds/Zombie/Hits/BodyPartHit2.ogg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Audio/LevelSounds/Zombie/Talks/Talk.ogg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Audio/LevelSounds/Zombie/Talks/Talk.ogg.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Audio/LevelSounds/Zombie/Talks/Talk2.ogg" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Audio/LevelSounds/Zombie/Talks/Talk2.ogg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Audio/LevelSounds/Zombie/Talks/Talk3.ogg" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Audio/LevelSounds/Zombie/Talks/Talk3.ogg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Audio/LevelSounds/Zombie/Talks/Talk5.ogg" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Audio/LevelSounds/Zombie/Talks/Talk5.ogg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Audio/LevelSounds/Zombie/pukane.ogg" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Audio/LevelSounds/Zombie/pukane.ogg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Audio/LevelSounds/metall-izgibaetsia-i-gnetsia_kdHTKY2u.ogg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Audio/LevelSounds/metall-izgibaetsia-i-gnetsia_kdHTKY2u.ogg.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Audio/Mixer.mixer" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Audio/Mixer.mixer" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Materials/Physics Materials/Car.physicsMaterial2D" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Materials/Physics Materials/Car.physicsMaterial2D" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Materials/Physics Materials/LevelContent.physicsMaterial2D" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Materials/Physics Materials/LevelContent.physicsMaterial2D" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Cars/CarsToGame/Car1ToGame.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Cars/CarsToGame/Car1ToGame.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Cars/CarsToGarage/Car1ToGarage.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Cars/CarsToGarage/Car1ToGarage.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Enemies/Z1.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Enemies/Z1.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Enemies/Z2.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Enemies/Z2.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Enemies/Z3.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Enemies/Z3.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Enemies/Z4.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Enemies/Z4.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Enemies/Z5.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Enemies/Z5.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Level/Barrels/Barrel1.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Level/Barrels/Barrel1.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Level/Barrels/Barrel2.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Level/Barrels/Barrel2.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Level/Beam1.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Level/Beam1.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Level/Beam2.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Level/Beam2.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Level/Boxes/Box1.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Level/Boxes/Box1.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Level/Boxes/Box2.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Level/Boxes/Box2.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Level/Boxes/Box3.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Level/Boxes/Box3.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Level/Boxes/Box4.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Level/Boxes/Box4.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Level/Briges/Bridge1 1.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Level/Briges/Bridge1 1.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Level/Briges/Bridge1.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Level/Briges/Bridge1.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Level/Briges/Bridge2.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Level/Briges/Bridge2.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Level/Briges/Bridge3Falling.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Level/Briges/Bridge3Falling.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Level/Briges/BrodgeSupport (1).prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Level/Briges/BrodgeSupport (1).prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Level/Coil1.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Level/Coil1.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Level/Coil2.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Level/Coil2.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Level/Containers/ShortContainers/ShortContainerBlue.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Level/Containers/ShortContainers/ShortContainerBlue.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Level/Containers/ShortContainers/ShortContainerGreen.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Level/Containers/ShortContainers/ShortContainerGreen.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Level/Containers/ShortContainers/ShortContainerGreenWithDeffects.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Level/Containers/ShortContainers/ShortContainerGreenWithDeffects.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Level/Containers/ShortContainers/ShortContainerRed.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Level/Containers/ShortContainers/ShortContainerRed.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Level/Containers/ShortContainers/ShortContainerRedWithDeffects.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Level/Containers/ShortContainers/ShortContainerRedWithDeffects.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Level/Containers/ShortContainers/ShortContainerYellow.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Level/Containers/ShortContainers/ShortContainerYellow.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Level/Containers/ShortContainers/ShortContainerYellowWithDeffects.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Level/Containers/ShortContainers/ShortContainerYellowWithDeffects.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Level/Fences/Fence1.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Level/Fences/Fence1.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Level/Fences/Fence2.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Level/Fences/Fence2.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Level/Fences/Fence3.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Level/Fences/Fence3.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Level/Fences/Fence4.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Level/Fences/Fence4.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Level/Fences/Fence5.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Level/Fences/Fence5.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Level/Fences/Fence6.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Level/Fences/Fence6.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Level/Fences/Fence7.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Level/Fences/Fence7.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Level/Fences/SupportFence.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Level/Fences/SupportFence.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Level/Lantern.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Level/Lantern.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Level/LanternBroken.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Level/LanternBroken.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Level/LanternKnockable.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Level/LanternKnockable.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Level/Pipe.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Level/Pipe.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Particles/Blood/BloodEffect.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Particles/Blood/BloodEffect.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Particles/Blood/BloodHit.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Particles/Blood/BloodHit.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Particles/FartEffect.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Particles/FartEffect.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/EntryScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/EntryScene.unity" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/Levels/Level_1_Parts/Part1.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Levels/Level_1_Parts/Part1.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/New Scene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/New Scene.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Audio/AudioPlayer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Audio/AudioPlayer.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Bot/Bot.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Bot/Bot.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Bot/States/BotStateSwitch.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Bot/States/BotStateSwitch.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Bot/States/DeadState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Bot/States/DeadState.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Bot/States/LiveState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Bot/States/LiveState.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/CarAudio/SuspensionAudioHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Car/CarAudio/SuspensionAudioHandler.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/CarInLevel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Car/CarInLevel.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/DestructionCar/BumperDestructionHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Car/DestructionCar/BumperDestructionHandler.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/DestructionCar/DestructionCar.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Car/DestructionCar/DestructionCar.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/DestructionCar/DestructionEffectsHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Car/DestructionCar/DestructionEffectsHandler.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/DestructionCar/DestructionHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Car/DestructionCar/DestructionHandler.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/DestructionCar/FrontWingDestructionHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Car/DestructionCar/FrontWingDestructionHandler.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/DestructionCar/GlassDestructionHandlers/ArmoredGlassDestructionHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Car/DestructionCar/GlassDestructionHandlers/ArmoredGlassDestructionHandler.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/DestructionCar/GlassDestructionHandlers/GlassDestructionHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Car/DestructionCar/GlassDestructionHandlers/GlassDestructionHandler.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/DestructionCar/GlassDestructionHandlers/StandartGlassDestructionHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Car/DestructionCar/GlassDestructionHandlers/StandartGlassDestructionHandler.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/HotWheel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Car/HotWheel.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/Parts/HotWheelRef.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Car/Parts/HotWheelRef.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/Analyzers/CoupAnalyzer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/Analyzers/CoupAnalyzer.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/Analyzers/MoveAnalyzer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/Analyzers/MoveAnalyzer.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/CarFSM/CarFSM.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/CarFSM/CarFSM.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/CarFSM/States/CarState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/CarFSM/States/CarState.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/CarFSM/States/FlyState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/CarFSM/States/FlyState.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/CarFSM/States/GasState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/CarFSM/States/GasState.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/CarFSM/States/RollState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/CarFSM/States/RollState.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/CarFSM/States/SoftStopState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/CarFSM/States/SoftStopState.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/CarFSM/States/StopState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/CarFSM/States/StopState.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/Control/ControlCar.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/Control/ControlCar.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/StopCauseHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Car/StopCauseHandler.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Extensions/Extensions.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Extensions/Extensions.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Factory.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Factory.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Game/Game.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Game/Game.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Game/GamePause.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Game/GamePause.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Game/Level/Audio/LevelAudio.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Game/Level/Audio/LevelAudio.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Game/Level/Audio/TrapAudioHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Game/Level/Audio/TrapAudioHandler.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Game/Level/Audio/ZombieAudioHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Game/Level/Audio/ZombieAudioHandler.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Game/Level/Audio/ZombieBoozerAudioHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Game/Level/Audio/ZombieBoozerAudioHandler.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Game/Level/Background/Cloud.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Game/Level/Background/Cloud.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Game/Level/Background/CloudShape.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Game/Level/Background/CloudShape.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Game/Level/Background/CloudsGenerator.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Game/Level/Background/CloudsGenerator.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Game/Level/Background/LevelBackground.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Game/Level/Background/LevelBackground.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Game/Level/Level.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Game/Level/Level.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Game/Level/LevelBlock.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Game/Level/LevelBlock.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Game/Level/LevelBlocksHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Game/Level/LevelBlocksHandler.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Game/Level/LevelContent/Barrel/Barrel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Game/Level/LevelContent/Barrel/Barrel.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Game/Level/LevelContent/Beam/Beam.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Game/Level/LevelContent/Beam/Beam.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Game/Level/LevelContent/Barrel/BlastWave.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Game/Level/LevelContent/Barrel/BlastWave.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Game/Level/LevelContent/Beam/Beam1.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Game/Level/LevelContent/Beam/Beam1.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Game/Level/LevelContent/Beam/Beam2.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Game/Level/LevelContent/Beam/Beam2.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Game/Level/LevelContent/Boxes/Box.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Game/Level/LevelContent/Boxes/Box.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Game/Level/LevelContent/Coil.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Game/Level/LevelContent/Coil.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Game/Level/LevelContent/DebrisFragment.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Game/Level/LevelContent/DebrisFragment.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Game/Level/LevelContent/DestructibleObject.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Game/Level/LevelContent/DestructibleObject.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Game/Level/LevelContent/Trap.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Game/Level/LevelContent/Trap.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Game/Level/LevelEditor/LandGenerator.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Game/Level/LevelEditor/LandGenerator.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Game/Level/NotificationsProvider.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Game/Level/NotificationsProvider.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Game/Level/ResultsLevelProvider.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Game/Level/ResultsLevelProvider.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Game/Level/Zombie/Zombie.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Game/Level/Zombie/Zombie.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Game/Level/Zombie/ZombieBoozer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Game/Level/Zombie/ZombieBoozer.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Game/Level/Zombie/ZombieMove.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Game/Level/Zombie/ZombieMove.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Guns/Bullet/Bullet.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Guns/Bullet/Bullet.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Guns/Gun.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Guns/Gun.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Guns/RateFire.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Guns/RateFire.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Interfaces/IGamePause.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Interfaces/IGamePause.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Interfaces/ILevel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Interfaces/ILevel.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/ScriptableObjectScripts/Providers/AudioClipsProviders/LevelAudioClipProvider.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/ScriptableObjectScripts/Providers/AudioClipsProviders/LevelAudioClipProvider.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Test.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Test.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Settings/AudioProvider/LevelAudioClipProvider.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Settings/AudioProvider/LevelAudioClipProvider.asset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Settings/ParkingLotsConfigurationsSettings/ParkingLot1Values.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Settings/ParkingLotsConfigurationsSettings/ParkingLot1Values.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Cars/Car1/Corpus/Bumper1.png" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/Cars/Car1/Corpus/Bumper1.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Cars/Car1/Corpus/Bumper1.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/Cars/Car1/Corpus/Bumper1.png.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Cars/Car1/Corpus/Bumper2.png" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/Cars/Car1/Corpus/Bumper2.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Cars/Car1/Corpus/Bumper2.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/Cars/Car1/Corpus/Bumper2.png.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Cars/Car1/Corpus/Bumper5.png" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/Cars/Car1/Corpus/Bumper5.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Cars/Car1/Corpus/Bumper5.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/Cars/Car1/Corpus/Bumper5.png.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Cars/Car1/Corpus/Bumper6.png" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/Cars/Car1/Corpus/Bumper6.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Cars/Car1/Corpus/Bumper6.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/Cars/Car1/Corpus/Bumper6.png.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/LevelContent/Constructions/Beam2.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/LevelContent/Constructions/Beam2.png.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/LevelContent/Constructions/Beam3.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/LevelContent/Constructions/Beam3.png.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/LevelContent/Constructions/Block.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/LevelContent/Constructions/Block.png.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/LevelContent/Constructions/WallWithWindows.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/LevelContent/Constructions/WallWithWindows.png.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/LevelContent/Enemies/1.psb.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/LevelContent/Enemies/1.psb.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/LevelContent/Enemies/2.psb.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/LevelContent/Enemies/2.psb.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/LevelContent/Enemies/3.psb.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/LevelContent/Enemies/3.psb.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/LevelContent/Enemies/4.psb.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/LevelContent/Enemies/4.psb.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/LevelContent/Enemies/5.psb.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/LevelContent/Enemies/5.psb.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/LevelContent/Fences/Fence7.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/LevelContent/Fences/Fence7.png.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Sprites/LevelContent/Pipes/Pipe1.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/LevelContent/Pipes/Pipe1.png.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Sprites/LevelContent/Pipes/Pipe2.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/LevelContent/Pipes/Pipe2.png.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/SpritesAtlasses/LevelAtlas.spriteatlas" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/SpritesAtlasses/LevelAtlas.spriteatlas" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/StartMenu/завод.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/StartMenu/завод.png.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Packages/manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/Packages/manifest.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Packages/packages-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/Packages/packages-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectSettings/Physics2DSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/Physics2DSettings.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectSettings/TagManager.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/TagManager.asset" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -227,15 +89,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/Assets/Scripts/Car/Parts/HotWheelRef.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Game/Game.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/Analyzers/CoupAnalyzer.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/Analyzers/MoveAnalyzer.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/CarFSM/States/CarState.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/CarFSM/States/GasState.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/CarFSM/States/StopState.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/CarFSM/States/RollState.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/CarFSM/States/FlyState.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/CarFSM/States/SoftStopState.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Game/Level/LevelContent/Beam/Beam.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Car/HotWheel.cs" />
@@ -263,21 +116,30 @@
         <option value="$PROJECT_DIR$/Assets/Scripts/Game/Level/LevelBlocksHandler.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Game/Level/Level.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Interfaces/ILevel.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Game/Level/LevelContent/Beam/Beam2.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Game/Level/LevelContent/Boxes/Box.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Game/Level/LevelContent/Beam/Beam1.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Game/Level/LevelContent/Coil.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Game/Level/LevelContent/Barrel/Barrel.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Game/Level/LevelContent/Trap.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Game/GamePause.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Game/Level/Zombie/ZombieMove.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Game/Level/Zombie/Zombie.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Game/Level/LevelContent/DestructibleObject.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Car/StopCauseHandler.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Car/CarAudio/SuspensionAudioHandler.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Game/Level/Zombie/ZombieMove.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/CarFSM/CarFSM.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Car/CarInLevel.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/Control/ControlCar.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Game/Level/LevelContent/DebrisFragment.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Game/Level/Zombie/ZombieBoozer.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Game/Level/LevelContent/Barrel/Barrel.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Interfaces/IExplosive.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Game/Level/LevelContent/Barrel/BlastWave.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Game/Level/LevelContent/Beam/Beam1.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Game/Level/LevelContent/Beam/Beam2.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Game/Level/LevelContent/Boxes/Box.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Game/Level/LevelContent/Coil.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Game/Level/LevelContent/DestructibleObject.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/Analyzers/CoupAnalyzer.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/Analyzers/MoveAnalyzer.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Game/Level/NotificationsProvider.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Car/StopCauseHandler.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Game/Level/ResultsLevelProvider.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/SmoothnessTimer.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Game/Level/Zombie/Zombie.cs" />
       </list>
     </option>
   </component>
@@ -403,6 +265,8 @@
       <workItem from="1718607940054" duration="6129000" />
       <workItem from="1718884073167" duration="9482000" />
       <workItem from="1718969872093" duration="14878000" />
+      <workItem from="1719228767375" duration="8823000" />
+      <workItem from="1719242873538" duration="8941000" />
     </task>
     <task id="LOCAL-00001" summary="Roof Destruction changed&#10;Back Wing Destruction changed">
       <created>1710195340693</created>

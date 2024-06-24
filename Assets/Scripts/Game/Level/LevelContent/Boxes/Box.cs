@@ -13,6 +13,7 @@ public class Box : DestructibleObject, IHitable, ICutable, IExplosive
 
     public bool IsBroken => base.ObjectIsBroken;
 
+
     public IReadOnlyList<DebrisFragment> DebrisFragments => base.FragmentsDebris;
 
     [Inject]
@@ -83,13 +84,11 @@ public class Box : DestructibleObject, IHitable, ICutable, IExplosive
 
     private new void OnEnable()
     {
-        // debrisHitSound += _woodDestructibleAudioHandler.PlayHitWoodSound;
         base.OnEnable();
     }
 
-    private new void OnDisable()
+    private new void OnDestroy()
     {
-        // debrisHitSound -= _woodDestructibleAudioHandler.PlayHitWoodSound;
-        base.OnDisable();
+        base.OnDestroy();
     }
 }

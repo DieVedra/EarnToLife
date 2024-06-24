@@ -39,13 +39,6 @@ public class BlastWave
     }
     private void TryInteract(Collider2D collider2D)
     {
-        // if (collider2D.TryGetComponent(out Rigidbody2D rigidbody2D))
-        // {
-        //     var forceDirection = CalculateDirectionBlastWave(rigidbody2D.position, _transformPointReference.position)
-        //                 * CalculateForceShockWaveInRadius(rigidbody2D.position);
-        //     rigidbody2D.AddForce(forceDirection);
-        //     TryAddEffectToDebrisPiece(rigidbody2D.transform);
-        // }
         if (collider2D.TryGetComponent(out DebrisFragment debrisFragment))
         {
             var forceDirection = CalculateDirectionBlastWave(debrisFragment.FragmentTransform.position, _transformPointReference.position)
@@ -85,8 +78,6 @@ public class BlastWave
         {
             _debrisPoolEffects.GetDebrisBarrelEffect().PlayEffectTo(debrisFragment, CalculateIntensity(distance), false);
         }
-
-        // Debug.Log($"debrisFragment {debrisFragment.gameObject.name} / {distance}/ _radiusBurnWave  {_radiusBurnWave} / Intensity {CalculateIntensity(distance)}");
     }
     private bool TryCastSphere()
     {

@@ -65,7 +65,6 @@ public class StopCauseHandler
     {
         _notificationsProvider.FuelTankEmpty();
         _stopCarOnFuelTankEmptyOperation?.Invoke();
-        Debug.Log($"                                          FuelTankEmpty");
     }
     private void PointDestinationGot()
     {
@@ -79,13 +78,11 @@ public class StopCauseHandler
         }
         else if (_groundAnalyzer.FrontWheelContact == false && _groundAnalyzer.BackWheelContact == false)
         {
-            // Car Stuck
-            Debug.Log($"Car Stuck");
+            _notificationsProvider.CarStuck();
         }
         else
         {
-            // Fell asleep
-            Debug.Log($"Fell Asleep");
+            _notificationsProvider.DriverAsleep();
         }
         _stopCarOtherOperation?.Invoke();
     }
