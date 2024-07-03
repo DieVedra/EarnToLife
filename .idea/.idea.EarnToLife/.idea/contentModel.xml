@@ -347,6 +347,9 @@
             </e>
           </e>
         </e>
+        <e p="Scenes" t="Include">
+          <e p="test3.cs" t="Include" />
+        </e>
         <e p="Scripts" t="Include">
           <e p="Audio" t="Include">
             <e p="AudioHandlers" t="Include">
@@ -515,6 +518,7 @@
           </e>
           <e p="Factory.cs" t="Include" />
           <e p="Game" t="Include">
+            <e p="ActionAnalyzer.cs" t="Include" />
             <e p="BuildString.cs" t="Include" />
             <e p="EntryPoint.cs" t="Include" />
             <e p="Game.cs" t="Include" />
@@ -544,6 +548,7 @@
                 <e p="BarrelAudioHandler.cs" t="Include" />
                 <e p="DebrisAudioHandler.cs" t="Include" />
                 <e p="LevelAudio.cs" t="Include" />
+                <e p="TimeScalePitchHandler.cs" t="Include" />
                 <e p="TrapAudioHandler.cs" t="Include" />
                 <e p="WoodDestructibleAudioHandler.cs" t="Include" />
                 <e p="ZombieAudioHandler.cs" t="Include" />
@@ -555,6 +560,8 @@
                 <e p="CloudShape.cs" t="Include" />
                 <e p="LevelBackGround.cs" t="Include" />
               </e>
+              <e p="DebrisParent.cs" t="Include" />
+              <e p="DestructionCount.cs" t="Include" />
               <e p="KillsCount.cs" t="Include" />
               <e p="Level.cs" t="Include" />
               <e p="LevelBlock.cs" t="Include" />
@@ -612,6 +619,24 @@
               <e p="PlayerDataHandler.cs" t="Include" />
             </e>
             <e p="SceneSwitch.cs" t="Include" />
+            <e p="Signals" t="Include">
+              <e p="DestructionsSignal.cs" t="Include" />
+              <e p="ExplodeSignal.cs" t="Include" />
+              <e p="GameOverSignal.cs" t="Include" />
+              <e p="KillsSignal.cs" t="Include" />
+              <e p="TimeScaleSignal.cs" t="Include" />
+            </e>
+            <e p="TimeScaler" t="Include">
+              <e p="TimeScaler.cs" t="Include" />
+              <e p="TimeScalerFSM.cs" t="Include" />
+              <e p="TimeScalerState" t="Include">
+                <e p="TimeScalerRunState.cs" t="Include" />
+                <e p="TimeScalerState.cs" t="Include" />
+                <e p="TimeScalerStopState.cs" t="Include" />
+                <e p="TimeScalerValues.cs" t="Include" />
+                <e p="TimeScalerWarpState.cs" t="Include" />
+              </e>
+            </e>
             <e p="ValuesPanelActivator.cs" t="Include" />
             <e p="Wallet.cs" t="Include" />
           </e>
@@ -640,13 +665,17 @@
               <e p="GameDataInstaller.cs" t="Include" />
               <e p="GarageDataInstaller.cs" t="Include" />
               <e p="GlobalAudioInstaller.cs" t="Include" />
+              <e p="LayersProviderInstaller.cs" t="Include" />
               <e p="PlayerDataProviderInstaller.cs" t="Include" />
               <e p="SaveServiceInstaller.cs" t="Include" />
             </e>
             <e p="LevelScenesInstallers" t="Include">
               <e p="LevelContentInstaller.cs" t="Include" />
               <e p="LevelInstaller.cs" t="Include" />
+              <e p="NotificationsProviderInstaller.cs" t="Include" />
               <e p="PauseInstaller.cs" t="Include" />
+              <e p="SignalsInstaller.cs" t="Include" />
+              <e p="TimeScalerInstaller.cs" t="Include" />
             </e>
           </e>
           <e p="Interfaces" t="Include">
@@ -664,10 +693,12 @@
             <e p="IHitable.cs" t="Include" />
             <e p="ILevel.cs" t="Include" />
             <e p="IMovementForward.cs" t="Include" />
+            <e p="INotificationForActionAnalyzer.cs" t="Include" />
             <e p="IPlayerData.cs" t="Include" />
             <e p="IShotable.cs" t="Include" />
             <e p="ISoundPause.cs" t="Include" />
             <e p="IStateSetter.cs" t="Include" />
+            <e p="ITimeScalePitch.cs" t="Include" />
             <e p="IUIAudio.cs" t="Include" />
           </e>
           <e p="PoolBase.cs" t="Include" />
@@ -701,6 +732,7 @@
                 <e p="LevelAudioClipProvider.cs" t="Include" />
                 <e p="UIAudioClipProvider.cs" t="Include" />
               </e>
+              <e p="LayersProvider.cs" t="Include" />
               <e p="PlayerDataProvider.cs" t="Include" />
               <e p="PrefabsProviders" t="Include">
                 <e p="GaragePrefabsProvider.cs" t="Include" />
@@ -779,6 +811,7 @@
                 </e>
                 <e p="LevelProgressHandler.cs" t="Include" />
                 <e p="ModelUILevel.cs" t="Include" />
+                <e p="Notification.cs" t="Include" />
                 <e p="NotificationsHandler.cs" t="Include" />
                 <e p="PanelsHandler.cs" t="Include" />
                 <e p="PausePanelButtonsHandler.cs" t="Include" />

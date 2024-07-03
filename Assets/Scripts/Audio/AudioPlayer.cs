@@ -5,6 +5,8 @@ public class AudioPlayer
 {
     private int _previousRandomValue = 0;
     public readonly AudioSource AudioSource;
+
+    private bool _isEnabled => AudioSource.gameObject.activeInHierarchy;
     public bool SoundOn { get; private set; }
 
     public AudioPlayer(AudioSource audioSource, ReactiveProperty<bool> soundReactiveProperty, ReactiveProperty<bool> audioPauseReactiveProperty)
@@ -110,13 +112,16 @@ public class AudioPlayer
     }
     public void SetPauseStatus(bool value)
     {
-        if (value == true)
+        if (_isEnabled == true)
         {
-            Pause();
-        }
-        else
-        {
-            Play();
+            if (value == true)
+            {
+                Pause();
+            }
+            else
+            {
+                Play();
+            }
         }
     }
     private int GetRandomIntValue(int min, int max)

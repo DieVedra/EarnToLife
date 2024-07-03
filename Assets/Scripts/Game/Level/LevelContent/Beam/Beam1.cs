@@ -11,13 +11,8 @@ public class Beam1 : Beam, IHitable, ICutable
     public Vector2 Position => TransformBase.position;
     public bool IsBroken => ObjectIsBroken;
 
-    [Inject]
-    private void Construct(ILevel level)
+    private void Awake()
     {
-        CameraTransform = level.CameraTransform;
-        WoodDestructibleAudioHandler = level.LevelAudio.WoodDestructibleAudioHandler;
-        DebrisHitSound = level.LevelAudio.WoodDestructibleAudioHandler.PlayHitWoodSound;
-        Rigidbody2D = GetComponent<Rigidbody2D>();
         SetPositionsFragments();
         SetSizeToFragments();
     }

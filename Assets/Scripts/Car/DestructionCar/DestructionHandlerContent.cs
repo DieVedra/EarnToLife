@@ -5,10 +5,10 @@ public class DestructionHandlerContent
     public int CarDebrisLayerNonInteractionWithCar;
     public int CarDebrisInteractingWithCar;
     public readonly Speedometer Speedometer;
-    public readonly Transform DebrisParent;
+    public readonly DebrisParent DebrisParent;
     public readonly LayerMask CanCollisionsLayerMasks;
 
-    public DestructionHandlerContent(Speedometer speedometer, Transform debrisParent, LayerMask canCollisionsLayerMasks,
+    public DestructionHandlerContent(Speedometer speedometer, DebrisParent debrisParent, LayerMask canCollisionsLayerMasks,
         int carDebrisLayerNonInteractionWithCar, int carDebrisInteractingWithCar)
     {
         Speedometer = speedometer;

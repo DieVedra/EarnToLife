@@ -293,9 +293,7 @@ public class PanelsActivator
         TryCancelFadeOperation();
         EnableDarkBackground();
         EnableRaycastTargetDarkBackground();
-        // InitCancellationTokenSource();
         await Fade();
-        // _cancellationTokenSource.Cancel();
     }
 
     private async UniTask Activate()

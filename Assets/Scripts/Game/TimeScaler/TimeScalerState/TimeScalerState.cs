@@ -1,7 +1,14 @@
-﻿namespace Game.TimeScaler
+﻿
+public abstract class TimeScalerState
 {
-    public class TimeScalerState
+    protected readonly TimeScalerValues TimeScalerValues;
+    protected readonly TimeScaleSignal TimeScaleSignal;
+    protected TimeScalerState(TimeScalerValues timeScalerValues, TimeScaleSignal timeScaleSignal)
     {
-        
+        TimeScalerValues = timeScalerValues;
+        TimeScaleSignal = timeScaleSignal;
     }
+
+    public abstract void Enter();
+    public abstract void Exit();
 }

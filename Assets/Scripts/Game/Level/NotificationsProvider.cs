@@ -2,8 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using UniRx;
+using UnityEngine.Events;
 
-public class NotificationsProvider
+public class NotificationsProvider : INotificationForActionAnalyzer
 {
     private const string BOOSTER_TANK_EMPTY = "Accelerator Empty!";
     private const string FUEL_TANK_EMPTY = "Out of fuel";
@@ -14,7 +16,9 @@ public class NotificationsProvider
     private const string DRIVER_ASLEEP = "Are you sleeping?";
     private const string CAR_TURNED_OVER = "Turned over.";
     private const string DAY = "Day ";
+    private const string AWESOME = "AWESOME ";
     public event Action<string> OnShowNotification;
+    public event Action<string, bool> OnShowNotificationWithDelay;
     public event Action<string> OnGotPointDestination;
     public event Action<string> OnFueltankEmpty;
     public event Action<string> OnEngineBroken;
@@ -22,9 +26,17 @@ public class NotificationsProvider
     public event Action<string> OnCarStuck;
     public event Action<string> OnDriverAsleep;
     public event Action<string> OnCarTurnOver;
-    public void ShowDayInfo(string day)
+    public void ShowDayInfo(string day, bool delay)
     {
-        OnShowNotification?.Invoke(BuildString.GetString( new string[] { DAY, day}));
+        OnShowNotificationWithDelay?.Invoke(BuildString.GetString( new string[] { DAY, day}), delay);
+    }
+    // public void ShowDayInfo(string day)
+    // {
+    //     OnShowNotification?.Invoke(BuildString.GetString( new string[] { DAY, day}));
+    // }
+    public void ShowCompliment(int count)
+    {
+        OnShowNotification?.Invoke(AWESOME);
     }
     public void BoosterEmpty()
     {

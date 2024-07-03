@@ -17,6 +17,7 @@ public class CarConfigurationProvider
              parkingLotConfiguration.GetFuelQuantityValue(),
              parkingLotConfiguration.GetMaxFuelQuantity(),
              parkingLotConfiguration.PriceTagForTheMurder,
+             parkingLotConfiguration.PriceTagForTheDestruction,
              parkingLotConfiguration.PriceTagForTheWayMeter
          ) ;
      }

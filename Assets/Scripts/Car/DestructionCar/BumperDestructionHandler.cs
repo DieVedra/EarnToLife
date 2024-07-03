@@ -11,6 +11,8 @@ public class BumperDestructionHandler : DestructionHandler, IDispose
     private readonly Transform _bumperDamaged;
     private readonly Collider2D _collider2DBumperNormal;
     private readonly Collider2D _collider2DBumperDamaged;
+    private readonly Rigidbody2D _rigidBody2DBumperDamaged;
+    
     private HingeJoint2D _hingeJoint2D;
     private CancellationTokenSource _cancellationTokenSource = new CancellationTokenSource();
     private bool _isBroken = false;
@@ -21,12 +23,15 @@ public class BumperDestructionHandler : DestructionHandler, IDispose
         _destructionEffectsHandler = destructionEffectsHandler;
         _collider2DBumperNormal = bumperRef.BumperNormal.GetComponent<Collider2D>();
         _collider2DBumperDamaged = bumperRef.BumperDamaged.GetComponent<Collider2D>();
+        _rigidBody2DBumperDamaged = _collider2DBumperDamaged.attachedRigidbody;
+        _rigidBody2DBumperDamaged.simulated = false;
         _bumperNormal = bumperRef.BumperNormal;
         _bumperDamaged = bumperRef.BumperDamaged;
         _bumperNormal.gameObject.SetActive(true);
         _bumperDamaged.gameObject.SetActive(false);
         _hingeJoint2D = _bumperDamaged.GetComponent<HingeJoint2D>();
-        _hingeJoint2D.useMotor = true;
+        _hingeJoint2D.useMotor = false;
+        _hingeJoint2D.enabled = false;
         SubscribeCollider(_collider2DBumperNormal, CollisionHandling, TrySwitchMode);
     }
 
@@ -71,9 +76,11 @@ public class BumperDestructionHandler : DestructionHandler, IDispose
     {
         _destructionEffectsHandler.HitBrokenEffect(HitPosition, ImpulseNormalValue);
     }
-    private void DestructionMode1()
+    public void DestructionMode1()
     {
-        SubscribeColliderAndSwitchSprites();
+        CompositeDisposable.Clear();
+        SwitchSprites();
+        SubscribeCollider(_collider2DBumperDamaged, CollisionHandling, TrySwitchMode);
         DestructionMode = DestructionMode.Mode1;
     }
 
@@ -83,7 +90,9 @@ public class BumperDestructionHandler : DestructionHandler, IDispose
         {
             DestructionMode1();
         }
-        _hingeJoint2D.useMotor = false;
+
+        _hingeJoint2D.enabled = true;
+        _rigidBody2DBumperDamaged.simulated = true;
         DestructionMode = DestructionMode.Mode2;
     }
 
@@ -114,12 +123,5 @@ public class BumperDestructionHandler : DestructionHandler, IDispose
             await UniTask.Delay(TimeSpan.FromSeconds(_delay), cancellationToken: _cancellationTokenSource.Token);
             SetCarDebrisLayerNonInteractableWithCar();
         }
-    }
-
-    private void SubscribeColliderAndSwitchSprites()
-    {
-        CompositeDisposable.Clear();
-        SwitchSprites();
-        SubscribeCollider(_collider2DBumperDamaged, CollisionHandling, TrySwitchMode);
     }
 }

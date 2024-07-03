@@ -1,7 +1,5 @@
-﻿namespace Interfaces
+﻿
+public interface INotificationForActionAnalyzer
 {
-    public interface INotificationForActionAnalyzer
-    {
-        
-    }
+    public void ShowCompliment(int count);
 }

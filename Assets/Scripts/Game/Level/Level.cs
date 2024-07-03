@@ -7,7 +7,7 @@ using Zenject;
 
 public class Level : MonoBehaviour, ILevel
 {
-    [SerializeField, HorizontalLine(color: EColor.White)] private Transform _debrisParent;
+    [SerializeField, HorizontalLine(color: EColor.White)] private DebrisParent _debrisParent;
     [SerializeField] private Transform _cameraTransform;
     [SerializeField, HorizontalLine(color: EColor.Green)] private Transform _debrisPoolEffectsParent;
     [SerializeField] private Transform _barrelPoolEffectsParent;
@@ -16,15 +16,15 @@ public class Level : MonoBehaviour, ILevel
     [SerializeField, HorizontalLine(color: EColor.Orange)] private LevelBlock[] _levelBlocks;
     private LevelBlocksHandler _levelBlocksHandler;
     private LevelPool _levelPool;
-    public Transform DebrisParent => _debrisParent;
+    public DebrisParent DebrisParent => _debrisParent;
     public LevelPool LevelPool => _levelPool;
     public LevelAudio LevelAudio =>_levelAudio;
     public Transform CameraTransform => _cameraTransform;
     
     [Inject]
-    public void Construct(Factory factory, LevelPrefabsProvider levelPrefabsProvider, AudioClipProvider audioClipProvider, IGlobalAudio globalAudio)
+    public void Construct(Factory factory, LevelPrefabsProvider levelPrefabsProvider, AudioClipProvider audioClipProvider, TimeScaleSignal timeScaleSignal, IGlobalAudio globalAudio)
     {
-        _levelAudio.Init(audioClipProvider, globalAudio);
+        _levelAudio.Init(audioClipProvider, timeScaleSignal, globalAudio);
         _levelPool = new LevelPool(
             new BarrelPool(
                 levelPrefabsProvider.LevelParticlesProvider.BarrelExplosion,
@@ -45,5 +45,6 @@ public class Level : MonoBehaviour, ILevel
     {
         LevelPool.Dispose();
         _levelBlocksHandler.Dispose();
+        _levelAudio.Dispose();
     }
 }

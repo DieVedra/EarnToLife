@@ -11,6 +11,7 @@ public class BoosterAudioHandler : AudioPlayer
     private readonly float _pitchMax = 1.35f;
     private readonly float _startIncreaseValue = 0f;
     private readonly float _startDecreaseValue = 1f;
+    private readonly TimeScalePitchHandler _timeScalePitchHandler;
     private readonly AudioClip _boosterRunAudioClip;
     private readonly AudioClip _boosterEndFuel;
     private readonly AnimationCurve _increaseBoosterSoundCurve;
@@ -20,15 +21,23 @@ public class BoosterAudioHandler : AudioPlayer
     public bool VolumeIncreaseValue = false;
     public bool VolumeDecreaseValue = false;
     public BoosterAudioHandler(AudioSource audioSource, ReactiveProperty<bool> soundReactiveProperty, ReactiveProperty<bool> audioPauseReactiveProperty,
-        AudioClip boosterRunAudioClip, AudioClip boosterEndFuel,
+        TimeScalePitchHandler timeScalePitchHandler, AudioClip boosterRunAudioClip, AudioClip boosterEndFuel,
         AnimationCurve increaseBoosterSoundCurve, AnimationCurve decreaseBoosterSoundCurve)
     :base(audioSource, soundReactiveProperty, audioPauseReactiveProperty)
     {
+        _timeScalePitchHandler = timeScalePitchHandler;
         _boosterRunAudioClip = boosterRunAudioClip;
         _boosterEndFuel = boosterEndFuel;
         _increaseBoosterSoundCurve = increaseBoosterSoundCurve;
         _decreaseBoosterSoundCurve = decreaseBoosterSoundCurve;
         _currentAudioValue = _startIncreaseValue;
+        _timeScalePitchHandler.OnPitchTimeWarped += SetPitch;
+    }
+
+    public void Dispose()
+    {
+        _timeScalePitchHandler.OnPitchTimeWarped -= SetPitch;
+        _timeScalePitchHandler.Dispose();
     }
     public void SetAudioIncreaseBooster()
     {
@@ -82,7 +91,14 @@ public class BoosterAudioHandler : AudioPlayer
     }
     private void PitchControl(float value)
     {
-        SetPitch(Mathf.LerpUnclamped(_pitchMin, _pitchMax, value));
+        if (_timeScalePitchHandler.IsTimeWarped == false)
+        {
+            SetPitch(Mathf.LerpUnclamped(_pitchMin, _pitchMax, value));
+        }
+        else
+        {
+            _timeScalePitchHandler.SetPitchValueNormalTimeScale(Mathf.LerpUnclamped(_pitchMin, _pitchMax, value));
+        }
     }
 
     public void PlayBoosterEndFuel()

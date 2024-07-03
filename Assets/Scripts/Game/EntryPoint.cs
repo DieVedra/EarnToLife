@@ -27,6 +27,7 @@ public class EntryPoint : MonoBehaviour
     private PlayerDataHandler _playerDataHandler;
     private void Awake()
     {
+        Time.timeScale = 1f;
         PlayerDataInit();
         GameDataInit();
         _globalAudio.InitFromEntryScene(_playerDataProvider.PlayerDataHandler);

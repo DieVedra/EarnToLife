@@ -7,55 +7,64 @@ using System;
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using UniRx;
+using Unity.VisualScripting;
 
 public class NotificationsHandler
 {
-    private readonly float _duration = 2f;
-    private readonly Queue<string> _operations;
+    private readonly float _delay = 1f;
+    private readonly Queue<Notification> _messageQueue;
     private readonly TextMeshProUGUI _notificationsText;
     private readonly NotificationsProvider _notificationsProvider;
     private readonly CancellationTokenSource _cancellationTokenSource = new CancellationTokenSource();
+    // private PoolBase<Notification> _notificationsPool;
+
     private bool _inProgressShowing = false;
     public NotificationsHandler(ViewUILevel viewUILevel, ResultsLevelProvider resultsLevelProvider, ReactiveCommand disposeCommand)
     {
-        _operations = new Queue<string>();
+        _messageQueue = new Queue<Notification>();
         _notificationsText = viewUILevel.NotificationsText;
         _notificationsProvider = resultsLevelProvider.NotificationsProvider;
         _notificationsProvider.OnShowNotification += AddToQueueNotifications;
+        _notificationsProvider.OnShowNotificationWithDelay += AddToQueueNotificationsWithDelay;
         _notificationsText.gameObject.SetActive(false);
         disposeCommand.Subscribe(_ => { Dispose();});
     }
     private void Dispose()
     {
         _notificationsProvider.OnShowNotification -= AddToQueueNotifications;
+        _notificationsProvider.OnShowNotificationWithDelay -= AddToQueueNotificationsWithDelay;
         _cancellationTokenSource.Cancel();
     }
+
     private void AddToQueueNotifications(string text)
     {
-        _operations.Enqueue(text);
+        AddToQueueNotificationsWithDelay(text);
+    }
+    private void AddToQueueNotificationsWithDelay(string text, bool delay = false)
+    {
+        Debug.Log($"AddToQueue {text}");
+        _messageQueue.Enqueue(CreateNotification());
+        TryShow(text, delay).Forget();
+    }
+
+    private async UniTaskVoid TryShow(string text, bool delay)
+    {
         if (_inProgressShowing == false)
         {
             _inProgressShowing = true;
-            ShowNotifications().Forget();
+
+            while (_inProgressShowing == true)
+            { 
+                await _messageQueue.Dequeue().ShowNotification(text, delay);
+                if (_messageQueue.Count == 0)
+                {
+                    _inProgressShowing = false;
+                }
+            }
         }
     }
-
-    private async UniTaskVoid ShowNotifications()
+    private Notification CreateNotification()
     {
-        _notificationsText.gameObject.SetActive(true);
-
-        _notificationsText.alpha = 1f;
-        _notificationsText.text = _operations.Dequeue();
-        await _notificationsText.DOFade(0f, _duration).WithCancellation(_cancellationTokenSource.Token);
-        if (_operations.Count > 0)
-        {
-            ShowNotifications().Forget();
-        }
-        else
-        {
-            _inProgressShowing = false;
-            _notificationsText.gameObject.SetActive(false);
-
-        }
+        return new Notification(_notificationsText, _cancellationTokenSource, _delay);
     }
 }

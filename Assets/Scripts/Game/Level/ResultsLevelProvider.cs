@@ -15,28 +15,35 @@ public class ResultsLevelProvider
     private readonly float _timeDelayOnEndLevelDefault = 3f;
     private readonly float _priceTagForTheWayMeter;
     private readonly float _priceTagForTheMurder;
+    private readonly float _priceTagForTheDestruction;
     private readonly CancellationTokenSource _cancellationTokenSource = new CancellationTokenSource();
     private readonly Wallet _wallet;
     private readonly PlayerDataHandler _playerDataHandler;
+    private readonly GameOverSignal _gameOverSignal;
     private ResultsLevel _resultsLevel;
     private int _totalCash = 0;
     private int _distanceMoney = 0;
     private int _killsMoney = 0;
+    private int _destructionMoney = 0;
     private bool _gameEnd = false;
     public LevelProgressCounter LevelProgressCounter { get; private set; }
     public KillsCount KillsCount { get; private set; }
+    public DestructionCount DestructionCount { get; private set; }
     public NotificationsProvider NotificationsProvider { get; private set; }
 
     public event Action<ResultsLevel, ResultsLevel> OnOutCalculateResultsLevel;
-    public ResultsLevelProvider(PlayerDataHandler playerDataHandler, CarConfiguration carConfiguration, KillsCount killsCount, 
-        LevelProgressCounter levelProgressCounter, NotificationsProvider notificationsProvider,
+    public ResultsLevelProvider(PlayerDataHandler playerDataHandler, CarConfiguration carConfiguration, KillsCount killsCount, DestructionCount destructionCount,
+        LevelProgressCounter levelProgressCounter, NotificationsProvider notificationsProvider, GameOverSignal gameOverSignal,
         float timePauseOnEndLevel)
     {
         _priceTagForTheMurder = carConfiguration.PriceTagForTheMurder;
+        _priceTagForTheDestruction = carConfiguration.PriceTagForTheDestruction;
         _priceTagForTheWayMeter = carConfiguration.PriceTagForTheWayMeter;
         _wallet = playerDataHandler.PlayerData.Wallet;
         KillsCount = killsCount;
+        DestructionCount = destructionCount;
         _playerDataHandler = playerDataHandler;
+        _gameOverSignal = gameOverSignal;
         NotificationsProvider = notificationsProvider;
         LevelProgressCounter = levelProgressCounter;
         _timePauseOnEndLevel = timePauseOnEndLevel;
@@ -92,6 +99,7 @@ public class ResultsLevelProvider
     }
     private async UniTaskVoid GameOver(bool openNextLevel, bool availabilityResultLevel, string reason, float delay)
     {
+        _gameOverSignal.OnGameOver?.Invoke();
         if (CheckGameStatus())
         {
             await UniTask.Delay(TimeSpan.FromSeconds(delay), cancellationToken:  _cancellationTokenSource.Token);
@@ -120,7 +128,8 @@ public class ResultsLevelProvider
     {
         _distanceMoney = CalculateDistanceMoney();
         _killsMoney = CalculateKillsMoney();
-        _totalCash += _distanceMoney + _killsMoney;
+        _destructionMoney = CalculateDestructionMoney();
+        _totalCash += _distanceMoney + _killsMoney + _destructionMoney;
         _wallet.AddCash(_totalCash);
     }
     private int CalculateDistanceMoney()
@@ -132,6 +141,18 @@ public class ResultsLevelProvider
         if (KillsCount.Kills > 0)
         {
             return (int)(KillsCount.Kills * _priceTagForTheMurder);
+        }
+        else
+        {
+            return 0;
+        }
+    }
+
+    private int CalculateDestructionMoney()
+    {
+        if (DestructionCount.Count > 0)
+        {
+            return (int)(DestructionCount.Count * _priceTagForTheDestruction);
         }
         else
         {

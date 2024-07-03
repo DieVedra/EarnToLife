@@ -14,13 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _defaultEngineOverclockingMultiplier: 1
   _defaultGearRatio: 1.1
-  _defaultWheelsValue: 0
-  _defaultGunValue: 0
-  _defaultCorpusValue: 0
-  _defaultBoosterValue: 0
   _defaultFuelQuantityValue: 400
-  _priceTagMurder: 10
-  _priceTagWayMeter: 20
+  _priceTagMurder: 1
+  _priceTagWayMeter: 11
+  _priceTagDestruction: 1
   _engineOverclockingMultiplierUpgrade: []
   _gearRatioUpgrade:
   - Price: 100

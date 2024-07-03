@@ -22,7 +22,6 @@ public class Zombie : MonoBehaviour, IHitable, IExplosive, IShotable, ICutable
     [SerializeField, Range(-1f,1f)] private float _offsetXSphereCast;
     [SerializeField, Range(-1f,1f)] private float _offsetYSphereCast;
     [SerializeField] private LayerMask _contactMask;
-    [SerializeField, Layer] private int _zombieDebrisLayer;
     [SerializeField, Range(1f,5.5f)] private float _zombieTalkSoundPeriod;
 
     [SerializeField, HorizontalLine(color: EColor.Orange), BoxGroup("Ragdoll")] private HingeJoint2D[] _hingeJoints2D;
@@ -40,6 +39,7 @@ public class Zombie : MonoBehaviour, IHitable, IExplosive, IShotable, ICutable
     private readonly float _delayChangeLayer = 1f;
     private readonly float _forceTearingUpMultiplier = 0.5f;
     private readonly float _addXRange = 20f;
+    private int _zombieDebrisLayer;
     private Transform _transform;
     private Transform _cameraTransform;
     private ZombiePool _zombiePool;
@@ -47,11 +47,13 @@ public class Zombie : MonoBehaviour, IHitable, IExplosive, IShotable, ICutable
     private CompositeDisposable _compositeDisposable = new CompositeDisposable();
     private Collision2D _collision2D;
     private ZombieMove _zombieMove;
-    private CancellationTokenSource _cancellationTokenSource = new CancellationTokenSource();
+    // private CancellationTokenSource _cancellationTokenSource = new CancellationTokenSource();
     private CancellationTokenSource _cancellationTokenSourceForTalkSound = new CancellationTokenSource();
     private GameObject[] _bodyParts;
     private List<DebrisFragment> _debrisFragments;
     private ZombieAudioHandler ZombieAudioHandler;
+    private KillsSignal _killsSignal;
+    private GameOverSignal _gameOverSignal;
     protected event Action OnBroken;
     public Vector2 Position  => _transform.position;
     public IReadOnlyList<DebrisFragment> DebrisFragments => _debrisFragments;
@@ -62,14 +64,19 @@ public class Zombie : MonoBehaviour, IHitable, IExplosive, IShotable, ICutable
     private Transform _headTransform;
     
     [Inject]
-    private void Construct(GamePause gamePause, AudioClipProvider audioClipProvider, IGlobalAudio globalAudio,  ILevel level)
+    private void Construct(GamePause gamePause, AudioClipProvider audioClipProvider, LayersProvider layersProvider,
+        KillsSignal killsSignal, GameOverSignal gameOverSignal, IGlobalAudio globalAudio,  ILevel level)
     {
         _cameraTransform = level.CameraTransform;
         _zombiePool = level.LevelPool.ZombiePool;
         TargetTransform = _bodyRigidbody2D.transform;
         _gamePause = gamePause;
+        _killsSignal = killsSignal;
+        _zombieDebrisLayer = layersProvider.ZombieDebrisLayer;
         ZombieAudioHandler = new ZombieAudioHandler(GetComponent<AudioSource>(),
             globalAudio.SoundReactiveProperty, globalAudio.AudioPauseReactiveProperty, audioClipProvider.LevelAudioClipProvider);
+        _gameOverSignal = gameOverSignal;
+        _gameOverSignal.OnGameOver += OnGameOverSignal;
     }
 
     private void Awake()
@@ -91,8 +98,10 @@ public class Zombie : MonoBehaviour, IHitable, IExplosive, IShotable, ICutable
         }
         _zombieMove = new ZombieMove(transform, _rigidbody2D, _gamePause, IsBrokenReactiveProperty, _contactMask,
                     new Vector2(_offsetXSphereCast, _offsetYSphereCast), (float)_direction, _speed, _radiusSphereCast);
-        gameObject.SetActive(false);
+    }
 
+    private void Start()
+    {
         SubscribeEnableAndDisableObserve();
     }
 
@@ -199,6 +208,7 @@ public class Zombie : MonoBehaviour, IHitable, IExplosive, IShotable, ICutable
     }
     private void EnableRagdoll()
     {
+        _killsSignal.OnKill?.Invoke();
         IsBrokenReactiveProperty.Value = true;
         _bloodFall.Stop();
         _rigidbody2D.simulated = false;
@@ -243,6 +253,7 @@ public class Zombie : MonoBehaviour, IHitable, IExplosive, IShotable, ICutable
     }
     private void SubscribeEnableAndDisableObserve()
     {
+        gameObject.SetActive(false);
         Observable.EveryUpdate().Subscribe(_ =>
         {
             if (TargetTransform.position.x  + _addXRange < _cameraTransform.position.x)
@@ -277,21 +288,36 @@ public class Zombie : MonoBehaviour, IHitable, IExplosive, IShotable, ICutable
     {
         _animation.Play();
         _bloodFall.Play();
+        _zombieMove.Init();
+        
         StartCyclePlaySound(_cancellationTokenSourceForTalkSound, () => {ZombieAudioHandler.PlayTalk();},
             Random.Range(1f, _zombieTalkSoundPeriod), _zombieTalkSoundPeriod).Forget();
     }
 
-    private void OnDisable()
-    
+    private void OnGameOverSignal()
+    {
+        if (gameObject.activeInHierarchy == true)
+        {
+            GameOverDisable();
+        }
+    }
+    private void GameOverDisable()
     {
         _animation.Stop();
         _bloodFall.Stop();
+        _zombieMove.Dispose();
         _cancellationTokenSourceForTalkSound.Cancel();
+    }
+    private void OnDisable()
+    {
+        GameOverDisable();
     }
 
     private void OnDestroy()
     {
         _compositeDisposable.Clear();
+        _gameOverSignal.OnGameOver -= OnGameOverSignal;
+
         if (_debrisFragments != null)
         {
             for (int i = 0; i < _debrisFragments.Count; i++)

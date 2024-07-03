@@ -33,7 +33,7 @@ public class CarFSM : IStateSetter
             if (_dictionaryStates.TryGetValue(type, out var extractState))
             {
                 CurrentState = extractState;
-                Debug.Log($"CurrentState: {CurrentState}");
+                // Debug.Log($"CurrentState: {CurrentState}");
 
                 CurrentState.Enter();
             }

@@ -12,6 +12,7 @@ public class FrontDoorDestructionHandler : DestructionHandler
     private readonly bool _isArmored;
     private Transform _activePart;
     private Transform _rearviewMirror;
+    private Rigidbody2D _rigidBody2dRearviewMirror;
     private bool _isBroken = false;
     public FrontDoorDestructionHandler(DoorRef doorRef, DestructionHandlerContent destructionHandlerContent, DestructionEffectsHandler destructionEffectsHandler,
         bool isArmored = false)
@@ -23,7 +24,13 @@ public class FrontDoorDestructionHandler : DestructionHandler
         _doorDamaged1 = doorRef.DoorDamaged1;
         _doorDamaged2 = doorRef.DoorDamaged2;
         StrengthDoor = doorRef.StrengthDoors;
-        _rearviewMirror = doorRef.RearviewMirror;
+        if (isArmored == false)
+        {
+            _rearviewMirror = doorRef.RearviewMirror;
+            _rigidBody2dRearviewMirror = _rearviewMirror.GetComponent<Rigidbody2D>();
+            _rigidBody2dRearviewMirror.simulated = false;
+        }
+
         _activePart = _doorNormal;
         _isArmored = isArmored;
     }
@@ -37,7 +44,7 @@ public class FrontDoorDestructionHandler : DestructionHandler
             _activePart = _doorDamaged1;
             if (_isArmored == false)
             {
-                _rearviewMirror.gameObject.AddComponent<Rigidbody2D>();
+                _rigidBody2dRearviewMirror.simulated = true;
                 SetParentDebris(_rearviewMirror);
                 SetCarDebrisLayerNonInteractableWithCar(_rearviewMirror);
                 _destructionEffectsHandler.HitBrokenEffect(_doorRef.PointEffect.position, ImpulseNormalValue);
@@ -56,10 +63,6 @@ public class FrontDoorDestructionHandler : DestructionHandler
             _doorDamaged2.gameObject.SetActive(true);
             _activePart = _doorDamaged2;
         }
-    }
-    public void DestructionMode3()
-    {
-        CompositeDisposable.Clear();
     }
 
     public void TryThrowDoor()

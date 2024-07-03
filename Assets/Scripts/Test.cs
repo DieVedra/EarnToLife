@@ -2,42 +2,44 @@ using System;
 using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
+using Cysharp.Threading.Tasks;
 using NaughtyAttributes;
+using UniRx;
+using UniRx.Triggers;
+using Unity.VisualScripting;
 using UnityEngine;
-[ExecuteInEditMode]
+// [ExecuteInEditMode]
 public class Test : MonoBehaviour
 {
-    [SerializeField] private Transform _transform;
-    [SerializeField] private Vector2 _previousPos;
+    public AudioSource _audioSource;
+    [Range(0f, 1f)] public float Pitch;
 
-
-
-    [Button("11")]
-    private void a()
-    {
-        _previousPos = _transform.position;
-    }
-    private void CalculateSpeedX()
-    {
-        Vector2 pos = _transform.PositionVector2();
-        Vector2 displacement = pos - _previousPos;
-        float speed = displacement.magnitude / Time.deltaTime;
-        Debug.Log($"   {_transform.PositionVector2()}  {_previousPos}   {displacement}  {displacement.magnitude}    {speed}");
-        _previousPos = _transform.PositionVector2();
-
-        // return speed;
-    }
-    
     private void Start()
     {
     }
 
-    private void OnDrawGizmos()
+    private void OnValidate()
     {
+        if (_audioSource != null)
+        {
+            _audioSource.pitch = Mathf.Lerp(0f,1f,Pitch);
+        }
     }
 
     private void Update()
     {
-        CalculateSpeedX();
+        
+    }
+
+    [Button("Play")]
+    private void a()
+    {
+        _audioSource.Play();
+    }
+
+    private void OnDestroy()
+    {
+        
     }
 }

@@ -1,5 +1,7 @@
 ﻿using NaughtyAttributes;
+using Unity.VisualScripting;
 using UnityEngine;
+using Zenject;
 
 public abstract class Beam : DestructibleObject
 {
@@ -10,7 +12,23 @@ public abstract class Beam : DestructibleObject
     [SerializeField, BoxGroup("Settings"), Range(0f, 1f), HorizontalLine(color: EColor.Green)] protected float _offsetSizeFragment;
     [SerializeField, BoxGroup("Settings")] protected bool NotDestructible;
     protected WoodDestructibleAudioHandler WoodDestructibleAudioHandler;
+    protected Transform BeamTransform;
 
+
+    [Inject]
+    private void Construct(IGlobalAudio globalAudio, AudioClipProvider audioClipProvider, TimeScaleSignal timeScaleSignal)
+    {
+        BeamTransform = transform;
+        WoodDestructibleAudioHandler = new WoodDestructibleAudioHandler(GetComponent<AudioSource>(),
+            globalAudio.SoundReactiveProperty, globalAudio.AudioPauseReactiveProperty, new TimeScalePitchHandler(timeScaleSignal),
+            audioClipProvider.LevelAudioClipProvider.WoodBreaking1AudioClip,
+            audioClipProvider.LevelAudioClipProvider.WoodBreaking2AudioClip,
+            audioClipProvider.LevelAudioClipProvider.HitWood1AudioClip,
+            audioClipProvider.LevelAudioClipProvider.HitWood2AudioClip,
+            audioClipProvider.LevelAudioClipProvider.HitWood3AudioClip);
+        DebrisHitSound = WoodDestructibleAudioHandler.PlayHitWoodSound;
+    
+    }
     protected abstract void SetSizeToFragments();
     protected abstract void SetPositionsFragments();
     protected void SetSizeToFragment(SpriteRenderer sprite, float beamLength)
@@ -37,5 +55,11 @@ public abstract class Beam : DestructibleObject
         return new Vector2(resultX, resultY);
         // x = x₀ + L * cos(α)
         // y = y₀ + L * sin(α)
+    }
+
+    private void OnDestroy()
+    {
+        base.OnDestroy();
+        WoodDestructibleAudioHandler.Dispose();
     }
 }

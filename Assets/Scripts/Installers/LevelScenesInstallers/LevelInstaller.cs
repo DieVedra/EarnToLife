@@ -9,10 +9,5 @@ public class LevelInstaller : MonoInstaller
     {
         Container.BindInterfacesAndSelfTo<Level>().FromInstance(_level).AsSingle();
         Container.Bind<Factory>().FromNew().AsSingle();
-        
-        
-        
-        // var 
-        // Container.Bind<LevelPool>().FromInstance(_level).AsSingle();
     }
 }

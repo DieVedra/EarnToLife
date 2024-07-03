@@ -1,7 +1,6 @@
-﻿namespace Game.Signals
+﻿using System;
+
+public class ExplodeSignal
 {
-    public class ExplodeSignal
-    {
-        
-    }
+    public Action OnExplosion;
 }

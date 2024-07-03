@@ -17,12 +17,16 @@ public class Box : DestructibleObject, IHitable, ICutable, IExplosive
     public IReadOnlyList<DebrisFragment> DebrisFragments => base.FragmentsDebris;
 
     [Inject]
-    private void Construct(ILevel level)
+    private void Construct(ILevel level, IGlobalAudio globalAudio, AudioClipProvider audioClipProvider, TimeScaleSignal timeScaleSignal)
     {
-        CameraTransform = level.CameraTransform;
-        _woodDestructibleAudioHandler = level.LevelAudio.WoodDestructibleAudioHandler;
-        DebrisHitSound = level.LevelAudio.WoodDestructibleAudioHandler.PlayHitWoodSound;
-        Rigidbody2D = GetComponent<Rigidbody2D>();
+        _woodDestructibleAudioHandler = new WoodDestructibleAudioHandler(GetComponent<AudioSource>(),
+            globalAudio.SoundReactiveProperty, globalAudio.AudioPauseReactiveProperty, new TimeScalePitchHandler(timeScaleSignal),
+            audioClipProvider.LevelAudioClipProvider.WoodBreaking1AudioClip,
+            audioClipProvider.LevelAudioClipProvider.WoodBreaking2AudioClip,
+            audioClipProvider.LevelAudioClipProvider.HitWood1AudioClip,
+            audioClipProvider.LevelAudioClipProvider.HitWood2AudioClip,
+            audioClipProvider.LevelAudioClipProvider.HitWood3AudioClip);
+        DebrisHitSound = _woodDestructibleAudioHandler.PlayHitWoodSound;
     }
 
     public bool TryBreakOnExplosion(Vector2 direction, float forceHit)
@@ -89,6 +93,7 @@ public class Box : DestructibleObject, IHitable, ICutable, IExplosive
 
     private new void OnDestroy()
     {
+        _woodDestructibleAudioHandler.Dispose();
         base.OnDestroy();
     }
 }

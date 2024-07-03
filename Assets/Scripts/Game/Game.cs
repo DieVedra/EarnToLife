@@ -10,16 +10,12 @@ public class Game : MonoBehaviour
 {
     [SerializeField] private CinemachineVirtualCamera _cinemachineVirtualCamera;
     [SerializeField] private LimitRideBack _limitRideBack;
-    [SerializeField] private GameObject _buildingsParent;
     [Space]
-    [SerializeField, BoxGroup("Level Settings"), HorizontalLine(color:EColor.White)] private Level _level;
-    [SerializeField, BoxGroup("Level Settings")] private Transform _startLevelPoint;
+    [SerializeField, BoxGroup("Level Settings"), HorizontalLine(color:EColor.White)] private Transform _startLevelPoint;
     [SerializeField, BoxGroup("Level Settings")] private Transform _endLevelPoint;
     [SerializeField, BoxGroup("Level Settings"), HorizontalLine(color:EColor.White)] private float _timeWaitingOnEndLevel = 1f;
     [SerializeField, BoxGroup("Level Settings"), HorizontalLine(color:EColor.White)] private SliderSectionValues _sliderSectionValue;
     [SerializeField, BoxGroup("Level Settings"), HorizontalLine(color:EColor.White)] private bool _limitRideBackIsOn;
-    // private Bot[] _botsWithAK;
-    // private Tower[] _towers;
     [Inject] private SaveService _saveService;
     [Inject] private PlayerDataProvider _playerDataProvider;
     [Inject] private GlobalAudio _globalAudio;
@@ -30,56 +26,43 @@ public class Game : MonoBehaviour
     [Inject] private LevelPrefabsProvider _levelPrefabsProvider;
     [Inject] private AudioClipProvider _audioClipProvider;
     [Inject] private GamePause _gamePause;
-
+    [Inject] private GameOverSignal _gameOverSignal;
+    [Inject] private ILevel _level;
+    [Inject] private NotificationsProvider _notificationsProvider;
+    [Inject] private TimeScaler _timeScaler;
+    [Inject] private ExplodeSignal _explodeSignal;
+    [Inject] private DestructionsSignal _destructionsSignal;
+    [Inject] private KillsSignal _killsSignal;
+    [Inject] private TimeScaleSignal _timeScaleSignal;
+    
 
     private Factory _factory;
     private CarInLevel _carInLevel;
     private PresenterUILevel _presenterUILevel;
     private KillsCount _killsCount;
+    private DestructionCount _destructionCount;
     private ResultsLevelProvider _resultsLevelProvider;
     private LevelProgressCounter _levelProgressCounter;
     private PlayerDataHandler _playerDataHandler;
-    private NotificationsProvider _notificationsProvider;
     private CarConfigurationProvider _carConfigurationProvider;
     private ViewUILevel _viewUILevel;
     private CarConfiguration _carConfiguration;
-    
-    private void Construct()
-    {
-        // _cinemachineVirtualCamera.
-        // _pool.InitFromEntryScene(_spawner);
-        // for (int i = 0; i < _botsWithAK.Length; i++)
-        // {
-        //     _botsWithAK[i].InitFromEntryScene(_car.transform, _pool.BulletAKReservoir, _killsCounter);
-        // }
-        // _towers = _buildingsParent.GetComponentsInChildren<Tower>();
-        // for (int i = 0; i < _towers.Length; i++)
-        // {
-        //     _towers[i].InitFromEntryScene(_car.transform, _pool.BulletAKReservoir, _spawner, _killsCounter);
-        // }
-    }
-
+    private ActionAnalyzer _actionAnalyzer;
     private void Awake()
     {
         _playerDataHandler = _playerDataProvider.PlayerDataHandler;
         _factory = new Factory();
-        _notificationsProvider = new NotificationsProvider();
-        InitLevel();
+        _actionAnalyzer = new ActionAnalyzer(_timeScaler, _notificationsProvider, _explodeSignal, _destructionsSignal, _killsSignal);
         InitCar();
         _limitRideBack.Init(_limitRideBackIsOn);
         InitViewUILevel();
-        // _gamePause = new GamePause(_globalAudio);
-        _killsCount = new KillsCount();
-        _resultsLevelProvider = new ResultsLevelProvider(_playerDataHandler, _carConfiguration, _killsCount,
-            _levelProgressCounter, _notificationsProvider, _timeWaitingOnEndLevel);
+        _killsCount = new KillsCount(_killsSignal);
+        _destructionCount = new DestructionCount(_destructionsSignal);
+        _resultsLevelProvider = new ResultsLevelProvider(_playerDataHandler, _carConfiguration, _killsCount, _destructionCount,
+            _levelProgressCounter, _notificationsProvider, _gameOverSignal, _timeWaitingOnEndLevel);
         _presenterUILevel = new PresenterUILevel(_viewUILevel, _carInLevel, _gamePause, _resultsLevelProvider,
             new SceneSwitch(_playerDataHandler, _gameData), _globalAudio, _gameData.CarControlMethod);
-        _notificationsProvider.ShowDayInfo(_playerDataHandler.PlayerData.Days.ToString());
-    }
-
-    private void InitLevel()
-    {
-        // _level.InitFromEntryScene(_factory, _levelPrefabsProvider);
+        _notificationsProvider.ShowDayInfo(_playerDataHandler.PlayerData.Days.ToString(), true);
     }
     private void InitCar()
     {
@@ -94,7 +77,7 @@ public class Game : MonoBehaviour
         InitProgressCounter();
         _carInLevel.Construct(_carConfiguration, _notificationsProvider, _levelProgressCounter,
             _level.DebrisParent, _globalAudioForCar, _audioClipProvider.CarsAudioClipsProvider.GetCarAudioClipProvider(currentSelectLotCarIndex),
-            _gameData.CarControlMethod);
+            _timeScaleSignal, _gameData.CarControlMethod);
     }
 
     private void InitProgressCounter()
@@ -153,5 +136,8 @@ public class Game : MonoBehaviour
     {
         _resultsLevelProvider.Dispose();
         _globalAudio.DisposeAndReInit();
+        _killsCount.Dispose();
+        _destructionCount.Dispose();
+        _actionAnalyzer.Dispose();
     }
 }

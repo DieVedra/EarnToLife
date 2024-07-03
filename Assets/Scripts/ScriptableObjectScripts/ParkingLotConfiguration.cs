@@ -20,6 +20,7 @@ public class ParkingLotConfiguration : ScriptableObject
 
     [SerializeField, HorizontalLine(color: EColor.Yellow), BoxGroup("PriceTagForTheMurderThisCar")] private float _priceTagMurder;
     [SerializeField, HorizontalLine(color: EColor.Green), BoxGroup("PriceTagForTheWayMeterThisCar")] private float _priceTagWayMeter;
+    [SerializeField, HorizontalLine(color: EColor.Green), BoxGroup("PriceTagForTheDestructionBoxOrBeamThisCar")] private float _priceTagDestruction;
 
     [SerializeField, HorizontalLine(color: EColor.Blue), BoxGroup("Upgrades Values and Prices Values")] private UpgradeValueFloat[] _engineOverclockingMultiplierUpgrade;
     [SerializeField, BoxGroup("Upgrades Values and Prices Values")] private UpgradeValueFloat[] _gearRatioUpgrade;
@@ -317,6 +318,7 @@ public class ParkingLotConfiguration : ScriptableObject
     public float PriceTagForTheMurder => _priceTagMurder;
 
     public float PriceTagForTheWayMeter => _priceTagWayMeter;
+    public float PriceTagForTheDestruction => _priceTagDestruction;
 
     public void Construct(CarConfigurationInParkingLot carConfigurationInParkingLot)
     {

@@ -58,6 +58,11 @@ public class DestructionCar : MonoBehaviour
     [SerializeField, BoxGroup("Frame")] private SafetyFrameworkRef _safetyFrameworkRef;
     [SerializeField, BoxGroup("Frame")] private BottomRef _bottomRef;
 
+    [Button("test")]
+    private void a()
+    {
+        _frontBumperDestructionHandler.DestructionMode1();
+    }
     private DestructionEffectsHandler _destructionEffectsHandler;
     private DestructionAudioHandler _destructionAudioHandler;
     private CoupAnalyzer _coupAnalyzer;
@@ -89,7 +94,7 @@ public class DestructionCar : MonoBehaviour
     public bool BottomDestructionOn => _bottomDestructionOn;
     public void Construct(DestructionAudioHandler destructionAudioHandler, Exhaust exhaust, CarGun carGun, HotWheel hotWheel, CarMass carMass, Booster booster, Speedometer speedometer, CoupAnalyzer coupAnalyzer,
         HotWheelRef hotWheelRef, BoosterRef boosterRef, GunRef gunRef,
-        Transform debrisParent)
+        DebrisParent debrisParent)
     {
         InitDestructionAudioHandler(destructionAudioHandler);
         InitDestructionEffectsHandler();
@@ -109,6 +114,8 @@ public class DestructionCar : MonoBehaviour
         TryInitWingsHandler(boosterRef);
         InitRoofHandler(carMass, coupAnalyzer);
         InitBottomHandler();
+
+        // a();
     }
 
     public void DisposeAll()
@@ -279,7 +286,7 @@ public class DestructionCar : MonoBehaviour
         }
     }
 
-    private void TryInitSafetyFrameworkDestructionHandler(Transform debrisParent)
+    private void TryInitSafetyFrameworkDestructionHandler(DebrisParent debrisParent)
     {
         if (CheckPart(_safetyFrameworkRef))
         {

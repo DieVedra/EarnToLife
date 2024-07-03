@@ -12,8 +12,6 @@ public class LevelBackground : MonoBehaviour
 {
     [SerializeField, HorizontalLine(color: EColor.Green)] private Transform _cameraTransform;
     [SerializeField] private Sprite[] _sprites;
-    [SerializeField] private float _speedB;
-    [SerializeField, Range(0f,1f)] private float _carSpeed;
 
     [SerializeField, HorizontalLine(color: EColor.White), BoxGroup("ParallaxY Settings")] private Transform _skyTransform;
     [SerializeField, BoxGroup("ParallaxY Settings")] private Transform _skyTopBorderPoint;
@@ -25,10 +23,6 @@ public class LevelBackground : MonoBehaviour
     [Space]
     [SerializeField, BoxGroup("ParallaxY Settings")] private Transform _pointBorderLevelTop;
     [SerializeField, BoxGroup("ParallaxY Settings")] private Transform _pointBorderLevelDown;
-
-
-    [SerializeField, BoxGroup("ParallaxY Settings"), Range(0f,1f)] private float _posCloudValue;
-
 
     [SerializeField, HorizontalLine(color: EColor.Blue), BoxGroup("Cloud Generator Settings")] private SpriteRenderer _cloudPrefab;
     [SerializeField, BoxGroup("Cloud Generator Settings")] private Transform _cloudParent;
@@ -51,6 +45,9 @@ public class LevelBackground : MonoBehaviour
     private CloudsGenerator _cloudsGenerator;
     private Cloud[] _clouds;
     private Vector2 _previousPos;
+    private GamePause _gamePause;
+    private CompositeDisposable _compositeDisposablePauseProperty = new CompositeDisposable();
+    private CompositeDisposable _compositeDisposableUpdate = new CompositeDisposable();
     private float _differenceBetweenPreviousAndCurrentPositions;
     private float _tBordersLevel;
     private float _tSkyYPos;
@@ -59,9 +56,10 @@ public class LevelBackground : MonoBehaviour
 
     private float _negativeDeltaTime => Time.deltaTime * -1f;
     [Inject]
-    private void Construct(Factory factory)
+    private void Construct(Factory factory, GamePause gamePause)
     {
         _transform = transform;
+        _gamePause = gamePause;
         _previousPos = _transform.position;
         _transform.SetParent(_cameraTransform);
         _cloudsGenerator = new CloudsGenerator(_sprites, _cloudPrefab, factory, _cloudParent, _pointRightUpBorder, _pointLeftDownBorder,
@@ -69,17 +67,20 @@ public class LevelBackground : MonoBehaviour
             _cloudScaleRange, _cloudColorAlphaRange, _speedAddedRange,
             _cloudsCount);
     }
-    private void Update()
+    private void FixedUpdate()
     {
-        CalculateAddedSpeedFromCameraMoveToClouds();
-        _calculatedSpeed = _speed * Time.deltaTime +
-                           _differenceBetweenPreviousAndCurrentPositions * _speedAdd * _negativeDeltaTime;
-        foreach (var cloud in _cloudsGenerator.Clouds)
+        if (_gamePause.IsPause == false)
         {
-            cloud.Move(_calculatedSpeed);
-        }
+            CalculateAddedSpeedFromCameraMoveToClouds();
+            _calculatedSpeed = _speed * Time.deltaTime +
+                               _differenceBetweenPreviousAndCurrentPositions * _speedAdd * _negativeDeltaTime;
+            foreach (var cloud in _cloudsGenerator.Clouds)
+            {
+                cloud.Move(_calculatedSpeed);
+            }
 
-        CalculateParallaxY();
+            CalculateParallaxY();
+        }
     }
 
     private void CalculateAddedSpeedFromCameraMoveToClouds()

@@ -72,13 +72,13 @@ public class AnimationsUI
             canvasGroup.DOFade(value, duration).OnComplete(() => { operationOnComplete(); });
         }
     }
-    //public void AnimationEmergencePanel(Transform move, CanvasGroup canvasGroup, float endValue/*, float duration*/)
+    //public void AnimationEmergencePanel(BeamTransform move, CanvasGroup canvasGroup, float endValue/*, float duration*/)
     //{
     //    CreateSequence();
     //    _sequence.Append(move.DOLocalMoveY(endValue, 1f));
     //    _sequence.Insert(0f, canvasGroup.DOFade(0f, 1f));
     //}
-    //public void AnimationDisappearancePanel(Transform move, CanvasGroup canvasGroup, float endValue/*, float duration*/)
+    //public void AnimationDisappearancePanel(BeamTransform move, CanvasGroup canvasGroup, float endValue/*, float duration*/)
     //{
     //    CreateSequence();
     //    _sequence.Append(move.DOLocalMoveY(endValue, 1f));

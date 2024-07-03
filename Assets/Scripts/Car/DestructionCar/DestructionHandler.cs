@@ -11,7 +11,7 @@ public abstract class DestructionHandler
     private readonly float _backwardMoveDamageMultiplier = 0.42f;
     private readonly float _halfStrengthMultiplier = 0.7f;
     private readonly float _minStrengthMultiplier = 0.2f;
-    private readonly Transform _debrisParent;
+    private readonly DebrisParent _debrisParent;
     private readonly Speedometer _speedometer;
     private readonly LayerMask _canCollisionsLayerMasks;
     private readonly MonoBehaviour _monoBehaviour;
@@ -59,8 +59,9 @@ public abstract class DestructionHandler
             PlaySoftHitSound();
             return false;
         }
+
     }
-    protected void SubscribeCollider(Collider2D collider2D, Predicate<Collision2D> condition /*= null*/, Action operation/* = null*/)
+    protected void SubscribeCollider(Collider2D collider2D, Predicate<Collision2D> condition, Action operation)
     {
         collider2D.OnCollisionEnter2DAsObservable()
             .Where(condition.Invoke)
@@ -75,11 +76,11 @@ public abstract class DestructionHandler
     {
         if (transform == null)
         {
-            _monoBehaviour.transform.SetParent(_debrisParent);
+            _debrisParent.AddToDebris(_monoBehaviour.transform);
         }
         else
         {
-            transform.SetParent(_debrisParent);
+            _debrisParent.AddToDebris(transform);
         }
     }
     protected void SetCarDebrisLayerNonInteractableWithCar(Transform transform = null)

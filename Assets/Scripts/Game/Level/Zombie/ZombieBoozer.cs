@@ -12,12 +12,14 @@ public class ZombieBoozer : Zombie
     private ParticleSystem.MainModule _mainModule;
     private ZombieBoozerAudioHandler _zombieBoozerAudioHandler;
     private CancellationTokenSource _cancellationTokenSource = new CancellationTokenSource();
-
+    private GameOverSignal _gameOverSignal;
     [Inject]
-    private void Construct(AudioClipProvider audioClipProvider, IGlobalAudio globalAudio)
+    private void Construct(AudioClipProvider audioClipProvider, GameOverSignal gameOverSignal, IGlobalAudio globalAudio)
     {
         _zombieBoozerAudioHandler = new ZombieBoozerAudioHandler(GetComponent<AudioSource>(),
             globalAudio.SoundReactiveProperty, globalAudio.AudioPauseReactiveProperty, audioClipProvider.LevelAudioClipProvider);
+        _gameOverSignal = gameOverSignal;
+        _gameOverSignal.OnGameOver += StopEffect;
     }
     private void Awake()
     {
@@ -46,6 +48,7 @@ public class ZombieBoozer : Zombie
     }
     private void OnDisable()
     {
+        _gameOverSignal.OnGameOver -= StopEffect;
         OnBroken -= StopEffect;
         StopEffect();
     }

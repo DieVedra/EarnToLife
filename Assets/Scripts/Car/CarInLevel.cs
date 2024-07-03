@@ -48,6 +48,7 @@ public class CarInLevel : Car
     [SerializeField, BoxGroup("HotWheel"), Layer] private int _layerAfterBreaking;
 
     [HorizontalLine(color:EColor.Orange)]
+    [SerializeField, BoxGroup("Settings")] private LayerMask _checkToCanHit;
     [SerializeField, BoxGroup("Settings")] private SpeedEffect _speedEffect;
     [SerializeField, BoxGroup("Settings")] private Rigidbody2D _bodyRigidbody2D;
     [SerializeField, BoxGroup("Settings")] private Vector2 _centerMassOffset;
@@ -63,6 +64,9 @@ public class CarInLevel : Car
     private bool _controlActive = false;
     [ShowNativeProperty] public bool ControlActive => _controlActive;
 
+    private readonly float _defaultNormalImpulse = 1000f;
+    private float _normalImpulse = 0f;
+    private ContactPoint2D[] _points;
     private DestructionCar _destructionCar;
     private CarFSM _carFsm;
     private Engine _engine;
@@ -93,12 +97,12 @@ public class CarInLevel : Car
     public bool GunAvailable => CarConfiguration.GunCountAmmo > 0 ? true : false;
     private ReactiveCommand _onCarBrokenIntoTwoPartsReactiveCommand = new ReactiveCommand();
     public void Construct(CarConfiguration carConfiguration, NotificationsProvider notificationsProvider,
-        LevelProgressCounter levelProgressCounter, Transform debrisParent,
-        IGlobalAudio globalAudio, CarAudioClipProvider carAudioClipProvider,
+        LevelProgressCounter levelProgressCounter, DebrisParent debrisParent,
+        IGlobalAudio globalAudio, CarAudioClipProvider carAudioClipProvider, TimeScaleSignal timeScaleSignal,
         CarControlMethod carControlMethod)
     {
         CarConfiguration = carConfiguration;
-        _carAudio.Construct(globalAudio, carAudioClipProvider);
+        _carAudio.Construct(globalAudio, carAudioClipProvider, timeScaleSignal, _onCarBrokenIntoTwoPartsReactiveCommand);
         InitCustomizeCar();
         _bodyRigidbody2D = GetComponent<Rigidbody2D>();
         _destructionCar = GetComponent<DestructionCar>();
@@ -129,7 +133,6 @@ public class CarInLevel : Car
         InitControlCar(carControlMethod);
         InitCarMass();
         TryInitDestructionCar(debrisParent);
-        SubscribeActions();
         _moveAnalyzer = new MoveAnalyzer(Speedometer, _controlCar.DriveStarted);
         TryInitStopCauseHandler();
         _bodyRigidbody2D.centerOfMass += _centerMassOffset;
@@ -200,23 +203,27 @@ public class CarInLevel : Car
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        TryKnock(collision);
-    }
-
-    private void TryKnock(Collision2D collision)
-    {
-        if (collision.gameObject.TryGetComponent(out IHitable hitable))
+        if ((1 << collision.gameObject.layer & _checkToCanHit.value) == 1 << collision.gameObject.layer)
         {
-            var points = collision.contacts;
-            float normalImpulse = 0f;
-            for (int i = 0; i < points.Length; i++)
+            if (collision.gameObject.TryGetComponent(out IHitable hitable))
             {
-                if (normalImpulse < points[i].normalImpulse)
+                if (_coupAnalyzer.CarIsCoup == true)
                 {
-                    normalImpulse = points[i].normalImpulse;
+                    hitable.TryBreakOnImpact(_defaultNormalImpulse);
+                }
+                else
+                {
+                    _points = collision.contacts;
+                    for (int i = 0; i < _points.Length; i++)
+                    {
+                        if (_normalImpulse < _points[i].normalImpulse)
+                        {
+                            _normalImpulse = _points[i].normalImpulse;
+                        }
+                    }
+                    hitable.TryBreakOnImpact(_normalImpulse);
                 }
             }
-            hitable.TryBreakOnImpact(normalImpulse);
         }
     }
 
@@ -255,12 +262,6 @@ public class CarInLevel : Car
             }
         }
     }
-
-    private void SubscribeActions()
-    {
-        
-    }
-
     private void InitCustomizeCar()
     {
         CustomizeCar = GetComponent<CustomizeCar>();
@@ -348,7 +349,7 @@ public class CarInLevel : Car
         return new GasStateWheelGroundInteraction(_groundAnalyzer, Speedometer, _propulsionUnit.Transmission, _frontWheel, _backWheel,
             _particlesSpeedCurveGasState, _onCarBrokenIntoTwoPartsReactiveCommand);
     }
-    private void TryInitDestructionCar(Transform debrisParent)
+    private void TryInitDestructionCar(DebrisParent debrisParent)
     {
         if (_destructionActive == true)
         {
@@ -379,7 +380,7 @@ public class CarInLevel : Car
         _exhaust = new Exhaust(_exhaustParticleSystem);
         FuelTank.OnTankEmpty += _exhaust.StopPlayEffect;
     }
-    private void TryInitHotWheel(HotWheelAudioHandler hotWheelAudioHandler, Transform debrisParent)
+    private void TryInitHotWheel(HotWheelAudioHandler hotWheelAudioHandler, DebrisParent debrisParent)
     {
         if (_hotWheelRef.gameObject.activeSelf == true)
         {

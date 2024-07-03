@@ -125,7 +125,7 @@ public class Bot : MonoBehaviour, IHitable, IShotable, IExplodable
         IsLive = false;
         _botSound.PlayDie();
         _gun.DropWeapon();
-        _killsCount.AddKill();
+        // _killsCount.AddKill();
         OnDestruct?.Invoke();
         StartCoroutine(DelayEnableRagdoll());
     }
@@ -134,7 +134,7 @@ public class Bot : MonoBehaviour, IHitable, IShotable, IExplodable
         IsLive = false;
         _capsuleCollider.enabled = false;
         OnDestruct?.Invoke();
-        _killsCount.AddKill();
+        // _killsCount.AddKill();
         _botSound.PlayDie();
     }
 

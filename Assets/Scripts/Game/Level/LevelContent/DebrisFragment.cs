@@ -15,6 +15,7 @@ public class DebrisFragment : MonoBehaviour
     private Transform _fragmentTransform;
     private Collider2D _fragmentCollider2D;
     private Rigidbody2D _rigidbody2D;
+    private float _forceHit;
     public Transform FragmentTransform => _fragmentTransform;
     public Rigidbody2D Rigidbody2D => _rigidbody2D;
 
@@ -25,13 +26,11 @@ public class DebrisFragment : MonoBehaviour
     {
         _fragmentTransform = transform;
         _compositeDisposable = new CompositeDisposable();
-        // _cancellationTokenSource = new CancellationTokenSource();
         TryCalculateSizeFragmentAndSetCollider();
     }
     public void Dispose()
     {
         _compositeDisposable.Clear();
-        // _cancellationTokenSource.Cancel();
     }
     public void InitRigidBody()
     {
@@ -52,30 +51,50 @@ public class DebrisFragment : MonoBehaviour
             _rigidbody2D.AddForce(force);
         }
     }
-    public void SubscribeFragment(Action operation)
+    public void SubscribeFragment(Action operation, int layerDebris, int layerCar, float delayChangeLayer)
     {
-        _fragmentCollider2D.OnCollisionEnter2DAsObservable().Subscribe(_ =>
+        _fragmentCollider2D.OnCollisionEnter2DAsObservable().Subscribe(x =>
         {
             operation?.Invoke();
             _compositeDisposable.Clear();
-            // StartCorutineLayerFragments(layer, delayChangeLayer).Forget();
+            if (x.collider.transform.parent.TryGetComponent(out Zombie zombie))
+            {
+                zombie.TryBreakOnImpact(GetForceHit(x.contacts));
+                SetLayerDebris(layerDebris);
+            }
+            else if (x.collider.transform.parent.gameObject.layer == layerCar)
+            {
+                StartCoroutine(LayerFragments(layerDebris, delayChangeLayer));
+            }
+            else
+            {
+                SetLayerDebris(layerDebris);
+            }
+            
         }).AddTo(_compositeDisposable);
     }
-    public void StartCorutineLayerFragments(int layer, float delayChangeLayer)
-    {
-        // Debug.Log($"                                        StartCorutineLayerFragments 1  {delayChangeLayer}");
-        // await UniTask.Delay(TimeSpan.FromSeconds(delayChangeLayer), cancellationToken: _cancellationTokenSource.Token);
-        // _fragmentTransform.gameObject.layer = layer;
-        // Debug.Log($"                                        StartCorutineLayerFragments 2");
-        StartCoroutine(LayerFragments(layer, delayChangeLayer));
-    }
-
     private IEnumerator LayerFragments(int layer, float delayChangeLayer)
     {
-        // Debug.Log($"                                        StartCorutineLayerFragments 1  {delayChangeLayer}");
         yield return new WaitForSeconds(delayChangeLayer);
+        SetLayerDebris(layer);
+    }
+
+    private void SetLayerDebris(int layer)
+    {
         _fragmentTransform.gameObject.layer = layer;
-        // Debug.Log($"                                        StartCorutineLayerFragments 2");
+    }
+    private float GetForceHit(ContactPoint2D[] contactPoints)
+    {
+        _forceHit = 0f;
+
+        for (int i = 0; i < contactPoints.Length; i++)
+        {
+            if (_forceHit < contactPoints[i].normalImpulse)
+            {
+                _forceHit = contactPoints[i].normalImpulse;
+            }
+        }
+        return _forceHit;
     }
     private void TryCalculateSizeFragmentAndSetCollider()
     {

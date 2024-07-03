@@ -5,7 +5,9 @@ public class WheelsAudioHandler : AudioPlayer
 {
     private readonly float _volumeDefault = 0.01f;
     private readonly float _deltaTimeMultiplier = 0.33f;
+    private readonly TimeScaleSignal _timeScaleSignal;
     private readonly AudioClip _wheelHitAudioClip;
+    private readonly TimeScalePitchHandler _timeScalePitchHandler;
     private readonly CompositeDisposable _compositeDisposable = new CompositeDisposable();
     private GroundAnalyzer _groundAnalyzer;
     private float _wheelsVolume;
@@ -16,17 +18,27 @@ public class WheelsAudioHandler : AudioPlayer
     private ReactiveProperty<bool> _backWheelContactReactiveProperty => _groundAnalyzer.BackWheelContactReactiveProperty;
     public BrakeAudioHandler BrakeAudioHandler { get; private set; }
     public WheelsAudioHandler(AudioSource forWheelsFriction, AudioSource forWheelsHit, ReactiveProperty<bool> soundReactiveProperty, ReactiveProperty<bool> audioPauseReactiveProperty,
-        AudioClip brakeAudioClip, AudioClip brake2AudioClip, AudioClip wheelHitAudioClip, AnimationCurve brakeVolumeCurve)
+        TimeScaleSignal timeScaleSignal, AudioClip brakeAudioClip, AudioClip brake2AudioClip, AudioClip wheelHitAudioClip, AnimationCurve brakeVolumeCurve)
         : base(forWheelsHit, soundReactiveProperty, audioPauseReactiveProperty)
     {
+        _timeScalePitchHandler = new TimeScalePitchHandler(timeScaleSignal);
         _wheelHitAudioClip = wheelHitAudioClip;
         BrakeAudioHandler = new BrakeAudioHandler(forWheelsFriction, soundReactiveProperty, audioPauseReactiveProperty, brakeAudioClip, brake2AudioClip, brakeVolumeCurve);
         SetVolume(_volumeDefault);
+        _timeScalePitchHandler.OnPitchTimeWarped += SetPitch;
+        _timeScalePitchHandler.IsTimeWarpedRP.Subscribe(_ =>
+        {
+            if (_timeScalePitchHandler.IsTimeWarpedRP.Value == true)
+            {
+                _timeScalePitchHandler.SetPitchValueNormalTimeScale(AudioSource.pitch);
+            }
+        });
     }
 
     public void Dispose()
     {
         TryStopTimer();
+        _timeScalePitchHandler.OnPitchTimeWarped -= SetPitch;
     }
     public void Init(GroundAnalyzer groundAnalyzer)
     {

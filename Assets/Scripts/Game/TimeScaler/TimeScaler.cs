@@ -1,58 +1,55 @@
-﻿
-using System;
-using System.Threading;
-using System.Threading.Tasks;
-using Cysharp.Threading.Tasks;
-using DG.Tweening;
+﻿using System;
+using System.Collections.Generic;
+using NaughtyAttributes;
 using UnityEngine;
+using Zenject;
 
-public class TimeScaler  : IDisposable
+public class TimeScaler : MonoBehaviour
 {
-    private const float MIN_VALUE_TIME = 0f;
-    private const float NORMAL_VALUE_TIME = 1f;
-    private const float TARGET_DOWN_VALUE_TIME = 0.3f;
-    private const float DURATION_DOWN = 1f;
-    private const float DURATION_UP = 2f;
-    private float _currentTime;
-    private bool _isWarped;
-    private CancellationTokenSource _cancellationTokenSource = new CancellationTokenSource();
-    private Tween _timeDownTween;
-    private Tween _timeUpTween;
-    private float _currentSpeedValue;
-    public bool IsWarped => _isWarped;
-    public TimeScaler()
-    {
-        Debug.Log($"      Scaler");
+    [SerializeField, HorizontalLine(color:EColor.White)] private AnimationCurve _downTimeCurve;
+    [SerializeField, MinMaxSlider(0.0f, 1f)] private Vector2 _downDuration;
+    [SerializeField, HorizontalLine(color:EColor.White)] private AnimationCurve _upTimeCurve;
+    [SerializeField, MinMaxSlider(0.0f, 2f)] private Vector2 _upDuration;
+    [SerializeField, HorizontalLine(color:EColor.White), MinMaxSlider(0.0f, 1f)] private Vector2 _downTargerTime;
+    private TimeScalerState _currentState;
+    private TimeScalerFSM _timeScalerFsm;
+    private TimeScalerValues _timeScalerValues;
 
-        _timeDownTween = DOTween.To(() => NORMAL_VALUE_TIME, x => { Debug.Log(x); }, TARGET_DOWN_VALUE_TIME, DURATION_DOWN)
-            .SetUpdate(true)
-            .SetEase(Ease.InCubic);
-        _timeUpTween = DOTween.To(() => TARGET_DOWN_VALUE_TIME, x => Time.timeScale = x, NORMAL_VALUE_TIME, DURATION_UP)
-            .SetUpdate(true)
-            .SetEase(Ease.OutCubic);
-    }
-    public async UniTaskVoid TryStartTimeWarp()
+    [Inject]
+    private void Construct(TimeScaleSignal timeScaleSignal)
     {
-        if (_isWarped == false)
+        _timeScalerValues = new TimeScalerValues(_downDuration, _upDuration, _downTargerTime);
+        Dictionary<Type, TimeScalerState> dictionaryStates = new Dictionary<Type, TimeScalerState>
         {
-            _isWarped = true;
-            await _timeDownTween.WithCancellation(_cancellationTokenSource.Token);
-            await _timeUpTween.WithCancellation(_cancellationTokenSource.Token);
-            _isWarped = false;
-        }
+            {typeof(TimeScalerRunState), new TimeScalerRunState(_timeScalerValues, timeScaleSignal)},
+            {typeof(TimeScalerStopState), new TimeScalerStopState(_timeScalerValues, timeScaleSignal)},
+            {typeof(TimeScalerWarpState), new TimeScalerWarpState(_downTimeCurve, _upTimeCurve, _timeScalerValues, timeScaleSignal,
+                ()=>{_timeScalerFsm.SetState<TimeScalerRunState>();})}
+        };
+        _timeScalerFsm = new TimeScalerFSM(dictionaryStates);
+    }
+    public bool TryStartTimeWarp()
+    {
+        return _timeScalerFsm.SetState<TimeScalerWarpState>();
     }
     public void SetStopTime()
     {
-        Time.timeScale = MIN_VALUE_TIME;
+        _timeScalerFsm.SetState<TimeScalerStopState>();
     }
     public void SetRunTime()
     {
-        Time.timeScale = NORMAL_VALUE_TIME;
+        if (_timeScalerFsm.PreviousStateIsWarp == true)
+        {
+            _timeScalerFsm.SetState<TimeScalerWarpState>();
+        }
+        else
+        {
+            _timeScalerFsm.SetState<TimeScalerRunState>();
+        }
     }
-    public void Dispose()
+
+    private void OnDestroy()
     {
-        _cancellationTokenSource.Cancel();
-        _timeDownTween.Kill();
-        _timeUpTween.Kill();
+        _timeScalerFsm.Dispose();
     }
 }

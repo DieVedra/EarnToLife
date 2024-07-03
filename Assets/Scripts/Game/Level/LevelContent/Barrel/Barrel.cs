@@ -22,6 +22,7 @@ public class Barrel : DestructibleObject, IHitable, IShotable, ICutable, IExplos
     private BarrelPool _barrelPoolEffects;
     private BlastWave _blastWave;
     private BarrelAudioHandler _barrelAudioHandler;
+    private ExplodeSignal _explodeSignal;
     private readonly CompositeDisposable _compositeDisposable = new CompositeDisposable();
     private Collider2D _collider2D => WholeObjectTransform.GetComponent<Collider2D>();
     public IReadOnlyList<DebrisFragment> DebrisFragments => base.FragmentsDebris;
@@ -30,13 +31,20 @@ public class Barrel : DestructibleObject, IHitable, IShotable, ICutable, IExplos
     public Transform TargetTransform => TransformBase;
 
     [Inject]
-    private void Construct(ILevel level)
+    private void Construct(ILevel level, IGlobalAudio globalAudio, AudioClipProvider audioClipProvider, ExplodeSignal explodeSignal, TimeScaleSignal timeScaleSignal)
     {
         _barrelPoolEffects = level.LevelPool.BarrelPool;
-        CameraTransform = level.CameraTransform;
-        _barrelAudioHandler = level.LevelAudio.BarrelAudioHandler;
+        _barrelAudioHandler = new BarrelAudioHandler(GetComponent<AudioSource>(),
+            globalAudio.SoundReactiveProperty, globalAudio.AudioPauseReactiveProperty, new TimeScalePitchHandler(timeScaleSignal),
+            audioClipProvider.LevelAudioClipProvider.HitBarrelAudioClip,
+            audioClipProvider.LevelAudioClipProvider.Explode1BarrelAudioClip,
+            audioClipProvider.LevelAudioClipProvider.Explode2BarrelAudioClip,
+            audioClipProvider.LevelAudioClipProvider.BurnBarrelAudioClip);
         DebrisHitSound = level.LevelAudio.DebrisAudioHandler.PlayDebrisHitSound;
-        Rigidbody2D = GetComponent<Rigidbody2D>();
+
+        
+        
+        _explodeSignal = explodeSignal;
         _blastWave = new BlastWave(level.LevelPool.DebrisPool, WholeObjectTransform, _extinctionBlastWaveCurve, _blastWaveMask,
             _radiusShockWave, _radiusBurnWave, _forceBlastWave);
     }
@@ -114,6 +122,7 @@ public class Barrel : DestructibleObject, IHitable, IShotable, ICutable, IExplos
         _barrelAudioHandler.PlayBarrelExplosionSound();
         _blastWave.InteractWithBlastWave();
         _barrelPoolEffects.PlayBarrelExplosionEffect(WholeObjectTransform.position);
+        _explodeSignal.OnExplosion?.Invoke();
     }
     private IEnumerator SubscribeCheckCollision()
     {

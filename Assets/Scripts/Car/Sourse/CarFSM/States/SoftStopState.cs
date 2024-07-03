@@ -26,10 +26,7 @@ public class SoftStopState : CarState
         Booster?.TryStopBooster();
     }
 
-    public override void Update()
-    {
-        
-    }
+    public override void Update() { }
 
     public override void FixedUpdate()
     {

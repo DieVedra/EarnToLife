@@ -12,19 +12,12 @@ public class Beam2 : Beam, IHitable, ICutable
         private readonly float _oneThirdMultiplier = 0.33f;
 
         private float _oneThirdLength;
-        private Transform _transform;
-        public Vector2 Position => _transform.position;
+        public Vector2 Position => BeamTransform.position;
         public bool IsBroken => ObjectIsBroken;
         public IReadOnlyList<DebrisFragment> DebrisFragments => base.FragmentsDebris;
 
-        [Inject]
-        private void Construct(ILevel level)
+        private void Awake()
         {
-                CameraTransform = level.CameraTransform;
-                WoodDestructibleAudioHandler = level.LevelAudio.WoodDestructibleAudioHandler;
-                DebrisHitSound = level.LevelAudio.WoodDestructibleAudioHandler.PlayHitWoodSound;
-                Rigidbody2D = GetComponent<Rigidbody2D>();
-                _transform = transform;
                 SetPositionsFragments();
                 SetSizeToFragments();
         }

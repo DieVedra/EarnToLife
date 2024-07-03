@@ -1,7 +1,7 @@
-﻿namespace Game.Signals
+﻿
+using System;
+
+public class GameOverSignal
 {
-    public class GameOverSignal
-    {
-        
-    }
+    public Action OnGameOver;
 }

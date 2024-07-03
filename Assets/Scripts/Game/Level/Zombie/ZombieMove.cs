@@ -15,6 +15,7 @@ public class ZombieMove
     private readonly Rigidbody2D _rigidbody2D;
     private readonly GamePause _gamePause;
     private readonly ReactiveProperty<bool> _isBrokenReactiveProperty;
+    private readonly CompositeDisposable _compositeDisposableFixedUpdate = new CompositeDisposable();
     private readonly CompositeDisposable _compositeDisposable = new CompositeDisposable();
     private readonly float _speed;
     private float _dotNormal;
@@ -35,38 +36,54 @@ public class ZombieMove
         _contactFilter.useTriggers = false;
         _contactFilter.useLayerMask = true;
         _contactFilter.layerMask = contactMask.value;
+    }
+
+    public void Init()
+    {
         SubscribePause();
+        SubscribeBroken();
         SubscribeFixedUpdate();
     }
 
+    public void Dispose()
+    {
+        _compositeDisposableFixedUpdate.Clear();
+        _compositeDisposable.Clear();
+    }
     private void SubscribePause()
     {
         _gamePause.PauseReactiveProperty.Subscribe(_ =>
         {
             if (_gamePause.PauseReactiveProperty.Value == true)
             {
-                _compositeDisposable.Clear();
+                _compositeDisposableFixedUpdate.Clear();
             }
             else
             {
-                SubscribeFixedUpdate();
+                if (_isBrokenReactiveProperty.Value == false)
+                {
+                    SubscribeFixedUpdate();
+                }
             }
-        });
+        }).AddTo(_compositeDisposable);
     }
 
+    private void SubscribeBroken()
+    {
+        _isBrokenReactiveProperty.Subscribe(_ =>
+        {
+            if (_isBrokenReactiveProperty.Value == true)
+            {
+                _compositeDisposableFixedUpdate.Clear();
+            }
+        }).AddTo(_compositeDisposable);
+    }
     private void SubscribeFixedUpdate()
     {
         Observable.EveryFixedUpdate().Subscribe(_ =>
         {
-            if (_isBrokenReactiveProperty.Value == false)
-            {
-                FixedUpdate();
-            }
-            else
-            {
-                _compositeDisposable.Clear();
-            }
-        }).AddTo(_compositeDisposable);
+            FixedUpdate();
+        }).AddTo(_compositeDisposableFixedUpdate);
     }
     private void FixedUpdate()
     {

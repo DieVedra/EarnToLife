@@ -5,6 +5,7 @@ using UnityEngine;
 public class DestructionAudioHandler : AudioPlayer, IDispose
 {
     private readonly float _defaultVolume = 1f;
+    private readonly TimeScalePitchHandler _timeScalePitchHandler;
     private readonly AudioClip _carBurnAudioClip;
     private readonly AudioClip _engineBrokenAudioClip;
     private readonly AudioClip _carHardHitAudioClip;
@@ -19,10 +20,11 @@ public class DestructionAudioHandler : AudioPlayer, IDispose
     private bool _hitSoundIsPlay = false;
 
     public DestructionAudioHandler(AudioSource audioSource, ReactiveProperty<bool> soundReactiveProperty, ReactiveProperty<bool> audioPauseReactiveProperty,
-        AudioClip carBurnAudioClip, AudioClip carHardHitAudioClip, AudioClip carSoftHitAudioClip, AudioClip glassBreakingAudioClip,
+        TimeScalePitchHandler timeScalePitchHandler, AudioClip carBurnAudioClip, AudioClip carHardHitAudioClip, AudioClip carSoftHitAudioClip, AudioClip glassBreakingAudioClip,
         AudioClip metalBendsAudioClip, AudioClip engineBrokenAudioClip, AudioClip driverNeckBrokeAudioClip)
         : base(audioSource, soundReactiveProperty, audioPauseReactiveProperty)
     {
+        _timeScalePitchHandler = timeScalePitchHandler;
         _carBurnAudioClip = carBurnAudioClip;
         _carHardHitAudioClip = carHardHitAudioClip;
         _carSoftHitAudioClip = carSoftHitAudioClip;
@@ -30,6 +32,14 @@ public class DestructionAudioHandler : AudioPlayer, IDispose
         _metalBendsAudioClip = metalBendsAudioClip;
         _engineBrokenAudioClip = engineBrokenAudioClip;
         _driverNeckBrokeAudioClip = driverNeckBrokeAudioClip;
+        _timeScalePitchHandler.OnPitchTimeWarped += SetPitch;
+        _timeScalePitchHandler.IsTimeWarpedRP.Subscribe(_ =>
+        {
+            if (_timeScalePitchHandler.IsTimeWarpedRP.Value == true)
+            {
+                _timeScalePitchHandler.SetPitchValueNormalTimeScale(AudioSource.pitch);
+            }
+        });
     }
     public void Init(AnimationCurve destructionAudioCurve)
     {
@@ -41,6 +51,8 @@ public class DestructionAudioHandler : AudioPlayer, IDispose
         _compositeDisposableBurn.Clear();
         _compositeDisposableSoftHit.Clear();
         _compositeDisposableHardHit.Clear();
+        _timeScalePitchHandler.OnPitchTimeWarped -= SetPitch;
+        _timeScalePitchHandler.Dispose();
     }
 
     public void PlayHardHit(float force)

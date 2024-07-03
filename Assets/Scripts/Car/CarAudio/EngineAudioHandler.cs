@@ -12,20 +12,25 @@ public class EngineAudioHandler : AudioPlayer
     private readonly AudioClip _engineStopAudioClip;
     private readonly AudioClip _engineRunAudioClip;
     private readonly CancellationTokenSource _cancellationTokenSource = new CancellationTokenSource();
+    private readonly TimeScalePitchHandler _timeScalePitchHandler;
 
     public EngineAudioHandler(AudioSource audioSource, ReactiveProperty<bool> soundReactiveProperty, ReactiveProperty<bool> audioPauseReactiveProperty,
-        AudioClip engineStartAudioClip, AudioClip engineStopAudioClip, AudioClip engineRunAudioClip)
+        TimeScalePitchHandler timeScalePitchHandler, AudioClip engineStartAudioClip, AudioClip engineStopAudioClip, AudioClip engineRunAudioClip)
     : base(audioSource, soundReactiveProperty, audioPauseReactiveProperty)
     {
+        _timeScalePitchHandler = timeScalePitchHandler;
         _engineStartAudioClip = engineStartAudioClip;
         _engineStopAudioClip = engineStopAudioClip;
         _engineRunAudioClip = engineRunAudioClip;
+        _timeScalePitchHandler.OnPitchTimeWarped += SetPitch;
         PlayStartEngine().Forget();
     }
 
     public void Dispose()
     {
         _cancellationTokenSource.Cancel();
+        _timeScalePitchHandler.OnPitchTimeWarped -= SetPitch;
+        _timeScalePitchHandler.Dispose();
     }
 
     private async UniTaskVoid PlayStartEngine()
@@ -36,7 +41,14 @@ public class EngineAudioHandler : AudioPlayer
     }
     public void PitchControl(float value)
     {
-        SetPitch(Mathf.LerpUnclamped(MINTIMEPITCH, MAXTIMEPITCH, value));
+        if (_timeScalePitchHandler.IsTimeWarped == false)
+        {
+            SetPitch(Mathf.LerpUnclamped(MINTIMEPITCH, MAXTIMEPITCH, value));
+        }
+        else
+        {
+            _timeScalePitchHandler.SetPitchValueNormalTimeScale(Mathf.LerpUnclamped(MINTIMEPITCH, MAXTIMEPITCH, value));
+        }
     }
     public void PlaySoundStopEngine()
     {
@@ -56,7 +68,6 @@ public class EngineAudioHandler : AudioPlayer
     {
         StopPlay();
     }
-
     private void PlayRun()
     {
         TryPlayClip(_engineRunAudioClip);

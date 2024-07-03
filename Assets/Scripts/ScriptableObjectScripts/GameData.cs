@@ -8,7 +8,6 @@ public class GameData : ScriptableObject
 {
     public PanelsInMenu StartPanelInMenu { get; set; }
     public CarControlMethod CarControlMethod { get; set; }
+    
     public bool SaveOn { get; set; }
-    public bool SoundOn { get; set; }
-    public bool MusicOn { get; set; }
 }

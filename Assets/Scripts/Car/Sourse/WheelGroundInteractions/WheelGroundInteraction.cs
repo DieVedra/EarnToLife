@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using UniRx;
@@ -16,6 +18,7 @@ public class WheelGroundInteraction
     private readonly AnimationCurve _particlesSpeedCurve;
     private readonly CancellationTokenSource _cancellationTokenSource = new CancellationTokenSource();
     private readonly ParticleSystem[] _effects;
+    private readonly ParticleSystem[] _frontWheelEffects;
     private readonly ParticleSystem[] _backWheelEffects;
 
 
@@ -33,6 +36,7 @@ public class WheelGroundInteraction
     protected readonly Transform FrontWheelDirtEffectTransform;
     protected readonly Transform BackWheelDirtEffectTransform;
     private float _evaluatedValue;
+    private bool _carBroken;
 
     protected WheelGroundInteraction(GroundAnalyzer groundAnalyzer, Speedometer speedometer,
         CarWheel frontWheel, CarWheel backWheel, AnimationCurve particlesSpeedCurve, ReactiveCommand onCarBrokenIntoTwoParts)
@@ -56,22 +60,22 @@ public class WheelGroundInteraction
         _backWheelSmokeWheelParticleSystem = _backWheel.SmokeWheelParticleSystem;
         _frontWheelZombieBloodParticleSystem = _frontWheel.BloodWheelParticleSystem;
         _backWheelZombieBloodParticleSystem = _backWheel.BloodWheelParticleSystem;
-        
-        _effects = new[]
+
+        _frontWheelEffects = new[]
         {
-            _frontWheelDirtWheelParticleSystem, _backWheelDirtWheelParticleSystem,
-            _frontWheelSmokeWheelParticleSystem, _backWheelSmokeWheelParticleSystem,
-            _frontWheelZombieBloodParticleSystem, _backWheelZombieBloodParticleSystem
+            _frontWheelDirtWheelParticleSystem, _frontWheelSmokeWheelParticleSystem, _frontWheelZombieBloodParticleSystem
         };
         _backWheelEffects = new[]
         {
             _backWheelDirtWheelParticleSystem, _backWheelSmokeWheelParticleSystem, _backWheelZombieBloodParticleSystem
         };
+        _effects = _frontWheelEffects.Concat(_backWheelEffects).ToArray();
         onCarBrokenIntoTwoParts.Subscribe(_ => { CarBrokenIntoTwoParts();});
     }
 
     public virtual void Init(bool carBroken)
     {
+        _carBroken = carBroken;
         SubscribeReactiveProperty(GroundAnalyzer.FrontWheelOnGroundReactiveProperty, PlayEffectFrontWheelOnGround, CompositeDisposableFrontWheel);
         SubscribeReactiveProperty(GroundAnalyzer.FrontWheelOnAsphaltReactiveProperty, PlayEffectFrontWheelOnAsphalt, CompositeDisposableFrontWheel);
         SubscribeReactiveProperty(GroundAnalyzer.FrontWheelOnZombieReactiveProperty, PlayEffectFrontWheelOnZombie, CompositeDisposableFrontWheel);
@@ -89,7 +93,14 @@ public class WheelGroundInteraction
         CompositeDisposableFrontWheel.Clear();
         CompositeDisposableBackWheel.Clear();
         _cancellationTokenSource.Cancel();
-        StopAndDisableEffects(_effects);
+        if (_carBroken == false)
+        {
+            StopAndDisableEffects(_effects);
+        }
+        else
+        {
+            StopAndDisableEffects(_frontWheelEffects);
+        }
     }
 
     public void Update()
