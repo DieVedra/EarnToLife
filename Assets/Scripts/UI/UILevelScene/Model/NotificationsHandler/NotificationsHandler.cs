@@ -42,7 +42,7 @@ public class NotificationsHandler
     }
     private void AddToQueueNotificationsWithDelay(string text, bool delay = false)
     {
-        Debug.Log($"AddToQueue {text}");
+        // Debug.Log($"AddToQueue {text}");
         _messageQueue.Enqueue(CreateNotification());
         TryShow(text, delay).Forget();
     }

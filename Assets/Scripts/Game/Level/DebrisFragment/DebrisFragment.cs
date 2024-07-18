@@ -2,28 +2,35 @@
 using System.Collections;
 using System.Linq;
 using System.Threading;
-using Cysharp.Threading.Tasks;
 using UniRx;
 using UniRx.Triggers;
 using UnityEngine;
 
 public class DebrisFragment : MonoBehaviour
 {
+    private readonly float _speedMultiplier = 2.5f;
     private readonly float _defaultSize = 0.5f;
+    private int _layerDebris, _layerCar;
+    private readonly float _delayChangeLayer = 0.3f;
     private CompositeDisposable _compositeDisposable;
     private CancellationTokenSource _cancellationTokenSource;
     private Transform _fragmentTransform;
     private Collider2D _fragmentCollider2D;
     private Rigidbody2D _rigidbody2D;
     private float _forceHit;
+    private Action _debrisHitSound;
+
     public Transform FragmentTransform => _fragmentTransform;
     public Rigidbody2D Rigidbody2D => _rigidbody2D;
 
     public TypeCollider TypeCollider { get; private set;}
     public float SizeFragment { get; private set; }
 
-    public void Init()
+    public void Init(Action debrisHitSound, int layerDebris, int layerCar)
     {
+        _layerDebris = layerDebris;
+        _layerCar = layerCar;
+        _debrisHitSound = debrisHitSound;
         _fragmentTransform = transform;
         _compositeDisposable = new CompositeDisposable();
         TryCalculateSizeFragmentAndSetCollider();
@@ -51,27 +58,35 @@ public class DebrisFragment : MonoBehaviour
             _rigidbody2D.AddForce(force);
         }
     }
-    public void SubscribeFragment(Action operation, int layerDebris, int layerCar, float delayChangeLayer)
+    public void SubscribeFragment()
     {
         _fragmentCollider2D.OnCollisionEnter2DAsObservable().Subscribe(x =>
         {
-            operation?.Invoke();
-            _compositeDisposable.Clear();
-            if (x.collider.transform.parent.TryGetComponent(out Zombie zombie))
-            {
-                zombie.TryBreakOnImpact(GetForceHit(x.contacts));
-                SetLayerDebris(layerDebris);
-            }
-            else if (x.collider.transform.parent.gameObject.layer == layerCar)
-            {
-                StartCoroutine(LayerFragments(layerDebris, delayChangeLayer));
-            }
-            else
-            {
-                SetLayerDebris(layerDebris);
-            }
-            
+            OnCollision(x.collider, _layerDebris, _layerCar, _delayChangeLayer);
         }).AddTo(_compositeDisposable);
+            _fragmentCollider2D.OnTriggerEnter2DAsObservable().Subscribe(x =>
+        {
+            OnCollision(x, _layerDebris, _layerCar, _delayChangeLayer);
+        }).AddTo(_compositeDisposable);
+    }
+
+    private void OnCollision(Collider2D collider2D, int layerDebris, int layerCar, float delayChangeLayer)
+    {
+        _debrisHitSound?.Invoke();
+        _compositeDisposable.Clear();
+        if (collider2D.transform.parent.TryGetComponent(out Zombie zombie))
+        {
+            zombie.TryBreakOnImpact(_rigidbody2D.velocity.magnitude * _speedMultiplier);
+            SetLayerDebris(layerDebris);
+        }
+        else if (collider2D.transform.parent.gameObject.layer == layerCar)
+        {
+            StartCoroutine(LayerFragments(layerDebris, delayChangeLayer));
+        }
+        else
+        {
+            SetLayerDebris(layerDebris);
+        }
     }
     private IEnumerator LayerFragments(int layer, float delayChangeLayer)
     {
