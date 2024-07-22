@@ -99,7 +99,7 @@ public class CarInLevel : Car
     private ReactiveCommand _onCarBrokenIntoTwoPartsReactiveCommand = new ReactiveCommand();
     public void Construct(CarConfiguration carConfiguration, NotificationsProvider notificationsProvider,
         LevelProgressCounter levelProgressCounter, DebrisParent debrisParent,
-        IGlobalAudio globalAudio, CarAudioClipProvider carAudioClipProvider, TimeScaleSignal timeScaleSignal, GameOverSignal gameOverSignal,
+        IGlobalAudio globalAudio, CarAudioClipProvider carAudioClipProvider, TimeScaleSignal timeScaleSignal, GameOverSignal gameOverSignal, IGamePause gamePause,
         CarControlMethod carControlMethod)
     {
         CarConfiguration = carConfiguration;
@@ -126,7 +126,7 @@ public class CarInLevel : Car
         _controlActive = true;
         _carAudio.SuspensionAudioHandler.Init(_groundAnalyzer, Speedometer);
         _carAudio.WheelsAudioHandler.Init(_groundAnalyzer);
-        TryInitBooster();
+        TryInitBooster(gamePause);
         TryInitGun();
         TryInitHotWheel(_carAudio.HotWheelAudioHandler, debrisParent);
         InitCarFSM();
@@ -146,6 +146,7 @@ public class CarInLevel : Car
             _controlCar.Update();
             _coupAnalyzer.Update();
             _moveAnalyzer.Update();
+            _groundAnalyzer.Update();
             CarGun?.Update();
         }
 
@@ -296,11 +297,11 @@ public class CarInLevel : Car
         }
     }
 
-    private void TryInitBooster()
+    private void TryInitBooster(IGamePause gamePause)
     {
         if (BoosterAvailable)
         {
-            Booster = new Booster(
+            Booster = new Booster(gamePause,
                 _carAudio.BoosterAudioHandler,
                 new BoosterFuelTank(CarConfiguration.BoosterCountFuelQuantity),
                 new BoosterScrew(_screw, _blade1, _blade2, _rotationSpeed),

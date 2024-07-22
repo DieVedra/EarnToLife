@@ -77,7 +77,7 @@ public class Game : MonoBehaviour
         InitProgressCounter();
         _carInLevel.Construct(_carConfiguration, _notificationsProvider, _levelProgressCounter,
             _level.DebrisParent, _globalAudioForCar, _audioClipProvider.CarsAudioClipsProvider.GetCarAudioClipProvider(currentSelectLotCarIndex),
-            _timeScaleSignal, _gameOverSignal, _gameData.CarControlMethod);
+            _timeScaleSignal, _gameOverSignal, _gamePause, _gameData.CarControlMethod);
     }
 
     private void InitProgressCounter()

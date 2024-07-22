@@ -120,7 +120,7 @@ public class Barrel : DestructibleObject, IHitable, IShotable, ICutable, IExplos
     private void Explosion()
     {
         _barrelAudioHandler.PlayBarrelExplosionSound();
-        _blastWave.InteractWithBlastWave();
+        StartCoroutine(_blastWave.InteractWithBlastWave());
         _barrelPoolEffects.PlayBarrelExplosionEffect(WholeObjectTransform.position);
         _explodeSignal.OnExplosion?.Invoke(WholeObjectTransform.PositionVector2());
     }

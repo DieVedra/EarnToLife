@@ -46,33 +46,13 @@ public class ZombieMove
     {
         SubscribePause();
         SubscribeBroken();
-        StartFixedUpdate();
-        // SubscribeFixedUpdate();
+        SubscribeFixedUpdate();
     }
 
     public void Dispose()
     {
         _compositeDisposableFixedUpdate.Clear();
         _compositeDisposable.Clear();
-        
-        
-        StopFixedUpdate();
-
-
-    }
-
-    private void StartFixedUpdate()
-    {
-        _updateKey = true;
-        _cancellationTokenSource = new CancellationTokenSource();
-        FixedUpdateAsync().Forget();
-    }
-
-    private void StopFixedUpdate()
-    {
-        _updateKey = false;
-
-        _cancellationTokenSource.Cancel();
     }
     private void SubscribePause()
     {
@@ -80,16 +60,13 @@ public class ZombieMove
         {
             if (_gamePause.PauseReactiveProperty.Value == true)
             {
-                // _compositeDisposableFixedUpdate.Clear();
-                StopFixedUpdate();
-
+                _compositeDisposableFixedUpdate.Clear();
             }
             else
             {
                 if (_isBrokenReactiveProperty.Value == false)
                 {
-                    // SubscribeFixedUpdate();
-                    StartFixedUpdate();
+                    SubscribeFixedUpdate();
                 }
             }
         }).AddTo(_compositeDisposable);
@@ -101,70 +78,40 @@ public class ZombieMove
         {
             if (_isBrokenReactiveProperty.Value == true)
             {
-                StopFixedUpdate();
-
-                
-                // _compositeDisposableFixedUpdate.Clear();
+                _compositeDisposableFixedUpdate.Clear();
             }
         }).AddTo(_compositeDisposable);
     }
-    // private void SubscribeFixedUpdate()
-    // {
-    //     Observable.EveryFixedUpdate().Subscribe(_ =>
-    //     {
-    //         FixedUpdate();
-    //     }).AddTo(_compositeDisposableFixedUpdate);
-    // }
-
-    private async UniTaskVoid FixedUpdateAsync()
+    private void SubscribeFixedUpdate()
     {
-        while (_updateKey == true)
+        Observable.EveryFixedUpdate().Subscribe(_ =>
         {
-            
-            if (Physics2D.CircleCast(_transform.PositionVector2() + _offsetSphere, _radiusSphere,
-                _direction, _contactFilter, _hits, _distance) > 0)
+            FixedUpdate();
+        }).AddTo(_compositeDisposableFixedUpdate);
+    }
+
+    private void FixedUpdate()
+    {
+        if (Physics2D.CircleCast(_transform.PositionVector2() + _offsetSphere, _radiusSphere,
+            _direction, _contactFilter, _hits, _distance) > 0)
+        {
+            _dotNormal = Vector2.Dot(_normal, Vector2.right);
+            if (_dotNormal < _dotValue)
             {
-                await UniTask.NextFrame(PlayerLoopTiming.FixedUpdate, _cancellationTokenSource.Token);
-                _dotNormal = Vector2.Dot(_normal, Vector2.right);
-                if (_dotNormal < _dotValue)
-                {
-                    _rigidbody2D.isKinematic = false;
-                    Move((Vector2.right * _directionMultiplier) * _speed * Time.deltaTime);
-                }
-                else
-                {
-                    _rigidbody2D.isKinematic = true;
-                    Move(DirectionAlongNormal() * _speed * Time.deltaTime);
-                }
+                _rigidbody2D.isKinematic = false;
+                Move((Vector2.right * _directionMultiplier) * _speed * Time.deltaTime);
             }
             else
             {
-                _rigidbody2D.isKinematic = false;
+                _rigidbody2D.isKinematic = true;
+                Move(DirectionAlongNormal() * _speed * Time.deltaTime);
             }
         }
+        else
+        {
+            _rigidbody2D.isKinematic = false;
+        }
     }
-    // private void FixedUpdate()
-    // {
-    //     if (Physics2D.CircleCast(_transform.PositionVector2() + _offsetSphere, _radiusSphere,
-    //         _direction, _contactFilter, _hits, _distance) > 0)
-    //     {
-    //         _dotNormal = Vector2.Dot(_normal, Vector2.right);
-    //         if (_dotNormal < _dotValue)
-    //         {
-    //             _rigidbody2D.isKinematic = false;
-    //             Move((Vector2.right * _directionMultiplier) * _speed * Time.deltaTime);
-    //         }
-    //         else
-    //         {
-    //             _rigidbody2D.isKinematic = true;
-    //             Move(DirectionAlongNormal() * _speed * Time.deltaTime);
-    //         }
-    //     }
-    //     else
-    //     {
-    //         _rigidbody2D.isKinematic = false;
-    //     }
-    // }
     private Vector2 DirectionAlongNormal()
     {
         return Vector3.Cross(_normal, _transform.forward) * _directionMultiplier;

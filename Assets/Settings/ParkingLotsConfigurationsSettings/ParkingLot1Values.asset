@@ -20,13 +20,13 @@ MonoBehaviour:
   _priceTagDestruction: 0.15
   _engineOverclockingMultiplierUpgrade:
   - Price: 101
-    Value: 1.2
+    Value: 0.95
   - Price: 102
-    Value: 1.4
+    Value: 0.9
   - Price: 103
-    Value: 1.5
+    Value: 0.85
   - Price: 104
-    Value: 1.7
+    Value: 0.8
   _gearRatioUpgrade:
   - Price: 101
     Value: 1.2

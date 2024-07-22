@@ -89,6 +89,7 @@ public class TimeScalerWarpState : TimeScalerState
         _currentTimeScaleValue = Mathf.Lerp(_currentDownTargetTime,TimeScalerValues.NORMAL_VALUE_TIME, time);
         Time.timeScale = _currentTimeScaleValue;
         TimeScaleSignal.OnTimeScaleChange?.Invoke(_currentTimeScaleValue);
+        Debug.Log($"{_currentTimeScaleValue}");
     }
 
     private float GetTimeDown()
@@ -98,6 +99,7 @@ public class TimeScalerWarpState : TimeScalerState
     private float GetTimeUp()
     {
         return _upTimeCurve.Evaluate(Mathf.InverseLerp(_currentDownTargetTime,0f, _duration));
+        // return _upTimeCurve.Evaluate(Mathf.InverseLerp(0f, _currentDownTargetTime, _duration));
     }
 
     private void CalculateRandomValues()

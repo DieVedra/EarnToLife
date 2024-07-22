@@ -8,7 +8,7 @@ using UnityEngine;
 public class BoosterAudioHandler : AudioPlayer
 {
     private readonly float _pitchMin = 0.65f;
-    private readonly float _pitchMax = 1.35f;
+    private readonly float _pitchMax = 1.40f;
     private readonly AudioClip _boosterRunAudioClip;
     private readonly AudioClip _boosterEndFuel;
     public BoosterAudioHandler(AudioSource audioSource, ReactiveProperty<bool> soundReactiveProperty, ReactiveProperty<bool> audioPauseReactiveProperty,

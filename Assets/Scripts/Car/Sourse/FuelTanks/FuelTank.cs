@@ -3,7 +3,7 @@ using System;
 
 public class FuelTank : Tank
 {
-    private readonly float _burnIdlingMultiplier = 0.2f;
+    private readonly float _burnIdlingMultiplier = 0.1f;
     private readonly float _combustionEfficiencyFuelMultiplier;
     private readonly GameOverSignal _gameOverSignal;
     private bool _gameOver;
@@ -21,13 +21,13 @@ public class FuelTank : Tank
     }
     public void BurnFuelOnMoving()
     {
-        BurnFuel(Time.deltaTime * _combustionEfficiencyFuelMultiplier);
+        BurnFuel(_combustionEfficiencyFuelMultiplier);
     }
     public void BurnFuelOnIdling()
     {
         if (_gameOver == false)
         {
-            BurnFuel(Time.deltaTime * _burnIdlingMultiplier);
+            BurnFuel(_burnIdlingMultiplier);
         }
     }
 

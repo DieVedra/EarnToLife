@@ -18,4 +18,5 @@ MonoBehaviour:
   - {fileID: 781276749234810245, guid: e78b35021e283584e9a4b78c332de1e4, type: 3}
   - {fileID: 781276749234810245, guid: e78b35021e283584e9a4b78c332de1e4, type: 3}
   _viewUILevelPrefab: {fileID: 4606657936518836811, guid: ffed4b31143f9a848adfe56273553546, type: 3}
+  _notificationsTextPrefab: {fileID: 1837459414372747373, guid: 89a6f6601a41f5849a53b053edfe7ecb, type: 3}
   _levelParticlesProvider: {fileID: 11400000, guid: b9e488aa3dc508f40bbc11a9737990c4, type: 2}

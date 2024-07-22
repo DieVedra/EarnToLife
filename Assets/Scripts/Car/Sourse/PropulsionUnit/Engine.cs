@@ -20,7 +20,7 @@ public class Engine
     {
         if (_currentTime < 1f)
         {
-            _currentTime += Time.deltaTime * _overclockingMultiplier;
+            _currentTime += Time.timeScale * Time.deltaTime + (1f -_overclockingMultiplier);
         }
         SetCurrentEngineSpeed();
         SetPitch();
@@ -31,7 +31,7 @@ public class Engine
     {
         if (_currentTime > 0f)
         {
-            _currentTime -= Time.deltaTime * _breakingEngineMultiplier;
+            _currentTime -= Time.timeScale * Time.deltaTime + (1f -_overclockingMultiplier);
         }
         SetCurrentEngineSpeed();
         SetPitch();

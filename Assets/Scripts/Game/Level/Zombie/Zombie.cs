@@ -38,7 +38,7 @@ public class Zombie : MonoBehaviour, IHitable, IExplosive, IShotable, ICutable
     [SerializeField, BoxGroup("Body")] private Rigidbody2D _bodyRigidbody2D;
     private readonly float _delayChangeLayer = 1f;
     private readonly float _forceTearingUpMultiplier = 0.5f;
-    private readonly float _addXRange = 20f;
+    private readonly float _addXRange = 350f;
     private int _zombieDebrisLayer;
     private int _layerCar;
     private Transform _transform;

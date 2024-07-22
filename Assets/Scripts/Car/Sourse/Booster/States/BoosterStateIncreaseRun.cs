@@ -15,6 +15,7 @@ public class BoosterStateIncreaseRun : BoosterState
     {
         BoosterAudioHandler.PlayRunBooster();
         ParticleSystemBooster.Play();
+
     }
 
     public override void Update()

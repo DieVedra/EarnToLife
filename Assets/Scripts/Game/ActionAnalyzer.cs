@@ -14,10 +14,8 @@ public class ActionAnalyzer
     private readonly DestructionsSignal _destructionsSignal;
     private readonly KillsSignal _killsSignal;
     private readonly GameOverSignal _gameOverSignal;
-    private readonly CancellationTokenSource _cancellationTokenSource = new CancellationTokenSource();
     private readonly CompositeDisposable _compositeDisposable = new CompositeDisposable();
     private int _currentDestructionValue;
-    private bool _analyzeKey;
 
     public ActionAnalyzer(TimeScaler timeScaler, INotificationForActionAnalyzer notificationsProvider,
         ExplodeSignal explodeSignal, DestructionsSignal destructionsSignal, KillsSignal killsSignal, GameOverSignal gameOverSignal)
@@ -36,31 +34,17 @@ public class ActionAnalyzer
     }
     private void Analyze()
     {
-        _analyzeKey = true;
-        AnalyzeDestructionValue().Forget();
-        AnalyzeDelayPeriod().Forget();
-    }
-    private async UniTaskVoid AnalyzeDestructionValue()
-    {
-        while (_analyzeKey == true)
+        Observable.EveryUpdate().Where(x=>_currentDestructionValue >= _maxDestructionValue).Subscribe(_=>
         {
-            await UniTask.NextFrame(_cancellationTokenSource.Token);
-            if (_currentDestructionValue >= _maxDestructionValue)
-            {
-                _timeScaler.TryStartTimeWarp();
-                // Debug.Log($"                                                           StartTimeWarp {_currentDestructionValue} ");
-            }
-        }
-    }
-    private async UniTaskVoid AnalyzeDelayPeriod()
-    {
-        while (_analyzeKey == true)
-        {
-            await UniTask.Delay(TimeSpan.FromSeconds(_delayPeriod),cancellationToken: _cancellationTokenSource.Token);
-            Debug.Log($"                 AnalyzeDelayPeriod {_currentDestructionValue} ");
-
             _currentDestructionValue = 0;
-        }
+            _timeScaler.TryStartTimeWarp();
+
+            Debug.Log(111);
+        }).AddTo(_compositeDisposable);
+        Observable.Interval(TimeSpan.FromSeconds(_delayPeriod)).Subscribe(_ =>
+        {
+            _currentDestructionValue = 0;
+        }).AddTo(_compositeDisposable);
     }
     private void OnExplode(Vector2 position)
     {
@@ -69,7 +53,7 @@ public class ActionAnalyzer
 
     private void OnGameOver()
     {
-        _analyzeKey = false;
+        _compositeDisposable.Clear();
     }
 
     private void OnDestruction()
@@ -82,7 +66,6 @@ public class ActionAnalyzer
         _explodeSignal.OnExplosion -= OnExplode;
         _destructionsSignal.OnDestruction -= OnDestruction;
         _killsSignal.OnKill -= OnDestruction;
-        _cancellationTokenSource.Cancel();
         _compositeDisposable.Clear();
     }
 }

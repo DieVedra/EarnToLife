@@ -15,7 +15,7 @@ public class GroundAnalyzer
     private readonly CarWheel _backWheel;
     private readonly LayerMask _contactMask;
     private bool _carBrokenIntoTwoParts = false;
-    private bool _isAnalyzing;
+    private bool _isSplittingFrame;
     private RaycastHit2D _frontWheelHit;
     private RaycastHit2D _backWheelHit;
     private CancellationTokenSource _cancellationTokenSource = new CancellationTokenSource();
@@ -45,9 +45,8 @@ public class GroundAnalyzer
         _asphaltLayer = asphaltLayer;
         _groundLayer = groundLayer;
         _zombieBloodLayer = zombieBloodLayer;
-        _isAnalyzing = true;
+        _isSplittingFrame = true;
         onCarBrokenIntoTwoParts.Subscribe(_ => { CarBrokenIntoTwoParts();});
-        Analyze().Forget();
     }
 
     public void Dispose()
@@ -59,20 +58,23 @@ public class GroundAnalyzer
         FrontWheelContactReactiveProperty.Dispose();
         BackWheelContactReactiveProperty .Dispose();
         _cancellationTokenSource.Cancel();
-        _isAnalyzing = false;
     }
 
-    private async UniTaskVoid Analyze()
+    public void Update()
     {
-        while (_isAnalyzing == true)
+        if (_isSplittingFrame == true)
         {
             CheckCircleFrontWheel();
-            await UniTask.Delay(TimeSpan.FromSeconds(_delay), cancellationToken: _cancellationTokenSource.Token);
+            _isSplittingFrame = false;
+        }
+        else
+        {
+            _isSplittingFrame = true;
+
             if (_carBrokenIntoTwoParts == false)
             {
                 CheckCircleBackWheel();
             }
-            await UniTask.Delay(TimeSpan.FromSeconds(_delay), cancellationToken: _cancellationTokenSource.Token);
         }
     }
     private void CheckCircleFrontWheel()

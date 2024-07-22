@@ -6506,7 +6506,6 @@ MonoBehaviour:
   _doorNormal: {fileID: 1445149703241501212}
   _doorDamaged1: {fileID: 555173951950187507}
   _doorDamaged2: {fileID: 7045153421645437078}
-  _doorHingeJoint: {fileID: 0}
   _rearviewMirror: {fileID: 18065390527690286}
   _strengthDoors: 400
   _pointEffect: {fileID: 18065390527690286}
@@ -7738,7 +7737,6 @@ MonoBehaviour:
   _doorNormal: {fileID: 9097716106657660251}
   _doorDamaged1: {fileID: 5751225354959896848}
   _doorDamaged2: {fileID: 7133570373313711870}
-  _doorHingeJoint: {fileID: 0}
   _rearviewMirror: {fileID: 0}
   _strengthDoors: 400
   _pointEffect: {fileID: 5282737349689116889}
@@ -9251,6 +9249,72 @@ MonoBehaviour:
   _screw: {fileID: 7361724965616973970}
   _blade1: {fileID: 5677306253881331881}
   _blade2: {fileID: 6330121747525239475}
+  _increaseBoosterCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0.38657138
+      outSlope: 0.38657138
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.07025156
+    - serializedVersion: 3
+      time: 0.4217505
+      value: 0.68256396
+      inSlope: 2.3891742
+      outSlope: 2.3891742
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.06649009
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  _decreaseBoosterCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: -0.002861023
+      value: 0
+      inSlope: 0.44310665
+      outSlope: 0.44310665
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.07635932
+    - serializedVersion: 3
+      time: 0.8335988
+      value: 0.305855
+      inSlope: 1.4340897
+      outSlope: 1.4340897
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
   _hotWheelRef: {fileID: 2981068929045813636}
   _hotWheelRotationSpeed: 12.5
   _radiusCastHotWheel: 0.428
@@ -22738,90 +22802,6 @@ MonoBehaviour:
       tangentMode: 0
       weightedMode: 0
       inWeight: 0.05503685
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  _increaseBoosterSoundCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: -0.0023498535
-      inSlope: 2.2915263
-      outSlope: 2.2915263
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0.13897382
-    - serializedVersion: 3
-      time: 0.5724045
-      value: 0.22599174
-      inSlope: 1.9496734
-      outSlope: 1.9496734
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.069035254
-      outWeight: 0.08370931
-    - serializedVersion: 3
-      time: 0.7319284
-      value: 0.9286837
-      inSlope: 2.0873172
-      outSlope: 2.0873172
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 1
-      value: 1
-      inSlope: -0.46463788
-      outSlope: -0.46463788
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 1
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  _decreaseBoosterSoundCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0.45716268
-      outSlope: 0.45716268
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0.16279449
-    - serializedVersion: 3
-      time: 0.18413192
-      value: 0.18214238
-      inSlope: 1.7854923
-      outSlope: 1.7854923
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.09318313
-    - serializedVersion: 3
-      time: 0.36157984
-      value: 0.7320014
-      inSlope: 2.3365626
-      outSlope: 2.3365626
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 1
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
       outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
@@ -52470,7 +52450,6 @@ MonoBehaviour:
   _doorNormal: {fileID: 3417889008952364353}
   _doorDamaged1: {fileID: 8308808035119711175}
   _doorDamaged2: {fileID: 590037652290411557}
-  _doorHingeJoint: {fileID: 0}
   _rearviewMirror: {fileID: 168162725711160541}
   _strengthDoors: 100
   _pointEffect: {fileID: 5282737349689116889}
@@ -59711,7 +59690,6 @@ MonoBehaviour:
   _doorNormal: {fileID: 5785820745868429028}
   _doorDamaged1: {fileID: 7701371857802991772}
   _doorDamaged2: {fileID: 6020439430876255569}
-  _doorHingeJoint: {fileID: 0}
   _rearviewMirror: {fileID: 18065390527690286}
   _strengthDoors: 100
   _pointEffect: {fileID: 18065390527690286}

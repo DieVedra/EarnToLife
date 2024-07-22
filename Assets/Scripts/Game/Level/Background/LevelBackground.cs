@@ -50,11 +50,11 @@ public class LevelBackground : MonoBehaviour
     private Vector2 _skyPos = new Vector2();
     private Vector2 _cloudsPosY = new Vector2();
     private GamePause _gamePause;
-    private CancellationTokenSource _cancellationTokenSource;
-    private bool _gamePlay;
+    private CompositeDisposable _compositeDisposable = new CompositeDisposable();
     private float _differenceBetweenPreviousAndCurrentPositions;
     private float _tBordersLevel;
     private float _calculatedSpeed;
+    private bool _isFrameSplitted;
 
     private float _negativeDeltaTime => Time.deltaTime * -1f;
     [Inject]
@@ -70,50 +70,34 @@ public class LevelBackground : MonoBehaviour
             _cloudScaleRange, _cloudColorAlphaRange, _speedAddedRange,
             _cloudsCount);
         _gameOverSignal.OnGameOver += GameOver;
-        _gamePlay = true;
-        _cancellationTokenSource = new CancellationTokenSource();
-        DoUpdate().Forget();
+        SubscribeFixedUpdate();
     }
 
-    private async UniTaskVoid DoUpdate()
+    private void SubscribeFixedUpdate()
     {
-        while (_gamePlay == true)
+        Observable.EveryFixedUpdate().Where(x => _gamePause.IsPause == false).Subscribe(_ =>
         {
-            if (_gamePause.IsPause == false)
+            if (_isFrameSplitted == false)
             {
                 CalculateAddedSpeedFromCameraMoveToClouds();
                 _calculatedSpeed = _speed * Time.deltaTime +
                                    _differenceBetweenPreviousAndCurrentPositions * _speedAdd * _negativeDeltaTime;
                 _calculatedSpeed *= Time.timeScale;
-                await UniTask.NextFrame(_cancellationTokenSource.Token);
                 CalculateParallaxY();
-                for (int i = 0; i < _cloudsGenerator.Clouds.Count; i++)
-                {
-                    if (i % 20 == 0)
-                    {
-                        await UniTask.NextFrame(_cancellationTokenSource.Token);
-                    }
-                    _cloudsGenerator.Clouds[i].Move(_calculatedSpeed);
-                }
+                _isFrameSplitted = true;
             }
-        }
+            else
+            {
+                _isFrameSplitted = false;
+            }
+            foreach (var cloud in _cloudsGenerator.Clouds)
+            {
+                cloud.Move(_calculatedSpeed);
+            }
+            _skyTransform.localPosition = _skyPos;
+            _cloudsTransform.localPosition = _cloudsPosY;
+        }).AddTo(_compositeDisposable);
     }
-    // private void FixedUpdate()
-    // {
-    //     if (_gamePause.IsPause == false)
-    //     {
-    //         CalculateAddedSpeedFromCameraMoveToClouds();
-    //         _calculatedSpeed = _speed * Time.deltaTime +
-    //                            _differenceBetweenPreviousAndCurrentPositions * _speedAdd * _negativeDeltaTime;
-    //         _calculatedSpeed *= Time.timeScale;
-    //         foreach (var cloud in _cloudsGenerator.Clouds)
-    //         {
-    //             cloud.Move(_calculatedSpeed);
-    //         }
-    //
-    //         CalculateParallaxY();
-    //     }
-    // }
 
     private void CalculateAddedSpeedFromCameraMoveToClouds()
     {
@@ -130,23 +114,20 @@ public class LevelBackground : MonoBehaviour
     {
         _skyPos.x = _skyTransform.localPosition.x;
         _skyPos.y = Mathf.Lerp(_skyTopBorderPoint.localPosition.y, _skyDownBorderPoint.localPosition.y, _tBordersLevel);
-        _skyTransform.localPosition = _skyPos;
     }
     private void CalculateCloudsParallax()
     {
         _cloudsPosY.x = _cloudsTransform.localPosition.x;
         _cloudsPosY.y = Mathf.Lerp(_cloudTopBorderPoint.localPosition.y, _cloudDownBorderPoint.localPosition.y, _tBordersLevel);
-        _cloudsTransform.localPosition = _cloudsPosY;
     }
 
     private void GameOver()
     {
-        _gamePlay = false;
+        _compositeDisposable.Clear();
     }
     private void OnDestroy()
     {
         _gameOverSignal.OnGameOver -= GameOver;
-        _gamePlay = false;
-        _cancellationTokenSource.Cancel();
+        _compositeDisposable.Clear();
     }
 }

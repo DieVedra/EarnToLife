@@ -1,6 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using System.Threading;
 using Cysharp.Threading.Tasks;
+using UniRx;
 using UnityEngine;
 
 public class BlastWave
@@ -14,8 +16,9 @@ public class BlastWave
     private readonly AnimationCurve _extinctionBlastWaveCurve;
     private readonly ContactFilter2D _contactFilter;
     private readonly List<Collider2D> _hitCollidersAfterSphereCast = new List<Collider2D>();
+    private CompositeDisposable _compositeDisposable = new CompositeDisposable();
     private List<DebrisFragment> _debrisFragments;
-    private CancellationTokenSource _cancellationTokenSource;
+    private List<Vector2> _debrisForces;
     private float _forceShockWaveInRadius;
 
     public BlastWave(DebrisPool debrisPool, Transform transformPointReference, AnimationCurve extinctionBlastWaveCurve, LayerMask blastWaveMask,
@@ -33,38 +36,28 @@ public class BlastWave
 
     public void Dispose()
     {
-        _cancellationTokenSource.Cancel();
+        _compositeDisposable.Clear();
     }
-    public void InteractWithBlastWave()
+    public IEnumerator InteractWithBlastWave()
     {
         if (TryCastSphere())
         {
             _debrisFragments = new List<DebrisFragment>(_hitCollidersAfterSphereCast.Count);
-            _cancellationTokenSource = new CancellationTokenSource();
-            TryInteract().Forget();
-            // TryInteract();
+            _debrisForces = new List<Vector2>(_hitCollidersAfterSphereCast.Count);
+            Sorting();
+            CalculateForces();
+            yield return null;
+            AddForces();
         }
     }
-
-    private async UniTaskVoid TryInteract()
-    {
-        TryInteractPart1();
-        await UniTask.NextFrame(_cancellationTokenSource.Token);
-        TryInteractPart2AddForceBlastWaveToDebris();
-    }
-    private void TryInteractPart1()
+    private void Sorting()
     {
         for (int i = 0; i < _hitCollidersAfterSphereCast.Count; i++)
         {
             if (_hitCollidersAfterSphereCast[i].TryGetComponent(out DebrisFragment debrisFragment))
             {
-                // var forceDirection = CalculateDirectionBlastWave(debrisFragment.FragmentTransform.position, _transformPointReference.position)
-                //                      * CalculateForceShockWaveInRadius(debrisFragment.FragmentTransform.position);
-                // debrisFragment.Rigidbody2D.AddForce(forceDirection);
-                // TryAddEffectToDebrisPiece(debrisFragment);
-                
                 _debrisFragments.Add(debrisFragment);
-                
+
             }
             else if (_hitCollidersAfterSphereCast[i].transform.parent.TryGetComponent(out IExplosive explosive))
             {
@@ -72,61 +65,28 @@ public class BlastWave
                     CalculateDirectionBlastWave(explosive.Position, _transformPointReference.position),
                     CalculateForceShockWaveInRadius(explosive.Position)) == true)
                 {
-                    // AddForceBlastWaveToDebris(explosive.DebrisFragments);
                     _debrisFragments.AddRange(explosive.DebrisFragments);
-
                 }
             }
         }
     }
 
-    private void TryInteractPart2AddForceBlastWaveToDebris()
+    private void AddForces()
     {
         for (int i = 0; i < _debrisFragments.Count; i++)
         {
-            _debrisFragments[i].TryAddForce(
-                CalculateDirectionBlastWave(_debrisFragments[i].FragmentTransform.position, _transformPointReference.position)
-                * CalculateForceShockWaveInRadius(_debrisFragments[i].FragmentTransform.position));
+            _debrisFragments[i].TryAddForce(_debrisForces[i]);
             TryAddEffectToDebrisPiece(_debrisFragments[i]);
         }
     }
-    // private async UniTaskVoid TryInteract()
-    // {
-    //     for (int i = 0; i < _hitCollidersAfterSphereCast.Count; i++)
-    //     {
-    //         if (i % 3 == 0)
-    //         {
-    //             await UniTask.NextFrame(_cancellationTokenSource.Token);
-    //         }
-    //
-    //         if (_hitCollidersAfterSphereCast[i].TryGetComponent(out DebrisFragment debrisFragment))
-    //         {
-    //             var forceDirection = CalculateDirectionBlastWave(debrisFragment.FragmentTransform.position, _transformPointReference.position)
-    //                                  * CalculateForceShockWaveInRadius(debrisFragment.FragmentTransform.position);
-    //             debrisFragment.Rigidbody2D.AddForce(forceDirection);
-    //             TryAddEffectToDebrisPiece(debrisFragment);
-    //         }
-    //         else if (_hitCollidersAfterSphereCast[i].transform.parent.TryGetComponent(out IExplosive explosive))
-    //         {
-    //             if (explosive.TryBreakOnExplosion(
-    //                 CalculateDirectionBlastWave(explosive.Position, _transformPointReference.position),
-    //                 CalculateForceShockWaveInRadius(explosive.Position)) == true)
-    //             {
-    //                 AddForceBlastWaveToDebris(explosive.DebrisFragments);
-    //             }
-    //         }
-    //     }
-    // }
-    // private void AddForceBlastWaveToDebris()
-    // {
-    //     for (int i = 0; i < _debrisFragments.Count; i++)
-    //     {
-    //         _debrisFragments[i].TryAddForce(
-    //             CalculateDirectionBlastWave(_debrisFragments[i].FragmentTransform.position, _transformPointReference.position)
-    //             * CalculateForceShockWaveInRadius(_debrisFragments[i].FragmentTransform.position));
-    //         TryAddEffectToDebrisPiece(_debrisFragments[i]);
-    //     }
-    // }
+    private void CalculateForces()
+    {
+        for (int i = 0; i < _debrisFragments.Count; i++)
+        {
+            _debrisForces.Add(CalculateDirectionBlastWave(_debrisFragments[i].FragmentTransform.position, _transformPointReference.position)
+                              * CalculateForceShockWaveInRadius(_debrisFragments[i].FragmentTransform.position));
+        }
+    }
     
     private void TryAddEffectToDebrisPiece(DebrisFragment debrisFragment)
     {

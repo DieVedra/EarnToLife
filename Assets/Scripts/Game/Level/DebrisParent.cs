@@ -12,7 +12,6 @@ public class DebrisParent : MonoBehaviour
     private List<Transform> _debris = new List<Transform>(50);
     private CompositeDisposable _compositeDisposable = new CompositeDisposable();
     private Transform _cameraTransform;
-
     [Inject]
     private void Construct(ILevel level)
     {

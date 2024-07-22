@@ -31,7 +31,7 @@ public class Tank
     {
         if (CheckFuel())
         {
-            FuelQuantity -= value;
+            FuelQuantity -= value * Time.deltaTime * Time.timeScale;
         }
     }
 

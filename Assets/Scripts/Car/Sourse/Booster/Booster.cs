@@ -13,7 +13,7 @@ public class Booster
     public BoosterFuelTank BoosterFuelTank { get; private set; }
     public bool FuelAvailability => BoosterFuelTank.CheckFuel();
     public event Action OnBoosterDisable;
-    public Booster(BoosterAudioHandler boosterAudioHandler, BoosterFuelTank boosterFuelTank,
+    public Booster(IGamePause gamePause, BoosterAudioHandler boosterAudioHandler, BoosterFuelTank boosterFuelTank,
         BoosterScrew boosterScrew, ParticleSystem particleSystemBooster,
         AnimationCurve increaseBoosterSoundCurve, AnimationCurve decreaseBoosterSoundCurve)
     {
@@ -22,7 +22,7 @@ public class Booster
         _dictionaryStates = new Dictionary<Type, BoosterState>()
         {
             {typeof(BoosterStateIncreaseRun), new BoosterStateIncreaseRun(_boosterValues, boosterScrew, boosterAudioHandler, increaseBoosterSoundCurve, particleSystemBooster)},
-            {typeof(BoosterStateDecreaseStop), new BoosterStateDecreaseStop(_boosterValues, boosterScrew, boosterAudioHandler, decreaseBoosterSoundCurve, particleSystemBooster) },
+            {typeof(BoosterStateDecreaseStop), new BoosterStateDecreaseStop(gamePause, _boosterValues, boosterScrew, boosterAudioHandler, decreaseBoosterSoundCurve, particleSystemBooster) },
             {typeof(BoosterStateOutFuelStop), new BoosterStateOutFuelStop(_boosterValues, boosterScrew, boosterAudioHandler, particleSystemBooster) },
             {typeof(BoosterStateOnBrokenStop), new BoosterStateOnBrokenStop(_boosterValues, boosterScrew, boosterAudioHandler, particleSystemBooster) },
         };
@@ -36,8 +36,6 @@ public class Booster
     {
         if (_isBroken == false)
         {
-            // Debug.Log($"            TryRunBooster");
-
             SetStateIncrease();
         }
     }
@@ -45,8 +43,6 @@ public class Booster
     {
         if (_isBroken == false)
         {
-            // Debug.Log($"            TryStopBooster");
-
             SetStateDecrease();
         }
     }
@@ -99,10 +95,7 @@ public class Booster
         if (_dictionaryStates.TryGetValue(type, out var extractState))
         {
             _currentState?.Exit();
-            Debug.Log($"            prev                     {_currentState?.GetType()}");
-
             _currentState = extractState;
-            Debug.Log($"          curr                       {_currentState?.GetType()}");
             _currentState.Enter();
         }
     }
