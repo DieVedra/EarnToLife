@@ -1,5 +1,7 @@
 ﻿
+using UnityEngine;
+
 public interface INotificationForActionAnalyzer
 {
-    public void ShowCompliment(int count);
+    public void ShowExplosion(Vector2 position);
 }

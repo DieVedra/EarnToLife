@@ -5,8 +5,8 @@ using UnityEngine;
 public class CarAudio : MonoBehaviour
 {
     [SerializeField, BoxGroup("WheelGroundInteraction")] private AnimationCurve _brakeVolumeCurve;
-    [SerializeField, BoxGroup("Booster")] private AnimationCurve _increaseBoosterSoundCurve;
-    [SerializeField, BoxGroup("Booster")] private AnimationCurve _decreaseBoosterSoundCurve;
+    // [SerializeField, BoxGroup("Booster")] private AnimationCurve _increaseBoosterSoundCurve;
+    // [SerializeField, BoxGroup("Booster")] private AnimationCurve _decreaseBoosterSoundCurve;
 
     [SerializeField, BoxGroup("AudioSources")] private AudioSource _forEngine;
     [SerializeField, BoxGroup("AudioSources")] private AudioSource _forBooster;
@@ -49,7 +49,6 @@ public class CarAudio : MonoBehaviour
     public void Dispose()
     {
         EngineAudioHandler.Dispose();
-        BoosterAudioHandler.Dispose();
         GunAudioHandler.Dispose();
         DestructionAudioHandler.Dispose();
         HotWheelAudioHandler.Dispose();
@@ -68,10 +67,9 @@ public class CarAudio : MonoBehaviour
     private void InitBoosterAudio()
     {
         BoosterAudioHandler = new BoosterAudioHandler(_forBooster,
-            _globalAudio.SoundReactiveProperty, _globalAudio.AudioPauseReactiveProperty, new TimeScalePitchHandler(_timeScaleSignal),
+            _globalAudio.SoundReactiveProperty, _globalAudio.AudioPauseReactiveProperty,
             _carAudioClipProvider.BoosterRunAudioClip,
-            _carAudioClipProvider.BoosterEndFuelAudioClip,
-            _increaseBoosterSoundCurve, _decreaseBoosterSoundCurve);
+            _carAudioClipProvider.BoosterEndFuelAudioClip);
     }
 
     private void InitGunAudio()

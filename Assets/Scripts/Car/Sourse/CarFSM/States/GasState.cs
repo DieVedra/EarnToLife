@@ -11,13 +11,13 @@ public class GasState : CarState
     public GasState(WheelJoint2D frontWheelJoint, WheelJoint2D backWheelJoint, PropulsionUnit propulsionUnit,
         Booster booster, GasStateWheelGroundInteraction gasStateWheelGroundInteraction,
         ReactiveCommand onCarBrokenIntoTwoParts)
-        : base(frontWheelJoint, backWheelJoint, propulsionUnit, booster, onCarBrokenIntoTwoParts)
+        : base(frontWheelJoint, backWheelJoint, propulsionUnit, onCarBrokenIntoTwoParts)
     {
         _gasStateWheelGroundInteraction = gasStateWheelGroundInteraction;
     }
     public override void Enter()
     {
-        Booster?.TryStopBooster();
+        // Booster?.TryStopBooster();
         _gasStateWheelGroundInteraction.Init(CarBroken);
     }
     public override void Update()

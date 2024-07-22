@@ -28,9 +28,9 @@ public class TimeScaler : MonoBehaviour
         };
         _timeScalerFsm = new TimeScalerFSM(dictionaryStates);
     }
-    public bool TryStartTimeWarp()
+    public void TryStartTimeWarp()
     {
-        return _timeScalerFsm.SetState<TimeScalerWarpState>();
+        _timeScalerFsm.SetState<TimeScalerWarpState>();
     }
     public void SetStopTime()
     {

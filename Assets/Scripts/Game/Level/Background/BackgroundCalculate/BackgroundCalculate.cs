@@ -1,7 +1,5 @@
-﻿namespace Game.Level.Background
+﻿
+public class BackgroundCalculate
 {
-    public class BackgroundCalculate
-    {
         
-    }
 }

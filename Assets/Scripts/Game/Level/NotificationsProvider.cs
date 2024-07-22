@@ -4,6 +4,7 @@ using UnityEngine;
 using System;
 using UniRx;
 using UnityEngine.Events;
+using Random = System.Random;
 
 public class NotificationsProvider : INotificationForActionAnalyzer
 {
@@ -16,9 +17,11 @@ public class NotificationsProvider : INotificationForActionAnalyzer
     private const string DRIVER_ASLEEP = "Are you sleeping?";
     private const string CAR_TURNED_OVER = "Turned over.";
     private const string DAY = "Day ";
-    private const string AWESOME = "AWESOME ";
+    private const string EXPLOSION1 = "Boom!";
+    private const string EXPLOSION2 = "Bun!";
     public event Action<string> OnShowNotification;
-    public event Action<string, bool> OnShowNotificationWithDelay;
+    public event Action<string> OnShowNotificationWithDelay;
+    public event Action<string, Vector2> OnShowNotificationExplosion;
     public event Action<string> OnGotPointDestination;
     public event Action<string> OnFueltankEmpty;
     public event Action<string> OnEngineBroken;
@@ -26,17 +29,13 @@ public class NotificationsProvider : INotificationForActionAnalyzer
     public event Action<string> OnCarStuck;
     public event Action<string> OnDriverAsleep;
     public event Action<string> OnCarTurnOver;
-    public void ShowDayInfo(string day, bool delay)
+    public void ShowDayInfo(string day)
     {
-        OnShowNotificationWithDelay?.Invoke(BuildString.GetString( new string[] { DAY, day}), delay);
+        OnShowNotificationWithDelay?.Invoke(BuildString.GetString( new string[] { DAY, day}));
     }
-    // public void ShowDayInfo(string day)
-    // {
-    //     OnShowNotification?.Invoke(BuildString.GetString( new string[] { DAY, day}));
-    // }
-    public void ShowCompliment(int count)
+    public void ShowExplosion(Vector2 position)
     {
-        OnShowNotification?.Invoke(AWESOME);
+        OnShowNotificationExplosion?.Invoke(UnityEngine.Random.Range(0,2) == 1 ? EXPLOSION1 : EXPLOSION2, position);
     }
     public void BoosterEmpty()
     {

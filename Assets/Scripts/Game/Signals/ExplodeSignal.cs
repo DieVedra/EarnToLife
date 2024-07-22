@@ -1,6 +1,7 @@
 ﻿using System;
+using UnityEngine;
 
 public class ExplodeSignal
 {
-    public Action OnExplosion;
+    public Action<Vector2> OnExplosion;
 }

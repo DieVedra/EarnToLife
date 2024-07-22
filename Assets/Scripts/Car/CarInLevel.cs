@@ -10,7 +10,6 @@ public class CarInLevel : Car
 {
     [SerializeField, BoxGroup("Engine"), HorizontalLine(color:EColor.White)] private AnimationCurve _engineAccelerationCurve;
     [SerializeField, BoxGroup("Engine")] private ParticleSystem _exhaustParticleSystem;
-
     [SerializeField, Range(0f, 1f), BoxGroup("_gyroscope"), HorizontalLine(color:EColor.Green)] private float _gyroscopePower;
 
     [SerializeField, BoxGroup("WheelGroundInteraction"), HorizontalLine(color:EColor.Yellow)] private LayerMask _groundContactMask;
@@ -32,12 +31,14 @@ public class CarInLevel : Car
     [SerializeField, BoxGroup("Gun")] private float _forceGun = 100f;
 
     [SerializeField, BoxGroup("Booster"), HorizontalLine(color:EColor.Green)] private BoosterRef _boosterRef;
-    [SerializeField, BoxGroup("Booster"), Range(1f,50f)] private float _rotationSpeed;
+    [SerializeField, BoxGroup("Booster"), Range(10f,100f)] private float _rotationSpeed = 80f;
     [SerializeField, BoxGroup("Booster"), Range(50f,1000f)] private float _force;
     [SerializeField, BoxGroup("Booster")] private ParticleSystem _boosterParticleSystem;
     [SerializeField, BoxGroup("Booster")] private Transform _screw;
     [SerializeField, BoxGroup("Booster")] private SpriteRenderer _blade1;
     [SerializeField, BoxGroup("Booster")] private SpriteRenderer _blade2;
+    [SerializeField, BoxGroup("Booster")] private AnimationCurve _increaseBoosterCurve;
+    [SerializeField, BoxGroup("Booster")] private AnimationCurve _decreaseBoosterCurve;
 
     [SerializeField, BoxGroup("HotWheel"), HorizontalLine(color:EColor.Red)] private HotWheelRef _hotWheelRef;
     [SerializeField, BoxGroup("HotWheel"), Range(1f,50f)] private float _hotWheelRotationSpeed;
@@ -98,7 +99,7 @@ public class CarInLevel : Car
     private ReactiveCommand _onCarBrokenIntoTwoPartsReactiveCommand = new ReactiveCommand();
     public void Construct(CarConfiguration carConfiguration, NotificationsProvider notificationsProvider,
         LevelProgressCounter levelProgressCounter, DebrisParent debrisParent,
-        IGlobalAudio globalAudio, CarAudioClipProvider carAudioClipProvider, TimeScaleSignal timeScaleSignal,
+        IGlobalAudio globalAudio, CarAudioClipProvider carAudioClipProvider, TimeScaleSignal timeScaleSignal, GameOverSignal gameOverSignal,
         CarControlMethod carControlMethod)
     {
         CarConfiguration = carConfiguration;
@@ -114,7 +115,7 @@ public class CarInLevel : Car
         _transmission = new Transmission(carConfiguration.GearRatio);
         Speedometer = new Speedometer(_transmission, _bodyRigidbody2D);
         _speedEffectHandler = new SpeedEffectHandler(Speedometer, _speedEffect);
-        FuelTank = new FuelTank(carConfiguration.FuelQuantity, CarConfiguration.EngineOverclockingMultiplier);
+        FuelTank = new FuelTank(gameOverSignal, carConfiguration.FuelQuantity, CarConfiguration.EngineOverclockingMultiplier);
         InitExhaust();
         _engine = new Engine(_engineAccelerationCurve, _carAudio.EngineAudioHandler, _exhaust, CarConfiguration.EngineOverclockingMultiplier);
         _propulsionUnit = new PropulsionUnit(_engine, _transmission, FuelTank);
@@ -147,14 +148,13 @@ public class CarInLevel : Car
             _moveAnalyzer.Update();
             CarGun?.Update();
         }
+
         _carFsm.Update();
         if (Booster != null)
         {
-            Booster.Update();
             _currentBoosterFuelQuantity = Booster.BoosterFuelTank.FuelQuantity;
         }
         _speedEffectHandler.Update();
-        _groundAnalyzer.Update();
         FrontSuspension.Calculate();
         BackSuspension.Calculate();
         _currentFuelQuantity = FuelTank.FuelQuantity;
@@ -300,10 +300,12 @@ public class CarInLevel : Car
     {
         if (BoosterAvailable)
         {
-            Booster = new Booster(_carAudio.BoosterAudioHandler,
+            Booster = new Booster(
+                _carAudio.BoosterAudioHandler,
                 new BoosterFuelTank(CarConfiguration.BoosterCountFuelQuantity),
                 new BoosterScrew(_screw, _blade1, _blade2, _rotationSpeed),
-                _boosterParticleSystem);
+                _boosterParticleSystem,
+                _increaseBoosterCurve, _decreaseBoosterCurve);
             Booster.BoosterFuelTank.OnTankEmpty += _notificationsProvider.BoosterEmpty;
             Booster.BoosterFuelTank.OnTankEmpty += Booster.StopBoosterOnOutFuel;
             Booster.OnBoosterDisable += BoosterDisable;
@@ -398,6 +400,7 @@ public class CarInLevel : Car
 
     private void BoosterDisable()
     {
+        Booster.Dispose();
         Booster.OnBoosterDisable -= BoosterDisable;
         Booster.BoosterFuelTank.OnTankEmpty -= Booster.StopBoosterOnOutFuel;
         Booster.BoosterFuelTank.OnTankEmpty -= _notificationsProvider.BoosterEmpty;
@@ -414,6 +417,7 @@ public class CarInLevel : Car
     private void OnDisable()
     {
         FuelTank.OnTankEmpty -= _exhaust.StopPlayEffect;
+        FuelTank.Dispose();
         _stopCauseHandler.Dispose();
         _coupAnalyzer.Dispose();
         _groundAnalyzer.Dispose();

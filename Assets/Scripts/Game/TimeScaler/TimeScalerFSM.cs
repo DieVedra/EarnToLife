@@ -16,12 +16,12 @@ public class TimeScalerFSM
     {
         CurrentState.Exit();
     }
-    public bool SetState<T>() where T : TimeScalerState
+    public void SetState<T>() where T : TimeScalerState
     {
         var nextType = typeof(T);
         if (CurrentState?.GetType() == nextType)
         {
-            return false;
+            return ;
         }
         else
         {
@@ -40,7 +40,6 @@ public class TimeScalerFSM
                 CurrentState = extractState;
                 CurrentState?.Enter();
             }
-            return true;
         }
     }
 }

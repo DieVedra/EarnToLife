@@ -51,4 +51,10 @@ public ZombieAudioHandler(AudioSource audioSource, ReactiveProperty<bool> soundR
     {
         TryPlayOneShotClipWithRandomSectionVolumeAndPitch(GetRandomAudioClip(_hitClips), _volumeSection, _pitchSection);
     }
+
+    public void MuteAndStopPlay()
+    {
+        StopPlay();
+        SetVolume(0f);
+    }
 }

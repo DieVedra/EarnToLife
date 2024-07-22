@@ -26,7 +26,6 @@ public class Game : MonoBehaviour
     [Inject] private LevelPrefabsProvider _levelPrefabsProvider;
     [Inject] private AudioClipProvider _audioClipProvider;
     [Inject] private GamePause _gamePause;
-    [Inject] private GameOverSignal _gameOverSignal;
     [Inject] private ILevel _level;
     [Inject] private NotificationsProvider _notificationsProvider;
     [Inject] private TimeScaler _timeScaler;
@@ -34,11 +33,12 @@ public class Game : MonoBehaviour
     [Inject] private DestructionsSignal _destructionsSignal;
     [Inject] private KillsSignal _killsSignal;
     [Inject] private TimeScaleSignal _timeScaleSignal;
-    
+    [Inject] private GameOverSignal _gameOverSignal;
+
 
     private Factory _factory;
     private CarInLevel _carInLevel;
-    private PresenterUILevel _presenterUILevel;
+    private LogicUILevel _logicUILevel;
     private KillsCount _killsCount;
     private DestructionCount _destructionCount;
     private ResultsLevelProvider _resultsLevelProvider;
@@ -52,7 +52,7 @@ public class Game : MonoBehaviour
     {
         _playerDataHandler = _playerDataProvider.PlayerDataHandler;
         _factory = new Factory();
-        _actionAnalyzer = new ActionAnalyzer(_timeScaler, _notificationsProvider, _explodeSignal, _destructionsSignal, _killsSignal);
+        _actionAnalyzer = new ActionAnalyzer(_timeScaler, _notificationsProvider, _explodeSignal, _destructionsSignal, _killsSignal, _gameOverSignal);
         InitCar();
         _limitRideBack.Init(_limitRideBackIsOn);
         InitViewUILevel();
@@ -60,9 +60,9 @@ public class Game : MonoBehaviour
         _destructionCount = new DestructionCount(_destructionsSignal);
         _resultsLevelProvider = new ResultsLevelProvider(_playerDataHandler, _carConfiguration, _killsCount, _destructionCount,
             _levelProgressCounter, _notificationsProvider, _gameOverSignal, _timeWaitingOnEndLevel);
-        _presenterUILevel = new PresenterUILevel(_viewUILevel, _carInLevel, _gamePause, _resultsLevelProvider,
-            new SceneSwitch(_playerDataHandler, _gameData), _globalAudio, _gameData.CarControlMethod);
-        _notificationsProvider.ShowDayInfo(_playerDataHandler.PlayerData.Days.ToString(), true);
+        _logicUILevel = new LogicUILevel(_viewUILevel, _carInLevel, _gamePause, _resultsLevelProvider,
+            new SceneSwitch(_playerDataHandler, _gameData), _globalAudio, _levelPrefabsProvider.NotificationsTextPrefab, _gameData.CarControlMethod);
+        _notificationsProvider.ShowDayInfo(_playerDataHandler.PlayerData.Days.ToString());
     }
     private void InitCar()
     {
@@ -77,7 +77,7 @@ public class Game : MonoBehaviour
         InitProgressCounter();
         _carInLevel.Construct(_carConfiguration, _notificationsProvider, _levelProgressCounter,
             _level.DebrisParent, _globalAudioForCar, _audioClipProvider.CarsAudioClipsProvider.GetCarAudioClipProvider(currentSelectLotCarIndex),
-            _timeScaleSignal, _gameData.CarControlMethod);
+            _timeScaleSignal, _gameOverSignal, _gameData.CarControlMethod);
     }
 
     private void InitProgressCounter()

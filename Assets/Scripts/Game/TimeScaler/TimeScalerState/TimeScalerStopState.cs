@@ -8,7 +8,6 @@ public class TimeScalerStopState : TimeScalerState
 
     public override void Enter()
     {
-        Debug.Log($"                            Stop");
         Time.timeScale = TimeScalerValues.MIN_VALUE_TIME;
         TimeScaleSignal.OnTimeScaleChange?.Invoke(TimeScalerValues.MIN_VALUE_TIME);
     }

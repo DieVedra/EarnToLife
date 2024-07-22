@@ -14,7 +14,7 @@ public class SoftStopState : CarState
     private float _startDecreaseSpeedValue;
     public SoftStopState(WheelJoint2D frontWheelJoint, WheelJoint2D backWheelJoint, PropulsionUnit propulsionUnit,
         Booster booster, ReactiveCommand onCarBrokenIntoTwoParts)
-        : base(frontWheelJoint, backWheelJoint, propulsionUnit, booster, onCarBrokenIntoTwoParts) { }
+        : base(frontWheelJoint, backWheelJoint, propulsionUnit, onCarBrokenIntoTwoParts) { }
 
     public override void Enter()
     {
@@ -23,7 +23,7 @@ public class SoftStopState : CarState
         {
             DecreaseSpeed(BackWheelJoint);
         }
-        Booster?.TryStopBooster();
+        // Booster?.TryStopBooster();
     }
 
     public override void Update() { }

@@ -1,7 +1,5 @@
-﻿namespace Game.Level.LevelContent
+﻿
+public class DisableEnableSwitcher
 {
-    public class DisableEnableSwitcher
-    {
         
-    }
 }

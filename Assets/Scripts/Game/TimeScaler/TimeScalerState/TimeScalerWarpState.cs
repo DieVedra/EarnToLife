@@ -29,12 +29,10 @@ public class TimeScalerWarpState : TimeScalerState
 
     public override void Enter()
     {
-        Debug.Log($"                            Warp State");
         TimeScaleSignal.OnTimeWarpedOn?.Invoke();
         if (_timeDown == false && _timeUp == false)
         {
             CalculateRandomValues();
-            
             SubscribeUpdate(_currentDownDuration, TimeDown);
         }
         else if (_timeDown == false && _timeUp == true)
@@ -82,7 +80,6 @@ public class TimeScalerWarpState : TimeScalerState
             _timeUp = false;
             TimeScaleSignal.OnTimeWarpedOff?.Invoke();
             _setRunState?.Invoke();
-            Debug.Log($"             Warp state End       ");
         }
     }
 
@@ -96,7 +93,7 @@ public class TimeScalerWarpState : TimeScalerState
 
     private float GetTimeDown()
     {
-        return _downTimeCurve.Evaluate(Mathf.InverseLerp(0f, _currentDownTargetTime, _duration));
+        return _downTimeCurve.Evaluate(Mathf.InverseLerp(_currentDownTargetTime, 0f,_duration));
     }
     private float GetTimeUp()
     {

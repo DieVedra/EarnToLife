@@ -5,15 +5,14 @@ public abstract class CarState
 {
     protected WheelJoint2D FrontWheelJoint;
     protected WheelJoint2D BackWheelJoint;
-    protected Booster Booster;
+    // protected Booster Booster;
     protected PropulsionUnit PropulsionUnit;
     protected bool CarBroken = false;
-    protected CarState(WheelJoint2D frontWheelJoint, WheelJoint2D backWheelJoint, PropulsionUnit propulsionUnit,
-        Booster booster, ReactiveCommand onCarBrokenIntoTwoParts)
+    protected CarState(WheelJoint2D frontWheelJoint, WheelJoint2D backWheelJoint, PropulsionUnit propulsionUnit, ReactiveCommand onCarBrokenIntoTwoParts)
     {
         FrontWheelJoint = frontWheelJoint;
         BackWheelJoint = backWheelJoint;
-        Booster = booster;
+        // Booster = booster;
         PropulsionUnit = propulsionUnit;
         onCarBrokenIntoTwoParts.Subscribe(_ => { CarBrokenIntoTwoParts();});
     }

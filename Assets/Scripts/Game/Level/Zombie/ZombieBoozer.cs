@@ -11,7 +11,6 @@ public class ZombieBoozer : Zombie
     [SerializeField] private float _duration = 5f;
     private ParticleSystem.MainModule _mainModule;
     private ZombieBoozerAudioHandler _zombieBoozerAudioHandler;
-    private CancellationTokenSource _cancellationTokenSource = new CancellationTokenSource();
     private GameOverSignal _gameOverSignal;
     [Inject]
     private void Construct(AudioClipProvider audioClipProvider, GameOverSignal gameOverSignal, IGlobalAudio globalAudio)
@@ -31,7 +30,6 @@ public class ZombieBoozer : Zombie
     private void StopEffect()
     {
         _fartEffect.Stop();
-        _cancellationTokenSource.Cancel();
     }
 
     private void PlayEffect()
@@ -42,8 +40,7 @@ public class ZombieBoozer : Zombie
     }
     private void OnEnable()
     {
-        StartCyclePlaySound(_cancellationTokenSource, PlayEffect,
-            _duration, _duration).Forget();
+        StartCoroutine(StartCyclePlaySound(PlayEffect, _duration));
         OnBroken += StopEffect;
     }
     private void OnDisable()

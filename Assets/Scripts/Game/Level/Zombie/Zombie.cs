@@ -40,6 +40,7 @@ public class Zombie : MonoBehaviour, IHitable, IExplosive, IShotable, ICutable
     private readonly float _forceTearingUpMultiplier = 0.5f;
     private readonly float _addXRange = 20f;
     private int _zombieDebrisLayer;
+    private int _layerCar;
     private Transform _transform;
     private Transform _cameraTransform;
     private ZombiePool _zombiePool;
@@ -47,11 +48,10 @@ public class Zombie : MonoBehaviour, IHitable, IExplosive, IShotable, ICutable
     private CompositeDisposable _compositeDisposable = new CompositeDisposable();
     private Collision2D _collision2D;
     private ZombieMove _zombieMove;
-    // private CancellationTokenSource _cancellationTokenSource = new CancellationTokenSource();
-    private CancellationTokenSource _cancellationTokenSourceForTalkSound = new CancellationTokenSource();
     private GameObject[] _bodyParts;
     private List<DebrisFragment> _debrisFragments;
     private ZombieAudioHandler ZombieAudioHandler;
+    private WaitForSeconds _waitForSeconds;
     private KillsSignal _killsSignal;
     private GameOverSignal _gameOverSignal;
     protected event Action OnBroken;
@@ -61,7 +61,6 @@ public class Zombie : MonoBehaviour, IHitable, IExplosive, IShotable, ICutable
     public bool IsBroken => IsBrokenReactiveProperty.Value;
     public ReactiveProperty<bool> IsBrokenReactiveProperty = new ReactiveProperty<bool>();
     public Transform TargetTransform { get; private set; }
-    private Transform _headTransform;
     
     [Inject]
     private void Construct(GamePause gamePause, AudioClipProvider audioClipProvider, LayersProvider layersProvider,
@@ -73,6 +72,7 @@ public class Zombie : MonoBehaviour, IHitable, IExplosive, IShotable, ICutable
         _gamePause = gamePause;
         _killsSignal = killsSignal;
         _zombieDebrisLayer = layersProvider.ZombieDebrisLayer;
+        _layerCar = layersProvider.CarLayer;
         ZombieAudioHandler = new ZombieAudioHandler(GetComponent<AudioSource>(),
             globalAudio.SoundReactiveProperty, globalAudio.AudioPauseReactiveProperty, audioClipProvider.LevelAudioClipProvider);
         _gameOverSignal = gameOverSignal;
@@ -92,7 +92,7 @@ public class Zombie : MonoBehaviour, IHitable, IExplosive, IShotable, ICutable
         for (int i = 0; i < _forTearingUp.Length; i++)
         {
             DebrisFragment debrisFragment = _forTearingUp[i].gameObject.AddComponent<DebrisFragment>();
-            debrisFragment.Init();
+            debrisFragment.Init(()=>{ZombieAudioHandler.PlayHit();}, _zombieDebrisLayer, _layerCar);
             debrisFragment.InitRigidBody();
             _debrisFragments.Add(debrisFragment);
         }
@@ -114,15 +114,15 @@ public class Zombie : MonoBehaviour, IHitable, IExplosive, IShotable, ICutable
             if (UnityEngine.Random.Range(0, 2) == 1)
             {
                 _headRigidbody2D.AddForce(force);
-                _zombiePool.PlayBloodHitEffect(_headTransform.position);
-                _zombiePool.PlayBloodEffect(_headTransform);
+                _zombiePool.PlayBloodHitEffect(_headRigidbody2D.position);
+                _zombiePool.PlayBloodEffect(_headRigidbody2D.transform);
 
                 _headHingeJoint2D.enabled = false;
             }
             else
             {
                 _bodyRigidbody2D.AddForce(force);
-                _zombiePool.PlayBloodHitEffect(_bodyRigidbody2D.transform.position);
+                _zombiePool.PlayBloodHitEffect(_bodyRigidbody2D.position);
             }
         }
     }
@@ -230,19 +230,8 @@ public class Zombie : MonoBehaviour, IHitable, IExplosive, IShotable, ICutable
             collider2D.enabled = true;
         }
         OnBroken?.Invoke();
-        // SwitchLayerDelay().Forget();
         StartCoroutine(SwitchLayer());
-        _cancellationTokenSourceForTalkSound.Cancel();
     }
-
-    // private async UniTaskVoid SwitchLayerDelay()
-    // {
-    //     await UniTask.Delay(TimeSpan.FromSeconds(_delayChangeLayer), cancellationToken: _cancellationTokenSource.Token);
-    //     foreach (var bodyPart in _bodyParts)
-    //     {
-    //         bodyPart.layer = _zombieDebrisLayer;
-    //     }
-    // }
     private IEnumerator SwitchLayer()
     {
         yield return new WaitForSeconds(_delayChangeLayer);
@@ -275,23 +264,22 @@ public class Zombie : MonoBehaviour, IHitable, IExplosive, IShotable, ICutable
             Gizmos.DrawWireSphere(transform.PositionVector2() + new Vector2(_offsetXSphereCast, _offsetYSphereCast), _radiusSphereCast);
         }
     }
-    protected async UniTaskVoid StartCyclePlaySound(CancellationTokenSource cancellationTokenSource, Action operation, float startDelay, float nextDelay)
+    protected IEnumerator StartCyclePlaySound(Action operation, float nextDelay)
     {
-        await UniTask.Delay(TimeSpan.FromSeconds(startDelay), cancellationToken: cancellationTokenSource.Token);
-        while (true)
+        _waitForSeconds = new WaitForSeconds(nextDelay);
+        while (IsBroken == false)
         {
+            yield return _waitForSeconds;
             operation?.Invoke();
-            await UniTask.Delay(TimeSpan.FromSeconds(nextDelay), cancellationToken: cancellationTokenSource.Token);
         }
     }
+    
     private void OnEnable()
     {
         _animation.Play();
         _bloodFall.Play();
         _zombieMove.Init();
-        
-        StartCyclePlaySound(_cancellationTokenSourceForTalkSound, () => {ZombieAudioHandler.PlayTalk();},
-            Random.Range(1f, _zombieTalkSoundPeriod), _zombieTalkSoundPeriod).Forget();
+        StartCoroutine(StartCyclePlaySound(ZombieAudioHandler.PlayTalk, _zombieTalkSoundPeriod));
     }
 
     private void OnGameOverSignal()
@@ -306,13 +294,13 @@ public class Zombie : MonoBehaviour, IHitable, IExplosive, IShotable, ICutable
         _animation.Stop();
         _bloodFall.Stop();
         _zombieMove.Dispose();
-        _cancellationTokenSourceForTalkSound.Cancel();
+        StopAllCoroutines();
+        // ZombieAudioHandler.MuteAndStopPlay();
     }
     private void OnDisable()
     {
         GameOverDisable();
     }
-
     private void OnDestroy()
     {
         _compositeDisposable.Clear();
@@ -324,7 +312,6 @@ public class Zombie : MonoBehaviour, IHitable, IExplosive, IShotable, ICutable
             {
                 _debrisFragments[i].Dispose();
             }
-
             _debrisFragments = null;
         }
     }

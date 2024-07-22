@@ -6,7 +6,7 @@ public class RollState : CarState
     private readonly bool _useMotor = false;
     public RollState(WheelJoint2D frontWheelJoint, WheelJoint2D backWheelJoint, PropulsionUnit propulsionUnit,
         Booster booster, ReactiveCommand onCarBrokenIntoTwoParts)
-        : base(frontWheelJoint, backWheelJoint, propulsionUnit, booster, onCarBrokenIntoTwoParts) { }
+        : base(frontWheelJoint, backWheelJoint, propulsionUnit, onCarBrokenIntoTwoParts) { }
     public override void Enter()
     {
         SetMotorSpeed(FrontWheelJoint);
@@ -14,7 +14,6 @@ public class RollState : CarState
         {
             SetMotorSpeed(BackWheelJoint);
         }
-        Booster?.TryStopBooster();
     }
     public override void Update()
     {

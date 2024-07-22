@@ -24,7 +24,7 @@ public class ViewUILevel : MonoBehaviour
     [SerializeField] private CustomButton _buttonRotateСounterСlockwise;
     [SerializeField] private CustomButton _buttonFire;
     [SerializeField, HorizontalLine(color:EColor.White)] private Button _buttonCrosshair;
-    [SerializeField, HorizontalLine(color:EColor.White)] private TextMeshProUGUI _notificationsText;
+    [SerializeField, HorizontalLine(color:EColor.White)] private Transform _notificationsTextsParent;
 
     public PanelPause PanelPause => _panelPause;
     public PanelScore PanelScore => _panelScore;
@@ -41,7 +41,7 @@ public class ViewUILevel : MonoBehaviour
     public CustomButton ButtonRotateClockwise => _buttonRotateClockwise;
     public CustomButton ButtonRotateCounterClockwise => _buttonRotateСounterСlockwise;
     public CustomButton ButtonFire => _buttonFire;
-    public TextMeshProUGUI NotificationsText => _notificationsText;
+    public Transform NotificationsTextsParent => _notificationsTextsParent;
     public ReactiveCommand DisposeCommand { get; private set; } = new ReactiveCommand();
     public IReadOnlyList<Button> GetUIControlButtons()
     {

@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using System.Threading;
+using Cysharp.Threading.Tasks;
 using UniRx;
 using UniRx.Triggers;
 using UnityEngine;
@@ -18,7 +20,9 @@ public class ZombieMove
     private readonly CompositeDisposable _compositeDisposableFixedUpdate = new CompositeDisposable();
     private readonly CompositeDisposable _compositeDisposable = new CompositeDisposable();
     private readonly float _speed;
+    private CancellationTokenSource _cancellationTokenSource;
     private float _dotNormal;
+    private bool _updateKey;
     private List<RaycastHit2D> _hits = new List<RaycastHit2D>();
     private ContactFilter2D _contactFilter;
     private Vector2 _normal => _hits[0].normal;
@@ -42,13 +46,33 @@ public class ZombieMove
     {
         SubscribePause();
         SubscribeBroken();
-        SubscribeFixedUpdate();
+        StartFixedUpdate();
+        // SubscribeFixedUpdate();
     }
 
     public void Dispose()
     {
         _compositeDisposableFixedUpdate.Clear();
         _compositeDisposable.Clear();
+        
+        
+        StopFixedUpdate();
+
+
+    }
+
+    private void StartFixedUpdate()
+    {
+        _updateKey = true;
+        _cancellationTokenSource = new CancellationTokenSource();
+        FixedUpdateAsync().Forget();
+    }
+
+    private void StopFixedUpdate()
+    {
+        _updateKey = false;
+
+        _cancellationTokenSource.Cancel();
     }
     private void SubscribePause()
     {
@@ -56,13 +80,16 @@ public class ZombieMove
         {
             if (_gamePause.PauseReactiveProperty.Value == true)
             {
-                _compositeDisposableFixedUpdate.Clear();
+                // _compositeDisposableFixedUpdate.Clear();
+                StopFixedUpdate();
+
             }
             else
             {
                 if (_isBrokenReactiveProperty.Value == false)
                 {
-                    SubscribeFixedUpdate();
+                    // SubscribeFixedUpdate();
+                    StartFixedUpdate();
                 }
             }
         }).AddTo(_compositeDisposable);
@@ -74,45 +101,76 @@ public class ZombieMove
         {
             if (_isBrokenReactiveProperty.Value == true)
             {
-                _compositeDisposableFixedUpdate.Clear();
+                StopFixedUpdate();
+
+                
+                // _compositeDisposableFixedUpdate.Clear();
             }
         }).AddTo(_compositeDisposable);
     }
-    private void SubscribeFixedUpdate()
+    // private void SubscribeFixedUpdate()
+    // {
+    //     Observable.EveryFixedUpdate().Subscribe(_ =>
+    //     {
+    //         FixedUpdate();
+    //     }).AddTo(_compositeDisposableFixedUpdate);
+    // }
+
+    private async UniTaskVoid FixedUpdateAsync()
     {
-        Observable.EveryFixedUpdate().Subscribe(_ =>
+        while (_updateKey == true)
         {
-            FixedUpdate();
-        }).AddTo(_compositeDisposableFixedUpdate);
-    }
-    private void FixedUpdate()
-    {
-        if (Physics2D.CircleCast(_transform.PositionVector2() + _offsetSphere, _radiusSphere,
-            _direction, _contactFilter, _hits, _distance) > 0)
-        {
-            _dotNormal = Vector2.Dot(_normal, Vector2.right);
-            if (_dotNormal < _dotValue)
+            
+            if (Physics2D.CircleCast(_transform.PositionVector2() + _offsetSphere, _radiusSphere,
+                _direction, _contactFilter, _hits, _distance) > 0)
             {
-                _rigidbody2D.isKinematic = false;
-                Move((Vector2.right * _directionMultiplier) * _speed * Time.deltaTime);
+                await UniTask.NextFrame(PlayerLoopTiming.FixedUpdate, _cancellationTokenSource.Token);
+                _dotNormal = Vector2.Dot(_normal, Vector2.right);
+                if (_dotNormal < _dotValue)
+                {
+                    _rigidbody2D.isKinematic = false;
+                    Move((Vector2.right * _directionMultiplier) * _speed * Time.deltaTime);
+                }
+                else
+                {
+                    _rigidbody2D.isKinematic = true;
+                    Move(DirectionAlongNormal() * _speed * Time.deltaTime);
+                }
             }
             else
             {
-                _rigidbody2D.isKinematic = true;
-                Move(DirectionAlongNormal() * _speed * Time.deltaTime);
+                _rigidbody2D.isKinematic = false;
             }
         }
-        else
-        {
-            _rigidbody2D.isKinematic = false;
-        }
     }
+    // private void FixedUpdate()
+    // {
+    //     if (Physics2D.CircleCast(_transform.PositionVector2() + _offsetSphere, _radiusSphere,
+    //         _direction, _contactFilter, _hits, _distance) > 0)
+    //     {
+    //         _dotNormal = Vector2.Dot(_normal, Vector2.right);
+    //         if (_dotNormal < _dotValue)
+    //         {
+    //             _rigidbody2D.isKinematic = false;
+    //             Move((Vector2.right * _directionMultiplier) * _speed * Time.deltaTime);
+    //         }
+    //         else
+    //         {
+    //             _rigidbody2D.isKinematic = true;
+    //             Move(DirectionAlongNormal() * _speed * Time.deltaTime);
+    //         }
+    //     }
+    //     else
+    //     {
+    //         _rigidbody2D.isKinematic = false;
+    //     }
+    // }
     private Vector2 DirectionAlongNormal()
     {
         return Vector3.Cross(_normal, _transform.forward) * _directionMultiplier;
     }
     private void Move(Vector2 offset)
     {
-        _rigidbody2D.MovePosition(_rigidbody2D.position + offset);
+        _rigidbody2D.MovePosition((_rigidbody2D.position + offset)* Time.timeScale);
     }
 }

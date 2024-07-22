@@ -104,7 +104,7 @@ public class BoosterDestructionHandler : DestructionHandler, IDispose
     private void Destruction()
     {
         CompositeDisposable.Clear();
-        _booster.BoosterDisable();
+        _booster.StopBoosterOnBroken();
         for (int i = 0; i < _boosterRef.BoosterParts.Length; i++)
         {
             _boosterRef.BoosterParts[i].gameObject.AddComponent<Rigidbody2D>();

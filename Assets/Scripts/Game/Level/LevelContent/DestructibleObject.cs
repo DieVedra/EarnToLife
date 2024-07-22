@@ -8,12 +8,12 @@ using Zenject;
 public class DestructibleObject : MonoBehaviour
 {
     protected readonly float ForceMultiplierWholeObject = 3f;
-    private readonly float _delayChangeLayer = 0.3f;
+    // private readonly float _delayChangeLayer = 0.3f;
     private readonly float _addXRange = 30f;
     private int _layerDebris;
     private int _layerCar;
     [SerializeField] protected Transform WholeObjectTransform;
-    [SerializeField] protected float Hardness;
+    [SerializeField] protected float Hardness = 30f;
     [SerializeField] private Transform _debrisParentLocal;
     protected Rigidbody2D Rigidbody2D;
     protected Transform TransformBase;
@@ -99,7 +99,7 @@ public class DestructibleObject : MonoBehaviour
                 if (debris.GetChild(i).TryGetComponent(out Collider2D collider2D) == true)
                 {
                     DebrisFragment debrisFragment = debris.GetChild(i).AddComponent<DebrisFragment>();
-                    debrisFragment.Init();
+                    debrisFragment.Init(DebrisHitSound, _layerDebris, _layerCar);
                     FragmentsDebris.Add(debrisFragment);
                 }
             }
@@ -113,7 +113,7 @@ public class DestructibleObject : MonoBehaviour
     {
         for (int i = 0; i < FragmentsDebris.Count; i++)
         {
-            FragmentsDebris[i].SubscribeFragment(DebrisHitSound, _layerDebris, _layerCar, _delayChangeLayer);
+            FragmentsDebris[i].SubscribeFragment();
         }
     }
     protected void OnEnable()

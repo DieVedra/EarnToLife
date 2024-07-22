@@ -1,7 +1,5 @@
-﻿namespace Game.Level.DebrisFragment
+﻿
+public class ZombieDebrisFragment
 {
-    public class ZombieDebrisFragment
-    {
         
-    }
 }

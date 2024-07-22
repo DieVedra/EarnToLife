@@ -1,7 +1,5 @@
-﻿namespace Game.Level.DebrisFragment
+﻿
+public class LevelContentDebrisFragment
 {
-    public class LevelContentDebrisFragment
-    {
         
-    }
 }

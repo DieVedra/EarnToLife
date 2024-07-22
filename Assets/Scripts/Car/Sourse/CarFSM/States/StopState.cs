@@ -9,7 +9,7 @@ public class StopState : CarState
     private readonly Brakes _brakes;
     public StopState(WheelJoint2D frontWheelJoint, WheelJoint2D backWheelJoint, PropulsionUnit propulsionUnit,
         Brakes brakes, StopStateWheelGroundInteraction stateWheelGroundInteraction, Booster booster, ReactiveCommand onCarBrokenIntoTwoParts)
-        : base(frontWheelJoint, backWheelJoint, propulsionUnit, booster, onCarBrokenIntoTwoParts)
+        : base(frontWheelJoint, backWheelJoint, propulsionUnit, onCarBrokenIntoTwoParts)
     {
         _brakes = brakes;
         _stateWheelGroundInteraction = stateWheelGroundInteraction;
@@ -22,7 +22,6 @@ public class StopState : CarState
             SetMotorSpeed(BackWheelJoint);
         }
         _stateWheelGroundInteraction.Init(CarBroken);
-        Booster?.TryStopBooster();
         _brakes.BrakeSoundOn();
 
     }

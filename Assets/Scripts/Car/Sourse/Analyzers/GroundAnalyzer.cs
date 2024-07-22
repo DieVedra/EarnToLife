@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Threading;
+using Cysharp.Threading.Tasks;
 using UniRx;
 using UnityEngine;
 
@@ -8,14 +10,16 @@ public class GroundAnalyzer
     private readonly int _groundLayer;
     private readonly int _zombieBloodLayer;
     private readonly float _distance = 0.1f;
-    private readonly float _delay = 0.06f;
+    private readonly float _delay = 0.04f;
     private readonly CarWheel _frontWheel;
     private readonly CarWheel _backWheel;
     private readonly LayerMask _contactMask;
     private bool _carBrokenIntoTwoParts = false;
+    private bool _isAnalyzing;
     private RaycastHit2D _frontWheelHit;
     private RaycastHit2D _backWheelHit;
-    private float _time = 0f;
+    private CancellationTokenSource _cancellationTokenSource = new CancellationTokenSource();
+    // private float _time = 0f;
     public Vector2 FrontWheelPointContact { get; private set; }
     public Vector2 BackWheelPointContact { get; private set; }
 
@@ -41,7 +45,9 @@ public class GroundAnalyzer
         _asphaltLayer = asphaltLayer;
         _groundLayer = groundLayer;
         _zombieBloodLayer = zombieBloodLayer;
+        _isAnalyzing = true;
         onCarBrokenIntoTwoParts.Subscribe(_ => { CarBrokenIntoTwoParts();});
+        Analyze().Forget();
     }
 
     public void Dispose()
@@ -52,21 +58,21 @@ public class GroundAnalyzer
         BackWheelOnAsphaltReactiveProperty.Dispose();
         FrontWheelContactReactiveProperty.Dispose();
         BackWheelContactReactiveProperty .Dispose();
+        _cancellationTokenSource.Cancel();
+        _isAnalyzing = false;
     }
-    public void Update()
+
+    private async UniTaskVoid Analyze()
     {
-        if (_time <= 0f)
+        while (_isAnalyzing == true)
         {
-            _time = _delay;
             CheckCircleFrontWheel();
+            await UniTask.Delay(TimeSpan.FromSeconds(_delay), cancellationToken: _cancellationTokenSource.Token);
             if (_carBrokenIntoTwoParts == false)
             {
                 CheckCircleBackWheel();
             }
-        }
-        else
-        {
-            _time -= Time.deltaTime;
+            await UniTask.Delay(TimeSpan.FromSeconds(_delay), cancellationToken: _cancellationTokenSource.Token);
         }
     }
     private void CheckCircleFrontWheel()

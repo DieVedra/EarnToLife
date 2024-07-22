@@ -10,11 +10,11 @@ using Zenject;
 [RequireComponent(typeof(Rigidbody2D))]
 public class Barrel : DestructibleObject, IHitable, IShotable, ICutable, IExplosive
 {
-    [SerializeField] private float _forceBlastWave;
-    [SerializeField] private float _radiusShockWave;
-    [SerializeField] private float _radiusBurnWave;
+    [SerializeField] private float _forceBlastWave = 500f;
+    [SerializeField] private float _radiusShockWave = 3.8f;
+    [SerializeField] private float _radiusBurnWave = 2.15f;
     [SerializeField] private float _startDelay = 1.5f;
-    [SerializeField, MinMaxSlider(0.0f, 5.0f)] private Vector2 _explosionDelay;
+    [SerializeField, MinMaxSlider(0.0f, 5.0f)] private Vector2 _explosionDelay = new Vector2(0.5f,0.7f);
     [SerializeField] private float _burnOffset = 0.316f;
     [SerializeField] private LayerMask _blastWaveMask;
     [SerializeField] private LayerMask _groundMask;
@@ -122,7 +122,7 @@ public class Barrel : DestructibleObject, IHitable, IShotable, ICutable, IExplos
         _barrelAudioHandler.PlayBarrelExplosionSound();
         _blastWave.InteractWithBlastWave();
         _barrelPoolEffects.PlayBarrelExplosionEffect(WholeObjectTransform.position);
-        _explodeSignal.OnExplosion?.Invoke();
+        _explodeSignal.OnExplosion?.Invoke(WholeObjectTransform.PositionVector2());
     }
     private IEnumerator SubscribeCheckCollision()
     {
@@ -173,5 +173,6 @@ public class Barrel : DestructibleObject, IHitable, IShotable, ICutable, IExplos
         // SubscribeCheckCollision()
         _compositeDisposable.Clear();
         _barrelAudioHandler.Dispose();
+        _blastWave.Dispose();
     }
 }
