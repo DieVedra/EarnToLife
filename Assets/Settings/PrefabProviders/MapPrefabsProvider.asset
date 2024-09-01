@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20e18e309900572449138c100ac4a14f, type: 3}
+  m_Name: MapPrefabsProvider
+  m_EditorClassIdentifier: 
+  _currentPointFlagPrefab: {fileID: 2750287443378405308, guid: 116e899437129ea4c99c69af745a50e5, type: 3}
+  _previousPointFlagPrefab: {fileID: 4000778018280062046, guid: b411a01165b3101408b3cc3215a8c566, type: 3}
+  _nextPointFlagPrefab: {fileID: 7037817122715056467, guid: 8bbbe125a5199964594fd074aaa718a4, type: 3}
+  _lineSpritePrefab: {fileID: 8277305299057101185, guid: a54d61783a9c7e84ca964f257096622f, type: 3}

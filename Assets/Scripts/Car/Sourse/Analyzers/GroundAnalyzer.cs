@@ -10,7 +10,6 @@ public class GroundAnalyzer
     private readonly int _groundLayer;
     private readonly int _zombieBloodLayer;
     private readonly float _distance = 0.1f;
-    private readonly float _delay = 0.04f;
     private readonly CarWheel _frontWheel;
     private readonly CarWheel _backWheel;
     private readonly LayerMask _contactMask;
@@ -18,8 +17,6 @@ public class GroundAnalyzer
     private bool _isSplittingFrame;
     private RaycastHit2D _frontWheelHit;
     private RaycastHit2D _backWheelHit;
-    private CancellationTokenSource _cancellationTokenSource = new CancellationTokenSource();
-    // private float _time = 0f;
     public Vector2 FrontWheelPointContact { get; private set; }
     public Vector2 BackWheelPointContact { get; private set; }
 
@@ -57,7 +54,6 @@ public class GroundAnalyzer
         BackWheelOnAsphaltReactiveProperty.Dispose();
         FrontWheelContactReactiveProperty.Dispose();
         BackWheelContactReactiveProperty .Dispose();
-        _cancellationTokenSource.Cancel();
     }
 
     public void Update()

@@ -1,3 +1,4 @@
+using System;
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
@@ -6,25 +7,27 @@ using DG.Tweening;
 
 public class PanelsActivator
 {
-    private ValuesPanelActivator _valuesPanelActivator;
-    private StartMenuPanel _startMenuPanel;
-    private SettingsPanel _settingsPanel;
-    private MapPanel _mapPanel;
-    private GaragePanel _garagePanel;
-    private Image _background;
-    private SpriteRenderer _startMenuBackground;
-    private GarageUI _garageUI;
-    private SceneSwitch _sceneSwitch;
-    private GameData _gameData;
-    private MapPanelHandler _mapPanelHandler;
-    private RectTransform _rectTransformPanelSettings;
-    private AudioHandlerUI _audioHandlerUI;
-    private AudioSettingSwitch _audioSettingSwitch;
+    private readonly ValuesPanelActivator _valuesPanelActivator;
+    private readonly StartMenuPanel _startMenuPanel;
+    private readonly SettingsPanel _settingsPanel;
+    private readonly MapPanel _mapPanel;
+    private readonly GaragePanel _garagePanel;
+    private readonly Image _background;
+    private readonly SpriteRenderer _startMenuBackground;
+    private readonly Map _map;
+    private readonly Garage _garage;
+    private readonly GarageUI _garageUI;
+    private readonly SceneSwitch _sceneSwitch;
+    private readonly GameData _gameData;
+    private readonly MapPanelHandler _mapPanelHandler;
+    private readonly RectTransform _rectTransformPanelSettings;
+    private readonly AudioHandlerUI _audioHandlerUI;
+    private readonly AudioSettingSwitch _audioSettingSwitch;
 
     private CancellationTokenSource _cancellationTokenSource;
 
     public PanelsActivator(ViewEntryScene viewEntryScene, GarageUI buttonsSelectLotCar, SceneSwitch sceneSwitch,
-        Image background, SpriteRenderer startMenuBackground, GameData gameData, MapPanelHandler mapPanelHandler,
+        Image background, SpriteRenderer startMenuBackground, Map map, Garage garage, GameData gameData, MapPanelHandler mapPanelHandler,
         AudioHandlerUI audioHandlerUI, AudioSettingSwitch audioSettingSwitch)
     {
         _valuesPanelActivator = new ValuesPanelActivator();
@@ -40,35 +43,34 @@ public class PanelsActivator
         _gameData = gameData;
         _mapPanelHandler = mapPanelHandler;
         _startMenuBackground = startMenuBackground;
+        _map = map;
+        _garage = garage;
+        _rectTransformPanelSettings = _settingsPanel.GetComponent<RectTransform>();
         StartGame();
     }
 
     private void StartGame()
     {
         _startMenuPanel.PanelSettings.gameObject.SetActive(false);
-        _rectTransformPanelSettings = _settingsPanel.GetComponent<RectTransform>();
         switch (_gameData.StartPanelInMenu)
         {
             case PanelsInMenu.StartPanel:
-                _startMenuPanel.gameObject.SetActive(true);
-                _mapPanel.gameObject.SetActive(false);
-                _garagePanel.gameObject.SetActive(false);
+                SetActivateMapPanel(false);
+                SetActivateGaragePanel(false);
                 _garageUI.Deactivate();
                 ActivateStartMenuPanel().Forget();
                 break;
 
             case PanelsInMenu.MapPanel:
-                _startMenuPanel.gameObject.SetActive(false);
-                _mapPanel.gameObject.SetActive(true);
-                _garagePanel.gameObject.SetActive(false);
+                SetActivateStartPanel(false);
+                SetActivateGaragePanel(false);
                 _garageUI.Deactivate();
                 ActivateMapPanel().Forget();
                 break;
             
             case PanelsInMenu.GaragePanel:
-                _startMenuPanel.gameObject.SetActive(false);
-                _mapPanel.gameObject.SetActive(false);
-                _garagePanel.gameObject.SetActive(true);
+                SetActivateStartPanel(false);
+                SetActivateMapPanel(false);
                 ActivateGaragePanel().Forget();
                 break;
         }
@@ -76,8 +78,7 @@ public class PanelsActivator
     
     private async UniTask ActivateStartMenuPanel()
     {
-        _startMenuPanel.gameObject.SetActive(true);
-        _startMenuBackground.gameObject.SetActive(true);
+        SetActivateStartPanel(true);
         _startMenuPanel.ButtonPlay.onClick.AddListener(() =>
         {
             _audioHandlerUI.PlayClick();
@@ -95,12 +96,11 @@ public class PanelsActivator
         _startMenuPanel.ButtonPlay.onClick.RemoveAllListeners();
         _startMenuPanel.ButtonSettings.onClick.RemoveAllListeners();
         await Deactivate();
-        _startMenuPanel.gameObject.SetActive(false);
-        _startMenuBackground.gameObject.SetActive(false);
+        SetActivateStartPanel(false);
     }
     private async UniTask ActivateMapPanel()
     {
-        _mapPanel.gameObject.SetActive(true);
+        SetActivateMapPanel(true);
         _mapPanelHandler.MapEnable();
         _mapPanel.ButtonBackToStartMenu.onClick.AddListener(()=>
         {
@@ -120,12 +120,12 @@ public class PanelsActivator
         _mapPanel.ButtonBackToStartMenu.onClick.RemoveAllListeners();
         _mapPanel.ButtonGarage.onClick.RemoveAllListeners();
         await Deactivate();
-        _mapPanel.gameObject.SetActive(false);
+        SetActivateMapPanel(false);
         _mapPanelHandler.MapDisable();
     }
     private async UniTask ActivateGaragePanel()
     {
-        _garagePanel.gameObject.SetActive(true);
+        SetActivateGaragePanel(true);
         _garagePanel.ButtonBackToMap.onClick.AddListener(()=>
         {
             _audioHandlerUI.PlayClick();
@@ -134,10 +134,11 @@ public class PanelsActivator
         _garagePanel.ButtonGO.onClick.AddListener((() =>
         {
             _audioHandlerUI.PlayClick();
-            LoadGame();
+            EngineGame();
         }));
         _garageUI.Activate();
         await Activate();
+        _sceneSwitch.StartLoadLastLevel();
     }
 
     private async UniTask DeactivateGaragePanel()
@@ -146,11 +147,11 @@ public class PanelsActivator
         _garagePanel.ButtonGO.onClick.RemoveAllListeners();
         await MoveAndFadeWhenAll(_garageUI.DeactivateUpgradeButtons(), Deactivate());
         _garageUI.Deactivate();
-        _garagePanel.gameObject.SetActive(false);
+        SetActivateGaragePanel(false);
     }
-    private async void LoadGame()
+    private async void EngineGame()
     {
-        _sceneSwitch.StartLoadLastLevel();
+        // _sceneSwitch.StartLoadLastLevel();
         await DeactivateGaragePanel();
         _sceneSwitch.EndLoadingSceneAsync();
     }
@@ -304,5 +305,22 @@ public class PanelsActivator
         await FadeWithCancellation();
         _cancellationTokenSource = null;
         DisableDarkBackground();
+    }
+
+    private void SetActivateStartPanel(bool key)
+    {
+        _startMenuPanel.gameObject.SetActive(key); 
+        _startMenuBackground.gameObject.SetActive(key);
+    }
+    private void SetActivateMapPanel(bool key)
+    {
+        _mapPanel.gameObject.SetActive(key);
+        _map.gameObject.SetActive(key);
+    }
+    
+    private void SetActivateGaragePanel(bool key)
+    {
+        _garage.gameObject.SetActive(key);
+        _garagePanel.gameObject.SetActive(key);
     }
 }

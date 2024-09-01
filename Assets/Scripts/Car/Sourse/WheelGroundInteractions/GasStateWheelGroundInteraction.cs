@@ -13,15 +13,17 @@ public class GasStateWheelGroundInteraction : WheelGroundInteraction
     {
         _transmission = transmission;
     }
-    public override void Init(bool carBroken)
+    public override void Enter(bool carBroken)
     {
+        CompositeDisposableFrontWheel = new CompositeDisposable();
+        CompositeDisposableBackWheel = new CompositeDisposable();
         SubscribeReactiveProperty(GroundAnalyzer.FrontWheelOnGroundReactiveProperty, SetRotation, CompositeDisposableFrontWheel);
         if (carBroken == false)
         {
             SubscribeReactiveProperty(GroundAnalyzer.BackWheelOnGroundReactiveProperty, SetRotation, CompositeDisposableBackWheel);
         }
         SubscribeReactiveProperty(Speedometer.CurrentSpeedReactiveProperty, ChangesParticlesSpeeds, CompositeDisposableFrontWheel);
-        base.Init(carBroken);
+        base.Enter(carBroken);
     }
     protected override void SetRotation()
     {

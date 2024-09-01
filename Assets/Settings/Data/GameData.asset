@@ -12,5 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b38c4721f2c9b24592cb6cf11137ef2, type: 3}
   m_Name: GameData
   m_EditorClassIdentifier: 
-  _levelConfigs:
-  - LevelParts: []
+  StartPanelInMenu: 0
+  ScreenOrientation: 3
+  _carControlMethod: 0
+  _saveOn: 0
+  _cash: 1000

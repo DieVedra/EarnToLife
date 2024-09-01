@@ -7,8 +7,7 @@ public class Gyroscope
     private readonly GroundAnalyzer _groundAnalyzer;
     private readonly Rigidbody2D _rigidbodyBody;
     private readonly CarMass _carMass;
-    private float _gyroscopePower;
-    // private float _torque => _gyroscopePower * _carMass.Mass;
+    private readonly float _gyroscopePower;
     public Gyroscope(GroundAnalyzer groundAnalyzer, Rigidbody2D rigidbodyBody, CarMass carMass, float gyroscopePower)
     {
         _groundAnalyzer = groundAnalyzer;

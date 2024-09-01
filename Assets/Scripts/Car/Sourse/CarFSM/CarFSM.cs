@@ -15,6 +15,10 @@ public class CarFSM : IStateSetter
     public void Dispose()
     {
         CurrentState.Exit();
+        foreach (var state in _dictionaryStates.Values)
+        {
+            state.Dispose();
+        }
     }
     public void SetState<T>() where T : CarState
     {

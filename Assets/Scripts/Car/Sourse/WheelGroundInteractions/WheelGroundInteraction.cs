@@ -9,14 +9,11 @@ using UnityEngine;
 public class WheelGroundInteraction
 {
     protected readonly GroundAnalyzer GroundAnalyzer;
-    protected readonly CompositeDisposable CompositeDisposableFrontWheel = new CompositeDisposable();
-    protected readonly CompositeDisposable CompositeDisposableBackWheel = new CompositeDisposable();
     protected readonly Speedometer Speedometer;
     private readonly float _timeDelayDisable = 2f;
     private readonly CarWheel _frontWheel;
     private readonly CarWheel _backWheel;
     private readonly AnimationCurve _particlesSpeedCurve;
-    private readonly CancellationTokenSource _cancellationTokenSource = new CancellationTokenSource();
     private readonly ParticleSystem[] _effects;
     private readonly ParticleSystem[] _frontWheelEffects;
     private readonly ParticleSystem[] _backWheelEffects;
@@ -35,6 +32,9 @@ public class WheelGroundInteraction
     private readonly Transform _backWheelZombieBloodEffectTransform;
     protected readonly Transform FrontWheelDirtEffectTransform;
     protected readonly Transform BackWheelDirtEffectTransform;
+    protected CompositeDisposable CompositeDisposableFrontWheel;
+    protected CompositeDisposable CompositeDisposableBackWheel;
+    private CancellationTokenSource _cancellationTokenSource;
     private float _evaluatedValue;
     private bool _carBroken;
 
@@ -73,7 +73,7 @@ public class WheelGroundInteraction
         onCarBrokenIntoTwoParts.Subscribe(_ => { CarBrokenIntoTwoParts();});
     }
 
-    public virtual void Init(bool carBroken)
+    public virtual void Enter(bool carBroken)
     {
         _carBroken = carBroken;
         SubscribeReactiveProperty(GroundAnalyzer.FrontWheelOnGroundReactiveProperty, PlayEffectFrontWheelOnGround, CompositeDisposableFrontWheel);
@@ -85,14 +85,19 @@ public class WheelGroundInteraction
             SubscribeReactiveProperty(GroundAnalyzer.BackWheelOnAsphaltReactiveProperty, PlayEffectBackWheelOnAsphalt, CompositeDisposableBackWheel);
             SubscribeReactiveProperty(GroundAnalyzer.BackWheelOnZombieReactiveProperty, PlayEffectBackWheelOnZombie, CompositeDisposableBackWheel);
         }
+
         EnableEffects();
+        _cancellationTokenSource = new CancellationTokenSource();
     }
 
     public void Dispose()
     {
+        _cancellationTokenSource?.Cancel();
+    }
+    public void Exit()
+    {
         CompositeDisposableFrontWheel.Clear();
         CompositeDisposableBackWheel.Clear();
-        _cancellationTokenSource.Cancel();
         if (_carBroken == false)
         {
             StopAndDisableEffects(_effects);
@@ -217,7 +222,7 @@ public class WheelGroundInteraction
     }
 
     private void StopAndDisableEffects(ParticleSystem[] effects)
-    {
+    { 
         foreach (var effect in effects)
         {
             StopAndDisableEffectWithDelay(effect).Forget();
@@ -226,7 +231,7 @@ public class WheelGroundInteraction
 
     private void EnableEffects()
     {
-        _cancellationTokenSource.Cancel();
+        _cancellationTokenSource?.Cancel();
         foreach (var effect in _effects)
         {
             effect.gameObject.SetActive(true);

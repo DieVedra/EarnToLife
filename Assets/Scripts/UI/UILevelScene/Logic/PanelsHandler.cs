@@ -80,27 +80,26 @@ public class PanelsHandler
         SubscribePausePanelButtons();
         _buttonPause.onClick.RemoveAllListeners();
         _gamePause.SetPause();
-        await MoveAndFadePanelWhenAll(
-            _panelPause.RectTransform.DOAnchorPos(
+        await WhenAll(_panelPause.RectTransform.DOAnchorPos(
                 _valuesPanelHandler.EndPositionPanel,
                 _valuesPanelHandler.MovePanelDuration).SetEase(Ease.InOutQuint).SetUpdate(true).WithCancellation(_cancellationTokenSource.Token),
-            _frameBackground.DOFade(
-                _valuesPanelHandler.DarkenedFrameBackground,
-                _valuesPanelHandler.FrameBackgroundDurationFade).SetUpdate(true).WithCancellation(_cancellationTokenSource.Token));
+            CreateScreenShot(),
+            _frameBackground.DOColor(_valuesPanelHandler.DarkenedFrameBackgroundColor, _valuesPanelHandler.FrameBackgroundDurationFade).SetUpdate(true).WithCancellation(_cancellationTokenSource.Token),
+            DOTween.To(() => 0f, x => _frameBackground.material.SetFloat("_BlurAmount", x), 0.5f, _valuesPanelHandler.FrameBackgroundDurationFade).SetUpdate(true).WithCancellation(_cancellationTokenSource.Token)
+        );
     }
     private async void DeactivatePausePanel()
     {
         _audioClickAudioHandler.PlayClick();
         ButtonsPausePanelUnsubscribe();
-        _gamePause.AbortPause();
         _frameBackground.raycastTarget = false;
-        await MoveAndFadePanelWhenAll(
-            _panelPause.RectTransform.DOAnchorPos(
+        await WhenAll(_panelPause.RectTransform.DOAnchorPos(
                 _valuesPanelHandler.StartPositionPanel,
-                _valuesPanelHandler.MovePanelDuration).SetEase(Ease.InOutQuint).WithCancellation(_cancellationTokenSource.Token),
-            _frameBackground.DOFade(
-                _valuesPanelHandler.ClearFrameBackground,
-                _valuesPanelHandler.FrameBackgroundDurationFade).WithCancellation(_cancellationTokenSource.Token));
+                _valuesPanelHandler.MovePanelDuration).SetEase(Ease.InOutQuint).SetUpdate(true).WithCancellation(_cancellationTokenSource.Token),
+            _frameBackground.DOColor(_valuesPanelHandler.ClearFrameBackgroundColor, _valuesPanelHandler.FrameBackgroundDurationFade).SetUpdate(true).WithCancellation(_cancellationTokenSource.Token),
+            DOTween.To(() => 0.5f, x => _frameBackground.material.SetFloat("_BlurAmount", x), 0f, _valuesPanelHandler.FrameBackgroundDurationFade).SetUpdate(true).WithCancellation(_cancellationTokenSource.Token));
+        
+        _gamePause.AbortPause();
         _frameBackground.gameObject.SetActive(false);
         _panelPause.gameObject.SetActive(false);
         _buttonPause.onClick.AddListener(ActivatePausePanel);
@@ -137,13 +136,13 @@ public class PanelsHandler
         _panelScore.gameObject.SetActive(true);
         _sceneSwitch.StartLoadGarage();
         _resultsLevelHandler.DisplayOutResultsLevel(results, lastResults);
-        await MoveAndFadePanelWhenAll(
+        await WhenAll(
             _panelScore.RectTransform.DOAnchorPos(
                 _valuesPanelHandler.EndPositionPanel,
                 _valuesPanelHandler.MovePanelDuration).SetEase(Ease.InOutQuint).WithCancellation(_cancellationTokenSource.Token),
-            _frameBackground.DOFade(
-                _valuesPanelHandler.DarkenedFrameBackground,
-                _valuesPanelHandler.FrameBackgroundDurationFade).WithCancellation(_cancellationTokenSource.Token));
+            CreateScreenShot(),
+            _frameBackground.DOColor(_valuesPanelHandler.DarkenedFrameBackgroundColor, _valuesPanelHandler.FrameBackgroundDurationFade).SetUpdate(true).WithCancellation(_cancellationTokenSource.Token),
+            DOTween.To(() => 0f, x => _frameBackground.material.SetFloat("_BlurAmount", x), 0.5f, _valuesPanelHandler.FrameBackgroundDurationFade).SetUpdate(true).WithCancellation(_cancellationTokenSource.Token));
     }
 
     private async void DeactivateScorePanelAndLoadGarage()
@@ -167,9 +166,8 @@ public class PanelsHandler
         _background.raycastTarget = false;
     }
 
-    private UniTask MoveAndFadePanelWhenAll(UniTask movePanel, UniTask fadeFrame)
+    private UniTask WhenAll(params UniTask[] tasks)
     {
-        UniTask[] tasks = {movePanel, fadeFrame};
         UniTask whenAll = UniTask.WhenAll(tasks);
         return whenAll;
     }
@@ -215,5 +213,13 @@ public class PanelsHandler
     private void ButtonsPausePanelUnsubscribe()
     {
         _pausePanelButtonsHandler.Unsubscribe();
+    }
+    private async UniTask CreateScreenShot()
+    {
+        await UniTask.WaitForEndOfFrame(_frameBackground);
+        Texture2D texture2d = ScreenCapture.CaptureScreenshotAsTexture();
+        _frameBackground.sprite = Sprite.Create(texture2d,
+            new Rect(0f, 0f, texture2d.width, texture2d.height),
+            new Vector2(0.5f, 0.5f));
     }
 }

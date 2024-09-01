@@ -19,13 +19,12 @@ public class MapPanelHandler
     }
     public void MapEnable()
     {
-        _map.gameObject.SetActive(true);
-        _map.InitSegments();
+        _map.Show();
         SetDay();
     }
     public void MapDisable()
-    {
-        _map.gameObject.SetActive(false);
+    { 
+        _map.Hide();
     }
     private void SetDay()
     {

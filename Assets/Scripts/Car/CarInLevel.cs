@@ -301,12 +301,12 @@ public class CarInLevel : Car
     {
         if (BoosterAvailable)
         {
-            Booster = new Booster(gamePause,
+            Booster = new Booster(_bodyRigidbody2D,gamePause,
                 _carAudio.BoosterAudioHandler,
                 new BoosterFuelTank(CarConfiguration.BoosterCountFuelQuantity),
                 new BoosterScrew(_screw, _blade1, _blade2, _rotationSpeed),
                 _boosterParticleSystem,
-                _increaseBoosterCurve, _decreaseBoosterCurve);
+                _increaseBoosterCurve, _decreaseBoosterCurve, _force);
             Booster.BoosterFuelTank.OnTankEmpty += _notificationsProvider.BoosterEmpty;
             Booster.BoosterFuelTank.OnTankEmpty += Booster.StopBoosterOnOutFuel;
             Booster.OnBoosterDisable += BoosterDisable;
@@ -335,7 +335,7 @@ public class CarInLevel : Car
             {typeof(GasState), new GasState(FrontWheelJoint, BackWheelJoint, _propulsionUnit, Booster, GetGasStateWheelGroundInteraction(), _onCarBrokenIntoTwoPartsReactiveCommand)},
             {typeof(StopState), new StopState(FrontWheelJoint, BackWheelJoint, _propulsionUnit, _brakes, GetStopStateWheelGroundInteraction(), Booster, _onCarBrokenIntoTwoPartsReactiveCommand)},
             {typeof(RollState), new RollState(FrontWheelJoint, BackWheelJoint, _propulsionUnit, Booster, _onCarBrokenIntoTwoPartsReactiveCommand)},
-            {typeof(FlyState), new FlyState(FrontWheelJoint, BackWheelJoint, _propulsionUnit, Booster, _bodyRigidbody2D, _onCarBrokenIntoTwoPartsReactiveCommand, _force)},
+            {typeof(FlyState), new FlyState(FrontWheelJoint, BackWheelJoint, _propulsionUnit, Booster, _onCarBrokenIntoTwoPartsReactiveCommand)},
             {typeof(SoftStopState), new SoftStopState(FrontWheelJoint, BackWheelJoint, _propulsionUnit, Booster, _onCarBrokenIntoTwoPartsReactiveCommand)}
 
         };
@@ -396,6 +396,7 @@ public class CarInLevel : Car
     {
         CarGun.OnGunDestruct -= GunDestruct;
         _controlCar.TryTurnOffCheckGun();
+        CarGun.Dispose();
         CarGun = null;
     }
 
@@ -423,6 +424,7 @@ public class CarInLevel : Car
         _coupAnalyzer.Dispose();
         _groundAnalyzer.Dispose();
         _onCarBrokenIntoTwoPartsReactiveCommand.Dispose();
+        _controlCar.Dispose();
         if (_controlCar.DriveStarted != null)
         {
             _controlCar.DriveStarted.Dispose();

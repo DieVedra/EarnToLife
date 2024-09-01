@@ -8,7 +8,6 @@ using Zenject;
 public class DestructibleObject : MonoBehaviour
 {
     protected readonly float ForceMultiplierWholeObject = 3f;
-    // private readonly float _delayChangeLayer = 0.3f;
     private readonly float _addXRange = 30f;
     private int _layerDebris;
     private int _layerCar;
@@ -37,12 +36,6 @@ public class DestructibleObject : MonoBehaviour
         CollectDebrisChilds(_debrisParentLocal);
         _compositeDisposable = new CompositeDisposable();
     }
-    // private void Awake()
-    // {
-    //     FragmentsDebris = new List<DebrisFragment>();
-    //     TransformBase = transform;
-    //     CollectDebrisChilds(_debrisParentLocal);
-    // }
 
     private void Start()
     {

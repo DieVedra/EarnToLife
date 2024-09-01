@@ -13,6 +13,7 @@ public class Cloud
     private readonly CloudShape[] _cloudShapes;
     private int _customizeIndex;
     private float _additiveSpeed;
+    private Vector2 _newPosition;
 
     public Cloud(Transform transform, Transform leftBorder, Transform rightBorder, Vector2 speedAddedRange)
     {
@@ -23,7 +24,7 @@ public class Cloud
         var newScale = transform.localScale * _scaleMultiplier;
         _cloudShapes = new[]
         {
-            new CloudShape(transform.localScale, Vector3.zero), 
+            new CloudShape(_transform.localScale, Vector3.zero), 
             new CloudShape(newScale, _rotationVar1), 
             new CloudShape(newScale, _rotationVar2), 
         };
@@ -45,7 +46,7 @@ public class Cloud
         }
     }
 
-    private void MoveToStartPosition(Vector2 position)
+    private void MoveToStartPosition(ref Vector2 position)
     {
         _transform.position = position;
         RandomCustomize();
@@ -54,16 +55,21 @@ public class Cloud
     {
         if (_transform.position.x > _rightBorder.position.x)
         {
-            MoveToStartPosition(new Vector2(_leftBorder.position.x, _transform.position.y));
+            _newPosition.x = _leftBorder.position.x;
+            _newPosition.y = _transform.position.y;
+            MoveToStartPosition(ref _newPosition);
         }
         else if (_transform.position.x < _leftBorder.position.x)
         {
-            MoveToStartPosition(new Vector2(_rightBorder.position.x, _transform.position.y));
+            _newPosition.x = _rightBorder.position.x;
+            _newPosition.y = _transform.position.y;
+            MoveToStartPosition(ref _newPosition);
         }
         else
         {
-            _transform.localPosition = new Vector2(_transform.LocalPositionVector2().x + speed + _additiveSpeed,
-                _transform.LocalPositionVector2().y);
+            _newPosition.x = speed + _additiveSpeed + _transform.LocalPositionVector2().x;
+            _newPosition.y = _transform.LocalPositionVector2().y;
+            _transform.localPosition = _newPosition;
         }
     }
 }

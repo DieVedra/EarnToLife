@@ -6,42 +6,29 @@ using UnityEngine;
 using UnityEngine.Audio;
 using Zenject;
 
-public class GamePause : IGamePause, IDisposable
+public class GamePause : IGamePause
 {
-    private const float MIN_VALUE_TIME = 0f;
-    private const float NORMAL_VALUE_TIME = 1f;
-    // private AudioMixerGroup _levelGroup;
     private readonly TimeScaler _timeScaler;
-    private ISoundPause _soundPause;
-    private ReactiveProperty<bool> _pauseReactiveProperty = new ReactiveProperty<bool>();
-    public ReactiveProperty<bool> PauseReactiveProperty => _pauseReactiveProperty;
-
-    public bool IsPause => PauseReactiveProperty.Value;
-
-    // [Inject]
+    private readonly ISoundPause _soundPause;
+    public bool IsPause { get; private set; }
     public GamePause(TimeScaler timeScaler, ISoundPause soundPause)
     {
         _timeScaler = timeScaler;
         _soundPause = soundPause;
-        _pauseReactiveProperty.Value = false;
+        IsPause = false;
         AbortPause();
-    }
-
-    public void Dispose()
-    {
-        _pauseReactiveProperty.Dispose();
     }
 
     public void SetPause()
     {
-        _pauseReactiveProperty.Value = true;
+        IsPause = true;
         _soundPause.SoundOnPause(IsPause);
         _timeScaler.SetStopTime();
     }
 
     public void AbortPause()
     {
-        _pauseReactiveProperty.Value = false;
+        IsPause = false;
         _soundPause.SoundOnPause(IsPause);
         _timeScaler.SetRunTime();
     }

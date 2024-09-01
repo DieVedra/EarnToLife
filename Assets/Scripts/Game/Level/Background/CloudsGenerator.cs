@@ -42,7 +42,6 @@ public class CloudsGenerator
         _upColor2 = upColor2;
         _downColor1 = downColor1;
         _downColor2 = downColor2;
-        Generate();
     }
     public void Generate()
     {

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 
@@ -6,19 +7,18 @@ public class CarGun
 {
     private readonly float _timeFreezeRotationAfterShoot = 0.2f;
     private readonly float _forceGunValue;
-    private readonly float _delayValue = 0.06f;
     private readonly Transform _defaultPointAiming;
     private readonly GunAudioHandler _gunAudioHandler;
     private readonly RateFire _rateFire;
     private readonly GunGuidance _gunGuidance;
     private readonly CarGunDetector _detector;
+    private readonly CancellationTokenSource _cancellationTokenSource;
     private Transform _visionPointTransform;
     private CarGunTarget _currentTarget;
     private ParticleSystem _particleSystemShoot;
     private Vector3 _positionCrosshair;
     private int _currentIndexTarget;
     private float _speedLook;
-    private float _time = 0f;
     private bool _isShooting = false;
     private bool _isShowCrosshair = false;
     public int Ammo { get; private set; }
@@ -38,12 +38,17 @@ public class CarGun
         _particleSystemShoot = particleSystemShoot;
         Ammo = ammo;
         _forceGunValue = forceGunValue;
+        _cancellationTokenSource = new CancellationTokenSource();
+    }
+
+    public void Dispose()
+    {
+        _cancellationTokenSource.Cancel();
     }
     public void Update()
     {
-        if (_time <= 0f)
+        if (Ammo > 0)
         {
-            _time = _delayValue;
             if (_currentTarget is null)
             {
                 if (_detector.TryFindTarget() == true)
@@ -68,25 +73,25 @@ public class CarGun
                     SetGuidanceToTarget();
                 }
             }
+
+            if (_currentTarget is null)
+            {
+                _gunGuidance.Update(_defaultPointAiming);
+            }
+            else
+            {
+                _gunGuidance.Update(_currentTarget.Target.TargetTransform);
+            }
+
+            TargetTracking();
+            if (_isShooting == true && _rateFire.CanShoot == true)
+            {
+                Shoot();
+            }
         }
         else
-        {
-            _time -= Time.deltaTime;
-        }
-
-        if (_currentTarget is null)
         {
             _gunGuidance.Update(_defaultPointAiming);
-        }
-        else
-        {
-            _gunGuidance.Update(_currentTarget.Target.TargetTransform);
-        }
-
-        TargetTracking();
-        if (_isShooting == true && _rateFire.CanShoot == true)
-        {
-            Shoot();
         }
     }
     private void SetGuidanceDefault()
@@ -161,7 +166,7 @@ public class CarGun
     private async UniTask FreezeRotationAfterShoot()
     {
         _gunGuidance.FreezedGuidanenceAfterShoot = true;
-        await UniTask.Delay(TimeSpan.FromSeconds(_timeFreezeRotationAfterShoot));
+        await UniTask.Delay(TimeSpan.FromSeconds(_timeFreezeRotationAfterShoot), cancellationToken:_cancellationTokenSource.Token);
         _gunGuidance.FreezedGuidanenceAfterShoot = false;
     }
 }

@@ -1,5 +1,5 @@
 public enum CarControlMethod
 {
     KeyboardMethod,
-    UIMethod
+    SensorDisplayMethod
 }

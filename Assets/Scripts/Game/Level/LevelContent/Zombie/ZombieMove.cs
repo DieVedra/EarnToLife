@@ -17,22 +17,19 @@ public class ZombieMove
     private readonly Rigidbody2D _rigidbody2D;
     private readonly GamePause _gamePause;
     private readonly ReactiveProperty<bool> _isBrokenReactiveProperty;
-    private readonly CompositeDisposable _compositeDisposableFixedUpdate = new CompositeDisposable();
-    private readonly CompositeDisposable _compositeDisposable = new CompositeDisposable();
     private readonly float _speed;
-    private CancellationTokenSource _cancellationTokenSource;
+    private CompositeDisposable _compositeDisposableFixedUpdate;
     private float _dotNormal;
     private bool _updateKey;
     private List<RaycastHit2D> _hits = new List<RaycastHit2D>();
     private ContactFilter2D _contactFilter;
     private Vector2 _normal => _hits[0].normal;
-    public ZombieMove(Transform transform, Rigidbody2D rigidbody2D, GamePause gamePause, ReactiveProperty<bool> isBrokenReactiveProperty,
+    public ZombieMove(Transform transform, Rigidbody2D rigidbody2D, GamePause gamePause,
         LayerMask contactMask, Vector2 offsetSphere, float direction, float speed, float radiusSphere)
     {
         _transform = transform;
         _rigidbody2D = rigidbody2D;
         _gamePause = gamePause;
-        _isBrokenReactiveProperty = isBrokenReactiveProperty;
         _directionMultiplier = direction;
         _speed = speed;
         _radiusSphere = radiusSphere;
@@ -41,50 +38,18 @@ public class ZombieMove
         _contactFilter.useLayerMask = true;
         _contactFilter.layerMask = contactMask.value;
     }
-
     public void Init()
     {
-        SubscribePause();
-        SubscribeBroken();
         SubscribeFixedUpdate();
     }
-
     public void Dispose()
     {
         _compositeDisposableFixedUpdate.Clear();
-        _compositeDisposable.Clear();
-    }
-    private void SubscribePause()
-    {
-        _gamePause.PauseReactiveProperty.Subscribe(_ =>
-        {
-            if (_gamePause.PauseReactiveProperty.Value == true)
-            {
-                _compositeDisposableFixedUpdate.Clear();
-            }
-            else
-            {
-                if (_isBrokenReactiveProperty.Value == false)
-                {
-                    SubscribeFixedUpdate();
-                }
-            }
-        }).AddTo(_compositeDisposable);
-    }
-
-    private void SubscribeBroken()
-    {
-        _isBrokenReactiveProperty.Subscribe(_ =>
-        {
-            if (_isBrokenReactiveProperty.Value == true)
-            {
-                _compositeDisposableFixedUpdate.Clear();
-            }
-        }).AddTo(_compositeDisposable);
     }
     private void SubscribeFixedUpdate()
     {
-        Observable.EveryFixedUpdate().Subscribe(_ =>
+        _compositeDisposableFixedUpdate = new CompositeDisposable();
+        Observable.EveryFixedUpdate().Where(p=> _gamePause.IsPause == false).Subscribe(_ =>
         {
             FixedUpdate();
         }).AddTo(_compositeDisposableFixedUpdate);
@@ -99,12 +64,12 @@ public class ZombieMove
             if (_dotNormal < _dotValue)
             {
                 _rigidbody2D.isKinematic = false;
-                Move((Vector2.right * _directionMultiplier) * _speed * Time.deltaTime);
+                Move(_directionMultiplier * _speed * Time.deltaTime * Vector2.right);
             }
             else
             {
                 _rigidbody2D.isKinematic = true;
-                Move(DirectionAlongNormal() * _speed * Time.deltaTime);
+                Move(_speed * Time.deltaTime  * _directionMultiplier * DirectionAlongNormal());
             }
         }
         else
@@ -114,7 +79,7 @@ public class ZombieMove
     }
     private Vector2 DirectionAlongNormal()
     {
-        return Vector3.Cross(_normal, _transform.forward) * _directionMultiplier;
+        return Vector3.Cross(_normal, _transform.forward);
     }
     private void Move(Vector2 offset)
     {

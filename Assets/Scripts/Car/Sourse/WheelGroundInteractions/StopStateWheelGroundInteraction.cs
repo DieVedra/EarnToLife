@@ -8,15 +8,17 @@ public class StopStateWheelGroundInteraction : WheelGroundInteraction
     public StopStateWheelGroundInteraction(GroundAnalyzer groundAnalyzer, Speedometer speedometer, 
         CarWheel frontCarWheel, CarWheel backCarWheel, AnimationCurve particlesSpeedCurve, ReactiveCommand onCarBrokenIntoTwoParts)
     :base(groundAnalyzer, speedometer, frontCarWheel, backCarWheel, particlesSpeedCurve, onCarBrokenIntoTwoParts) { }
-    public override void Init(bool carBroken)
+    public override void Enter(bool carBroken)
     {
+        CompositeDisposableFrontWheel = new CompositeDisposable();
+        CompositeDisposableBackWheel = new CompositeDisposable();
         SubscribeReactiveProperty(GroundAnalyzer.FrontWheelOnGroundReactiveProperty, SetRotation, CompositeDisposableFrontWheel);
         if (carBroken == false)
         {
             SubscribeReactiveProperty(GroundAnalyzer.BackWheelOnGroundReactiveProperty, SetRotation, CompositeDisposableBackWheel);
         }
         SubscribeReactiveProperty(Speedometer.CurrentSpeedReactiveProperty, ChangesParticlesSpeeds, CompositeDisposableFrontWheel);
-        base.Init(carBroken);
+        base.Enter(carBroken);
     }
 
     protected override void ChangesParticlesSpeeds()

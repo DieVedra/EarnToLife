@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using Cysharp.Threading.Tasks;
 using UniRx;
 using UnityEngine;
@@ -13,6 +14,7 @@ public class ControlCar
     private readonly PropulsionUnit _propulsionUnit;
     private readonly Booster _booster;
     private readonly Speedometer _speedometer;
+    private CancellationTokenSource _cancellationTokenSource;
     public ReactiveCommand DriveStarted = new ReactiveCommand();
     private int _stayValue = 5;
 
@@ -26,6 +28,11 @@ public class ControlCar
         _speedometer = speedometer;
         _currentInputMethod = currentInputMethod;
         ChangeStaySpeedAfterStartGame();
+    }
+
+    public void Dispose()
+    {
+        _cancellationTokenSource.Cancel();
     }
     public virtual void Update()
     {
@@ -85,7 +92,8 @@ public class ControlCar
     }
     private async void ChangeStaySpeedAfterStartGame()
     {
-        await UniTask.Delay(TimeSpan.FromSeconds(1));
+        _cancellationTokenSource = new CancellationTokenSource();
+        await UniTask.Delay(TimeSpan.FromSeconds(1f), cancellationToken: _cancellationTokenSource.Token);
         _stayValue = 0;
     }
 
@@ -94,7 +102,7 @@ public class ControlCar
         if (DriveStarted != null)
         {
             DriveStarted.Execute();
-            // DriveStarted.Dispose();
+            // DriveStarted.Exit();
             // DriveStarted = null;
         }
     }

@@ -51,6 +51,7 @@ SpriteAtlas:
   m_MasterAtlas: {fileID: 0}
   m_PackedSprites:
   - {fileID: 21300000, guid: 88325070faf9ca64ca3a19fd60ca7d2d, type: 3}
+  - {fileID: 21300000, guid: 76daeeb02b8e5e4419f232017c7a5c28, type: 3}
   - {fileID: 21300000, guid: cae6a9d003705934188f6d849d9e9a54, type: 3}
   - {fileID: 21300000, guid: dc46fad0ab753c14e810ccaa79a6b13c, type: 3}
   - {fileID: 21300000, guid: 6259b241ec581a741b1ef77a99d4d196, type: 3}
@@ -69,6 +70,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: f7b4d176033378247b75325f0cdec923, type: 3}
   - {fileID: 21300000, guid: 836732a68f5fd654c990862141bb7029, type: 3}
   - {fileID: 21300000, guid: 7497eea6e67594c48adfe9d2f704c765, type: 3}
+  - {fileID: 21300000, guid: 99b642b6e5497cf41ae0d0cf9ce00d07, type: 3}
   - {fileID: 21300000, guid: 74452307c2649c74686a9989e11d0a4f, type: 3}
   - {fileID: 21300000, guid: 8a87e217497645f4ea6872b2a7bf8fa4, type: 3}
   - {fileID: 21300000, guid: 04ec353752373cb42942367abfb82ffa, type: 3}
@@ -96,6 +98,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 2ec794cf89b8ad342ae7eb82377e0a58, type: 3}
   m_PackedSpriteNamesToIndex:
   - DialSpeed
+  - Button3Far
   - Bottle
   - DialPart2
   - Icon1
@@ -114,6 +117,7 @@ SpriteAtlas:
   - ArrowLine
   - ArrowRotate
   - Background1
+  - Tile
   - Icon2
   - Button3
   - Icon3

@@ -64,7 +64,7 @@ public class LogicUILevel
 
     private void TryInitButtonsControl(ViewUILevel viewUILevel, CarInLevel carInLevel, CarControlMethod carControlMethod)
     {
-        if (carControlMethod == CarControlMethod.UIMethod)
+        if (carControlMethod == CarControlMethod.SensorDisplayMethod)
         {
             _buttonsControl = new ButtonsControl(viewUILevel, carInLevel);
 

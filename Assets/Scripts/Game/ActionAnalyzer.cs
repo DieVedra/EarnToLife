@@ -30,17 +30,10 @@ public class ActionAnalyzer
         _explodeSignal.OnExplosion += OnExplode;
         _destructionsSignal.OnDestruction += OnDestruction;
         _killsSignal.OnKill += OnDestruction;
-        Analyze();
+        SubscribeResetTimer();
     }
-    private void Analyze()
+    private void SubscribeResetTimer()
     {
-        Observable.EveryUpdate().Where(x=>_currentDestructionValue >= _maxDestructionValue).Subscribe(_=>
-        {
-            _currentDestructionValue = 0;
-            _timeScaler.TryStartTimeWarp();
-
-            Debug.Log(111);
-        }).AddTo(_compositeDisposable);
         Observable.Interval(TimeSpan.FromSeconds(_delayPeriod)).Subscribe(_ =>
         {
             _currentDestructionValue = 0;
@@ -59,6 +52,11 @@ public class ActionAnalyzer
     private void OnDestruction()
     {
         _currentDestructionValue++;
+        if (_currentDestructionValue >= _maxDestructionValue)
+        {
+            _currentDestructionValue = 0;
+            _timeScaler.TryStartTimeWarp();
+        }
     }
     public void Dispose()
     {

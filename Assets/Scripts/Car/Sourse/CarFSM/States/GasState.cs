@@ -15,10 +15,14 @@ public class GasState : CarState
     {
         _gasStateWheelGroundInteraction = gasStateWheelGroundInteraction;
     }
+
+    public override void Dispose()
+    {
+        _gasStateWheelGroundInteraction.Dispose();
+    }
     public override void Enter()
     {
-        // Booster?.TryStopBooster();
-        _gasStateWheelGroundInteraction.Init(CarBroken);
+        _gasStateWheelGroundInteraction.Enter(CarBroken);
     }
     public override void Update()
     {
@@ -41,7 +45,7 @@ public class GasState : CarState
 
     public override void Exit()
     {
-        _gasStateWheelGroundInteraction.Dispose();
+        _gasStateWheelGroundInteraction.Exit();
     }
 
     protected override void SetMotorSpeed(WheelJoint2D wheelJoint)

@@ -9243,8 +9243,8 @@ MonoBehaviour:
   _rateFire: 1
   _forceGun: 100
   _boosterRef: {fileID: 9042794177794335303}
-  _rotationSpeed: 40
-  _force: 500
+  _rotationSpeed: 60
+  _force: 800
   _boosterParticleSystem: {fileID: 3661841303187386640}
   _screw: {fileID: 7361724965616973970}
   _blade1: {fileID: 5677306253881331881}
@@ -60998,15 +60998,15 @@ ParticleSystem:
       maxColor: {r: 1, g: 1, b: 1, a: 1}
       maxGradient:
         serializedVersion: 2
-        key0: {r: 0.1981132, g: 0.1981132, b: 0.1981132, a: 1}
+        key0: {r: 0.1981132, g: 0.1981132, b: 0.1981132, a: 0.46666667}
         key1: {r: 0.4509804, g: 0.4509804, b: 0.4509804, a: 1}
-        key2: {r: 0.4509804, g: 0.4509804, b: 0.4509804, a: 0.27450982}
-        key3: {r: 0, g: 0, b: 0, a: 0}
+        key2: {r: 0.4509804, g: 0.4509804, b: 0.4509804, a: 1}
+        key3: {r: 0, g: 0, b: 0, a: 0.27450982}
         key4: {r: 0, g: 0, b: 0, a: 0}
         key5: {r: 0, g: 0, b: 0, a: 0}
         key6: {r: 0, g: 0, b: 0, a: 0}
         key7: {r: 0, g: 0, b: 0, a: 0}
-        ctime0: 0
+        ctime0: 11180
         ctime1: 65535
         ctime2: 65535
         ctime3: 0
@@ -61015,16 +61015,16 @@ ParticleSystem:
         ctime6: 0
         ctime7: 0
         atime0: 0
-        atime1: 43947
-        atime2: 65535
-        atime3: 0
+        atime1: 8481
+        atime2: 43947
+        atime3: 65535
         atime4: 0
         atime5: 0
         atime6: 0
         atime7: 0
         m_Mode: 0
         m_NumColorKeys: 2
-        m_NumAlphaKeys: 3
+        m_NumAlphaKeys: 4
       minGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -64474,7 +64474,7 @@ ParticleSystemRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 157630223
   m_SortingLayer: 5
-  m_SortingOrder: -11
+  m_SortingOrder: 50
   m_RenderMode: 0
   m_MeshDistribution: 0
   m_SortMode: 0

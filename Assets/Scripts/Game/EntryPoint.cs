@@ -2,17 +2,14 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Runtime.InteropServices;
 using UnityEngine;
 using NaughtyAttributes;
 using Zenject;
 
 public class EntryPoint : MonoBehaviour
 {
-    [SerializeField] private PanelsInMenu _startPanelInMenu;
-    [SerializeField, HorizontalLine(color: EColor.Gray), BoxGroup("Cash Wallet")] private int _cash;
-    [SerializeField] private CarControlMethod carControlMethod;
-    [SerializeField] private bool _saveOn;
-    [Inject] private GameData _gameData;
+    [Inject, SerializeField, Expandable] private GameData _gameData;
     [Inject] private SaveService _saveService;
     [Inject] private PlayerDataProvider _playerDataProvider;
     [Inject] private GlobalAudio _globalAudio;
@@ -22,29 +19,33 @@ public class EntryPoint : MonoBehaviour
     [Inject] private Map _map;
     [Inject] private ViewEntryScene _viewEntryScene;
 
-    private PresenterEntryScene _presenterEntryScene;
+    private LogicEntryScene _logicEntryScene;
     private IPlayerData _playerData;
     private PlayerDataHandler _playerDataHandler;
     private void Awake()
     {
         Time.timeScale = 1f;
         PlayerDataInit();
-        GameDataInit();
         _globalAudio.InitFromEntryScene(_playerDataProvider.PlayerDataHandler);
         _garage.Construct(_playerData, _garageData);
-        _presenterEntryScene = new PresenterEntryScene(_viewEntryScene, _garage, _map, _startMenuBackground, _gameData, _garageData, _globalAudio, _playerDataHandler);
+        _logicEntryScene = new LogicEntryScene(_garage, _map, _startMenuBackground, _viewEntryScene, _gameData, _garageData, _globalAudio, _playerDataHandler);
+        // _map.Init(_playerData.Level);
+        Debug.Log($"{_playerData.Level}");
     }
 
-    private void GameDataInit()
+    [Button("test")]
+    private void a()
     {
-        _gameData.StartPanelInMenu = _startPanelInMenu;
-        _gameData.CarControlMethod = carControlMethod;
-        _gameData.SaveOn = _saveOn;
+        Screen.orientation = _gameData.ScreenOrientation;
+        
+        Debug.Log($"Screen:  {Screen.width} {Screen.height}  ");
+        Debug.Log($"Camera.main.rect:  {Camera.main.rect}  ");
+        Debug.Log($"Screen.currentResolution:  {Screen.currentResolution}  ");
     }
     private void PlayerDataInit()
     {
         _playerDataProvider.PlayerDataHandler ??= new PlayerDataHandler(
-            _saveService.GetPlayerConfigAfterLoading(_garageData.ParkingLotsConfigurations.Count, _cash, _saveOn));
+            _saveService.GetPlayerConfigAfterLoading(_garageData.ParkingLotsConfigurations.Count, _gameData.Cash, _gameData.SaveOn));
         _playerDataHandler = _playerDataProvider.PlayerDataHandler;
         _playerData = _playerDataHandler.PlayerData;
     }
@@ -52,13 +53,13 @@ public class EntryPoint : MonoBehaviour
     private void OnApplicationQuit()
     {
         // Debug.Log($"OnApplicationQuit Entry  SaveOn: {_gameData.SaveOn}");
-        _saveService.SetPlayerDataToSaving(_playerData, _saveOn);
+        _saveService.SetPlayerDataToSaving(_playerData, _gameData.SaveOn);
     }
     private void OnApplicationPause(bool pause)
     {
         if (pause is true)
         {
-            _saveService.SetPlayerDataToSaving(_playerData, _saveOn);
+            _saveService.SetPlayerDataToSaving(_playerData, _gameData.SaveOn);
         }
     }
     private void OnDestroy()

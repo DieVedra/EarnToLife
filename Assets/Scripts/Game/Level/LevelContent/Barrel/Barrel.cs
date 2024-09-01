@@ -110,8 +110,6 @@ public class Barrel : DestructibleObject, IHitable, IShotable, ICutable, IExplos
         return false;
     }
 
-    public string Name => gameObject.name;
-
     private void DestructAndExplosion()
     {
         Destruct();
@@ -120,7 +118,7 @@ public class Barrel : DestructibleObject, IHitable, IShotable, ICutable, IExplos
     private void Explosion()
     {
         _barrelAudioHandler.PlayBarrelExplosionSound();
-        StartCoroutine(_blastWave.InteractWithBlastWave());
+        _blastWave.InteractWithBlastWave();
         _barrelPoolEffects.PlayBarrelExplosionEffect(WholeObjectTransform.position);
         _explodeSignal.OnExplosion?.Invoke(WholeObjectTransform.PositionVector2());
     }
@@ -128,8 +126,7 @@ public class Barrel : DestructibleObject, IHitable, IShotable, ICutable, IExplos
     {
         yield return new WaitForSeconds(_startDelay);
         _collider2D.OnCollisionEnter2DAsObservable()
-            .Do(HandleCollision)
-            .Subscribe().AddTo(_compositeDisposable);
+            .Subscribe(HandleCollision).AddTo(_compositeDisposable);
     }
     private void HandleCollision(Collision2D collision)
     {
@@ -167,10 +164,9 @@ public class Barrel : DestructibleObject, IHitable, IShotable, ICutable, IExplos
         StartCoroutine(SubscribeCheckCollision());
         base.OnEnable();
     }
-    private new void OnDisable()
+    private void OnDisable()
     {
         StopCoroutine(SubscribeCheckCollision());
-        // SubscribeCheckCollision()
         _compositeDisposable.Clear();
         _barrelAudioHandler.Dispose();
         _blastWave.Dispose();

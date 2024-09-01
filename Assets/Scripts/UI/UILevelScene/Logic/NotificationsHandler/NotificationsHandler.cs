@@ -9,6 +9,7 @@ public class NotificationsHandler
 {
     private readonly TextMeshProUGUI _notificationPrefab;
     private readonly float _delay = 1f;
+    private readonly float _fontSizeDefaultNotificationWithPosition = 100f;
     private readonly Vector2 _textPosition;
     private readonly Transform _textParent;
     private readonly Queue<Notification> _messageQueue;
@@ -77,6 +78,7 @@ public class NotificationsHandler
             while (_inProgressShowing == true)
             {
                 Notification notification = _messageQueue.Dequeue();
+                notification.NotificationsText.transform.position = _textParent.position;
                 await notification.ShowNotification(text);
                 _notificationsTextsPool.Return(notification.NotificationsText);
                 if (_messageQueue.Count == 0)
@@ -89,7 +91,9 @@ public class NotificationsHandler
 
     private TextMeshProUGUI CreateNotificationText()
     {
-        return _spawner.Spawn(_notificationPrefab, _textParent, _textParent);
+        TextMeshProUGUI notification = _spawner.Spawn(_notificationPrefab, _textParent, _textParent);
+        notification.gameObject.SetActive(false);
+        return notification;
     }
 
     private void GetAction(TextMeshProUGUI text)
@@ -99,12 +103,11 @@ public class NotificationsHandler
     private void ReturnAction(TextMeshProUGUI text)
     {
         text.gameObject.SetActive(false);
-        text.transform.position = _textParent.position;
     }
 
     private NotificationWithPosition CreateNotificationWithPosition(Vector2 position)
     {
-        return new NotificationWithPosition(_notificationsTextsPool.Get(), _cancellationTokenSource, position);
+        return new NotificationWithPosition(_notificationsTextsPool.Get(), _cancellationTokenSource, position, _fontSizeDefaultNotificationWithPosition);
     }
 
     private Notification CreateNotificationDefault()

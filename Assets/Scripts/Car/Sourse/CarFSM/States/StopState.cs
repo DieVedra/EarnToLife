@@ -14,6 +14,11 @@ public class StopState : CarState
         _brakes = brakes;
         _stateWheelGroundInteraction = stateWheelGroundInteraction;
     }
+
+    public override void Dispose()
+    {
+        _stateWheelGroundInteraction.Dispose();
+    }
     public override void Enter()
     {
         SetMotorSpeed(FrontWheelJoint);
@@ -21,7 +26,7 @@ public class StopState : CarState
         {
             SetMotorSpeed(BackWheelJoint);
         }
-        _stateWheelGroundInteraction.Init(CarBroken);
+        _stateWheelGroundInteraction.Enter(CarBroken);
         _brakes.BrakeSoundOn();
 
     }
@@ -40,7 +45,7 @@ public class StopState : CarState
     public override void Exit()
     {
         _brakes.BrakeSoundOff();
-        _stateWheelGroundInteraction.Dispose();
+        _stateWheelGroundInteraction.Exit();
     }
     protected override void SetMotorSpeed(WheelJoint2D wheelJoint)
     {

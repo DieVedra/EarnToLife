@@ -40,7 +40,7 @@ public class LevelBackground : MonoBehaviour
     [SerializeField, BoxGroup("Cloud Generator Settings"), MinMaxSlider(0f,1f)] private Vector2 _speedAddedRange = new Vector2(0.002f, 0.01f);
     [SerializeField, BoxGroup("Cloud Generator Settings"), Range(0f,0.5f)] private float _speed = 0.015f;
     [SerializeField, BoxGroup("Cloud Generator Settings"), Range(1f,20f)] private float _speedAdd = 5f;
-
+    [Range(0f, 1f)] public float b; 
 
     private GameOverSignal _gameOverSignal;
     private Transform _transform;
@@ -50,12 +50,11 @@ public class LevelBackground : MonoBehaviour
     private Vector2 _skyPos = new Vector2();
     private Vector2 _cloudsPosY = new Vector2();
     private GamePause _gamePause;
-    private CompositeDisposable _compositeDisposable = new CompositeDisposable();
+    private CompositeDisposable _compositeDisposable;
     private float _differenceBetweenPreviousAndCurrentPositions;
     private float _tBordersLevel;
     private float _calculatedSpeed;
     private bool _isFrameSplitted;
-
     private float _negativeDeltaTime => Time.deltaTime * -1f;
     [Inject]
     private void Construct(Factory factory, GamePause gamePause, GameOverSignal gameOverSignal)
@@ -69,12 +68,33 @@ public class LevelBackground : MonoBehaviour
             _upColor1, _upColor2, _downColor1, _downColor2,
             _cloudScaleRange, _cloudColorAlphaRange, _speedAddedRange,
             _cloudsCount);
+        _cloudsGenerator.Generate();
         _gameOverSignal.OnGameOver += GameOver;
         SubscribeFixedUpdate();
     }
 
+    [Button("SetDefault")]
+    private void SetDefault()
+    {
+        _transform = transform;
+        CalculateParallaxY();
+        _skyTransform.localPosition = _skyPos;
+        _cloudsTransform.localPosition = _cloudsPosY;
+    }
+    private void OnValidate()
+    {
+        _skyPos.x = _skyTransform.localPosition.x;
+        _skyPos.y = Mathf.Lerp(_skyTopBorderPoint.localPosition.y, _skyDownBorderPoint.localPosition.y, b);
+        _cloudsPosY.x = _cloudsTransform.localPosition.x;
+        _cloudsPosY.y = Mathf.Lerp(_cloudTopBorderPoint.localPosition.y, _cloudDownBorderPoint.localPosition.y, b);
+        _skyTransform.localPosition = _skyPos;
+        _cloudsTransform.localPosition = _cloudsPosY;
+        
+    }
+
     private void SubscribeFixedUpdate()
     {
+        _compositeDisposable = new CompositeDisposable();
         Observable.EveryFixedUpdate().Where(x => _gamePause.IsPause == false).Subscribe(_ =>
         {
             if (_isFrameSplitted == false)

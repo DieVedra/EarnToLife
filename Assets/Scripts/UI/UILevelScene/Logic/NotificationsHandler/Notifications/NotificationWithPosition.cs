@@ -9,8 +9,8 @@ public class NotificationWithPosition : Notification
     private readonly Vector2 _positionExplosion;
     private bool _key;
 
-    public NotificationWithPosition(TextMeshProUGUI notificationsText, CancellationTokenSource cancellationTokenSource, Vector2 positionExplosion)
-        : base(notificationsText, cancellationTokenSource)
+    public NotificationWithPosition(TextMeshProUGUI notificationsText, CancellationTokenSource cancellationTokenSource, Vector2 positionExplosion, float fontSizeDefaultNotificationWithPosition)
+        : base(notificationsText, cancellationTokenSource, fontSizeDefaultNotificationWithPosition)
     {
         _positionExplosion = positionExplosion;
     }

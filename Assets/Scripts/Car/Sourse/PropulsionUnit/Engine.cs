@@ -3,7 +3,6 @@ using UnityEngine;
 public class Engine
 {
     private readonly float _overclockingMultiplier;
-    private readonly float _breakingEngineMultiplier = 3f;
     private readonly AnimationCurve _engineAccelerationCurve;
     private readonly EngineAudioHandler _engineAudioHandler;
     private readonly Exhaust _exhaust;

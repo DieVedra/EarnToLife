@@ -1,7 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System.Threading;
-using Cysharp.Threading.Tasks;
+﻿using System.Collections.Generic;
 using UniRx;
 using UnityEngine;
 
@@ -16,10 +13,11 @@ public class BlastWave
     private readonly AnimationCurve _extinctionBlastWaveCurve;
     private readonly ContactFilter2D _contactFilter;
     private readonly List<Collider2D> _hitCollidersAfterSphereCast = new List<Collider2D>();
-    private CompositeDisposable _compositeDisposable = new CompositeDisposable();
+    private readonly CompositeDisposable _compositeDisposable = new CompositeDisposable();
     private List<DebrisFragment> _debrisFragments;
     private List<Vector2> _debrisForces;
     private float _forceShockWaveInRadius;
+    private int _calculatePart = 0;
 
     public BlastWave(DebrisPool debrisPool, Transform transformPointReference, AnimationCurve extinctionBlastWaveCurve, LayerMask blastWaveMask,
         float radiusShockWave, float radiusBurnWave, float force)
@@ -38,18 +36,33 @@ public class BlastWave
     {
         _compositeDisposable.Clear();
     }
-    public IEnumerator InteractWithBlastWave()
+    public void InteractWithBlastWave()
     {
         if (TryCastSphere())
         {
-            _debrisFragments = new List<DebrisFragment>(_hitCollidersAfterSphereCast.Count);
-            _debrisForces = new List<Vector2>(_hitCollidersAfterSphereCast.Count);
-            Sorting();
-            CalculateForces();
-            yield return null;
-            AddForces();
+            Observable.EveryUpdate().Subscribe(_ =>
+            {
+                switch (_calculatePart)
+                {
+                    case 0:
+                        _debrisFragments = new List<DebrisFragment>(_hitCollidersAfterSphereCast.Count);
+                        _debrisForces = new List<Vector2>(_hitCollidersAfterSphereCast.Count);
+                        Sorting();
+                        _calculatePart++;
+                        break;
+                    case 1:
+                        CalculateForces();
+                        _calculatePart++;
+                        break;
+                    case 2:
+                        AddForces();
+                        _compositeDisposable.Clear();
+                        break;
+                }
+            }).AddTo(_compositeDisposable);
         }
     }
+
     private void Sorting()
     {
         for (int i = 0; i < _hitCollidersAfterSphereCast.Count; i++)

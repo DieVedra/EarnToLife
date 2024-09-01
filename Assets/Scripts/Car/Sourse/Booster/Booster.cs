@@ -7,21 +7,23 @@ public class Booster
 {
     private readonly BoosterValues _boosterValues;
     private readonly Dictionary<Type, BoosterState> _dictionaryStates;
+    private readonly Rigidbody2D _rigidbody;
     private BoosterState _currentState;
     private bool _isBroken = false;
 
     public BoosterFuelTank BoosterFuelTank { get; private set; }
     public bool FuelAvailability => BoosterFuelTank.CheckFuel();
     public event Action OnBoosterDisable;
-    public Booster(IGamePause gamePause, BoosterAudioHandler boosterAudioHandler, BoosterFuelTank boosterFuelTank,
+    public Booster(Rigidbody2D rigidbody, IGamePause gamePause, BoosterAudioHandler boosterAudioHandler, BoosterFuelTank boosterFuelTank,
         BoosterScrew boosterScrew, ParticleSystem particleSystemBooster,
-        AnimationCurve increaseBoosterSoundCurve, AnimationCurve decreaseBoosterSoundCurve)
+        AnimationCurve increaseBoosterSoundCurve, AnimationCurve decreaseBoosterSoundCurve, float force)
     {
+        _rigidbody = rigidbody;
         BoosterFuelTank = boosterFuelTank;
         _boosterValues = new BoosterValues();
         _dictionaryStates = new Dictionary<Type, BoosterState>()
         {
-            {typeof(BoosterStateIncreaseRun), new BoosterStateIncreaseRun(_boosterValues, boosterScrew, boosterAudioHandler, increaseBoosterSoundCurve, particleSystemBooster)},
+            {typeof(BoosterStateIncreaseRun), new BoosterStateIncreaseRun(_boosterValues, boosterScrew, boosterAudioHandler, rigidbody, increaseBoosterSoundCurve, particleSystemBooster,force)},
             {typeof(BoosterStateDecreaseStop), new BoosterStateDecreaseStop(gamePause, _boosterValues, boosterScrew, boosterAudioHandler, decreaseBoosterSoundCurve, particleSystemBooster) },
             {typeof(BoosterStateOutFuelStop), new BoosterStateOutFuelStop(_boosterValues, boosterScrew, boosterAudioHandler, particleSystemBooster) },
             {typeof(BoosterStateOnBrokenStop), new BoosterStateOnBrokenStop(_boosterValues, boosterScrew, boosterAudioHandler, particleSystemBooster) },

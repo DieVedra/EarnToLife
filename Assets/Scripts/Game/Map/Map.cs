@@ -1,33 +1,47 @@
 using System.Collections;
 using System.Collections.Generic;
+using NaughtyAttributes;
 using UnityEngine;
 
 public class Map : MonoBehaviour
 {
-    private SegmentMap[] _segmentsMaps;
-    private GarageConfig _garageConfig;
-    public void Init(SegmentMap[] segmentsMaps, GameData gameData)
+
+    [SerializeField] private SegmentMap[] _segmentsMaps;
+    [SerializeField] private int level;
+    [Button("Init")]
+    public void Init(/*int level*/)
     {
-        _segmentsMaps = segmentsMaps;
-        // _garageConfig = gameData.PlayerData.GarageConfig;
+        Debug.Log($"Level: {level}");
+        Spawner spawner = new Spawner();
+        if (_segmentsMaps.Length > 0)
+        {
+            for (int i = 0; i < _segmentsMaps.Length; i++)
+            {
+                _segmentsMaps[i].gameObject.SetActive(false);
+            }
+            for (int i = 0; i < level; i++)
+            {
+                if (_segmentsMaps.Length >= level)
+                {
+                    if (i == level - 1)
+                    {
+                        _segmentsMaps[i].Init(spawner,true);
+                    }
+                    else
+                    {
+                        _segmentsMaps[i].Init(spawner);
+                    }
+                }
+            }
+        }
     }
-    public void InitSegments()
+
+    public void Show()
     {
-        // for (int i = 0; i < _segmentsMaps.Length; i++)
-        // {
-        //     _segmentsMaps[i].gameObject.SetActive(false);
-        // }
-        // for (int i = 0; i <= _garageConfig.AvailableLotCarIndex; i++)
-        // {
-        //     _segmentsMaps[i].gameObject.SetActive(true);
-        //     if (i < _garageConfig.AvailableLotCarIndex)
-        //     {
-        //         _segmentsMaps[i].InitFromEntryScene(false);
-        //     }
-        //     else
-        //     {
-        //         _segmentsMaps[i].InitFromEntryScene();
-        //     }
-        // }
+        gameObject.SetActive(true);
+    }
+    public void Hide()
+    {
+        gameObject.SetActive(false);
     }
 }

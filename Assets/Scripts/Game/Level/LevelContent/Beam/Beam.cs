@@ -57,7 +57,7 @@ public abstract class Beam : DestructibleObject
         // y = y₀ + L * sin(α)
     }
 
-    private void OnDestroy()
+    private new void OnDestroy()
     {
         base.OnDestroy();
         WoodDestructibleAudioHandler.Dispose();

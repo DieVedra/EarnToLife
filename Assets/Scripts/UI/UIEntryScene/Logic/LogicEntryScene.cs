@@ -1,25 +1,21 @@
 using UnityEngine;
-public class ModelEntryScene
+public class LogicEntryScene
 {
-    private SceneSwitch _sceneSwitch;
-    private ButtonsUpgradeCar _buttonsUpgradeCar;
-    private GarageUI _garageUI;
-    private Garage _garage;
-    private Map _map;
-    private PanelsActivator _panelsActivator;
-    private ConfirmationUpgrade _confirmationUpgrade;
-    private MapPanelHandler _mapPanelHandler;
-    private AudioHandlerUI _audioHandlerUI;
-    private AudioSettingSwitch _audioSettingSwitch;
-    private Spawner _spawner;
-    public ModelEntryScene(Garage garage, Map map, SpriteRenderer startMenuBackground, ViewEntryScene viewEntryScene,
+    private readonly SceneSwitch _sceneSwitch;
+    private readonly ButtonsUpgradeCar _buttonsUpgradeCar;
+    private readonly GarageUI _garageUI;
+    private readonly PanelsActivator _panelsActivator;
+    private readonly ConfirmationUpgrade _confirmationUpgrade;
+    private readonly MapPanelHandler _mapPanelHandler;
+    private readonly AudioHandlerUI _audioHandlerUI;
+    private readonly AudioSettingSwitch _audioSettingSwitch;
+    private readonly Spawner _spawner;
+    public LogicEntryScene(Garage garage, Map map, SpriteRenderer startMenuBackground, ViewEntryScene viewEntryScene,
         GameData gameData, GarageData garageData, GlobalAudio globalAudio, PlayerDataHandler playerDataHandler)
     {
         _sceneSwitch = new SceneSwitch(playerDataHandler, gameData);
         _audioHandlerUI = new AudioHandlerUI(globalAudio);
         _spawner = new Spawner();
-        _garage = garage;
-        _map = map;
         _confirmationUpgrade = new ConfirmationUpgrade(viewEntryScene.PanelGarage.PanelConfirmationUpgrade, _spawner,
             _audioHandlerUI, garageData.GaragePrefabsProvider.SegmentIconUpgradeButtonIconPrefab,
             viewEntryScene.PanelGarage.ButtonBoosterUpgrade.IndicatorSegmentOn,
@@ -33,6 +29,6 @@ public class ModelEntryScene
             viewEntryScene.PanelStartMenu.PanelSettings.MusicTextStatus,
             viewEntryScene.PanelStartMenu.PanelSettings.SoundTextStatus);
         _panelsActivator = new PanelsActivator(viewEntryScene, _garageUI, _sceneSwitch, viewEntryScene.DarkBackground,
-            startMenuBackground, gameData, _mapPanelHandler, _audioHandlerUI, _audioSettingSwitch);
+            startMenuBackground, map, garage, gameData, _mapPanelHandler, _audioHandlerUI, _audioSettingSwitch);
     }
 }

@@ -2,11 +2,11 @@
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using TMPro;
+using UnityEngine;
 
 public class NotificationWithDelay : Notification
 {
     private readonly float _delay;
-
     public NotificationWithDelay(TextMeshProUGUI notificationsText, CancellationTokenSource cancellationTokenSource, float delay)
         : base(notificationsText, cancellationTokenSource)
     {

@@ -398,10 +398,10 @@ MonoBehaviour:
   _burnOffset: 0.316
   _blastWaveMask:
     serializedVersion: 2
-    m_Bits: 1081606656
+    m_Bits: 1081606144
   _groundMask:
     serializedVersion: 2
-    m_Bits: 8847360
+    m_Bits: 8847872
   _extinctionBlastWaveCurve:
     serializedVersion: 2
     m_Curve:

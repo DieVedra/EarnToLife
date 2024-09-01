@@ -61,7 +61,7 @@ public class Game : MonoBehaviour
         _resultsLevelProvider = new ResultsLevelProvider(_playerDataHandler, _carConfiguration, _killsCount, _destructionCount,
             _levelProgressCounter, _notificationsProvider, _gameOverSignal, _timeWaitingOnEndLevel);
         _logicUILevel = new LogicUILevel(_viewUILevel, _carInLevel, _gamePause, _resultsLevelProvider,
-            new SceneSwitch(_playerDataHandler, _gameData), _globalAudio, _levelPrefabsProvider.NotificationsTextPrefab, _gameData.CarControlMethod);
+            new SceneSwitch(_playerDataHandler, _gameData), _globalAudio, _levelPrefabsProvider.NotificationsTextPrefab, _gameData.GetCarControlMethod());
         _notificationsProvider.ShowDayInfo(_playerDataHandler.PlayerData.Days.ToString());
     }
     private void InitCar()
@@ -77,7 +77,7 @@ public class Game : MonoBehaviour
         InitProgressCounter();
         _carInLevel.Construct(_carConfiguration, _notificationsProvider, _levelProgressCounter,
             _level.DebrisParent, _globalAudioForCar, _audioClipProvider.CarsAudioClipsProvider.GetCarAudioClipProvider(currentSelectLotCarIndex),
-            _timeScaleSignal, _gameOverSignal, _gamePause, _gameData.CarControlMethod);
+            _timeScaleSignal, _gameOverSignal, _gamePause, _gameData.GetCarControlMethod());
     }
 
     private void InitProgressCounter()

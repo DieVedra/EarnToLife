@@ -505,6 +505,7 @@
           </e>
           <e p="Enums" t="Include">
             <e p="CarControlMethod.cs" t="Include" />
+            <e p="DirectionSegment.cs" t="Include" />
             <e p="PanelsInMenu.cs" t="Include" />
             <e p="TypeCollider.cs" t="Include" />
             <e p="ZombieDirection.cs" t="Include" />
@@ -552,11 +553,6 @@
                 <e p="ZombieBoozerAudioHandler.cs" t="Include" />
               </e>
               <e p="Background" t="Include">
-                <e p="BackgroundCalculate" t="Include">
-                  <e p="BackgroundCalculate.cs" t="Include" />
-                  <e p="BackgroundCalculateComputeShader.cs" t="Include" />
-                  <e p="BackgroundCalculateDefault.cs" t="Include" />
-                </e>
                 <e p="Cloud.cs" t="Include" />
                 <e p="CloudsGenerator.cs" t="Include" />
                 <e p="CloudShape.cs" t="Include" />
@@ -591,6 +587,11 @@
                 <e p="DestructibleObject.cs" t="Include" />
                 <e p="DisableEnableSwitcher.cs" t="Include" />
                 <e p="Trap.cs" t="Include" />
+                <e p="Zombie" t="Include">
+                  <e p="Zombie.cs" t="Include" />
+                  <e p="ZombieBoozer.cs" t="Include" />
+                  <e p="ZombieMove.cs" t="Include" />
+                </e>
               </e>
               <e p="LevelEditor" t="Include">
                 <e p="LandGenerator.cs" t="Include" />
@@ -610,21 +611,19 @@
               <e p="NotificationsProvider.cs" t="Include" />
               <e p="ResultsLevel.cs" t="Include" />
               <e p="ResultsLevelProvider.cs" t="Include" />
-              <e p="Zombie" t="Include">
-                <e p="Zombie.cs" t="Include" />
-                <e p="ZombieBoozer.cs" t="Include" />
-                <e p="ZombieMove.cs" t="Include" />
-              </e>
             </e>
             <e p="Map" t="Include">
+              <e p="AngleCalculator.cs" t="Include" />
               <e p="BezierPointCalculator.cs" t="Include" />
               <e p="Map.cs" t="Include" />
+              <e p="MapFlags.cs" t="Include" />
               <e p="SegmentMap.cs" t="Include" />
             </e>
             <e p="Player" t="Include">
               <e p="PlayerData.cs" t="Include" />
               <e p="PlayerDataHandler.cs" t="Include" />
             </e>
+            <e p="ResolutionSpriteScaler.cs" t="Include" />
             <e p="SceneSwitch.cs" t="Include" />
             <e p="Signals" t="Include">
               <e p="DestructionsSignal.cs" t="Include" />
@@ -737,6 +736,7 @@
                   <e p="LevelParticlesProvider.cs" t="Include" />
                   <e p="LevelPrefabsProvider.cs" t="Include" />
                 </e>
+                <e p="MapPrefabsProvider.cs" t="Include" />
               </e>
             </e>
             <e p="UpgradeButtonsGarageContent.cs" t="Include" />
@@ -751,7 +751,7 @@
               <e p="CustomButtonUpgrade.cs" t="Include" />
             </e>
             <e p="UIEntryScene" t="Include">
-              <e p="Model" t="Include">
+              <e p="Logic" t="Include">
                 <e p="AnimationsUI.cs" t="Include" />
                 <e p="ButtonsUpgrade" t="Include">
                   <e p="AppearanceButtonsAnimation.cs" t="Include" />
@@ -772,13 +772,10 @@
                   <e p="LockLotIndicator.cs" t="Include" />
                   <e p="SwitchingArrows.cs" t="Include" />
                 </e>
+                <e p="LogicEntryScene.cs" t="Include" />
                 <e p="MapPanelHandler.cs" t="Include" />
-                <e p="ModelEntryScene.cs" t="Include" />
                 <e p="PanelsActivator.cs" t="Include" />
                 <e p="ValuesPanelHandler.cs" t="Include" />
-              </e>
-              <e p="Presenter" t="Include">
-                <e p="PresenterEntryScene.cs" t="Include" />
               </e>
               <e p="View" t="Include">
                 <e p="ButtonWithStatusBar.cs" t="Include" />
