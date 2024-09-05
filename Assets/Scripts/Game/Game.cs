@@ -14,8 +14,10 @@ public class Game : MonoBehaviour
     [SerializeField, BoxGroup("Level Settings"), HorizontalLine(color:EColor.White)] private Transform _startLevelPoint;
     [SerializeField, BoxGroup("Level Settings")] private Transform _endLevelPoint;
     [SerializeField, BoxGroup("Level Settings"), HorizontalLine(color:EColor.White)] private float _timeWaitingOnEndLevel = 1f;
+
     [SerializeField, BoxGroup("Level Settings"), HorizontalLine(color:EColor.White)] private SliderSectionValues _sliderSectionValue;
     [SerializeField, BoxGroup("Level Settings"), HorizontalLine(color:EColor.White)] private bool _limitRideBackIsOn;
+    [SerializeField, BoxGroup("Level Settings")] private bool _autoGameOverIsOn;
     [Inject] private SaveService _saveService;
     [Inject] private PlayerDataProvider _playerDataProvider;
     [Inject] private GlobalAudio _globalAudio;
@@ -36,7 +38,7 @@ public class Game : MonoBehaviour
     [Inject] private GameOverSignal _gameOverSignal;
 
 
-    private Factory _factory;
+    private Spawner _spawner;
     private CarInLevel _carInLevel;
     private LogicUILevel _logicUILevel;
     private KillsCount _killsCount;
@@ -50,8 +52,11 @@ public class Game : MonoBehaviour
     private ActionAnalyzer _actionAnalyzer;
     private void Awake()
     {
-        _playerDataHandler = _playerDataProvider.PlayerDataHandler;
-        _factory = new Factory();
+        if (_playerDataProvider != null)
+        {
+            _playerDataHandler = _playerDataProvider.PlayerDataHandler;
+        }
+        _spawner = new Spawner();
         _actionAnalyzer = new ActionAnalyzer(_timeScaler, _notificationsProvider, _explodeSignal, _destructionsSignal, _killsSignal, _gameOverSignal);
         InitCar();
         _limitRideBack.Init(_limitRideBackIsOn);
@@ -69,15 +74,13 @@ public class Game : MonoBehaviour
         int currentSelectLotCarIndex = _playerDataHandler.GetCurrentSelectLotCarIndex();
         _carConfigurationProvider = new CarConfigurationProvider();
         InitCarConfiguration(currentSelectLotCarIndex);
-        _carInLevel = _factory.CreateCar(
-            _levelPrefabsProvider.CarsInLevelPrefabs[currentSelectLotCarIndex],
-            _startLevelPoint
-            );
+        _carInLevel = _spawner.Spawn(_levelPrefabsProvider.CarsInLevelPrefabs[currentSelectLotCarIndex],
+            _startLevelPoint);
         _cinemachineVirtualCamera.Follow = _carInLevel.transform;
         InitProgressCounter();
         _carInLevel.Construct(_carConfiguration, _notificationsProvider, _levelProgressCounter,
             _level.DebrisParent, _globalAudioForCar, _audioClipProvider.CarsAudioClipsProvider.GetCarAudioClipProvider(currentSelectLotCarIndex),
-            _timeScaleSignal, _gameOverSignal, _gamePause, _gameData.GetCarControlMethod());
+            _timeScaleSignal, _gameOverSignal, _gamePause, _gameData.GetCarControlMethod(), _autoGameOverIsOn);
     }
 
     private void InitProgressCounter()
@@ -99,7 +102,7 @@ public class Game : MonoBehaviour
 
     private void InitViewUILevel()
     {
-        _viewUILevel = _factory.CreateCanvas(_levelPrefabsProvider.ViewUILevelPrefab);
+        _viewUILevel = _spawner.Spawn(_levelPrefabsProvider.ViewUILevelPrefab);
         _viewUILevel.GetComponent<Canvas>().worldCamera = Camera.main;
     }
     private void Update()
@@ -121,23 +124,22 @@ public class Game : MonoBehaviour
     }
     private void OnApplicationQuit()
     {
-        // Debug.Log($"OnApplicationQuit Game    SaveOn: {_gameData.SaveOn}");
-        _saveService.SetPlayerDataToSaving(_playerDataHandler.PlayerData, _gameData.SaveOn);
+        _saveService?.SetPlayerDataToSaving(_playerDataHandler.PlayerData, _gameData.SaveOn);
     }
     private void OnApplicationPause(bool pause)
     {
         if (pause is true)
         {
-            _saveService.SetPlayerDataToSaving(_playerDataHandler.PlayerData, _gameData.SaveOn);
+            _saveService?.SetPlayerDataToSaving(_playerDataHandler.PlayerData, _gameData.SaveOn);
         }
     }
 
     private void OnDestroy()
     {
-        _resultsLevelProvider.Dispose();
-        _globalAudio.DisposeAndReInit();
-        _killsCount.Dispose();
-        _destructionCount.Dispose();
-        _actionAnalyzer.Dispose();
+        _resultsLevelProvider?.Dispose();
+        _globalAudio?.DisposeAndReInit();
+        _killsCount?.Dispose();
+        _destructionCount?.Dispose();
+        _actionAnalyzer?.Dispose();
     }
 }

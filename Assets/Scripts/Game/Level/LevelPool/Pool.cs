@@ -12,7 +12,6 @@ public class PoolMetods
     }
     protected virtual void ReturnAction(DebrisEffect effect)
     {
-        // effect.transform.SetParent(_barrelPoolEffectsParent);
         effect.gameObject.SetActive(false);
     }
     protected  void ReturnAction(ParticleSystem effect)

@@ -115,10 +115,14 @@ public class DestructibleObject : MonoBehaviour
     }
     protected void OnDestroy()
     {
-        for (int i = 0; i < FragmentsDebris.Count; i++)
+        if (FragmentsDebris != null)
         {
-            FragmentsDebris[i].Dispose();
+            for (int i = 0; i < FragmentsDebris.Count; i++)
+            {
+                FragmentsDebris[i].Dispose();
+            }
         }
-        _compositeDisposable.Clear();
+
+        _compositeDisposable?.Clear();
     }
 }

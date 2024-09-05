@@ -167,8 +167,8 @@ public class Barrel : DestructibleObject, IHitable, IShotable, ICutable, IExplos
     private void OnDisable()
     {
         StopCoroutine(SubscribeCheckCollision());
-        _compositeDisposable.Clear();
-        _barrelAudioHandler.Dispose();
-        _blastWave.Dispose();
+        _compositeDisposable?.Clear();
+        _barrelAudioHandler?.Dispose();
+        _blastWave?.Dispose();
     }
 }

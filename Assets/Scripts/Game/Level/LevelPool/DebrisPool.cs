@@ -7,17 +7,16 @@ public class DebrisPool : PoolMetods
     private readonly ParticleSystem _burnEffectPrefab;
     private readonly ParticleSystem _smokeEffectPrefab;
     private readonly DebrisEffect _debrisEffectPrefab;
-    private readonly Factory _factory;
+    private readonly Spawner _spawner;
     private readonly Transform _debrisPoolEffectsParent;
     private readonly PoolBase<DebrisEffect> _debrisBarrelEffectsPool;
 
-    public DebrisPool(ParticleSystem burnEffectPrefab, ParticleSystem smokeEffectPrefab, DebrisEffect debrisEffectPrefab,
-        Factory factory, Transform debrisPoolEffectsParent)
+    public DebrisPool(ParticleSystem burnEffectPrefab, ParticleSystem smokeEffectPrefab, DebrisEffect debrisEffectPrefab, Transform debrisPoolEffectsParent)
     {
         _burnEffectPrefab = burnEffectPrefab;
         _smokeEffectPrefab = smokeEffectPrefab;
         _debrisEffectPrefab = debrisEffectPrefab;
-        _factory = factory;
+        _spawner = new Spawner();
         _debrisPoolEffectsParent = debrisPoolEffectsParent;
         
         _debrisBarrelEffectsPool = new PoolBase<DebrisEffect>(CreateDebrisEffect, GetAction, this.ReturnAction, _preloadDebrisEffectsCount);
@@ -25,10 +24,10 @@ public class DebrisPool : PoolMetods
     }
     private DebrisEffect CreateDebrisEffect()
     {
-        DebrisEffect debrisEffect = _factory.CreateEffect(_debrisEffectPrefab, _debrisPoolEffectsParent);
+        DebrisEffect debrisEffect = _spawner.Spawn(_debrisEffectPrefab, _debrisPoolEffectsParent, _debrisPoolEffectsParent);
         debrisEffect.Construct(
-            _factory.CreateEffect(_smokeEffectPrefab, debrisEffect.transform),
-            _factory.CreateEffect(_burnEffectPrefab, debrisEffect.transform),
+            _spawner.Spawn(_smokeEffectPrefab, debrisEffect.transform, debrisEffect.transform),
+            _spawner.Spawn(_burnEffectPrefab, debrisEffect.transform, debrisEffect.transform),
             this.ReturnAction);
 
         return debrisEffect;

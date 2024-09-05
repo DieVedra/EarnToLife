@@ -34,6 +34,7 @@ public class DebrisEffect : MonoBehaviour
     private float _durationTimeSmoke;
     private float _durationTimeBurn;
     private DebrisFragment _debrisFragment;
+    private Transform _transform;
     private CompositeDisposable _compositeDisposableSmoke = new CompositeDisposable();
     private CompositeDisposable _compositeDisposableBurn = new CompositeDisposable();
     private Action<DebrisEffect> _callBack;
@@ -49,11 +50,13 @@ public class DebrisEffect : MonoBehaviour
         _mainModuleSmoke = _effectSmoke.main;
         _mainModuleFire = _effectBurn.main;
         _callBack = callBack;
+        _transform = transform;
+        
     }
     public void PlayEffectTo(DebrisFragment debrisFragment, float intensityByDistance, bool isBurn)
     {
-        transform.position = debrisFragment.FragmentTransform.position;
-        transform.SetParent(debrisFragment.FragmentTransform);
+        _transform.position = debrisFragment.FragmentTransform.position;
+        _transform.SetParent(debrisFragment.FragmentTransform);
         _intensityByDistance = intensityByDistance;
         _debrisFragment = debrisFragment;
         SetCurveByTypeCollider();
@@ -74,10 +77,10 @@ public class DebrisEffect : MonoBehaviour
 
     private void StopEffects()
     {
-        _effectBurn.Stop();
-        _effectSmoke.Stop();
-        _compositeDisposableSmoke.Clear();
-        _compositeDisposableBurn.Clear();
+        _effectBurn?.Stop();
+        _effectSmoke?.Stop();
+        _compositeDisposableSmoke?.Clear();
+        _compositeDisposableBurn?.Clear();
     }
     private void SmokeAttenuationSubscribe()
     {

@@ -8,6 +8,5 @@ public class LevelInstaller : MonoInstaller
     public override void InstallBindings()
     {
         Container.BindInterfacesAndSelfTo<Level>().FromInstance(_level).AsSingle();
-        Container.Bind<Factory>().FromNew().AsSingle();
     }
 }

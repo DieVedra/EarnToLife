@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a156927f71be6349984552afd4af9e0, type: 3}
+  m_Name: LevelBackgroundSpriteProvider
+  m_EditorClassIdentifier: 
+  _upColor1: {r: 0.34509805, g: 0.44705883, b: 0.5764706, a: 0.2}
+  _upColor2: {r: 0.45882353, g: 0.54509807, b: 0.6509804, a: 0.2}
+  _downColor1: {r: 0.9254902, g: 0.6392157, b: 0.62352943, a: 0.2}
+  _downColor2: {r: 0.9137255, g: 0.8156863, b: 0.80784315, a: 0.2}
+  _cloudSprite1: {fileID: 21300000, guid: cf3be590554f8b24786e3dd2dcfbdbcd, type: 3}
+  _cloudSprite2: {fileID: 21300000, guid: 7fac54cc4b7ef014884692589c9cd6c8, type: 3}
+  _cloudSprite3: {fileID: 21300000, guid: 8787b808529ada241b7c92c22169b54f, type: 3}
+  _cloudSprite4: {fileID: 21300000, guid: 75ac9e12d316ec546a18bf5a51964295, type: 3}
+  _cloudSprite5: {fileID: 21300000, guid: fec915f3f4f5ed843a351d2769dffde3, type: 3}
+  _cloudSprite6: {fileID: 21300000, guid: 2dfc9b63b8eb3334a822d2b955a0487b, type: 3}
+  _cloudSprite7: {fileID: 21300000, guid: 44880bb39264b3046be8cd4a47573ebd, type: 3}
+  _cloudSprite8: {fileID: 21300000, guid: 90cf29c118dd64c4ca518505a1cdd02f, type: 3}
+  _cloudSprite9: {fileID: 21300000, guid: 92da14482fb4a9e42ad137d547e5bb11, type: 3}
+  _cloudSprite10: {fileID: 21300000, guid: 66dca2cc4c2753f4a91b3fe9fa4b4ee1, type: 3}
+  _cloudSprite11: {fileID: 21300000, guid: 59584fd71414450429d333430fc90049, type: 3}
+  _cloudSprite12: {fileID: 21300000, guid: 2714540a3d2d16444a6af022e33e8b03, type: 3}
+  _cloudSprite13: {fileID: 21300000, guid: 60e69853daeb65a489616be78c4e5119, type: 3}
+  _cloudSprite14: {fileID: 21300000, guid: 9447956878e1a1243b7d9140067b69fd, type: 3}
+  _cloudSprite15: {fileID: 21300000, guid: e60f89bfbeb22464292dd9796e32331c, type: 3}
+  _skyGradient: {fileID: 21300000, guid: b44bc4334cff7464eb98ca707351f2a8, type: 3}

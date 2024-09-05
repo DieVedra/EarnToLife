@@ -45,7 +45,10 @@ public class ZombieBoozer : Zombie
     }
     private void OnDisable()
     {
-        _gameOverSignal.OnGameOver -= StopEffect;
+        if (_gameOverSignal != null)
+        {
+            _gameOverSignal.OnGameOver -= StopEffect;
+        }
         OnBroken -= StopEffect;
         StopEffect();
     }

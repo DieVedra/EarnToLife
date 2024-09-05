@@ -12,9 +12,12 @@ public class AudioPlayer
     public AudioPlayer(AudioSource audioSource, ReactiveProperty<bool> soundReactiveProperty, ReactiveProperty<bool> audioPauseReactiveProperty)
     {
         AudioSource = audioSource;
-        soundReactiveProperty.Subscribe(SetSoundStatus);
-        audioPauseReactiveProperty.Subscribe(SetPauseStatus);
-        SoundOn = soundReactiveProperty.Value;
+        if (soundReactiveProperty != null)
+        {
+            soundReactiveProperty.Subscribe(SetSoundStatus);
+            audioPauseReactiveProperty.Subscribe(SetPauseStatus);
+            SoundOn = soundReactiveProperty.Value;
+        }
     }
     public void TryPlayClip(AudioClip audioClip, bool loop = true)
     {

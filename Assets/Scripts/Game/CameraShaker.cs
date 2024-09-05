@@ -17,7 +17,11 @@ public class CameraShaker : MonoBehaviour
     {
         _virtualCamera = GetComponent<CinemachineVirtualCamera>();
         _noise = _virtualCamera.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
-        _explodeSignal.OnExplosion += Shake;
+        if (_explodeSignal != null)
+        {
+            _explodeSignal.OnExplosion += Shake;
+        }
+
         SetDefault();
 
     }
@@ -48,7 +52,10 @@ public class CameraShaker : MonoBehaviour
     }
     private void OnDestroy()
     {
-        _explodeSignal.OnExplosion -= Shake;
-        _compositeDisposable.Clear();
+        if (_explodeSignal != null)
+        {
+            _explodeSignal.OnExplosion -= Shake;
+        }
+        _compositeDisposable?.Clear();
     }
 }

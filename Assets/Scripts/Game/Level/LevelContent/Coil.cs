@@ -84,7 +84,7 @@ public class Coil : DestructibleObject, IHitable, IExplosive, ICutable
     }
     private new void OnDestroy()
     {
-        _woodDestructibleAudioHandler.Dispose();
+        _woodDestructibleAudioHandler?.Dispose();
         base.OnDestroy();
     }
 }

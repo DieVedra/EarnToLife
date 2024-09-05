@@ -278,7 +278,10 @@ public class Zombie : MonoBehaviour, IHitable, IExplosive, IShotable, ICutable
         _animation.Play();
         _bloodFall.Play();
         _zombieMove.Init();
-        StartCoroutine(StartCyclePlaySound(_zombieAudioHandler.PlayTalk, _zombieTalkSoundPeriod));
+        if (_zombieAudioHandler != null)
+        {
+            StartCoroutine(StartCyclePlaySound(_zombieAudioHandler.PlayTalk, _zombieTalkSoundPeriod));
+        }
     }
 
     private void OnGameOverSignal()
@@ -308,7 +311,10 @@ public class Zombie : MonoBehaviour, IHitable, IExplosive, IShotable, ICutable
     private void OnDestroy()
     {
         _compositeDisposable.Clear();
-        _gameOverSignal.OnGameOver -= OnGameOverSignal;
+        if (_gameOverSignal != null)
+        {
+            _gameOverSignal.OnGameOver -= OnGameOverSignal;
+        }
 
         if (_debrisFragments != null)
         {

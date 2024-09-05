@@ -14,7 +14,7 @@ public class TimeScalerFSM
     }
     public void Dispose()
     {
-        CurrentState.Exit();
+        CurrentState?.Exit();
     }
     public void SetState<T>() where T : TimeScalerState
     {

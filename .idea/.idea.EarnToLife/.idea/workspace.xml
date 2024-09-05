@@ -20,136 +20,428 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3af2ac40-862a-4bb0-a04f-e86f35a10e50" name="Default Changelist" comment="roof destruction handler changed">
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Game/Map/MapFlags.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Game/Map/MapFlags.cs.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.EarnToLife/.idea/contentModel.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.EarnToLife/.idea/contentModel.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.EarnToLife/.idea/indexLayout.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.EarnToLife/.idea/indexLayout.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.EarnToLife/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.EarnToLife/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Audio/BackgroundMusic/BackgroundMusic.ogg.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Audio/BackgroundMusic/BackgroundMusic.ogg.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Plugins/TextMesh Pro/Resources/Fonts &amp; Materials/LiberationSans SDF - Fallback.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Plugins/TextMesh Pro/Resources/Fonts &amp; Materials/LiberationSans SDF - Fallback.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Cars/CarsToGame/Car1ToGame.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Cars/CarsToGame/Car1ToGame.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Level/Barrels/Barrel1.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Level/Barrels/Barrel1.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Level/Barrels/Barrel2.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Level/Barrels/Barrel2.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Level/Coil1.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Level/Coil1.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/UI/LevelCanvas.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/UI/LevelCanvas.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/UI/Notification.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/UI/Notification.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Sounds.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Sounds/CarSounds.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/SaveData.dat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/SaveData.dat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Map/LineSpritePrefab.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Map/LineSpritePrefab.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Map/NextPointFlag.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Map/NextPointFlag.prefab" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/EntryScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/EntryScene.unity" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/Levels/Level_1_Parts/Part1.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Levels/Level_1_Parts/Part1.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/New Scene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/New Scene.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/test3.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/test3.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/CarInLevel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Car/CarInLevel.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/Analyzers/GroundAnalyzer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/Analyzers/GroundAnalyzer.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/Booster/Booster.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/Booster/Booster.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/Booster/States/BoosterStateIncreaseRun.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/Booster/States/BoosterStateIncreaseRun.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/CarFSM/CarFSM.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/CarFSM/CarFSM.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/CarFSM/States/CarState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/CarFSM/States/CarState.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/CarFSM/States/FlyState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/CarFSM/States/FlyState.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/CarFSM/States/GasState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/CarFSM/States/GasState.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/CarFSM/States/SoftStopState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/CarFSM/States/SoftStopState.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/CarFSM/States/StopState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/CarFSM/States/StopState.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/Control/ControlCar.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/Control/ControlCar.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/Gun/CarGun.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/Gun/CarGun.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/Gun/GunGuidance.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/Gun/GunGuidance.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/Gyroscope.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/Gyroscope.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/PropulsionUnit/Engine.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/PropulsionUnit/Engine.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/WheelGroundInteractions/GasStateWheelGroundInteraction.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/WheelGroundInteractions/GasStateWheelGroundInteraction.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/WheelGroundInteractions/StopStateWheelGroundInteraction.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/WheelGroundInteractions/StopStateWheelGroundInteraction.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/WheelGroundInteractions/WheelGroundInteraction.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/WheelGroundInteractions/WheelGroundInteraction.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Enums/CarControlMethod.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Enums/CarControlMethod.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Enums/DirectionSegment.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Enums/DirectionSegment.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Audio.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Audio/AudioHandlers.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Audio/AudioHandlers/AudioHandlerUI.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Audio/AudioHandlers/AudioHandlerUI.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Audio/AudioPlayer.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Audio/AudioPlayer.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Audio/AudioSettingSwitch.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Audio/AudioSettingSwitch.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Audio/GlobalAudio.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Audio/GlobalAudio.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Audio/GlobalAudioValues.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Audio/GlobalAudioValues.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/Car.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/Car.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/CarAudio.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/CarAudio/BoosterAudioHandler.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/CarAudio/BoosterAudioHandler.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/CarAudio/BrakeAudioHandler.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/CarAudio/BrakeAudioHandler.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/CarAudio/CarAudio.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/CarAudio/CarAudio.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/CarAudio/DestructionAudioHandler.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/CarAudio/DestructionAudioHandler.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/CarAudio/EngineAudioHandler.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/CarAudio/EngineAudioHandler.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/CarAudio/GunAudioHandler.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/CarAudio/GunAudioHandler.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/CarAudio/HotWheelAudioHandler.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/CarAudio/HotWheelAudioHandler.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/CarAudio/SuspensionAudioHandler.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/CarAudio/SuspensionAudioHandler.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/CarAudio/WheelsAudioHandler.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/CarAudio/WheelsAudioHandler.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/CarInLevel.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/CarInLevel.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/DestructionCar.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/DestructionCar/ArmoredBackFrameDestructionHandler.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/DestructionCar/ArmoredBackFrameDestructionHandler.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/DestructionCar/BackCarHandler.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/DestructionCar/BackCarHandler.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/DestructionCar/BackDoorDestructionHandler.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/DestructionCar/BackDoorDestructionHandler.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/DestructionCar/BackWingDestructionHandler.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/DestructionCar/BackWingDestructionHandler.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/DestructionCar/BoosterDestructionHandler.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/DestructionCar/BoosterDestructionHandler.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/DestructionCar/BottomDestructionHandler.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/DestructionCar/BottomDestructionHandler.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/DestructionCar/BumperDestructionHandler.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/DestructionCar/BumperDestructionHandler.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/DestructionCar/CabineDestructionHandler.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/DestructionCar/CabineDestructionHandler.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/DestructionCar/DestructionCar.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/DestructionCar/DestructionCar.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/DestructionCar/DestructionEffectsHandler.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/DestructionCar/DestructionEffectsHandler.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/DestructionCar/DestructionHandler.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/DestructionCar/DestructionHandler.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/DestructionCar/DestructionHandlerContent.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/DestructionCar/DestructionHandlerContent.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/DestructionCar/DestructionMode.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/DestructionCar/DestructionMode.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/DestructionCar/ExhaustHandler.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/DestructionCar/ExhaustHandler.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/DestructionCar/FrontDoorDestructionHandler.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/DestructionCar/FrontDoorDestructionHandler.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/DestructionCar/FrontWingDestructionHandler.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/DestructionCar/FrontWingDestructionHandler.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/DestructionCar/GlassDestructionHandlers.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/DestructionCar/GlassDestructionHandlers/ArmoredGlassDestructionHandler.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/DestructionCar/GlassDestructionHandlers/ArmoredGlassDestructionHandler.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/DestructionCar/GlassDestructionHandlers/GlassDestructionHandler.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/DestructionCar/GlassDestructionHandlers/GlassDestructionHandler.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/DestructionCar/GlassDestructionHandlers/StandartGlassDestructionHandler.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/DestructionCar/GlassDestructionHandlers/StandartGlassDestructionHandler.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/DestructionCar/GunDestructionHandler.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/DestructionCar/GunDestructionHandler.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/DestructionCar/HotWheelDestructionHandler.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/DestructionCar/HotWheelDestructionHandler.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/DestructionCar/RoofDestructionHandler.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/DestructionCar/RoofDestructionHandler.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/DestructionCar/SafetyFrameworkDestructionHandler.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/DestructionCar/SafetyFrameworkDestructionHandler.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/HotWheel.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/HotWheel.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/Parts.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/Parts/ArmoredBackFrameRef.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/Parts/ArmoredBackFrameRef.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/Parts/ArmoredFrontFrameRef.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/Parts/ArmoredFrontFrameRef.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/Parts/ArmoredRoofFrameRef.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/Parts/ArmoredRoofFrameRef.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/Parts/BackWingRef.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/Parts/BackWingRef.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/Parts/BoosterRef.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/Parts/BoosterRef.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/Parts/BottomRef.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/Parts/BottomRef.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/Parts/BumperRef.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/Parts/BumperRef.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/Parts/CabineRef.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/Parts/CabineRef.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/Parts/DoorRef.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/Parts/DoorRef.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/Parts/FrontWingRef.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/Parts/FrontWingRef.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/Parts/GlassRef.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/Parts/GlassRef.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/Parts/GunRef.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/Parts/GunRef.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/Parts/HotWheelRef.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/Parts/HotWheelRef.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/Parts/RoofRef.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/Parts/RoofRef.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/Parts/SafetyFrameworkRef.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/Parts/SafetyFrameworkRef.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/Sourse.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/Analyzers.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/Analyzers/CoupAnalyzer.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/Analyzers/CoupAnalyzer.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/Analyzers/GroundAnalyzer.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/Analyzers/GroundAnalyzer.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/Analyzers/MoveAnalyzer.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/Analyzers/MoveAnalyzer.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/Analyzers/TimerAsync.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/Analyzers/TimerAsync.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/Booster.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/Booster/Booster.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/Booster/Booster.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/Booster/BoosterScrew.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/Booster/BoosterScrew.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/Booster/BoosterValues.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/Booster/BoosterValues.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/Booster/States.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/Booster/States/BoosterState.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/Booster/States/BoosterState.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/Booster/States/BoosterStateDecreaseStop.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/Booster/States/BoosterStateDecreaseStop.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/Booster/States/BoosterStateIncreaseRun.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/Booster/States/BoosterStateIncreaseRun.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/Booster/States/BoosterStateOnBrokenStop.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/Booster/States/BoosterStateOnBrokenStop.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/Booster/States/BoosterStateOutFuelStop.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/Booster/States/BoosterStateOutFuelStop.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/Brakes.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/Brakes.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/CarFSM.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/CarFSM/CarFSM.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/CarFSM/CarFSM.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/CarFSM/States.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/CarFSM/States/CarState.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/CarFSM/States/CarState.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/CarFSM/States/FlyState.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/CarFSM/States/FlyState.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/CarFSM/States/GasState.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/CarFSM/States/GasState.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/CarFSM/States/RollState.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/CarFSM/States/RollState.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/CarFSM/States/SoftStopState.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/CarFSM/States/SoftStopState.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/CarFSM/States/StopState.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/CarFSM/States/StopState.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/CarMass.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/CarMass/CarMass.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/CarMass/CarMass.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/CarWheel.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/CarWheel.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/Control.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/Control/ControlCar.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/Control/ControlCar.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/Control/ControlCarKeyboard.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/Control/ControlCarKeyboard.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/Control/ControlCarUI.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/Control/ControlCarUI.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/Control/InputMethod.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/Control/InputMethod.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/Control/KeyboardInputMethod.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/Control/KeyboardInputMethod.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/Control/UIInputMethod.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/Control/UIInputMethod.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/Exhaust.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/Exhaust.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/FuelTanks.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/FuelTanks/BoosterFuelTank.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/FuelTanks/BoosterFuelTank.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/FuelTanks/FuelTank.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/FuelTanks/FuelTank.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/FuelTanks/Tank.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/FuelTanks/Tank.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/Gun.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/Gun/CarGun.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/Gun/CarGun.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/Gun/CarGunDetector.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/Gun/CarGunDetector.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/Gun/CarGunTarget.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/Gun/CarGunTarget.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/Gun/GunGuidance.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/Gun/GunGuidance.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/Gun/RateFire.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/Gun/RateFire.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/Gyroscope.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/Gyroscope.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/PropulsionUnit.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/PropulsionUnit/Engine.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/PropulsionUnit/Engine.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/PropulsionUnit/PropulsionUnit.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/PropulsionUnit/PropulsionUnit.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/PropulsionUnit/Transmission.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/PropulsionUnit/Transmission.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/Speedometer.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/Speedometer.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/Suspension.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/Suspension.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/WheelGroundInteractions.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/WheelGroundInteractions/GasStateWheelGroundInteraction.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/WheelGroundInteractions/GasStateWheelGroundInteraction.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/WheelGroundInteractions/StopStateWheelGroundInteraction.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/WheelGroundInteractions/StopStateWheelGroundInteraction.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/WheelGroundInteractions/WheelGroundInteraction.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/WheelGroundInteractions/WheelGroundInteraction.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/SpeedEffect.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/SpeedEffect/SpeedEffect.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/SpeedEffect/SpeedEffect.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/SpeedEffect/SpeedEffectHandler.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/SpeedEffect/SpeedEffectHandler.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/StopCauseHandler.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Car/StopCauseHandler.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/DebrisEffect.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/DebrisEffect.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Factory.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Factory.cs.meta" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Game/ActionAnalyzer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Game/ActionAnalyzer.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Game/CameraShaker.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Game/CameraShaker.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Game/EntryPoint.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Game/EntryPoint.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Game/Game.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Game/Game.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Game/GamePause.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Game/GamePause.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Game/Level/Audio/LevelAudio.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Game/Level/Audio/LevelAudio.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Game/Level/Background/Cloud.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Game/Level/Background/Cloud.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Game/Level/Background/CloudsGenerator.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Game/Level/Background/CloudsGenerator.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Game/Level/Background/LevelBackground.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Game/Level/Background/LevelBackground.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Game/Level/Level.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Game/Level/Level.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Game/Level/LevelContent/Barrel/Barrel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Game/Level/LevelContent/Barrel/Barrel.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Game/Level/LevelContent/Barrel/BlastWave.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Game/Level/LevelContent/Barrel/BlastWave.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Game/Level/LevelContent/Beam/Beam.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Game/Level/LevelContent/Beam/Beam.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Game/Level/LevelContent/Boxes/Box.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Game/Level/LevelContent/Boxes/Box.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Game/Level/LevelContent/Coil.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Game/Level/LevelContent/Coil.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Game/Level/LevelContent/DestructibleObject.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Game/Level/LevelContent/DestructibleObject.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Game/Level/LevelContent/Zombie/Zombie.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Game/Level/LevelContent/Zombie/Zombie.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Game/Level/LevelContent/Zombie/ZombieMove.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Game/Level/LevelContent/Zombie/ZombieMove.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Game/Map/AngleCalculator.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Game/Map/AngleCalculator.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Game/Level/LevelContent/Zombie/ZombieBoozer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Game/Level/LevelContent/Zombie/ZombieBoozer.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Game/Level/LevelPool/BarrelPool.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Game/Level/LevelPool/BarrelPool.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Game/Level/LevelPool/DebrisPool.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Game/Level/LevelPool/DebrisPool.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Game/Level/LevelPool/Pool.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Game/Level/LevelPool/Pool.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Game/Level/LevelPool/ZombiePool.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Game/Level/LevelPool/ZombiePool.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Game/Map/Map.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Game/Map/Map.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Game/Map/MapFlags.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Game/Map/MapFlags.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Game/Map/MapLine.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Game/Map/MapLine.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Game/Map/SegmentMap.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Game/Map/SegmentMap.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Game/ResolutionSpriteScaler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Game/ResolutionSpriteScaler.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Game/TimeScaler/TimeScalerState/TimeScalerWarpState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Game/TimeScaler/TimeScalerState/TimeScalerWarpState.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/ScriptableObjectScripts/GameData.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/ScriptableObjectScripts/GameData.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Spawner.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Spawner.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/UIEntryScene/Model.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/UIEntryScene/Model/AnimationsUI.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/UIEntryScene/Model/AnimationsUI.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/UIEntryScene/Model/ButtonsUpgrade.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/UIEntryScene/Model/ButtonsUpgrade/AppearanceButtonsAnimation.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/UIEntryScene/Model/ButtonsUpgrade/AppearanceButtonsAnimation.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/UIEntryScene/Model/ButtonsUpgrade/ButtonData.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/UIEntryScene/Model/ButtonsUpgrade/ButtonData.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/UIEntryScene/Model/ButtonsUpgrade/ButtonsUpgradeCar.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/UIEntryScene/Model/ButtonsUpgrade/ButtonsUpgradeCar.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/UIEntryScene/Model/ButtonsUpgrade/InteractableButtonHandler.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/UIEntryScene/Model/ButtonsUpgrade/InteractableButtonHandler.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/UIEntryScene/Model/ButtonsUpgrade/PriceLabel.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/UIEntryScene/Model/ButtonsUpgrade/PriceLabel.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/UIEntryScene/Model/ButtonsUpgrade/ProgressIndicator.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/UIEntryScene/Model/ButtonsUpgrade/ProgressIndicator.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/UIEntryScene/Model/ButtonsUpgrade/UpgradeButton.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/UIEntryScene/Model/ButtonsUpgrade/UpgradeButton.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/UIEntryScene/Model/ConfirmationUpgrade.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/UIEntryScene/Model/ConfirmationUpgrade/AnimationPanelConfirmationUpgrade.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/UIEntryScene/Model/ConfirmationUpgrade/AnimationPanelConfirmationUpgrade.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/UIEntryScene/Model/ConfirmationUpgrade/ConfirmationUpgrade.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/UIEntryScene/Model/ConfirmationUpgrade/ConfirmationUpgrade.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/UIEntryScene/Model/GarageUI.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/UIEntryScene/Model/GarageUI/AnimationSwitchArrows.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/UIEntryScene/Model/GarageUI/AnimationSwitchArrows.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/UIEntryScene/Model/GarageUI/GarageUI.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/UIEntryScene/Model/GarageUI/GarageUI.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/UIEntryScene/Model/GarageUI/LockLotIndicator.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/UIEntryScene/Model/GarageUI/LockLotIndicator.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/UIEntryScene/Model/GarageUI/SwitchingArrows.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/UIEntryScene/Model/GarageUI/SwitchingArrows.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/UIEntryScene/Model/MapPanelHandler.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/UIEntryScene/Model/MapPanelHandler.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/UIEntryScene/Model/ModelEntryScene.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/UIEntryScene/Model/ModelEntryScene.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/UIEntryScene/Model/PanelsActivator.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/UIEntryScene/Model/PanelsActivator.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/UIEntryScene/Model/ValuesPanelHandler.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/UIEntryScene/Model/ValuesPanelHandler.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/UIEntryScene/Presenter.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/UIEntryScene/Presenter/PresenterEntryScene.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/UIEntryScene/Presenter/PresenterEntryScene.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/UILevelScene/Logic/LogicUILevel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/UI/UILevelScene/Logic/LogicUILevel.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/UILevelScene/Logic/NotificationsHandler/Notifications/Notification.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/UI/UILevelScene/Logic/NotificationsHandler/Notifications/Notification.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/UILevelScene/Logic/NotificationsHandler/Notifications/NotificationWithDelay.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/UI/UILevelScene/Logic/NotificationsHandler/Notifications/NotificationWithDelay.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/UILevelScene/Logic/NotificationsHandler/Notifications/NotificationWithPosition.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/UI/UILevelScene/Logic/NotificationsHandler/Notifications/NotificationWithPosition.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/UILevelScene/Logic/NotificationsHandler/NotificationsHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/UI/UILevelScene/Logic/NotificationsHandler/NotificationsHandler.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/UILevelScene/Logic/PanelsHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/UI/UILevelScene/Logic/PanelsHandler.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Settings/Data/GameData.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Settings/Data/GameData.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Settings/ParkingLotsConfigurationsSettings/ParkingLot1Values.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Settings/ParkingLotsConfigurationsSettings/ParkingLot1Values.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Settings/Renderer2D.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Settings/Renderer2D.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Settings/UniversalRP.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Settings/UniversalRP.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Shaders/Shader Graphs_New Shader Graph.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Shaders/Shader Graphs_New Shader Graph.mat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Garage/Garagemdpi.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Garage/Garagemdpi.png.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/IMG_20240612_212407.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/IMG_20240612_212407.jpg.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/LevelContent/Underground.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/LevelContent/Underground.png.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Map/Mapmdpi.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/Map/Mapmdpi.png.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/SpritesAtlasses/UISpriteAtlas.spriteatlas" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/SpritesAtlasses/UISpriteAtlas.spriteatlas" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/StartMenu/photo_2024-06-11_18-39-45.jpg.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/StartMenu/photo_2024-06-11_18-39-45.jpg.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/UI/Bottle.png" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/UI/Bottle.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/UI/Bottle.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/UI/Bottle.png.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/UI/Flag.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/UI/Flag.png.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/UnityTechnologies/EffectExamples/FireExplosionEffects/Textures/SmokePuffParticleSheet.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/UnityTechnologies/EffectExamples/FireExplosionEffects/Textures/SmokePuffParticleSheet.png.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Packages/manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/Packages/manifest.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Packages/packages-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/Packages/packages-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectSettings/ProjectSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/ProjectSettings.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectSettings/QualitySettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/QualitySettings.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Game/SceneSwitch.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Game/SceneSwitch.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Game/TimeScaler/TimeScaler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Game/TimeScaler/TimeScaler.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Game/TimeScaler/TimeScalerFSM.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Game/TimeScaler/TimeScalerFSM.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Game/ValuesPanelActivator.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Game/ValuesPanelActivator.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Installers/LevelScenesInstallers/LevelInstaller.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Installers/LevelScenesInstallers/LevelInstaller.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/PoolBase.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/PoolBase.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Ragdoll.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Ragdoll.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/SaveService.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/SaveService/Data.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/SaveService/Data/SaveData.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/SaveService/Data/SaveData.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/SaveService/Data/SaveParkingIndexes.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/SaveService/Data/SaveParkingIndexes.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/SaveService/SaveMetods.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/SaveService/SaveMetods/BinarySave.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/SaveService/SaveMetods/BinarySave.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/SaveService/SaveMetods/ISaveMetod.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/SaveService/SaveMetods/ISaveMetod.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/SaveService/SaveService.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/SaveService/SaveService.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/ScriptableObjectScripts/Providers/LayersProvider.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/ScriptableObjectScripts/Providers/LayersProvider.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/SmoothnessTimer.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/SmoothnessTimer.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Spawner.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Spawner.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/SpawnerGame.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/SpawnerGame.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Test.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Test.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/CustomButton.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/CustomButton/CustomButton.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/CustomButton/CustomButton.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/CustomButton/CustomButtonUpgrade.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/CustomButton/CustomButtonUpgrade.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/UIEntryScene.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/UIEntryScene/Logic.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/UIEntryScene/Logic/AnimationsUI.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/UIEntryScene/Logic/AnimationsUI.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/UIEntryScene/Logic/ButtonsUpgrade.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/UIEntryScene/Logic/ButtonsUpgrade/AppearanceButtonsAnimation.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/UIEntryScene/Logic/ButtonsUpgrade/AppearanceButtonsAnimation.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/UIEntryScene/Logic/ButtonsUpgrade/ButtonData.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/UIEntryScene/Logic/ButtonsUpgrade/ButtonData.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/UIEntryScene/Logic/ButtonsUpgrade/ButtonsUpgradeCar.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/UIEntryScene/Logic/ButtonsUpgrade/ButtonsUpgradeCar.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/UIEntryScene/Logic/ButtonsUpgrade/InteractableButtonHandler.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/UIEntryScene/Logic/ButtonsUpgrade/InteractableButtonHandler.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/UIEntryScene/Logic/ButtonsUpgrade/PriceLabel.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/UIEntryScene/Logic/ButtonsUpgrade/PriceLabel.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/UIEntryScene/Logic/ButtonsUpgrade/ProgressIndicator.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/UIEntryScene/Logic/ButtonsUpgrade/ProgressIndicator.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/UIEntryScene/Logic/ButtonsUpgrade/UpgradeButton.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/UIEntryScene/Logic/ButtonsUpgrade/UpgradeButton.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/UIEntryScene/Logic/ConfirmationUpgrade.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/UIEntryScene/Logic/ConfirmationUpgrade/AnimationPanelConfirmationUpgrade.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/UIEntryScene/Logic/ConfirmationUpgrade/AnimationPanelConfirmationUpgrade.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/UIEntryScene/Logic/ConfirmationUpgrade/ConfirmationUpgrade.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/UIEntryScene/Logic/ConfirmationUpgrade/ConfirmationUpgrade.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/UIEntryScene/Logic/GarageUI.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/UIEntryScene/Logic/GarageUI/AnimationSwitchArrows.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/UIEntryScene/Logic/GarageUI/AnimationSwitchArrows.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/UIEntryScene/Logic/GarageUI/GarageUI.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/UIEntryScene/Logic/GarageUI/GarageUI.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/UIEntryScene/Logic/GarageUI/LockLotIndicator.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/UIEntryScene/Logic/GarageUI/LockLotIndicator.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/UIEntryScene/Logic/GarageUI/SwitchingArrows.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/UIEntryScene/Logic/GarageUI/SwitchingArrows.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/UIEntryScene/Logic/LogicEntryScene.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/UIEntryScene/Logic/LogicEntryScene.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/UIEntryScene/Logic/MapPanelHandler.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/UIEntryScene/Logic/MapPanelHandler.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/UIEntryScene/Logic/PanelsActivator.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/UIEntryScene/Logic/PanelsActivator.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/UIEntryScene/Logic/ValuesPanelHandler.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/UIEntryScene/Logic/ValuesPanelHandler.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/UIEntryScene/View.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/UIEntryScene/View/ButtonWithStatusBar.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/UIEntryScene/View/ButtonWithStatusBar.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/UIEntryScene/View/Panels.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/UIEntryScene/View/Panels/GaragePanel.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/UIEntryScene/View/Panels/GaragePanel.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/UIEntryScene/View/Panels/MapPanel.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/UIEntryScene/View/Panels/MapPanel.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/UIEntryScene/View/Panels/PanelConfirmationUpgrade.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/UIEntryScene/View/Panels/PanelConfirmationUpgrade.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/UIEntryScene/View/Panels/SettingsPanel.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/UIEntryScene/View/Panels/SettingsPanel.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/UIEntryScene/View/Panels/StartMenuPanel.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/UIEntryScene/View/Panels/StartMenuPanel.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/UIEntryScene/View/ViewEntryScene.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/UIEntryScene/View/ViewEntryScene.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/UILevelScene.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/UILevelScene/Logic.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/UILevelScene/Logic/ButtonsControl.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/UILevelScene/Logic/ButtonsControl.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/UILevelScene/Logic/CarBoosterHandler.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/UILevelScene/Logic/CarBoosterHandler.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/UILevelScene/Logic/CarGunHandler.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/UILevelScene/Logic/CarGunHandler.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/UILevelScene/Logic/DevicePanel.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/UILevelScene/Logic/DevicePanel/BlinkIndicator.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/UILevelScene/Logic/DevicePanel/BlinkIndicator.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/UILevelScene/Logic/DevicePanel/Device.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/UILevelScene/Logic/DevicePanel/Device.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/UILevelScene/Logic/DevicePanel/DeviceForBoosterFuel.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/UILevelScene/Logic/DevicePanel/DeviceForBoosterFuel.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/UILevelScene/Logic/DevicePanel/DeviceForFuel.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/UILevelScene/Logic/DevicePanel/DeviceForFuel.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/UILevelScene/Logic/DevicePanel/DeviceForSpeed.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/UILevelScene/Logic/DevicePanel/DeviceForSpeed.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/UILevelScene/Logic/DevicePanel/DevicePanelHandler.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/UILevelScene/Logic/DevicePanel/DevicePanelHandler.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/UILevelScene/Logic/DevicePanel/DevicesOnPanelValues.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/UILevelScene/Logic/DevicePanel/DevicesOnPanelValues.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/UILevelScene/Logic/LevelProgressHandler.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/UILevelScene/Logic/LevelProgressHandler.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/UILevelScene/Logic/LogicUILevel.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/UILevelScene/Logic/LogicUILevel.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/UILevelScene/Logic/NotificationsHandler.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/UILevelScene/Logic/NotificationsHandler/Notifications.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/UILevelScene/Logic/NotificationsHandler/Notifications/Notification.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/UILevelScene/Logic/NotificationsHandler/Notifications/Notification.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/UILevelScene/Logic/NotificationsHandler/Notifications/NotificationWithDelay.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/UILevelScene/Logic/NotificationsHandler/Notifications/NotificationWithDelay.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/UILevelScene/Logic/NotificationsHandler/Notifications/NotificationWithPosition.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/UILevelScene/Logic/NotificationsHandler/Notifications/NotificationWithPosition.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/UILevelScene/Logic/NotificationsHandler/NotificationsHandler.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/UILevelScene/Logic/NotificationsHandler/NotificationsHandler.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/UILevelScene/Logic/PanelsHandler.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/UILevelScene/Logic/PanelsHandler.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/UILevelScene/Logic/PausePanelButtonsHandler.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/UILevelScene/Logic/PausePanelButtonsHandler.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/UILevelScene/Logic/ResultLevelForSlider.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/UILevelScene/Logic/ResultLevelForSlider.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/UILevelScene/Logic/ResultsLevelHandler.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/UILevelScene/Logic/ResultsLevelHandler.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/UILevelScene/View.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/UILevelScene/View/Panels.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/UILevelScene/View/Panels/DevicePanel.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/UILevelScene/View/Panels/DevicePanel.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/UILevelScene/View/Panels/PanelPause.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/UILevelScene/View/Panels/PanelPause.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/UILevelScene/View/Panels/PanelScore.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/UILevelScene/View/Panels/PanelScore.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/UILevelScene/View/ViewUILevel.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UI/UILevelScene/View/ViewUILevel.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/curvetest.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/curvetest.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Settings/ParkingLotsConfigurationsSettings/GarageButtonsConfigurations/ParkingLot2UpgradeButtonsSprites.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Settings/ParkingLotsConfigurationsSettings/GarageButtonsConfigurations/ParkingLot2UpgradeButtonsSprites.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Settings/ParkingLotsConfigurationsSettings/GarageButtonsConfigurations/ParkingLot3UpgradeButtonsSprites.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Settings/ParkingLotsConfigurationsSettings/GarageButtonsConfigurations/ParkingLot3UpgradeButtonsSprites.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Settings/ParkingLotsConfigurationsSettings/GarageButtonsConfigurations/ParkingLot4UpgradeButtonsSprites.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Settings/ParkingLotsConfigurationsSettings/GarageButtonsConfigurations/ParkingLot4UpgradeButtonsSprites.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Settings/UIBackground.asset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Settings/UIBackground.asset.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectSettings/PackageManagerSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/PackageManagerSettings.asset" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -178,7 +470,6 @@
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Installers/LevelScenesInstallers/NotificationsProviderInstaller.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/5A41D6B7-1898-42EC-A409-FD0B1C3E3DCF/69/3fdc376e/Enumerable.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Game/Level/LevelContent/Boxes/Box.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Car/SpeedEffect/SpeedEffectHandler.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/ScriptableObjectScripts/Providers/PrefabsProviders/LevelPrefabs/LevelParticlesProvider.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Installers/LevelScenesInstallers/LevelInstaller.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Game/Level/LevelContent/Beam/Beam2.cs" root0="FORCE_HIGHLIGHTING" />
@@ -210,43 +501,7 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/CarFSM/States/FlyState.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/Gyroscope.cs" />
-        <option value="$PROJECT_DIR$/Assets/Shaders/UiBlur/BluredColor.shader" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Game/Level/LevelContent/DestructibleObject.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Game/Level/Zombie/Zombie.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scenes/test3.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/UI/UIEntryScene/Model/ValuesPanelHandler.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/UI/UILevelScene/Logic/PanelsHandler.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/Gun/CarGun.cs" />
-        <option value="$PROJECT_DIR$/Assets/Plugins/WebGL/MyPlugin.json" />
-        <option value="$PROJECT_DIR$/Assets/Plugins/WebGL/MyPlugin.jslib" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Game/Level/Background/Cloud.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/CarFSM/States/SoftStopState.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Game/Level/Background/CloudsGenerator.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/PropulsionUnit/Engine.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Game/Level/LevelContent/Zombie/ZombieMove.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Game/Level/Background/LevelBackground.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/Analyzers/GroundAnalyzer.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Game/Level/LevelContent/Beam/Beam.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Game/GamePause.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/CarFSM/States/GasState.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/CarFSM/States/CarState.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/CarFSM/States/StopState.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/CarFSM/CarFSM.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/WheelGroundInteractions/WheelGroundInteraction.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/WheelGroundInteractions/StopStateWheelGroundInteraction.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/WheelGroundInteractions/GasStateWheelGroundInteraction.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/UI/UILevelScene/Logic/NotificationsHandler/Notifications/NotificationWithPosition.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/UI/UILevelScene/Logic/NotificationsHandler/NotificationsHandler.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/UI/UILevelScene/Logic/NotificationsHandler/Notifications/Notification.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Game/ActionAnalyzer.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Game/Level/LevelContent/Zombie/Zombie.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Game/Level/LevelContent/Barrel/BlastWave.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Game/Level/LevelContent/Barrel/Barrel.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Game/Game.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/ScriptableObjectScripts/GameData.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Game/ResolutionSpriteScaler.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/UI/UIEntryScene/Logic/LogicEntryScene.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Car/Sourse/Control/ControlCar.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Car/CarInLevel.cs" />
@@ -256,11 +511,47 @@
         <option value="$PROJECT_DIR$/Assets/Scripts/ScriptableObjectScripts/Providers/PrefabsProviders/MapPrefabsProvider.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Spawner.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/UI/UIEntryScene/Logic/MapPanelHandler.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Game/EntryPoint.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/UI/UIEntryScene/Logic/PanelsActivator.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Game/Map/SegmentMap.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Game/Map/MapFlags.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Game/Map/Map.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Game/Map/SegmentMap.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Game/Map/MapLine.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Game/Level/LevelContent/Boxes/Box.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Game/Level/LevelContent/Coil.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Game/Level/LevelContent/DestructibleObject.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Game/TimeScaler/TimeScaler.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Game/Level/LevelContent/Zombie/ZombieBoozer.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Game/Level/LevelContent/Barrel/Barrel.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Game/Level/LevelContent/Beam/Beam.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Game/Level/Audio/LevelAudio.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Game/CameraShaker.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Game/Level/LevelContent/Zombie/Zombie.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Game/SceneSwitch.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Audio/AudioPlayer.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Game/TimeScaler/TimeScalerFSM.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Game/ActionAnalyzer.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Audio/GlobalAudio.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Factory.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Installers/LevelScenesInstallers/LevelInstaller.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Game/Level/Level.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Game/Car/Sourse/Control/InputMethod.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Game/EntryPoint.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Game/Map/MapFlags.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Game/ResolutionSpriteScaler.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Game/Level/Background/Cloud.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Game/Car/CarInLevel.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Game/Game.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/ScriptableObjectScripts/Providers/SpritesProvider/LevelBackroundSpriteProvider.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/ScriptableObjectScripts/Providers/LayersProvider.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/ScriptableObjectScripts/Providers/SpritesProvider/LevelBackgroundSpriteProvider.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Game/Level/Background/CloudsGenerator.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Game/Level/Background/LevelBackground.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Game/Level/LevelPool/BarrelPool.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Game/Level/LevelPool/Pool.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Game/Level/LevelPool/ZombiePool.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Game/Level/DebrisFragment/DebrisEffect.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Game/Level/LevelPool/DebrisPool.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Game/Level/LevelContent/Barrel/BlastWave.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Game/UI/UIEntryScene/Logic/PanelsActivator.cs" />
       </list>
     </option>
   </component>
@@ -427,6 +718,8 @@
       <workItem from="1725129609675" duration="7584000" />
       <workItem from="1725138669563" duration="1892000" />
       <workItem from="1725193254044" duration="12613000" />
+      <workItem from="1725452076128" duration="12196000" />
+      <workItem from="1725529888918" duration="12520000" />
     </task>
     <task id="LOCAL-00001" summary="Roof Destruction changed&#10;Back Wing Destruction changed">
       <created>1710195340693</created>

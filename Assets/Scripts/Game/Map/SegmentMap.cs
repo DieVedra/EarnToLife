@@ -6,7 +6,7 @@ using UnityEngine;
 public class SegmentMap : MonoBehaviour
 {
     private const int SEGMENT_MULTIPLIER = 5;
-    private const float TIME = 1f;
+    // private const float TIME = 1f;
     
      
     [SerializeField, Expandable] private MapPrefabsProvider _mapPrefabsProvider;
@@ -17,71 +17,41 @@ public class SegmentMap : MonoBehaviour
 
     private Spawner _spawner;
     private MapFlags _mapFlags;
-    [SerializeField] private List<Transform> _dots;
-    private bool _isLastSegment = false;
-    public void Init(Spawner spawner, bool isLastSegment = false)
+    private MapLine _mapLine;
+    // private List<Transform> _dots;
+    public void Init(Spawner spawner)
     {
         _spawner = spawner;
-        _isLastSegment = isLastSegment;
-        if (_mapFlags == null)
-        {
-            _mapFlags = new MapFlags(_spawner, _mapPrefabsProvider);
-        }
+        _mapLine = new MapLine(_points, _dottedLineParent, _directionSegment, _spawner, _mapPrefabsProvider, _step);
+        _mapFlags = new MapFlags(_spawner, _mapPrefabsProvider);
+    }
 
-        Dispose();
-        CreateLine();
+    public void Dispose()
+    {
+        _mapLine.Dispose();
+        _mapFlags.Dispose();
+    }
+
+    public void CreateSegment(bool isLastSegment = false)
+    {
+        _mapLine.CreateLine(isLastSegment);
         _mapFlags.CreateFlags(_points[0], _points[^1], isLastSegment);
-        gameObject.SetActive(true);
-    }
-
-    private void Dispose()
-    {
-        ClearLine();
-        _mapFlags.DestroyFlags();
-    }
-    [Button("CreateLine")]
-    private void CreateLine()
-    {
-        ClearLine();
-        Vector3 newPoint = BezierPointCalculator.GetPoint(_points, _step);
-        Vector3 nextPoint;
-        for (float i = _step; i < TIME; i += _step)
-        {
-            nextPoint = BezierPointCalculator.GetPoint(_points, i += _step);
-            Transform lineFragment = _spawner.Spawn(_mapPrefabsProvider.LineSpritePrefab, newPoint, _dottedLineParent);
-            lineFragment.eulerAngles = new Vector3(0f,0f,AngleCalculator.Calculate(lineFragment.PositionVector2(), nextPoint) + (float)_directionSegment);
-            newPoint = nextPoint;
-            _dots.Add(lineFragment);
-        }
-    }
-
-    [Button("ClearLine")]
-    private void ClearLine()
-    {
-        if (_dots != null && _dots.Count > 0)
-        {
-            for (int i = 0; i < _dots.Count; i++)
-            {
-                if (_dots[i] != null)
-                {
-                    _spawner.KillObject(_dots[i].gameObject);
-                }
-            }
-            _dots = new List<Transform>();
-        }
     }
     private void OnDrawGizmos()
     {
-        if (_points.Length >= 4)
+        if (Application.isPlaying == false)
         {
-            int segmentsNumber = SEGMENT_MULTIPLIER * _points.Length;
-            Vector3 previosPont = _points[0].position;
-            for (int i = 0; i <= segmentsNumber; i++)
+            if (_points.Length >= 4)
             {
-                float time = (float)i / segmentsNumber;
-                Vector3 newPoint = BezierPointCalculator.GetPoint(_points, time);
-                Gizmos.DrawLine(previosPont, newPoint);
-                previosPont = newPoint;
+                int segmentsNumber = SEGMENT_MULTIPLIER * _points.Length;
+                Vector3 previousPont = _points[0].position;
+                for (int i = 0; i <= segmentsNumber; i++)
+                {
+                    float time = (float)i / segmentsNumber;
+                    Vector3 newPoint = BezierPointCalculator.GetPoint(_points, time);
+                    Gizmos.DrawLine(previousPont, newPoint);
+                    previousPont = newPoint;
+                }
             }
         }
     }

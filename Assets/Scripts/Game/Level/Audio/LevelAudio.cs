@@ -14,20 +14,6 @@ public class LevelAudio : MonoBehaviour
     public void Init(AudioClipProvider audioClipProvider, TimeScaleSignal timeScaleSignal, IGlobalAudio globalAudio)
     {
         _levelAudioClipProvider = audioClipProvider.LevelAudioClipProvider;
-        // WoodDestructibleAudioHandler = new WoodDestructibleAudioHandler(_otherAudioSource,
-        //     globalAudio.SoundReactiveProperty, globalAudio.AudioPauseReactiveProperty,
-        //     _levelAudioClipProvider.WoodBreaking1AudioClip,
-        //     _levelAudioClipProvider.WoodBreaking2AudioClip,
-        //     _levelAudioClipProvider.HitWood1AudioClip,
-        //     _levelAudioClipProvider.HitWood2AudioClip,
-        //     _levelAudioClipProvider.HitWood3AudioClip);
-        //
-        // BarrelAudioHandler = new BarrelAudioHandler(_otherAudioSource,
-        //     globalAudio.SoundReactiveProperty, globalAudio.AudioPauseReactiveProperty,
-        //     _levelAudioClipProvider.HitBarrelAudioClip,
-        //     _levelAudioClipProvider.Explode1BarrelAudioClip,
-        //     _levelAudioClipProvider.Explode2BarrelAudioClip,
-        //     _levelAudioClipProvider.BurnBarrelAudioClip);
         DebrisAudioHandler = new DebrisAudioHandler(_debrisAudioSource, globalAudio.SoundReactiveProperty, globalAudio.AudioPauseReactiveProperty, new TimeScalePitchHandler(timeScaleSignal),
             _levelAudioClipProvider.Hit1DebrisBarrelAudioClip,
             _levelAudioClipProvider.Hit2DebrisBarrelAudioClip,
@@ -37,6 +23,6 @@ public class LevelAudio : MonoBehaviour
 
     public void Dispose()
     {
-        DebrisAudioHandler.Dispose();
+        DebrisAudioHandler?.Dispose();
     }
 }

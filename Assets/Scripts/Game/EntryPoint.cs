@@ -29,18 +29,8 @@ public class EntryPoint : MonoBehaviour
         _globalAudio.InitFromEntryScene(_playerDataProvider.PlayerDataHandler);
         _garage.Construct(_playerData, _garageData);
         _logicEntryScene = new LogicEntryScene(_garage, _map, _startMenuBackground, _viewEntryScene, _gameData, _garageData, _globalAudio, _playerDataHandler);
-        // _map.Init(_playerData.Level);
-        Debug.Log($"{_playerData.Level}");
-    }
-
-    [Button("test")]
-    private void a()
-    {
-        Screen.orientation = _gameData.ScreenOrientation;
-        
-        Debug.Log($"Screen:  {Screen.width} {Screen.height}  ");
-        Debug.Log($"Camera.main.rect:  {Camera.main.rect}  ");
-        Debug.Log($"Screen.currentResolution:  {Screen.currentResolution}  ");
+        _map.Init(_playerData.Level);
+        Debug.Log($"Current Level: {_playerData.Level}");
     }
     private void PlayerDataInit()
     {
@@ -52,7 +42,6 @@ public class EntryPoint : MonoBehaviour
 
     private void OnApplicationQuit()
     {
-        // Debug.Log($"OnApplicationQuit Entry  SaveOn: {_gameData.SaveOn}");
         _saveService.SetPlayerDataToSaving(_playerData, _gameData.SaveOn);
     }
     private void OnApplicationPause(bool pause)
@@ -61,9 +50,5 @@ public class EntryPoint : MonoBehaviour
         {
             _saveService.SetPlayerDataToSaving(_playerData, _gameData.SaveOn);
         }
-    }
-    private void OnDestroy()
-    {
-        // Debug.Log($"OnDestroy");
     }
 }

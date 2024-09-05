@@ -26,10 +26,14 @@ public class ActionAnalyzer
         _destructionsSignal = destructionsSignal;
         _killsSignal = killsSignal;
         _gameOverSignal = gameOverSignal;
-        _gameOverSignal.OnGameOver += OnGameOver;
-        _explodeSignal.OnExplosion += OnExplode;
-        _destructionsSignal.OnDestruction += OnDestruction;
-        _killsSignal.OnKill += OnDestruction;
+        if (_gameOverSignal != null)
+        {
+            _gameOverSignal.OnGameOver += OnGameOver;
+            _explodeSignal.OnExplosion += OnExplode;
+            _destructionsSignal.OnDestruction += OnDestruction;
+            _killsSignal.OnKill += OnDestruction;
+        }
+
         SubscribeResetTimer();
     }
     private void SubscribeResetTimer()

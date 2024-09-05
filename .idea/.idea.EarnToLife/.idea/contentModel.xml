@@ -351,75 +351,36 @@
           <e p="test3.cs" t="Include" />
         </e>
         <e p="Scripts" t="Include">
-          <e p="Audio" t="Include">
-            <e p="AudioHandlers" t="Include">
-              <e p="AudioHandlerUI.cs" t="Include" />
+          <e p="Editor" t="Include">
+            <e p="SceneSwitchTool" t="Include">
+              <e p="SceneSetupData.cs" t="Include" />
+              <e p="SceneSetupLoader.cs" t="Include" />
             </e>
-            <e p="AudioPlayer.cs" t="Include" />
-            <e p="AudioSettingSwitch.cs" t="Include" />
-            <e p="GlobalAudio.cs" t="Include" />
-            <e p="GlobalAudioValues.cs" t="Include" />
           </e>
-          <e p="Car" t="Include">
-            <e p="Car.cs" t="Include" />
-            <e p="CarAudio" t="Include">
-              <e p="BoosterAudioHandler.cs" t="Include" />
-              <e p="BrakeAudioHandler.cs" t="Include" />
-              <e p="CarAudio.cs" t="Include" />
-              <e p="DestructionAudioHandler.cs" t="Include" />
-              <e p="EngineAudioHandler.cs" t="Include" />
-              <e p="GunAudioHandler.cs" t="Include" />
-              <e p="HotWheelAudioHandler.cs" t="Include" />
-              <e p="SuspensionAudioHandler.cs" t="Include" />
-              <e p="WheelsAudioHandler.cs" t="Include" />
-            </e>
-            <e p="CarInLevel.cs" t="Include" />
-            <e p="DestructionCar" t="Include">
-              <e p="ArmoredBackFrameDestructionHandler.cs" t="Include" />
-              <e p="BackCarHandler.cs" t="Include" />
-              <e p="BackDoorDestructionHandler.cs" t="Include" />
-              <e p="BackWingDestructionHandler.cs" t="Include" />
-              <e p="BoosterDestructionHandler.cs" t="Include" />
-              <e p="BottomDestructionHandler.cs" t="Include" />
-              <e p="BumperDestructionHandler.cs" t="Include" />
-              <e p="CabineDestructionHandler.cs" t="Include" />
-              <e p="DestructionCar.cs" t="Include" />
-              <e p="DestructionEffectsHandler.cs" t="Include" />
-              <e p="DestructionHandler.cs" t="Include" />
-              <e p="DestructionHandlerContent.cs" t="Include" />
-              <e p="DestructionMode.cs" t="Include" />
-              <e p="ExhaustHandler.cs" t="Include" />
-              <e p="FrontDoorDestructionHandler.cs" t="Include" />
-              <e p="FrontWingDestructionHandler.cs" t="Include" />
-              <e p="GlassDestructionHandlers" t="Include">
-                <e p="ArmoredGlassDestructionHandler.cs" t="Include" />
-                <e p="GlassDestructionHandler.cs" t="Include" />
-                <e p="StandartGlassDestructionHandler.cs" t="Include" />
+          <e p="Enums" t="Include">
+            <e p="CarControlMethod.cs" t="Include" />
+            <e p="DirectionSegment.cs" t="Include" />
+            <e p="PanelsInMenu.cs" t="Include" />
+            <e p="TypeCollider.cs" t="Include" />
+            <e p="ZombieDirection.cs" t="Include" />
+          </e>
+          <e p="Extensions" t="Include">
+            <e p="Extensions.cs" t="Include" />
+          </e>
+          <e p="Game" t="Include">
+            <e p="ActionAnalyzer.cs" t="Include" />
+            <e p="Audio" t="Include">
+              <e p="AudioHandlers" t="Include">
+                <e p="AudioHandlerUI.cs" t="Include" />
               </e>
-              <e p="GunDestructionHandler.cs" t="Include" />
-              <e p="HotWheelDestructionHandler.cs" t="Include" />
-              <e p="RoofDestructionHandler.cs" t="Include" />
-              <e p="SafetyFrameworkDestructionHandler.cs" t="Include" />
+              <e p="AudioPlayer.cs" t="Include" />
+              <e p="AudioSettingSwitch.cs" t="Include" />
+              <e p="GlobalAudio.cs" t="Include" />
+              <e p="GlobalAudioValues.cs" t="Include" />
             </e>
-            <e p="HotWheel.cs" t="Include" />
-            <e p="Parts" t="Include">
-              <e p="ArmoredBackFrameRef.cs" t="Include" />
-              <e p="ArmoredFrontFrameRef.cs" t="Include" />
-              <e p="ArmoredRoofFrameRef.cs" t="Include" />
-              <e p="BackWingRef.cs" t="Include" />
-              <e p="BoosterRef.cs" t="Include" />
-              <e p="BottomRef.cs" t="Include" />
-              <e p="BumperRef.cs" t="Include" />
-              <e p="CabineRef.cs" t="Include" />
-              <e p="DoorRef.cs" t="Include" />
-              <e p="FrontWingRef.cs" t="Include" />
-              <e p="GlassRef.cs" t="Include" />
-              <e p="GunRef.cs" t="Include" />
-              <e p="HotWheelRef.cs" t="Include" />
-              <e p="RoofRef.cs" t="Include" />
-              <e p="SafetyFrameworkRef.cs" t="Include" />
-            </e>
-            <e p="Sourse" t="Include">
+            <e p="BuildString.cs" t="Include" />
+            <e p="CameraShaker.cs" t="Include" />
+            <e p="Car" t="Include">
               <e p="Analyzers" t="Include">
                 <e p="CoupAnalyzer.cs" t="Include" />
                 <e p="GroundAnalyzer.cs" t="Include" />
@@ -439,6 +400,18 @@
                 </e>
               </e>
               <e p="Brakes.cs" t="Include" />
+              <e p="Car.cs" t="Include" />
+              <e p="CarAudio" t="Include">
+                <e p="BoosterAudioHandler.cs" t="Include" />
+                <e p="BrakeAudioHandler.cs" t="Include" />
+                <e p="CarAudio.cs" t="Include" />
+                <e p="DestructionAudioHandler.cs" t="Include" />
+                <e p="EngineAudioHandler.cs" t="Include" />
+                <e p="GunAudioHandler.cs" t="Include" />
+                <e p="HotWheelAudioHandler.cs" t="Include" />
+                <e p="SuspensionAudioHandler.cs" t="Include" />
+                <e p="WheelsAudioHandler.cs" t="Include" />
+              </e>
               <e p="CarFSM" t="Include">
                 <e p="CarFSM.cs" t="Include" />
                 <e p="States" t="Include">
@@ -450,6 +423,7 @@
                   <e p="StopState.cs" t="Include" />
                 </e>
               </e>
+              <e p="CarInLevel.cs" t="Include" />
               <e p="CarMass" t="Include">
                 <e p="CarMass.cs" t="Include" />
               </e>
@@ -461,6 +435,33 @@
                 <e p="InputMethod.cs" t="Include" />
                 <e p="KeyboardInputMethod.cs" t="Include" />
                 <e p="UIInputMethod.cs" t="Include" />
+              </e>
+              <e p="DestructionCar" t="Include">
+                <e p="ArmoredBackFrameDestructionHandler.cs" t="Include" />
+                <e p="BackCarHandler.cs" t="Include" />
+                <e p="BackDoorDestructionHandler.cs" t="Include" />
+                <e p="BackWingDestructionHandler.cs" t="Include" />
+                <e p="BoosterDestructionHandler.cs" t="Include" />
+                <e p="BottomDestructionHandler.cs" t="Include" />
+                <e p="BumperDestructionHandler.cs" t="Include" />
+                <e p="CabineDestructionHandler.cs" t="Include" />
+                <e p="DestructionCar.cs" t="Include" />
+                <e p="DestructionEffectsHandler.cs" t="Include" />
+                <e p="DestructionHandler.cs" t="Include" />
+                <e p="DestructionHandlerContent.cs" t="Include" />
+                <e p="DestructionMode.cs" t="Include" />
+                <e p="ExhaustHandler.cs" t="Include" />
+                <e p="FrontDoorDestructionHandler.cs" t="Include" />
+                <e p="FrontWingDestructionHandler.cs" t="Include" />
+                <e p="GlassDestructionHandlers" t="Include">
+                  <e p="ArmoredGlassDestructionHandler.cs" t="Include" />
+                  <e p="GlassDestructionHandler.cs" t="Include" />
+                  <e p="StandartGlassDestructionHandler.cs" t="Include" />
+                </e>
+                <e p="GunDestructionHandler.cs" t="Include" />
+                <e p="HotWheelDestructionHandler.cs" t="Include" />
+                <e p="RoofDestructionHandler.cs" t="Include" />
+                <e p="SafetyFrameworkDestructionHandler.cs" t="Include" />
               </e>
               <e p="Exhaust.cs" t="Include" />
               <e p="FuelTanks" t="Include">
@@ -476,12 +477,36 @@
                 <e p="RateFire.cs" t="Include" />
               </e>
               <e p="Gyroscope.cs" t="Include" />
+              <e p="HotWheel.cs" t="Include" />
+              <e p="Parts" t="Include">
+                <e p="ArmoredBackFrameRef.cs" t="Include" />
+                <e p="ArmoredFrontFrameRef.cs" t="Include" />
+                <e p="ArmoredRoofFrameRef.cs" t="Include" />
+                <e p="BackWingRef.cs" t="Include" />
+                <e p="BoosterRef.cs" t="Include" />
+                <e p="BottomRef.cs" t="Include" />
+                <e p="BumperRef.cs" t="Include" />
+                <e p="CabineRef.cs" t="Include" />
+                <e p="DoorRef.cs" t="Include" />
+                <e p="FrontWingRef.cs" t="Include" />
+                <e p="GlassRef.cs" t="Include" />
+                <e p="GunRef.cs" t="Include" />
+                <e p="HotWheelRef.cs" t="Include" />
+                <e p="RoofRef.cs" t="Include" />
+                <e p="SafetyFrameworkRef.cs" t="Include" />
+              </e>
               <e p="PropulsionUnit" t="Include">
                 <e p="Engine.cs" t="Include" />
                 <e p="PropulsionUnit.cs" t="Include" />
                 <e p="Transmission.cs" t="Include" />
               </e>
+              <e p="SmoothnessTimer.cs" t="Include" />
+              <e p="SpeedEffect" t="Include">
+                <e p="SpeedEffect.cs" t="Include" />
+                <e p="SpeedEffectHandler.cs" t="Include" />
+              </e>
               <e p="Speedometer.cs" t="Include" />
+              <e p="StopCauseHandler.cs" t="Include" />
               <e p="Suspension.cs" t="Include" />
               <e p="WheelGroundInteractions" t="Include">
                 <e p="GasStateWheelGroundInteraction.cs" t="Include" />
@@ -489,35 +514,6 @@
                 <e p="WheelGroundInteraction.cs" t="Include" />
               </e>
             </e>
-            <e p="SpeedEffect" t="Include">
-              <e p="SpeedEffect.cs" t="Include" />
-              <e p="SpeedEffectHandler.cs" t="Include" />
-            </e>
-            <e p="StopCauseHandler.cs" t="Include" />
-          </e>
-          <e p="curvetest.cs" t="Include" />
-          <e p="DebrisEffect.cs" t="Include" />
-          <e p="Editor" t="Include">
-            <e p="SceneSwitchTool" t="Include">
-              <e p="SceneSetupData.cs" t="Include" />
-              <e p="SceneSetupLoader.cs" t="Include" />
-            </e>
-          </e>
-          <e p="Enums" t="Include">
-            <e p="CarControlMethod.cs" t="Include" />
-            <e p="DirectionSegment.cs" t="Include" />
-            <e p="PanelsInMenu.cs" t="Include" />
-            <e p="TypeCollider.cs" t="Include" />
-            <e p="ZombieDirection.cs" t="Include" />
-          </e>
-          <e p="Extensions" t="Include">
-            <e p="Extensions.cs" t="Include" />
-          </e>
-          <e p="Factory.cs" t="Include" />
-          <e p="Game" t="Include">
-            <e p="ActionAnalyzer.cs" t="Include" />
-            <e p="BuildString.cs" t="Include" />
-            <e p="CameraShaker.cs" t="Include" />
             <e p="EntryPoint.cs" t="Include" />
             <e p="Game.cs" t="Include" />
             <e p="GamePause.cs" t="Include" />
@@ -559,6 +555,7 @@
                 <e p="LevelBackGround.cs" t="Include" />
               </e>
               <e p="DebrisFragment" t="Include">
+                <e p="DebrisEffect.cs" t="Include" />
                 <e p="DebrisFragment.cs" t="Include" />
                 <e p="LevelContentDebrisFragment.cs" t="Include" />
                 <e p="ZombieDebrisFragment.cs" t="Include" />
@@ -603,6 +600,7 @@
                 <e p="DebrisPool.cs" t="Include" />
                 <e p="LevelPool.cs" t="Include" />
                 <e p="Pool.cs" t="Include" />
+                <e p="PoolBase.cs" t="Include" />
                 <e p="ZombiePool.cs" t="Include" />
               </e>
               <e p="LevelProgressCounter.cs" t="Include" />
@@ -617,6 +615,7 @@
               <e p="BezierPointCalculator.cs" t="Include" />
               <e p="Map.cs" t="Include" />
               <e p="MapFlags.cs" t="Include" />
+              <e p="MapLine.cs" t="Include" />
               <e p="SegmentMap.cs" t="Include" />
             </e>
             <e p="Player" t="Include">
@@ -624,6 +623,17 @@
               <e p="PlayerDataHandler.cs" t="Include" />
             </e>
             <e p="ResolutionSpriteScaler.cs" t="Include" />
+            <e p="SaveService" t="Include">
+              <e p="Data" t="Include">
+                <e p="SaveData.cs" t="Include" />
+                <e p="SaveParkingIndexes.cs" t="Include" />
+              </e>
+              <e p="SaveMetods" t="Include">
+                <e p="BinarySave.cs" t="Include" />
+                <e p="ISaveMetod.cs" t="Include" />
+              </e>
+              <e p="SaveService.cs" t="Include" />
+            </e>
             <e p="SceneSwitch.cs" t="Include" />
             <e p="Signals" t="Include">
               <e p="DestructionsSignal.cs" t="Include" />
@@ -632,6 +642,7 @@
               <e p="KillsSignal.cs" t="Include" />
               <e p="TimeScaleSignal.cs" t="Include" />
             </e>
+            <e p="Spawner.cs" t="Include" />
             <e p="TimeScaler" t="Include">
               <e p="TimeScaler.cs" t="Include" />
               <e p="TimeScalerFSM.cs" t="Include" />
@@ -643,7 +654,92 @@
                 <e p="TimeScalerWarpState.cs" t="Include" />
               </e>
             </e>
-            <e p="ValuesPanelActivator.cs" t="Include" />
+            <e p="UI" t="Include">
+              <e p="CustomButton" t="Include">
+                <e p="CustomButton.cs" t="Include" />
+                <e p="CustomButtonUpgrade.cs" t="Include" />
+              </e>
+              <e p="UIEntryScene" t="Include">
+                <e p="Data" t="Include">
+                  <e p="ValuesPanelActivator.cs" t="Include" />
+                  <e p="ValuesPanelHandler.cs" t="Include" />
+                </e>
+                <e p="Logic" t="Include">
+                  <e p="AnimationsUI.cs" t="Include" />
+                  <e p="ButtonsUpgrade" t="Include">
+                    <e p="AppearanceButtonsAnimation.cs" t="Include" />
+                    <e p="ButtonData.cs" t="Include" />
+                    <e p="ButtonsUpgradeCar.cs" t="Include" />
+                    <e p="InteractableButtonHandler.cs" t="Include" />
+                    <e p="PriceLabel.cs" t="Include" />
+                    <e p="ProgressIndicator.cs" t="Include" />
+                    <e p="UpgradeButton.cs" t="Include" />
+                  </e>
+                  <e p="ConfirmationUpgrade" t="Include">
+                    <e p="AnimationPanelConfirmationUpgrade.cs" t="Include" />
+                    <e p="ConfirmationUpgrade.cs" t="Include" />
+                  </e>
+                  <e p="GarageUI" t="Include">
+                    <e p="AnimationSwitchArrows.cs" t="Include" />
+                    <e p="GarageUI.cs" t="Include" />
+                    <e p="LockLotIndicator.cs" t="Include" />
+                    <e p="SwitchingArrows.cs" t="Include" />
+                  </e>
+                  <e p="LogicEntryScene.cs" t="Include" />
+                  <e p="MapPanelHandler.cs" t="Include" />
+                  <e p="PanelsActivator.cs" t="Include" />
+                </e>
+                <e p="View" t="Include">
+                  <e p="ButtonWithStatusBar.cs" t="Include" />
+                  <e p="Panels" t="Include">
+                    <e p="GaragePanel.cs" t="Include" />
+                    <e p="MapPanel.cs" t="Include" />
+                    <e p="PanelConfirmationUpgrade.cs" t="Include" />
+                    <e p="SettingsPanel.cs" t="Include" />
+                    <e p="StartMenuPanel.cs" t="Include" />
+                  </e>
+                  <e p="ViewEntryScene.cs" t="Include" />
+                </e>
+              </e>
+              <e p="UILevelScene" t="Include">
+                <e p="Logic" t="Include">
+                  <e p="ButtonsControl.cs" t="Include" />
+                  <e p="CarBoosterHandler.cs" t="Include" />
+                  <e p="CarGunHandler.cs" t="Include" />
+                  <e p="DevicePanel" t="Include">
+                    <e p="BlinkIndicator.cs" t="Include" />
+                    <e p="Device.cs" t="Include" />
+                    <e p="DeviceForBoosterFuel.cs" t="Include" />
+                    <e p="DeviceForFuel.cs" t="Include" />
+                    <e p="DeviceForSpeed.cs" t="Include" />
+                    <e p="DevicePanelHandler.cs" t="Include" />
+                    <e p="DevicesOnPanelValues.cs" t="Include" />
+                  </e>
+                  <e p="LevelProgressHandler.cs" t="Include" />
+                  <e p="LogicUILevel.cs" t="Include" />
+                  <e p="NotificationsHandler" t="Include">
+                    <e p="Notifications" t="Include">
+                      <e p="Notification.cs" t="Include" />
+                      <e p="NotificationWithDelay.cs" t="Include" />
+                      <e p="NotificationWithPosition.cs" t="Include" />
+                    </e>
+                    <e p="NotificationsHandler.cs" t="Include" />
+                  </e>
+                  <e p="PanelsHandler.cs" t="Include" />
+                  <e p="PausePanelButtonsHandler.cs" t="Include" />
+                  <e p="ResultLevelForSlider.cs" t="Include" />
+                  <e p="ResultsLevelHandler.cs" t="Include" />
+                </e>
+                <e p="View" t="Include">
+                  <e p="Panels" t="Include">
+                    <e p="DevicePanel.cs" t="Include" />
+                    <e p="PanelPause.cs" t="Include" />
+                    <e p="PanelScore.cs" t="Include" />
+                  </e>
+                  <e p="ViewUILevel.cs" t="Include" />
+                </e>
+              </e>
+            </e>
             <e p="Wallet.cs" t="Include" />
           </e>
           <e p="Installers" t="Include">
@@ -697,19 +793,6 @@
             <e p="ITimeScalePitch.cs" t="Include" />
             <e p="IUIAudio.cs" t="Include" />
           </e>
-          <e p="PoolBase.cs" t="Include" />
-          <e p="Ragdoll.cs" t="Include" />
-          <e p="SaveService" t="Include">
-            <e p="Data" t="Include">
-              <e p="SaveData.cs" t="Include" />
-              <e p="SaveParkingIndexes.cs" t="Include" />
-            </e>
-            <e p="SaveMetods" t="Include">
-              <e p="BinarySave.cs" t="Include" />
-              <e p="ISaveMetod.cs" t="Include" />
-            </e>
-            <e p="SaveService.cs" t="Include" />
-          </e>
           <e p="ScriptableObjectScripts" t="Include">
             <e p="CarsConfigurationsSettingsToSave.cs" t="Include" />
             <e p="CarsConfigurationsStartSettings.cs" t="Include" />
@@ -738,95 +821,16 @@
                 </e>
                 <e p="MapPrefabsProvider.cs" t="Include" />
               </e>
+              <e p="SpritesProvider" t="Include">
+                <e p="LevelBackgroundSpriteProvider.cs" t="Include" />
+                <e p="SpritesProvider.cs" t="Include" />
+              </e>
             </e>
             <e p="UpgradeButtonsGarageContent.cs" t="Include" />
           </e>
-          <e p="SmoothnessTimer.cs" t="Include" />
-          <e p="Spawner.cs" t="Include" />
-          <e p="SpawnerGame.cs" t="Include" />
-          <e p="test.cs" t="Include" />
-          <e p="UI" t="Include">
-            <e p="CustomButton" t="Include">
-              <e p="CustomButton.cs" t="Include" />
-              <e p="CustomButtonUpgrade.cs" t="Include" />
-            </e>
-            <e p="UIEntryScene" t="Include">
-              <e p="Logic" t="Include">
-                <e p="AnimationsUI.cs" t="Include" />
-                <e p="ButtonsUpgrade" t="Include">
-                  <e p="AppearanceButtonsAnimation.cs" t="Include" />
-                  <e p="ButtonData.cs" t="Include" />
-                  <e p="ButtonsUpgradeCar.cs" t="Include" />
-                  <e p="InteractableButtonHandler.cs" t="Include" />
-                  <e p="PriceLabel.cs" t="Include" />
-                  <e p="ProgressIndicator.cs" t="Include" />
-                  <e p="UpgradeButton.cs" t="Include" />
-                </e>
-                <e p="ConfirmationUpgrade" t="Include">
-                  <e p="AnimationPanelConfirmationUpgrade.cs" t="Include" />
-                  <e p="ConfirmationUpgrade.cs" t="Include" />
-                </e>
-                <e p="GarageUI" t="Include">
-                  <e p="AnimationSwitchArrows.cs" t="Include" />
-                  <e p="GarageUI.cs" t="Include" />
-                  <e p="LockLotIndicator.cs" t="Include" />
-                  <e p="SwitchingArrows.cs" t="Include" />
-                </e>
-                <e p="LogicEntryScene.cs" t="Include" />
-                <e p="MapPanelHandler.cs" t="Include" />
-                <e p="PanelsActivator.cs" t="Include" />
-                <e p="ValuesPanelHandler.cs" t="Include" />
-              </e>
-              <e p="View" t="Include">
-                <e p="ButtonWithStatusBar.cs" t="Include" />
-                <e p="Panels" t="Include">
-                  <e p="GaragePanel.cs" t="Include" />
-                  <e p="MapPanel.cs" t="Include" />
-                  <e p="PanelConfirmationUpgrade.cs" t="Include" />
-                  <e p="SettingsPanel.cs" t="Include" />
-                  <e p="StartMenuPanel.cs" t="Include" />
-                </e>
-                <e p="ViewEntryScene.cs" t="Include" />
-              </e>
-            </e>
-            <e p="UILevelScene" t="Include">
-              <e p="Logic" t="Include">
-                <e p="ButtonsControl.cs" t="Include" />
-                <e p="CarBoosterHandler.cs" t="Include" />
-                <e p="CarGunHandler.cs" t="Include" />
-                <e p="DevicePanel" t="Include">
-                  <e p="BlinkIndicator.cs" t="Include" />
-                  <e p="Device.cs" t="Include" />
-                  <e p="DeviceForBoosterFuel.cs" t="Include" />
-                  <e p="DeviceForFuel.cs" t="Include" />
-                  <e p="DeviceForSpeed.cs" t="Include" />
-                  <e p="DevicePanelHandler.cs" t="Include" />
-                  <e p="DevicesOnPanelValues.cs" t="Include" />
-                </e>
-                <e p="LevelProgressHandler.cs" t="Include" />
-                <e p="LogicUILevel.cs" t="Include" />
-                <e p="NotificationsHandler" t="Include">
-                  <e p="Notifications" t="Include">
-                    <e p="Notification.cs" t="Include" />
-                    <e p="NotificationWithDelay.cs" t="Include" />
-                    <e p="NotificationWithPosition.cs" t="Include" />
-                  </e>
-                  <e p="NotificationsHandler.cs" t="Include" />
-                </e>
-                <e p="PanelsHandler.cs" t="Include" />
-                <e p="PausePanelButtonsHandler.cs" t="Include" />
-                <e p="ResultLevelForSlider.cs" t="Include" />
-                <e p="ResultsLevelHandler.cs" t="Include" />
-              </e>
-              <e p="View" t="Include">
-                <e p="Panels" t="Include">
-                  <e p="DevicePanel.cs" t="Include" />
-                  <e p="PanelPause.cs" t="Include" />
-                  <e p="PanelScore.cs" t="Include" />
-                </e>
-                <e p="ViewUILevel.cs" t="Include" />
-              </e>
-            </e>
+          <e p="Trash" t="Include">
+            <e p="curvetest.cs" t="Include" />
+            <e p="test.cs" t="Include" />
           </e>
         </e>
         <e p="SimpleFolderIcon" t="Include">

@@ -11,17 +11,17 @@ public class CloudsGenerator
     private readonly Color _upColor2;
     private readonly Color _downColor1;
     private readonly Color _downColor2;
-    private readonly Factory _factory;
+    private readonly Spawner _spawner;
     private readonly SpriteRenderer _cloudPrefab;
     private readonly Transform _cloudParent;
     private readonly Transform _pointRightUpBorder;
     private readonly Transform _pointLeftDownBorder;
 
-    private Sprite[] _sprites;
+    private IReadOnlyList<Sprite> _sprites;
     private List<Cloud> _clouds;
     public IReadOnlyList<Cloud> Clouds => _clouds;
     
-    public CloudsGenerator(Sprite[] sprites, SpriteRenderer cloudPrefab, Factory factory,
+    public CloudsGenerator(IReadOnlyList<Sprite> sprites, SpriteRenderer cloudPrefab, 
         Transform cloudParent, Transform pointRightUpBorder, Transform pointLeftDownBorder,
         Color upColor1, Color upColor2, Color downColor1, Color downColor2,
         Vector2 cloudScaleRange, Vector2 cloudColorAlphaRange, Vector2 speedAddedRange,
@@ -30,7 +30,7 @@ public class CloudsGenerator
         _sprites = sprites;
         _clouds = new List<Cloud>(_cloudsCount);
         _cloudsCount = cloudsCount;
-        _factory = factory;
+        _spawner = new Spawner();
         _cloudPrefab = cloudPrefab;
         _cloudParent = cloudParent;
         _cloudScaleRange = cloudScaleRange;
@@ -47,7 +47,7 @@ public class CloudsGenerator
     {
         for (int i = 0; i < _cloudsCount; i++)
         {
-            SpriteRenderer cloud = _factory.CreateCloud(_cloudPrefab, _cloudParent);
+            SpriteRenderer cloud = _spawner.Spawn(_cloudPrefab, _cloudParent, _cloudParent);
             Transform cloudTransform = cloud.transform;
             float posY = UnityEngine.Random.Range(_pointLeftDownBorder.position.y, _pointRightUpBorder.position.y);
             SetPosition(cloudTransform, posY);
@@ -69,7 +69,7 @@ public class CloudsGenerator
     }
     private void SetSprite(SpriteRenderer cloud)
     {
-        cloud.sprite = _sprites[UnityEngine.Random.Range(0,_sprites.Length)];
+        cloud.sprite = _sprites[UnityEngine.Random.Range(0,_sprites.Count)];
     }
     private void SetScale(Transform cloudTransform)
     {

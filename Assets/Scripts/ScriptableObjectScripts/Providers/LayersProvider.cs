@@ -12,9 +12,6 @@ public class LayersProvider : ScriptableObject
         
         [SerializeField, Layer] private int _layerDebris;
         
-        
-        // [SerializeField, Layer] private int _carLayer;
-        // [SerializeField, Layer] private int _carLayer;
 
         public int CarLayer => _carLayer;
         public int ZombieLayer => _zombieLayer;

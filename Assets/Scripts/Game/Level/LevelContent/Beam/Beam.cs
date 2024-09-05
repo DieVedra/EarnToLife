@@ -60,6 +60,6 @@ public abstract class Beam : DestructibleObject
     private new void OnDestroy()
     {
         base.OnDestroy();
-        WoodDestructibleAudioHandler.Dispose();
+        WoodDestructibleAudioHandler?.Dispose();
     }
 }

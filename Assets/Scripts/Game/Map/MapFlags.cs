@@ -1,14 +1,19 @@
-﻿
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.Threading;
+using Cysharp.Threading.Tasks;
+using DG.Tweening;
 using UnityEngine;
 
 public class MapFlags
 {
+    private readonly float _durationAnimation = 0.8f;
+    private readonly float _endValueAnimation = 1.1f;
     private readonly Transform _currentPointFlag;
     private readonly Transform _previousPointFlag;
     private readonly Transform _nextPointFlag;
     private readonly Spawner _spawner;
     private List<Transform> _flags;
+    private CancellationTokenSource _cancellationTokenSource;
     public MapFlags(Spawner spawner, MapPrefabsProvider mapPrefabsProvider)
     {
         _currentPointFlag = mapPrefabsProvider.CurrentPointFlagPrefab;
@@ -17,13 +22,18 @@ public class MapFlags
         _spawner = spawner;
     }
 
+    public void Dispose()
+    {
+        _cancellationTokenSource?.Cancel();
+    }
     public void CreateFlags(Transform point1, Transform point2, bool isLastSegment)
     {
+        DestroyFlags();
         _flags = new List<Transform>(2);
         if (isLastSegment == true)
         {
             Create(_currentPointFlag, point1);
-            Create(_nextPointFlag, point2);
+            NextPointFlagAnimation(Create(_nextPointFlag, point2));
         }
         else
         {
@@ -31,11 +41,10 @@ public class MapFlags
         }
     }
 
-    public void DestroyFlags()
+    private void DestroyFlags()
     {
-        if (_flags != null && _flags.Count > 0)
+        if (_flags != null)
         {
-            Debug.Log($"_flags.Count {_flags.Count}");
             foreach (var flag in _flags)
             {
                 if (flag != null)
@@ -46,9 +55,16 @@ public class MapFlags
         }
     }
 
-    private void Create(Transform prefab, Transform point)
+    private Transform Create(Transform prefab, Transform point)
     {
         Transform flag = _spawner.Spawn(prefab, point, point);
         _flags.Add(flag);
+        return flag;
+    }
+
+    private void NextPointFlagAnimation(Transform flag)
+    {
+        _cancellationTokenSource = new CancellationTokenSource();
+        flag.DOScale(_endValueAnimation, _durationAnimation).SetLoops(-1, LoopType.Yoyo).WithCancellation(_cancellationTokenSource.Token); 
     }
 }

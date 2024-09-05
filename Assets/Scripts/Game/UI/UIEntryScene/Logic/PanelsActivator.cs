@@ -138,7 +138,6 @@ public class PanelsActivator
         }));
         _garageUI.Activate();
         await Activate();
-        _sceneSwitch.StartLoadLastLevel();
     }
 
     private async UniTask DeactivateGaragePanel()
@@ -151,7 +150,7 @@ public class PanelsActivator
     }
     private async void EngineGame()
     {
-        // _sceneSwitch.StartLoadLastLevel();
+        _sceneSwitch.StartLoadLastLevel();
         await DeactivateGaragePanel();
         _sceneSwitch.EndLoadingSceneAsync();
     }

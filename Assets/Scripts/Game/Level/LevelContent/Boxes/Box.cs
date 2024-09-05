@@ -93,7 +93,7 @@ public class Box : DestructibleObject, IHitable, ICutable, IExplosive
 
     private new void OnDestroy()
     {
-        _woodDestructibleAudioHandler.Dispose();
+        _woodDestructibleAudioHandler?.Dispose();
         base.OnDestroy();
     }
 }

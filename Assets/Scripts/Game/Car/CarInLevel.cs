@@ -96,12 +96,14 @@ public class CarInLevel : Car
     public CarGun CarGun { get; private set; }
     public bool BoosterAvailable => CarConfiguration.BoosterCountFuelQuantity > 0f ? true : false;
     public bool GunAvailable => CarConfiguration.GunCountAmmo > 0 ? true : false;
+    private bool _autoGameOver;
     private ReactiveCommand _onCarBrokenIntoTwoPartsReactiveCommand = new ReactiveCommand();
     public void Construct(CarConfiguration carConfiguration, NotificationsProvider notificationsProvider,
         LevelProgressCounter levelProgressCounter, DebrisParent debrisParent,
-        IGlobalAudio globalAudio, CarAudioClipProvider carAudioClipProvider, TimeScaleSignal timeScaleSignal, GameOverSignal gameOverSignal, IGamePause gamePause,
-        CarControlMethod carControlMethod)
+        IGlobalAudio globalAudio, CarAudioClipProvider carAudioClipProvider, TimeScaleSignal timeScaleSignal, GameOverSignal gameOverSignal,
+        IGamePause gamePause, CarControlMethod carControlMethod, bool autoGameOver)
     {
+        _autoGameOver = autoGameOver;
         CarConfiguration = carConfiguration;
         _carAudio.Construct(globalAudio, carAudioClipProvider, timeScaleSignal, _onCarBrokenIntoTwoPartsReactiveCommand);
         InitCustomizeCar();
@@ -144,8 +146,11 @@ public class CarInLevel : Car
         if (_controlActive == true)
         {
             _controlCar.Update();
-            _coupAnalyzer.Update();
-            _moveAnalyzer.Update();
+            if (_autoGameOver == true)
+            {
+                _coupAnalyzer.Update();
+                _moveAnalyzer.Update();
+            }
             _groundAnalyzer.Update();
             CarGun?.Update();
         }

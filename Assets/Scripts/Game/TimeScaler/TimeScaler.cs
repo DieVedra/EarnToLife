@@ -50,6 +50,6 @@ public class TimeScaler : MonoBehaviour
 
     private void OnDestroy()
     {
-        _timeScalerFsm.Dispose();
+        _timeScalerFsm?.Dispose();
     }
 }

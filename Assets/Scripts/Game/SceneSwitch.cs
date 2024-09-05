@@ -53,4 +53,8 @@ public class SceneSwitch
             _asyncOperation = null;
         }
     }
+
+    // public void AbortAsyncLoading()
+    // {
+    // }
 }

@@ -67,7 +67,7 @@ public class Cloud
         }
         else
         {
-            _newPosition.x = speed + _additiveSpeed + _transform.LocalPositionVector2().x;
+            _newPosition.x = speed + /*_additiveSpeed +*/ _transform.LocalPositionVector2().x;
             _newPosition.y = _transform.LocalPositionVector2().y;
             _transform.localPosition = _newPosition;
         }

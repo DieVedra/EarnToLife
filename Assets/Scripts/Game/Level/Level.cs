@@ -22,29 +22,26 @@ public class Level : MonoBehaviour, ILevel
     public Transform CameraTransform => _cameraTransform;
     
     [Inject]
-    public void Construct(Factory factory, LevelPrefabsProvider levelPrefabsProvider, AudioClipProvider audioClipProvider, TimeScaleSignal timeScaleSignal, IGlobalAudio globalAudio)
+    public void Construct(LevelPrefabsProvider levelPrefabsProvider, AudioClipProvider audioClipProvider, TimeScaleSignal timeScaleSignal, IGlobalAudio globalAudio)
     {
         _levelAudio.Init(audioClipProvider, timeScaleSignal, globalAudio);
         _levelPool = new LevelPool(
             new BarrelPool(
                 levelPrefabsProvider.LevelParticlesProvider.BarrelExplosion,
-                levelPrefabsProvider.LevelParticlesProvider.BurnEffect,
-                factory, _barrelPoolEffectsParent),
+                levelPrefabsProvider.LevelParticlesProvider.BurnEffect, _barrelPoolEffectsParent),
             new ZombiePool(levelPrefabsProvider.LevelParticlesProvider.BloodHitEffect,
-                levelPrefabsProvider.LevelParticlesProvider.BloodEffect,
-                factory, _bloodEffectsParent),
+                levelPrefabsProvider.LevelParticlesProvider.BloodEffect, _bloodEffectsParent),
             new DebrisPool(
                 levelPrefabsProvider.LevelParticlesProvider.BurnEffect,
                 levelPrefabsProvider.LevelParticlesProvider.SmokeEffect,
-                levelPrefabsProvider.LevelParticlesProvider.DebrisEffect,
-                factory, _debrisPoolEffectsParent)
+                levelPrefabsProvider.LevelParticlesProvider.DebrisEffect, _debrisPoolEffectsParent)
             );
         _levelBlocksHandler = new LevelBlocksHandler(_levelBlocks, _cameraTransform);
     }
     private void OnDisable()
     {
-        LevelPool.Dispose();
-        _levelBlocksHandler.Dispose();
-        _levelAudio.Dispose();
+        LevelPool?.Dispose();
+        _levelBlocksHandler?.Dispose();
+        _levelAudio?.Dispose();
     }
 }

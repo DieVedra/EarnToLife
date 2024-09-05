@@ -16,7 +16,6 @@ public class ResolutionSpriteScaler : MonoBehaviour
     [SerializeField, HorizontalLine(color: EColor.Gray)] private SpriteRenderer _background;
     private readonly Vector2 _defaultTextureResolution = new Vector2(1920f, 1080f);
     private readonly float _sizeMultiplier = 0.01f;
-    private readonly float _additionalSizeMultiplier = 1.3f;
     private void Start()
     {
         SetStartMenuResolution();

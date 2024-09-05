@@ -8,18 +8,17 @@ public class BarrelPool : PoolMetods
     private readonly int _preloadExplosionEffectsCount = 2;
     private readonly ParticleSystem _barrelExplosionPrefab;
     private readonly ParticleSystem _burnEffectPrefab;
-    private readonly Factory _factory;
+    private readonly Spawner _spawner;
     private readonly Transform _barrelPoolEffectsParent;
     private CancellationTokenSource _cancellationTokenSource = new CancellationTokenSource();
     private PoolBase<ParticleSystem> _barrelExplosionsPool;
     private PoolBase<ParticleSystem> _barrelBurnPool;
     private PoolBase<DebrisEffect> _debrisBarrelEffectsPool;
-    public BarrelPool(ParticleSystem barrelExplosionPrefab, ParticleSystem burnEffectPrefab, 
-        Factory factory, Transform barrelPoolEffectsParent)
+    public BarrelPool(ParticleSystem barrelExplosionPrefab, ParticleSystem burnEffectPrefab, Transform barrelPoolEffectsParent)
     {
+        _spawner = new Spawner();
         _barrelExplosionPrefab = barrelExplosionPrefab;
         _burnEffectPrefab = burnEffectPrefab;
-        _factory = factory;
         _barrelPoolEffectsParent = barrelPoolEffectsParent;
         _barrelExplosionsPool = new PoolBase<ParticleSystem>(CreateBarrelExplosionEffect, GetAction, ReturnAction, _preloadExplosionEffectsCount);
         _barrelBurnPool = new PoolBase<ParticleSystem>(CreateBarrelBurnEffect, GetAction, ReturnAction, _preloadExplosionEffectsCount);
@@ -38,11 +37,11 @@ public class BarrelPool : PoolMetods
     }
     private ParticleSystem CreateBarrelExplosionEffect()
     {
-        return _factory.CreateEffect(_barrelExplosionPrefab, _barrelPoolEffectsParent);
+        return _spawner.Spawn(_barrelExplosionPrefab, _barrelPoolEffectsParent, _barrelPoolEffectsParent);
     }
     private ParticleSystem CreateBarrelBurnEffect()
     {
-        return _factory.CreateEffect(_burnEffectPrefab, _barrelPoolEffectsParent);
+        return _spawner.Spawn(_burnEffectPrefab, _barrelPoolEffectsParent, _barrelPoolEffectsParent);
     }
     private async UniTaskVoid PlayEffect(PoolBase<ParticleSystem> pool, Vector2 point, float duration = 0f)
     {

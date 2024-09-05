@@ -92,7 +92,10 @@ public class GlobalAudio : MonoBehaviour, ISoundPause, IAudioSettingSwitch, IGlo
     }
     public void SoundOnPause(bool pause)
     {
-        AudioPauseReactiveProperty.Value = pause;
+        if ( AudioPauseReactiveProperty != null)
+        {
+            AudioPauseReactiveProperty.Value = pause;
+        }
 
         if (pause == true)
         {
