@@ -14,7 +14,7 @@ public class BoosterDestructionHandler : DestructionHandler, IDispose
 
     public BoosterDestructionHandler(BoosterRef boosterRef, Booster booster, CoupAnalyzer coupAnalyzer, CarMass carMass, DestructionHandlerContent destructionHandlerContent,
         DestructionEffectsHandler destructionEffectsHandler, DestructionAudioHandler destructionAudioHandler, int fallingContentLayer) 
-        : base(boosterRef, destructionHandlerContent, " Booster ", destructionAudioHandler, boosterRef.StrengthBooster)
+        : base(boosterRef, destructionHandlerContent, destructionAudioHandler, boosterRef.StrengthBooster)
     {
         _fallingContentLayer = fallingContentLayer;
         _booster = booster;

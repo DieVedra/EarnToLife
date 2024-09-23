@@ -12,8 +12,7 @@ public class BarrelAudioHandler : AudioPlayer
     private readonly CancellationTokenSource _cancellationTokenSource = new CancellationTokenSource();
     private readonly TimeScalePitchHandler _timeScalePitchHandler;
     private readonly AudioClip _hitBarrelAudioClip;
-    private readonly AudioClip _explode1BarrelAudioClip;
-    private readonly AudioClip _explode2BarrelAudioClip;
+    private readonly AudioClip[] _explodeBarrelAudioClips;
     private readonly AudioClip _burnBarrelAudioClip;
     public BarrelAudioHandler(AudioSource audioSource, ReactiveProperty<bool> soundReactiveProperty, ReactiveProperty<bool> audioPauseReactiveProperty,
         TimeScalePitchHandler timeScalePitchHandler, AudioClip hitBarrelAudioClip, 
@@ -22,8 +21,7 @@ public class BarrelAudioHandler : AudioPlayer
     {
         _timeScalePitchHandler = timeScalePitchHandler;
         _hitBarrelAudioClip = hitBarrelAudioClip;
-        _explode1BarrelAudioClip = explode1BarrelAudioClip;
-        _explode2BarrelAudioClip = explode2BarrelAudioClip;
+        _explodeBarrelAudioClips = new []{explode1BarrelAudioClip, explode2BarrelAudioClip};
         _burnBarrelAudioClip = burnBarrelAudioClip;
         _timeScalePitchHandler.OnPitchTimeWarped += SetPitch;
         _timeScalePitchHandler.IsTimeWarpedRP.Subscribe(_ =>
@@ -42,8 +40,8 @@ public class BarrelAudioHandler : AudioPlayer
     }
     public void PlayBarrelExplosionSound()
     {
-        TryPlayOneShotClipWithRandomSectionVolumeAndPitch(GetRandomAudioClip(new []{_explode1BarrelAudioClip, _explode2BarrelAudioClip}),
-            _volumeSection, _pitchSection);
+        TryPlayOneShotClipWithRandomSectionVolumeAndPitch(GetRandomAudioClip(_explodeBarrelAudioClips),
+            GetRandomFloatValue(_volumeSection.x, _volumeSection.y), _pitchSection);
     }
     public void PlayBarrelFailBreakingSound(float force)
     {

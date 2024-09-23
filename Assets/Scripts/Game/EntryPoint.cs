@@ -27,7 +27,7 @@ public class EntryPoint : MonoBehaviour
         Time.timeScale = 1f;
         PlayerDataInit();
         _globalAudio.InitFromEntryScene(_playerDataProvider.PlayerDataHandler);
-        _garage.Construct(_playerData, _garageData);
+        _garage.Init(_playerData, _garageData);
         _logicEntryScene = new LogicEntryScene(_garage, _map, _startMenuBackground, _viewEntryScene, _gameData, _garageData, _globalAudio, _playerDataHandler);
         _map.Init(_playerData.Level);
         Debug.Log($"Current Level: {_playerData.Level}");

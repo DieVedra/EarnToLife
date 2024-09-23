@@ -39,7 +39,7 @@ public class WoodDestructibleAudioHandler : AudioPlayer
     }
     public void PlayWoodBreakingSound()
     {
-        TryPlayOneShotClipWithRandomSectionVolumeAndPitch(_woodBreakingAudioClips, _volumeSection, _pitchSection);
+        TryPlayOneShotClipWithRandomSectionVolumeAndPitch(_woodBreakingAudioClips, GetRandomFloatValue(_volumeSection.x, _volumeSection.y), _pitchSection);
     }
 
     public void PlayWoodNotBreakingSound(float force)
@@ -47,9 +47,8 @@ public class WoodDestructibleAudioHandler : AudioPlayer
         SetVolume(Mathf.InverseLerp(_volumeLerpSection.x, _volumeLerpSection.y, force));
         TryPlayOneShotClip(_woodNotBreakingAudioClips);
     }
-    public void PlayHitWoodSound()
+    public void PlayHitWoodSound(float volume)
     {
-        TryPlayOneShotClipWithRandomSectionVolumeAndPitch(GetRandomAudioClip(_hitWoodAudioClips), _volumeSection, _pitchSection);
-
+        TryPlayOneShotClipWithRandomSectionVolumeAndPitch(GetRandomAudioClip(_hitWoodAudioClips), volume, _pitchSection);
     }
 }

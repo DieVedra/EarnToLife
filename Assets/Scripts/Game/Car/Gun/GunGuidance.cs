@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class GunGuidance
 {
+    private readonly float _rotateAddValue = 180f;
+    
     private Transform _gunRotation;
     private Vector2 _difference;
     private float _angleInRadians;
@@ -19,21 +21,15 @@ public class GunGuidance
     {
         if (FreezedGuidanenceAfterShoot == false)
         {
-            // CalculateRotation(target.position);
             _angleInDegrees = AngleCalculator.Calculate(target.position, _gunRotation.position);
-            GunRotate(_angleInDegrees);
+            GunRotate();
         }
     }
-    // private void CalculateRotation(Vector3 targetPosition)
-    // {
-    //     _difference = targetPosition - _gunRotation.position;
-    //
-    //
-    //     _angleInRadians = Mathf.Atan2(_difference.y, _difference.x);
-    //     _angleInDegrees = _angleInRadians * Mathf.Rad2Deg;
-    // }
-    private void GunRotate(float angle)
+    private void GunRotate()
     {
-        _gunRotation.rotation = Quaternion.Lerp(_gunRotation.rotation, Quaternion.Euler(_gunRotation.rotation.eulerAngles.x, _gunRotation.rotation.eulerAngles.y, angle), _speedLook * Time.deltaTime);
+        _gunRotation.rotation = Quaternion.Lerp(
+            _gunRotation.rotation, 
+            Quaternion.Euler(_gunRotation.rotation.eulerAngles.x, _gunRotation.rotation.eulerAngles.y, _angleInDegrees + _rotateAddValue), 
+            _speedLook * Time.deltaTime);
     }
 }

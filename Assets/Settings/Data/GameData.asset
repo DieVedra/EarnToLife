@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b38c4721f2c9b24592cb6cf11137ef2, type: 3}
   m_Name: GameData
   m_EditorClassIdentifier: 
-  StartPanelInMenu: 0
+  StartPanelInMenu: 2
   ScreenOrientation: 3
   _carControlMethod: 0
   _saveOn: 0

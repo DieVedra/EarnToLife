@@ -23,6 +23,10 @@ public class GameData : ScriptableObject
         }
         else if (Application.isMobilePlatform == true)
         {
+            Screen.autorotateToLandscapeLeft = true;
+            Screen.autorotateToLandscapeRight = true;
+            Screen.autorotateToPortrait = false;
+            Screen.autorotateToPortraitUpsideDown = false;
             Screen.orientation = ScreenOrientation.LandscapeLeft;
             _carControlMethod = CarControlMethod.SensorDisplayMethod;
             return _carControlMethod;

@@ -18,7 +18,7 @@ public class HotWheel
     private readonly Vector3 _offset;
     private readonly int _layerAfterBreaking;
     private readonly HotWheelAudioHandler _hotWheelAudioHandler;
-    private readonly DebrisParent _debrisParent;
+    private readonly DebrisKeeper _debrisKeeper;
     private readonly Transform _wheel1;
     private readonly Transform _wheel2;
     private RaycastHit2D _wheelHit;
@@ -30,12 +30,12 @@ public class HotWheel
     private List<Collider2D> _colliders = new List<Collider2D>(50);
     private bool _isBroken = false;
     private bool _circleCastOn = true;
-    public HotWheel(HotWheelRef hotWheelRef, HotWheelAudioHandler hotWheelAudioHandler, DebrisParent debrisParent, LayerMask contactMask, Vector3 offset,
+    public HotWheel(HotWheelRef hotWheelRef, HotWheelAudioHandler hotWheelAudioHandler, DebrisKeeper debrisKeeper, LayerMask contactMask, Vector3 offset,
         int layerAfterBreaking, float hotWheelRotationSpeed, float radiusWheel2)
     {
         HotWheelRef = hotWheelRef;
         _hotWheelAudioHandler = hotWheelAudioHandler;
-        _debrisParent = debrisParent;
+        _debrisKeeper = debrisKeeper;
         _hotWheelRotationSpeed = hotWheelRotationSpeed;
         _radiusWheel2 = radiusWheel2;
         _contactMask = contactMask;
@@ -59,7 +59,7 @@ public class HotWheel
     public void Destruct()
     {
         _isBroken = true;
-        _debrisParent.AddToDebris(HotWheelRef.transform);
+        _debrisKeeper.AddDebris(HotWheelRef.transform);
         _wheel1Collider.enabled = true;
         _wheel2Collider.enabled = true;
         _wheel1Rigidbody2D.simulated = true;

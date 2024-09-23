@@ -6,7 +6,6 @@ public class ButtonsControl
     private readonly CustomButton _buttonStop;
     private readonly CustomButton _buttonRotateClockwise;
     private readonly CustomButton _buttonRotateAntiClockwise;
-    // private CarInLevel _carInLevel;
     private readonly ControlCarUI _controlCarUI;
     public ButtonsControl(ViewUILevel viewUILevel, CarInLevel carInLevel)
     {
@@ -15,7 +14,6 @@ public class ButtonsControl
         _buttonStop = viewUILevel.ButtonStop;
         _buttonRotateClockwise = viewUILevel.ButtonRotateClockwise;
         _buttonRotateAntiClockwise = viewUILevel.ButtonRotateCounterClockwise;
-        // _carInLevel = carInLevel;
         _controlCarUI = carInLevel.ControlCarUI;
     }
     public void Activate()

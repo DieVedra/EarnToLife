@@ -1,13 +1,16 @@
-﻿using UniRx;
+﻿using System;
+using UniRx;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class AudioPlayer
 {
-    private int _previousRandomValue = 0;
     public readonly AudioSource AudioSource;
+    private int _previousRandomValue = 0;
+    private CompositeDisposable _compositeDisposable;
 
-    private bool _isEnabled => AudioSource.gameObject.activeInHierarchy;
     public bool SoundOn { get; private set; }
+    private bool _isEnabled => AudioSource.gameObject.activeInHierarchy;
 
     public AudioPlayer(AudioSource audioSource, ReactiveProperty<bool> soundReactiveProperty, ReactiveProperty<bool> audioPauseReactiveProperty)
     {
@@ -18,6 +21,18 @@ public class AudioPlayer
             audioPauseReactiveProperty.Subscribe(SetPauseStatus);
             SoundOn = soundReactiveProperty.Value;
         }
+    }
+    public void StartCyclePlaySound(Action operation, float nextDelay)
+    {
+        _compositeDisposable = new CompositeDisposable();
+        Observable.Interval(TimeSpan.FromSeconds(nextDelay)).Subscribe(_=>
+        {
+            operation.Invoke();
+        }).AddTo(_compositeDisposable);
+    }
+    public void StopCyclePlaySound()
+    {
+        _compositeDisposable.Clear();
     }
     public void TryPlayClip(AudioClip audioClip, bool loop = true)
     {
@@ -66,18 +81,21 @@ public class AudioPlayer
             AudioSource.PlayOneShot(audioClip);
         }
     }
-    public void TryPlayOneShotClipWithRandomSectionVolumeAndPitch(AudioClip audioClip, Vector2 volumeSection, Vector2 pitchSection)
+    public void TryPlayOneShotClipWithRandomSectionVolumeAndPitch(AudioClip audioClip, float volume, Vector2 pitchSection)
     {
         if (SoundOn == true)
         {
             SetPitch(GetRandomFloatValue(pitchSection.x, pitchSection.y));
-            SetVolume(GetRandomFloatValue(volumeSection.x, volumeSection.y));
+            SetVolume(volume);
             AudioSource.PlayOneShot(audioClip);
+            // Debug.Log($"                                  PlayHitWoodSound   {audioClip.name}  {AudioSource.volume}  {AudioSource.pitch}");
+
         }
     }
     public void SetVolume(float volume)
     {
         AudioSource.volume = volume;
+
     }
     public void SetPitch(float pitch)
     {
@@ -136,7 +154,7 @@ public class AudioPlayer
         }
         return Random.Range(min, max);
     }
-    private float GetRandomFloatValue(float min, float max)
+    public float GetRandomFloatValue(float min, float max)
     {
         return Random.Range(min, max);
     }

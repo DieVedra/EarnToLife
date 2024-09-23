@@ -9,47 +9,53 @@ public class ZombieBoozer : Zombie
 {
     [SerializeField] private ParticleSystem _fartEffect;
     [SerializeField] private float _duration = 5f;
+    
     private ParticleSystem.MainModule _mainModule;
     private ZombieBoozerAudioHandler _zombieBoozerAudioHandler;
     private GameOverSignal _gameOverSignal;
-    [Inject]
-    private void Construct(AudioClipProvider audioClipProvider, GameOverSignal gameOverSignal, IGlobalAudio globalAudio)
-    {
-        _zombieBoozerAudioHandler = new ZombieBoozerAudioHandler(GetComponent<AudioSource>(),
-            globalAudio.SoundReactiveProperty, globalAudio.AudioPauseReactiveProperty, audioClipProvider.LevelAudioClipProvider);
-        _gameOverSignal = gameOverSignal;
-        _gameOverSignal.OnGameOver += StopEffect;
-    }
-    private void Awake()
+    
+    private new void Awake()
     {
         _mainModule = _fartEffect.main;
         _mainModule.duration = _duration;
         _mainModule.loop = true;
-        
+        _zombieBoozerAudioHandler = new ZombieBoozerAudioHandler(GetComponent<AudioSource>(),
+            GlobalAudio.SoundReactiveProperty, GlobalAudio.AudioPauseReactiveProperty, AudioClipProvider.LevelAudioClipProvider);
+        base.Awake();
     }
-    private void StopEffect()
+    
+    private void StopEffectImmediately()
     {
         _fartEffect.Stop();
+        _zombieBoozerAudioHandler.StopCyclePlaySound();
     }
 
+    private void StopEffect()
+    {
+        _zombieBoozerAudioHandler.StopCyclePlaySound();
+    }
     private void PlayEffect()
     {
         _fartEffect.Play();
         _zombieBoozerAudioHandler.PlayFart();
-
     }
-    private void OnEnable()
+    
+    private new void OnEnable()
     {
-        StartCoroutine(StartCyclePlaySound(PlayEffect, _duration));
+        _zombieBoozerAudioHandler.StartCyclePlaySound(PlayEffect, _duration);
         OnBroken += StopEffect;
+        GameOverSignal.OnGameOver += StopEffectImmediately;
+        base.OnEnable();
     }
-    private void OnDisable()
+    
+    private new void OnDisable()
     {
         if (_gameOverSignal != null)
         {
-            _gameOverSignal.OnGameOver -= StopEffect;
+            GameOverSignal.OnGameOver -= StopEffectImmediately;
         }
         OnBroken -= StopEffect;
         StopEffect();
+        base.OnDisable();
     }
 }

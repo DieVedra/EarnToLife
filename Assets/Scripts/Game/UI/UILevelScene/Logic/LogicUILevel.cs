@@ -7,28 +7,33 @@ using UnityEngine.UI;
 
 public class LogicUILevel
 {
-    private ButtonsControl _buttonsControl;
-    private PausePanelButtonsHandler _pausePanelButtonsHandler;
-    private PanelsHandler _panelsHandler;
-    private DevicePanelHandler _devicePanelHandler;
-    private ResultsLevelHandler _resultsLevelHandler;
-    private LevelProgressHandler _levelProgressHandler;
-    private NotificationsHandler _notificationsHandler;
-    private CarGunHandler _carGunHandler;
+    private readonly PausePanelButtonsHandler _pausePanelButtonsHandler;
+    private readonly PanelsHandler _panelsHandler;
+    private readonly DevicePanelHandler _devicePanelHandler;
+    private readonly ResultsLevelHandler _resultsLevelHandler;
+    private readonly LevelProgressHandler _levelProgressHandler;
+    private readonly NotificationsHandler _notificationsHandler;
+    private readonly AudioSettingSwitch _audioSettingSwitch;
+    private readonly IconLoadHandler _iconLoadHandler;
+    private readonly SceneSwitch _sceneSwitch;
     private CarBoosterHandler _carBoosterHandler;
-    private AudioSettingSwitch _audioSettingSwitch;
+    private CarGunHandler _carGunHandler;
+    private ButtonsControl _buttonsControl;
+
     public LogicUILevel(ViewUILevel viewUILevel, CarInLevel carInLevel, GamePause gamePause,
-        ResultsLevelProvider resultsLevelProvider, SceneSwitch sceneSwitch, GlobalAudio globalAudio,
-        TextMeshProUGUI notificationPrefab, CarControlMethod carControlMethod)
+        ResultsLevelProvider resultsLevelProvider, PlayerDataHandler playerDataHandler, GlobalAudio globalAudio,
+        TextMeshProUGUI notificationPrefab, GameData gameData)
     {
-        TryInitButtonsControl(viewUILevel, carInLevel, carControlMethod);
+        TryInitButtonsControl(viewUILevel, carInLevel, gameData.GetCarControlMethod());
+        _iconLoadHandler = new IconLoadHandler(viewUILevel.IconLoad);
+        _sceneSwitch = new SceneSwitch(playerDataHandler, gameData, _iconLoadHandler);
         _pausePanelButtonsHandler = new PausePanelButtonsHandler(viewUILevel.PanelPause);
         _resultsLevelHandler = new ResultsLevelHandler(viewUILevel.PanelScore, viewUILevel.DisposeCommand);
         _audioSettingSwitch = new AudioSettingSwitch(globalAudio,
             viewUILevel.PanelPause.TextOnOffButtonMusic,
             viewUILevel.PanelPause.TextOnOffButtonSound);
-        _panelsHandler = new PanelsHandler(viewUILevel, sceneSwitch, _pausePanelButtonsHandler,
-            _buttonsControl, gamePause, resultsLevelProvider, _resultsLevelHandler, _audioSettingSwitch,
+        _panelsHandler = new PanelsHandler(viewUILevel, _sceneSwitch, _pausePanelButtonsHandler,
+            _buttonsControl, gamePause, resultsLevelProvider, _resultsLevelHandler, _audioSettingSwitch, _iconLoadHandler,
             new AudioHandlerUI(globalAudio), viewUILevel.DisposeCommand);
         _notificationsHandler = new NotificationsHandler(viewUILevel, resultsLevelProvider, notificationPrefab, viewUILevel.DisposeCommand);
         _levelProgressHandler = new LevelProgressHandler(viewUILevel, resultsLevelProvider.LevelProgressCounter, viewUILevel.DisposeCommand);
@@ -47,6 +52,7 @@ public class LogicUILevel
         {
             viewUILevel.ButtonCrosshair.gameObject.SetActive(false);
             viewUILevel.ButtonFire.interactable = false;
+            viewUILevel.ButtonFire.gameObject.SetActive(false);
         }
     }
 
@@ -59,6 +65,7 @@ public class LogicUILevel
         else
         {
             viewUILevel.ButtonBoost.interactable = false;
+            viewUILevel.ButtonBoost.gameObject.SetActive(false);
         }
     }
 
@@ -67,7 +74,6 @@ public class LogicUILevel
         if (carControlMethod == CarControlMethod.SensorDisplayMethod)
         {
             _buttonsControl = new ButtonsControl(viewUILevel, carInLevel);
-
         }
         else
         {

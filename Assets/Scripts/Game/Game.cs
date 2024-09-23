@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using Cinemachine;
 using UnityEngine;
 using NaughtyAttributes;
@@ -10,21 +7,20 @@ public class Game : MonoBehaviour
 {
     [SerializeField] private CinemachineVirtualCamera _cinemachineVirtualCamera;
     [SerializeField] private LimitRideBack _limitRideBack;
-    [Space]
-    [SerializeField, BoxGroup("Level Settings"), HorizontalLine(color:EColor.White)] private Transform _startLevelPoint;
-    [SerializeField, BoxGroup("Level Settings")] private Transform _endLevelPoint;
-    [SerializeField, BoxGroup("Level Settings"), HorizontalLine(color:EColor.White)] private float _timeWaitingOnEndLevel = 1f;
+    
+    [SerializeField, BoxGroup("Game Settings"), HorizontalLine(color:EColor.White)] private float _timeWaitingOnEndLevel = 1f;
 
-    [SerializeField, BoxGroup("Level Settings"), HorizontalLine(color:EColor.White)] private SliderSectionValues _sliderSectionValue;
-    [SerializeField, BoxGroup("Level Settings"), HorizontalLine(color:EColor.White)] private bool _limitRideBackIsOn;
-    [SerializeField, BoxGroup("Level Settings")] private bool _autoGameOverIsOn;
+    [SerializeField, BoxGroup("Game Settings"), HorizontalLine(color:EColor.White)] private SliderSectionValues _sliderSectionValue;
+    
+    [SerializeField, BoxGroup("Game Settings"), HorizontalLine(color:EColor.White)] private bool _limitRideBackIsOn;
+    [SerializeField, BoxGroup("Game Settings")] private bool _autoGameOverIsOn;
+    
     [Inject] private SaveService _saveService;
     [Inject] private PlayerDataProvider _playerDataProvider;
     [Inject] private GlobalAudio _globalAudio;
     [Inject] private IGlobalAudio _globalAudioForCar;
     [Inject] private GameData _gameData;
     [Inject] private GarageData _garageData;
-    // [Inject] private IInstantiator _instantiator;
     [Inject] private LevelPrefabsProvider _levelPrefabsProvider;
     [Inject] private AudioClipProvider _audioClipProvider;
     [Inject] private GamePause _gamePause;
@@ -66,7 +62,7 @@ public class Game : MonoBehaviour
         _resultsLevelProvider = new ResultsLevelProvider(_playerDataHandler, _carConfiguration, _killsCount, _destructionCount,
             _levelProgressCounter, _notificationsProvider, _gameOverSignal, _timeWaitingOnEndLevel);
         _logicUILevel = new LogicUILevel(_viewUILevel, _carInLevel, _gamePause, _resultsLevelProvider,
-            new SceneSwitch(_playerDataHandler, _gameData), _globalAudio, _levelPrefabsProvider.NotificationsTextPrefab, _gameData.GetCarControlMethod());
+            _playerDataHandler, _globalAudio, _levelPrefabsProvider.NotificationsTextPrefab, _gameData);
         _notificationsProvider.ShowDayInfo(_playerDataHandler.PlayerData.Days.ToString());
     }
     private void InitCar()
@@ -75,18 +71,18 @@ public class Game : MonoBehaviour
         _carConfigurationProvider = new CarConfigurationProvider();
         InitCarConfiguration(currentSelectLotCarIndex);
         _carInLevel = _spawner.Spawn(_levelPrefabsProvider.CarsInLevelPrefabs[currentSelectLotCarIndex],
-            _startLevelPoint);
+            _level.StartLevelPoint);
         _cinemachineVirtualCamera.Follow = _carInLevel.transform;
         InitProgressCounter();
-        _carInLevel.Construct(_carConfiguration, _notificationsProvider, _levelProgressCounter,
-            _level.DebrisParent, _globalAudioForCar, _audioClipProvider.CarsAudioClipsProvider.GetCarAudioClipProvider(currentSelectLotCarIndex),
+        _carInLevel.Init(_carConfiguration, _notificationsProvider, _levelProgressCounter,
+            _level.DebrisKeeper, _globalAudioForCar, _audioClipProvider.CarsAudioClipsProvider.GetCarAudioClipProvider(currentSelectLotCarIndex),
             _timeScaleSignal, _gameOverSignal, _gamePause, _gameData.GetCarControlMethod(), _autoGameOverIsOn);
     }
 
     private void InitProgressCounter()
     {
         _levelProgressCounter = new LevelProgressCounter(
-            _startLevelPoint, _endLevelPoint, _carInLevel.transform,
+            _level.StartLevelPoint, _level.EndLevelPoint, _carInLevel.transform,
             _notificationsProvider,
             _sliderSectionValue,
             _playerDataHandler.TryGetResultLevelForSlider()
@@ -125,6 +121,7 @@ public class Game : MonoBehaviour
     private void OnApplicationQuit()
     {
         _saveService?.SetPlayerDataToSaving(_playerDataHandler.PlayerData, _gameData.SaveOn);
+        Time.timeScale = 1f;
     }
     private void OnApplicationPause(bool pause)
     {

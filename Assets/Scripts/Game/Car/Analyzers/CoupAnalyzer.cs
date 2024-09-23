@@ -17,9 +17,6 @@ public class CoupAnalyzer
     {
         _carTransform = carTransform;
     }
-    public void Dispose()
-    {
-    }
     public void Update()
     {
         _dot = Vector3.Dot(_carTransform.up, Vector3.down);

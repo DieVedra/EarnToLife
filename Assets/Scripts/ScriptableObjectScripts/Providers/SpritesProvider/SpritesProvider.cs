@@ -10,7 +10,7 @@ public class SpritesProvider : MonoBehaviour
         
     }
 
-    // Update is called once per frame
+    // UpdateActivityFromList is called once per frame
     void Update()
     {
         

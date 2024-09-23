@@ -5,8 +5,6 @@ using UnityEngine;
 public class CarAudio : MonoBehaviour
 {
     [SerializeField, BoxGroup("WheelGroundInteraction")] private AnimationCurve _brakeVolumeCurve;
-    // [SerializeField, BoxGroup("Booster")] private AnimationCurve _increaseBoosterSoundCurve;
-    // [SerializeField, BoxGroup("Booster")] private AnimationCurve _decreaseBoosterSoundCurve;
 
     [SerializeField, BoxGroup("AudioSources")] private AudioSource _forEngine;
     [SerializeField, BoxGroup("AudioSources")] private AudioSource _forBooster;
@@ -24,6 +22,8 @@ public class CarAudio : MonoBehaviour
     private CarAudioClipProvider _carAudioClipProvider;
     private TimeScalePitchHandler _timeScalePitchHandler;
     private TimeScaleSignal _timeScaleSignal;
+    private GameOverSignal _gameOverSignal;
+    
     public EngineAudioHandler EngineAudioHandler { get; private set; }
     public BoosterAudioHandler BoosterAudioHandler { get; private set; }
     public BrakeAudioHandler BrakeAudioHandler => WheelsAudioHandler.BrakeAudioHandler;
@@ -32,12 +32,14 @@ public class CarAudio : MonoBehaviour
     public DestructionAudioHandler DestructionAudioHandler { get; private set; }
     public HotWheelAudioHandler HotWheelAudioHandler { get; private set; }
     public SuspensionAudioHandler SuspensionAudioHandler { get; private set; }
-    public void Construct(IGlobalAudio globalAudio, CarAudioClipProvider carAudioClipProvider,
-        TimeScaleSignal timeScaleSignal, ReactiveCommand onCarBrokenIntoTwoPartsReactiveCommand)
+    
+    public void Init(IGlobalAudio globalAudio, CarAudioClipProvider carAudioClipProvider,
+        TimeScaleSignal timeScaleSignal, GameOverSignal gameOverSignal, ReactiveCommand onCarBrokenIntoTwoPartsReactiveCommand)
     {
         _globalAudio = globalAudio;
         _carAudioClipProvider = carAudioClipProvider;
         _timeScaleSignal = timeScaleSignal;
+        _gameOverSignal = gameOverSignal;
         InitEngineAudio();
         InitBoosterAudio();
         InitGunAudio();

@@ -15,7 +15,7 @@ public sealed class GunDestructionHandler : DestructionHandler, IDispose
 
     public GunDestructionHandler(GunRef gunRefs, CarGun carGun, CarMass carMass, CoupAnalyzer coupAnalyzer,
         DestructionHandlerContent destructionHandlerContent, DestructionEffectsHandler destructionEffectsHandler, int fallingContentLayer)
-    :base(gunRefs, destructionHandlerContent, "  GunDestruction ", maxStrength: gunRefs.StrengthGun)
+    :base(gunRefs, destructionHandlerContent, maxStrength: gunRefs.StrengthGun)
     {
         _gunParts = gunRefs.GunParts;
         _carGun = carGun;

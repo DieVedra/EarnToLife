@@ -18,7 +18,6 @@ public class GaragePanel : MonoBehaviour
     [SerializeField] private ButtonWithStatusBar _buttonCorpusUpgrade;
     [SerializeField] private ButtonWithStatusBar _buttonBoosterUpgrade;
     [SerializeField] private ButtonWithStatusBar _buttonFueltankUpgrade;
-    // [SerializeField] private CanvasGroup _canvasGroupButtonsUpgrade;
     [SerializeField] private RectTransform _parentRectTransformButtonsUpgrade;
 
     [Space (20)]
@@ -26,9 +25,6 @@ public class GaragePanel : MonoBehaviour
 
     [SerializeField] private Image _imageLock;
     [SerializeField] private PanelConfirmationUpgrade panelConfirmationUpgrade;
-
-    // [SerializeField] private Color _colorTextLackOfMoney;
-    // [SerializeField] private Color _colorTextEnoughMoney;
     public Button ButtonGO => _buttonGO;
     public Button ButtonBackToMap => _buttonMap;
     public Button ButtonSlideRight => _buttonSlideRight;
@@ -45,11 +41,4 @@ public class GaragePanel : MonoBehaviour
     public TextMeshProUGUI Cash => _cash;
     public Image Lock => _imageLock;
     public PanelConfirmationUpgrade PanelConfirmationUpgrade => panelConfirmationUpgrade;
-
-    // public void a()
-    // {
-    //     _buttonSlideLeft.O
-    // }
-    // public Color ColorTextLackOfMoney => _colorTextLackOfMoney;
-    // public Color ColorTextEnoughMoney => _colorTextEnoughMoney;
 }

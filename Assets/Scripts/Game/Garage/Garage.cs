@@ -1,31 +1,38 @@
-using System.Collections;
+using System;
 using System.Collections.Generic;
-using System.Linq;
+using NaughtyAttributes;
 using UnityEngine;
-using Zenject;
+using UnityEngine.Rendering.Universal;
 
 public class Garage : MonoBehaviour
 {
     [SerializeField] private Transform _lotsParent;
     [SerializeField] private List<ParkingLot> _parkingLots;
+    [SerializeField, HorizontalLine(color:EColor.Pink)] private Light2D _lamp1;
+    [SerializeField] private Light2D _lamp2;
+    [SerializeField] private Light2D _globalLight2D;
+    [SerializeField] private Color _colorForGarage;
+    
     private GarageData _garageData;
     private GarageConfig _garageConfig;
     private Spawner _spawner;
     private IReadOnlyList<CarInGarage> _carsInGaragePrefabs;
     private int _availableLotCarIndex;
+    
     public int CurrentSelectLotCarIndex { get; private set; }
     public SwitchGarageLot SwitchGarageLot { get; private set; }
+    public GarageLight GarageLight { get; private set; }
     public Wallet Wallet { get; private set; }
     public UpgradeParkingLot UpgradeParkingLot { get; private set; }
     public IReadOnlyList<ParkingLot> ParkingLots => _parkingLots;
-
-    public void Construct(IPlayerData playerData, GarageData garageData)
+    
+    public void Init(IPlayerData playerData, GarageData garageData)
     {
-        // _gameData = gameData;
         _garageData = garageData;
         _carsInGaragePrefabs = garageData.GaragePrefabsProvider.CarsInGaragePrefabs;
         Wallet = playerData.Wallet;
         _spawner = new Spawner();
+        GarageLight = new GarageLight(_lamp1, _lamp2, _globalLight2D, _colorForGarage);
         _garageConfig = playerData.GarageConfig;
         CurrentSelectLotCarIndex = _garageConfig.CurrentSelectLotCarIndex;
         _availableLotCarIndex = _garageConfig.AvailableLotCarIndex;
@@ -36,6 +43,7 @@ public class Garage : MonoBehaviour
 
     public void Activate()
     {
+        GarageLight.SetColorForGarage();
         gameObject.SetActive(true);
         SwitchGarageLot.OnSwitch += SetCurrentSelectLotCar;
         for (int i = 0; i < _parkingLots.Count; i++)
@@ -46,6 +54,7 @@ public class Garage : MonoBehaviour
     }
     public void Deactivate()
     {
+        GarageLight.SetDefaultColor();
         gameObject.SetActive(false);
         SwitchGarageLot.OnSwitch -= SetCurrentSelectLotCar;
         for (int i = 0; i < _parkingLots.Count; i++)
@@ -54,7 +63,6 @@ public class Garage : MonoBehaviour
         }
         _garageConfig.SetCurrentSelectLotCarIndex(CurrentSelectLotCarIndex);
         _garageConfig.SetAvailableCarLotIndex(_availableLotCarIndex);
-        // _gameData.CarConfigurationToSendInScene = _parkingLots[CurrentSelectLotCarIndex].CurrentCarConfiguration;
     }
 
     private void SetCurrentSelectLotCar(int index)
@@ -87,9 +95,8 @@ public class Garage : MonoBehaviour
         }
     }
 
-    // private bool SetFirstLotOpen(int index)
-    // {
-    //     bool result = index == 0 ? false : true;
-    //     return result;
-    // }
+    private void OnDestroy()
+    {
+        GarageLight.Dispose();
+    }
 }

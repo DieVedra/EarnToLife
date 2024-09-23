@@ -29,7 +29,7 @@ public class FrontWingDestructionHandler : DestructionHandler, IDispose
         BumperDestructionHandler bumperDestructionFrontHandler, DestructionHandlerContent destructionHandlerContent,
         DestructionEffectsHandler destructionEffectsHandler, DestructionAudioHandler destructionAudioHandler,
         int strength, bool isArmored)
-        :base(frontWingRef, destructionHandlerContent, " FrontWing ", destructionAudioHandler, strength)
+        :base(frontWingRef, destructionHandlerContent, destructionAudioHandler, strength)
     {
         _glassDestructionHandler = glassDestructionHandler;
         _hotWheelDestructionHandler = hotWheelDestructionHandler;
@@ -97,7 +97,6 @@ public class FrontWingDestructionHandler : DestructionHandler, IDispose
     private void PlayEffect()
     {
         _destructionEffectsHandler.HitBrokenEffect(HitPosition, ImpulseNormalValue);
-        // Debug.Log($"HitPosition:  {HitPosition}");
     }
 
     private void DestructionMode1AndSubscribe()

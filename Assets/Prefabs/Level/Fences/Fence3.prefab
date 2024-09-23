@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7402545564961443221}
   - component: {fileID: 7402545564961443222}
+  - component: {fileID: 8391410356166402969}
   m_Layer: 0
   m_Name: Fence3
   m_TagString: Untagged
@@ -71,7 +72,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -186527699
-  m_SortingLayer: -1
+  m_SortingLayer: -3
   m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: c7f1fd7ee9e159c4f8a9015539b23c15, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -84,3 +85,15 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &8391410356166402969
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7402545564961443220}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eff00e224063c774b94ba223bff61107, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

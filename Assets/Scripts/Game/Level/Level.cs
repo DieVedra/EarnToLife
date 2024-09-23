@@ -7,41 +7,69 @@ using Zenject;
 
 public class Level : MonoBehaviour, ILevel
 {
-    [SerializeField, HorizontalLine(color: EColor.White)] private DebrisParent _debrisParent;
+    [SerializeField, HorizontalLine(color: EColor.White)] private DebrisKeeper _debrisKeeper;
+    [SerializeField] private ActivityLevelContentHandler _activityLevelContentHandler;
     [SerializeField] private Transform _cameraTransform;
+    
     [SerializeField, HorizontalLine(color: EColor.Green)] private Transform _debrisPoolEffectsParent;
     [SerializeField] private Transform _barrelPoolEffectsParent;
     [SerializeField] private Transform _bloodEffectsParent;
+    
     [SerializeField, HorizontalLine(color: EColor.Yellow)] private LevelAudio _levelAudio;
-    [SerializeField, HorizontalLine(color: EColor.Orange)] private LevelBlock[] _levelBlocks;
-    private LevelBlocksHandler _levelBlocksHandler;
+    
+    [SerializeField, HorizontalLine(color: EColor.Orange)] private Transform _startLevelPoint;
+    [SerializeField] private Transform _endLevelPoint;
+    [SerializeField] private LevelBlock[] _levelBlocks;
+    
     private LevelPool _levelPool;
-    public DebrisParent DebrisParent => _debrisParent;
+    private LevelPrefabsProvider _levelPrefabsProvider;
+    private AudioClipProvider _audioClipProvider;
+    private TimeScaleSignal _timeScaleSignal;
+    private IGlobalAudio _globalAudio;
+    
+    public DebrisKeeper DebrisKeeper => _debrisKeeper;
     public LevelPool LevelPool => _levelPool;
     public LevelAudio LevelAudio =>_levelAudio;
     public Transform CameraTransform => _cameraTransform;
+    public Transform StartLevelPoint => _startLevelPoint;
+    public Transform EndLevelPoint => _endLevelPoint;
     
     [Inject]
     public void Construct(LevelPrefabsProvider levelPrefabsProvider, AudioClipProvider audioClipProvider, TimeScaleSignal timeScaleSignal, IGlobalAudio globalAudio)
     {
-        _levelAudio.Init(audioClipProvider, timeScaleSignal, globalAudio);
+        _levelPrefabsProvider = levelPrefabsProvider;
+        _audioClipProvider = audioClipProvider;
+        _timeScaleSignal = timeScaleSignal;
+        _globalAudio = globalAudio;
+        
         _levelPool = new LevelPool(
             new BarrelPool(
-                levelPrefabsProvider.LevelParticlesProvider.BarrelExplosion,
-                levelPrefabsProvider.LevelParticlesProvider.BurnEffect, _barrelPoolEffectsParent),
-            new ZombiePool(levelPrefabsProvider.LevelParticlesProvider.BloodHitEffect,
-                levelPrefabsProvider.LevelParticlesProvider.BloodEffect, _bloodEffectsParent),
+                _levelPrefabsProvider.LevelParticlesProvider.BarrelExplosion,
+                _levelPrefabsProvider.LevelParticlesProvider.BurnEffect,
+                _barrelPoolEffectsParent),
+            new ZombiePool(_levelPrefabsProvider.LevelParticlesProvider.BloodHitEffect,
+                _levelPrefabsProvider.LevelParticlesProvider.BloodEffect,
+                _bloodEffectsParent),
             new DebrisPool(
-                levelPrefabsProvider.LevelParticlesProvider.BurnEffect,
-                levelPrefabsProvider.LevelParticlesProvider.SmokeEffect,
-                levelPrefabsProvider.LevelParticlesProvider.DebrisEffect, _debrisPoolEffectsParent)
-            );
-        _levelBlocksHandler = new LevelBlocksHandler(_levelBlocks, _cameraTransform);
+                _levelPrefabsProvider.LevelParticlesProvider.BurnEffect,
+                _levelPrefabsProvider.LevelParticlesProvider.SmokeEffect,
+                _levelPrefabsProvider.LevelParticlesProvider.DebrisEffect,
+                _debrisPoolEffectsParent)
+        );
+        
+        _levelAudio.Init(_audioClipProvider, _timeScaleSignal, _globalAudio);
+        _activityLevelContentHandler.Init(_debrisKeeper);
     }
+
+    // private void Awake()
+    // {
+    //     _levelAudio.Init(_audioClipProvider, _timeScaleSignal, _globalAudio);
+    //     _activityLevelContentHandler.Init(_debrisKeeper);
+    // }
+
     private void OnDisable()
     {
         LevelPool?.Dispose();
-        _levelBlocksHandler?.Dispose();
         _levelAudio?.Dispose();
     }
 }

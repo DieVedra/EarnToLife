@@ -12,7 +12,7 @@ public class CabineDestructionHandler :DestructionHandler, IDispose
     public event Action OnDriverCrushed;
 
     public CabineDestructionHandler(CabineRef cabineRef, DestructionHandlerContent destructionHandlerContent, DestructionAudioHandler destructionAudioHandler)
-        : base(cabineRef, destructionHandlerContent, "  Cabine ")
+        : base(cabineRef, destructionHandlerContent)
     {
         _cabineRef = cabineRef;
         _destructionAudioHandler = destructionAudioHandler;

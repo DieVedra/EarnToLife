@@ -75,7 +75,7 @@ public class MapLine
         foreach (var dot in dots)
         {
             dot.GetComponent<SpriteRenderer>().DOFade(MIN_VALUE_FADE, FADE_DURATION).SetLoops(-1, LoopType.Yoyo)
-                .WithCancellation(_cancellationTokenSource.Token);
+                .WithCancellation(_cancellationTokenSource.Token).Forget();
             await UniTask.Delay(TimeSpan.FromSeconds(DELAY_DURATION), cancellationToken: _cancellationTokenSource.Token);
         }
     }

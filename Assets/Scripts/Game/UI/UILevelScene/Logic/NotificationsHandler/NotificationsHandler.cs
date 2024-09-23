@@ -7,30 +7,29 @@ using UniRx;
 
 public class NotificationsHandler
 {
-    private readonly TextMeshProUGUI _notificationPrefab;
-    private readonly float _delay = 1f;
-    private readonly float _fontSizeDefaultNotificationWithPosition = 100f;
     private readonly Vector2 _textPosition;
     private readonly Transform _textParent;
+    private readonly NotificationsCreator _notificationsCreator;
     private readonly Queue<Notification> _messageQueue;
     private readonly NotificationsProvider _notificationsProvider;
     private readonly CancellationTokenSource _cancellationTokenSource = new CancellationTokenSource();
     private readonly NotificationWithDelay _notificationWithDelay;
     
-    private readonly Spawner _spawner;
     private PoolBase<TextMeshProUGUI> _notificationsTextsPool;
 
     private bool _inProgressShowing = false;
     public NotificationsHandler(ViewUILevel viewUILevel, ResultsLevelProvider resultsLevelProvider, TextMeshProUGUI notificationPrefab, ReactiveCommand disposeCommand)
     {
-        _notificationPrefab = notificationPrefab;
         _textParent = viewUILevel.NotificationsTextsParent;
-        _spawner = new Spawner();
-        _notificationsTextsPool = new PoolBase<TextMeshProUGUI>(CreateNotificationText, GetAction, ReturnAction, 3);
+        _notificationsCreator = new NotificationsCreator(viewUILevel.NotificationsTextsParent, notificationPrefab);
+        _notificationsTextsPool = new PoolBase<TextMeshProUGUI>(
+            _notificationsCreator.CreateNotificationText, 
+            _notificationsCreator.GetAction, 
+            _notificationsCreator.ReturnAction, 3);
 
         _messageQueue = new Queue<Notification>();
         _notificationsProvider = resultsLevelProvider.NotificationsProvider;
-        _notificationWithDelay = new NotificationWithDelay(_notificationsTextsPool.Get(), _cancellationTokenSource, _delay);
+        _notificationWithDelay = _notificationsCreator.CreateNotificationWithDelay(_notificationsTextsPool.Get());
         _notificationsProvider.OnShowNotification += AddToQueueNotifications;
         _notificationsProvider.OnShowNotificationExplosion += AddToQueueNotificationsWithPos;
         _notificationsProvider.OnShowNotificationWithDelay += AddToQueueNotificationsWithDelay;
@@ -41,7 +40,7 @@ public class NotificationsHandler
         _notificationsProvider.OnShowNotification -= AddToQueueNotifications;
         _notificationsProvider.OnShowNotificationExplosion -= AddToQueueNotificationsWithPos;
         _notificationsProvider.OnShowNotificationWithDelay -= AddToQueueNotificationsWithDelay;
-        _cancellationTokenSource.Cancel();
+        _notificationsCreator.Dispose();
     }
     private void AddToQueueNotificationsWithPos(string text, Vector2 position)
     {
@@ -50,18 +49,17 @@ public class NotificationsHandler
 
     private async UniTaskVoid ShowNotificationsWithPos(string text, Vector2 position)
     {
-        Notification notification = CreateNotificationWithPosition(position);
+        Notification notification = _notificationsCreator.CreateNotificationWithPosition(_notificationsTextsPool.Get(), position);
         await notification.ShowNotification(text);
         _notificationsTextsPool.Return(notification.NotificationsText);
     }
     private void AddToQueueNotificationsWithDelay(string text)
     {
         AddNotification(_notificationWithDelay, text);
-
     }
     private void AddToQueueNotifications(string text)
     {
-        AddNotification(CreateNotificationDefault(), text);
+        AddNotification(_notificationsCreator.CreateNotificationDefault(_notificationsTextsPool.Get()), text);
     }
     private void AddNotification(Notification notification, string text)
     {
@@ -87,31 +85,5 @@ public class NotificationsHandler
                 }
             }
         }
-    }
-
-    private TextMeshProUGUI CreateNotificationText()
-    {
-        TextMeshProUGUI notification = _spawner.Spawn(_notificationPrefab, _textParent, _textParent);
-        notification.gameObject.SetActive(false);
-        return notification;
-    }
-
-    private void GetAction(TextMeshProUGUI text)
-    {
-        text.gameObject.SetActive(true);
-    }
-    private void ReturnAction(TextMeshProUGUI text)
-    {
-        text.gameObject.SetActive(false);
-    }
-
-    private NotificationWithPosition CreateNotificationWithPosition(Vector2 position)
-    {
-        return new NotificationWithPosition(_notificationsTextsPool.Get(), _cancellationTokenSource, position, _fontSizeDefaultNotificationWithPosition);
-    }
-
-    private Notification CreateNotificationDefault()
-    {
-        return new Notification(_notificationsTextsPool.Get(), _cancellationTokenSource);
     }
 }

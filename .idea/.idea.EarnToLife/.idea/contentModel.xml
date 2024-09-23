@@ -515,6 +515,7 @@
               </e>
             </e>
             <e p="EntryPoint.cs" t="Include" />
+            <e p="FrameByFrameDivider.cs" t="Include" />
             <e p="Game.cs" t="Include" />
             <e p="GamePause.cs" t="Include" />
             <e p="Garage" t="Include">
@@ -526,6 +527,7 @@
               </e>
               <e p="Garage.cs" t="Include" />
               <e p="GarageConfig.cs" t="Include" />
+              <e p="GarageLight.cs" t="Include" />
               <e p="InGarageCarCustomize" t="Include">
                 <e p="CarInGarage.cs" t="Include" />
                 <e p="CombinedImprovement.cs" t="Include" />
@@ -538,6 +540,13 @@
               <e p="UpgradeParkingLot.cs" t="Include" />
             </e>
             <e p="Level" t="Include">
+              <e p="ActivityLevelContent" t="Include">
+                <e p="ActivityHandler.cs" t="Include" />
+                <e p="ActivityLevelContentHandler.cs" t="Include" />
+                <e p="ActivityObject.cs" t="Include" />
+                <e p="ArraySeparator.cs" t="Include" />
+                <e p="LevelBlockContentGrouper.cs" t="Include" />
+              </e>
               <e p="Audio" t="Include">
                 <e p="BarrelAudioHandler.cs" t="Include" />
                 <e p="DebrisAudioHandler.cs" t="Include" />
@@ -557,10 +566,11 @@
               <e p="DebrisFragment" t="Include">
                 <e p="DebrisEffect.cs" t="Include" />
                 <e p="DebrisFragment.cs" t="Include" />
+                <e p="DebrisFragmentCalculate.cs" t="Include" />
                 <e p="LevelContentDebrisFragment.cs" t="Include" />
                 <e p="ZombieDebrisFragment.cs" t="Include" />
               </e>
-              <e p="DebrisParent.cs" t="Include" />
+              <e p="DebrisKeeper.cs" t="Include" />
               <e p="DestructionCount.cs" t="Include" />
               <e p="KillsCount.cs" t="Include" />
               <e p="Level.cs" t="Include" />
@@ -582,8 +592,9 @@
                 </e>
                 <e p="Coil.cs" t="Include" />
                 <e p="DestructibleObject.cs" t="Include" />
-                <e p="DisableEnableSwitcher.cs" t="Include" />
+                <e p="LevelDecoration.cs" t="Include" />
                 <e p="Trap.cs" t="Include" />
+                <e p="Warehouse.cs" t="Include" />
                 <e p="Zombie" t="Include">
                   <e p="Zombie.cs" t="Include" />
                   <e p="ZombieBoozer.cs" t="Include" />
@@ -715,6 +726,7 @@
                     <e p="DevicePanelHandler.cs" t="Include" />
                     <e p="DevicesOnPanelValues.cs" t="Include" />
                   </e>
+                  <e p="IconLoadHandler.cs" t="Include" />
                   <e p="LevelProgressHandler.cs" t="Include" />
                   <e p="LogicUILevel.cs" t="Include" />
                   <e p="NotificationsHandler" t="Include">
@@ -723,6 +735,7 @@
                       <e p="NotificationWithDelay.cs" t="Include" />
                       <e p="NotificationWithPosition.cs" t="Include" />
                     </e>
+                    <e p="NotificationsCreator.cs" t="Include" />
                     <e p="NotificationsHandler.cs" t="Include" />
                   </e>
                   <e p="PanelsHandler.cs" t="Include" />

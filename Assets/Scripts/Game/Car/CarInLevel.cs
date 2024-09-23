@@ -10,7 +10,8 @@ public class CarInLevel : Car
 {
     [SerializeField, BoxGroup("Engine"), HorizontalLine(color:EColor.White)] private AnimationCurve _engineAccelerationCurve;
     [SerializeField, BoxGroup("Engine")] private ParticleSystem _exhaustParticleSystem;
-    [SerializeField, Range(0f, 1f), BoxGroup("_gyroscope"), HorizontalLine(color:EColor.Green)] private float _gyroscopePower;
+    [SerializeField, Range(0f, 1f), BoxGroup("Gyroscope"), HorizontalLine(color:EColor.Green)] private float _gyroscopePower;
+    [SerializeField, BoxGroup("Gyroscope")] private AnimationCurve _gyroscopeCurve;
 
     [SerializeField, BoxGroup("WheelGroundInteraction"), HorizontalLine(color:EColor.Yellow)] private LayerMask _groundContactMask;
     [SerializeField, BoxGroup("WheelGroundInteraction"), Layer] private int _asphaltLayer;
@@ -98,14 +99,14 @@ public class CarInLevel : Car
     public bool GunAvailable => CarConfiguration.GunCountAmmo > 0 ? true : false;
     private bool _autoGameOver;
     private ReactiveCommand _onCarBrokenIntoTwoPartsReactiveCommand = new ReactiveCommand();
-    public void Construct(CarConfiguration carConfiguration, NotificationsProvider notificationsProvider,
-        LevelProgressCounter levelProgressCounter, DebrisParent debrisParent,
+    public void Init(CarConfiguration carConfiguration, NotificationsProvider notificationsProvider,
+        LevelProgressCounter levelProgressCounter, DebrisKeeper debrisKeeper,
         IGlobalAudio globalAudio, CarAudioClipProvider carAudioClipProvider, TimeScaleSignal timeScaleSignal, GameOverSignal gameOverSignal,
         IGamePause gamePause, CarControlMethod carControlMethod, bool autoGameOver)
     {
         _autoGameOver = autoGameOver;
         CarConfiguration = carConfiguration;
-        _carAudio.Construct(globalAudio, carAudioClipProvider, timeScaleSignal, _onCarBrokenIntoTwoPartsReactiveCommand);
+        _carAudio.Init(globalAudio, carAudioClipProvider, timeScaleSignal, gameOverSignal, _onCarBrokenIntoTwoPartsReactiveCommand);
         InitCustomizeCar();
         _bodyRigidbody2D = GetComponent<Rigidbody2D>();
         _destructionCar = GetComponent<DestructionCar>();
@@ -130,12 +131,12 @@ public class CarInLevel : Car
         _carAudio.WheelsAudioHandler.Init(_groundAnalyzer);
         TryInitBooster(gamePause);
         TryInitGun();
-        TryInitHotWheel(_carAudio.HotWheelAudioHandler, debrisParent);
+        TryInitHotWheel(_carAudio.HotWheelAudioHandler, debrisKeeper);
         InitCarFSM();
-        _gyroscope = new Gyroscope(_groundAnalyzer, _bodyRigidbody2D, _carMass, _gyroscopePower);
+        _gyroscope = new Gyroscope(_groundAnalyzer, _bodyRigidbody2D, _carMass, _gyroscopeCurve, _gyroscopePower);
         InitControlCar(carControlMethod);
         InitCarMass();
-        TryInitDestructionCar(debrisParent);
+        TryInitDestructionCar(gameOverSignal, debrisKeeper);
         _moveAnalyzer = new MoveAnalyzer(Speedometer, _controlCar.DriveStarted);
         TryInitStopCauseHandler();
         _bodyRigidbody2D.centerOfMass += _centerMassOffset;
@@ -357,12 +358,12 @@ public class CarInLevel : Car
         return new GasStateWheelGroundInteraction(_groundAnalyzer, Speedometer, _propulsionUnit.Transmission, _frontWheel, _backWheel,
             _particlesSpeedCurveGasState, _onCarBrokenIntoTwoPartsReactiveCommand);
     }
-    private void TryInitDestructionCar(DebrisParent debrisParent)
+    private void TryInitDestructionCar(GameOverSignal gameOverSignal, DebrisKeeper debrisKeeper)
     {
         if (_destructionActive == true)
         {
-            _destructionCar.Construct(_carAudio.DestructionAudioHandler, _exhaust, CarGun, _hotWheel ,_carMass, Booster, Speedometer, _coupAnalyzer, _hotWheelRef,
-                _boosterRef, _gunRef,  debrisParent);
+            _destructionCar.Init(_carAudio.DestructionAudioHandler, _exhaust, CarGun, _hotWheel ,_carMass, Booster, Speedometer, _coupAnalyzer, _hotWheelRef,
+                _boosterRef, _gunRef,  gameOverSignal, debrisKeeper);
             if (_destructionCar.BottomDestructionOn == true)
             {
                 _destructionCar.OnCarBrokenIntoTwoParts += CarBrokenIntoTwoParts;
@@ -388,11 +389,11 @@ public class CarInLevel : Car
         _exhaust = new Exhaust(_exhaustParticleSystem);
         FuelTank.OnTankEmpty += _exhaust.StopPlayEffect;
     }
-    private void TryInitHotWheel(HotWheelAudioHandler hotWheelAudioHandler, DebrisParent debrisParent)
+    private void TryInitHotWheel(HotWheelAudioHandler hotWheelAudioHandler, DebrisKeeper debrisKeeper)
     {
         if (_hotWheelRef.gameObject.activeSelf == true)
         {
-            _hotWheel = new HotWheel(_hotWheelRef, hotWheelAudioHandler, debrisParent, _contactMask, new Vector3(_positionXHotWheelCast, _positionYHotWheelCast),
+            _hotWheel = new HotWheel(_hotWheelRef, hotWheelAudioHandler, debrisKeeper, _contactMask, new Vector3(_positionXHotWheelCast, _positionYHotWheelCast),
                 _layerAfterBreaking, _hotWheelRotationSpeed, _radiusCastHotWheel);
         } 
     }
@@ -426,7 +427,6 @@ public class CarInLevel : Car
         FuelTank.OnTankEmpty -= _exhaust.StopPlayEffect;
         FuelTank.Dispose();
         _stopCauseHandler.Dispose();
-        _coupAnalyzer.Dispose();
         _groundAnalyzer.Dispose();
         _onCarBrokenIntoTwoPartsReactiveCommand.Dispose();
         _controlCar.Dispose();

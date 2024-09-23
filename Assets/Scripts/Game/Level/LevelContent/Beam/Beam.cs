@@ -1,10 +1,15 @@
-﻿using NaughtyAttributes;
+﻿using System;
+using NaughtyAttributes;
 using Unity.VisualScripting;
 using UnityEngine;
 using Zenject;
 
 public abstract class Beam : DestructibleObject
 {
+    private IGlobalAudio _globalAudio;
+    private AudioClipProvider _audioClipProvider;
+    private TimeScaleSignal _timeScaleSignal;
+    
     protected readonly float HalfWidthMultiplier = 0.5f;
     [SerializeField, BoxGroup("Whole object")] protected SpriteRenderer _sprite;
     [SerializeField, BoxGroup("Debris"), HorizontalLine(color: EColor.Green)] protected SpriteRenderer _spriteFragment1;
@@ -18,17 +23,24 @@ public abstract class Beam : DestructibleObject
     [Inject]
     private void Construct(IGlobalAudio globalAudio, AudioClipProvider audioClipProvider, TimeScaleSignal timeScaleSignal)
     {
+        _globalAudio = globalAudio;
+        _audioClipProvider = audioClipProvider;
+        _timeScaleSignal = timeScaleSignal;
+    }
+
+    public void Init()
+    {
         BeamTransform = transform;
         WoodDestructibleAudioHandler = new WoodDestructibleAudioHandler(GetComponent<AudioSource>(),
-            globalAudio.SoundReactiveProperty, globalAudio.AudioPauseReactiveProperty, new TimeScalePitchHandler(timeScaleSignal),
-            audioClipProvider.LevelAudioClipProvider.WoodBreaking1AudioClip,
-            audioClipProvider.LevelAudioClipProvider.WoodBreaking2AudioClip,
-            audioClipProvider.LevelAudioClipProvider.HitWood1AudioClip,
-            audioClipProvider.LevelAudioClipProvider.HitWood2AudioClip,
-            audioClipProvider.LevelAudioClipProvider.HitWood3AudioClip);
-        DebrisHitSound = WoodDestructibleAudioHandler.PlayHitWoodSound;
-    
+            _globalAudio.SoundReactiveProperty, _globalAudio.AudioPauseReactiveProperty, new TimeScalePitchHandler(_timeScaleSignal),
+            _audioClipProvider.LevelAudioClipProvider.WoodBreaking1AudioClip,
+            _audioClipProvider.LevelAudioClipProvider.WoodBreaking2AudioClip,
+            _audioClipProvider.LevelAudioClipProvider.HitWood1AudioClip,
+            _audioClipProvider.LevelAudioClipProvider.HitWood2AudioClip,
+            _audioClipProvider.LevelAudioClipProvider.HitWood3AudioClip);
+        base.Init(WoodDestructibleAudioHandler.PlayHitWoodSound);
     }
+
     protected abstract void SetSizeToFragments();
     protected abstract void SetPositionsFragments();
     protected void SetSizeToFragment(SpriteRenderer sprite, float beamLength)

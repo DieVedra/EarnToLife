@@ -2,17 +2,17 @@
 
 public class DestructionHandlerContent
 {
-    public int CarDebrisLayerNonInteractionWithCar;
-    public int CarDebrisInteractingWithCar;
+    public readonly int CarDebrisLayerNonInteractionWithCar;
+    public readonly int CarDebrisInteractingWithCar;
     public readonly Speedometer Speedometer;
-    public readonly DebrisParent DebrisParent;
+    public readonly DebrisKeeper debrisKeeper;
     public readonly LayerMask CanCollisionsLayerMasks;
 
-    public DestructionHandlerContent(Speedometer speedometer, DebrisParent debrisParent, LayerMask canCollisionsLayerMasks,
+    public DestructionHandlerContent(Speedometer speedometer, DebrisKeeper debrisKeeper, LayerMask canCollisionsLayerMasks,
         int carDebrisLayerNonInteractionWithCar, int carDebrisInteractingWithCar)
     {
         Speedometer = speedometer;
-        DebrisParent = debrisParent;
+        this.debrisKeeper = debrisKeeper;
         CanCollisionsLayerMasks = canCollisionsLayerMasks;
         CarDebrisLayerNonInteractionWithCar = carDebrisLayerNonInteractionWithCar;
         CarDebrisInteractingWithCar = carDebrisInteractingWithCar;

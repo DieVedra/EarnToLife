@@ -18,7 +18,7 @@ public class BumperDestructionHandler : DestructionHandler, IDispose
     private bool _isBroken = false;
     public BumperDestructionHandler(BumperRef bumperRef, DestructionHandlerContent destructionHandlerContent,
         DestructionEffectsHandler destructionEffectsHandler, DestructionAudioHandler destructionAudioHandler)
-    :base(bumperRef, destructionHandlerContent, " bumper ", destructionAudioHandler, bumperRef.StrengthBumper)
+    :base(bumperRef, destructionHandlerContent, destructionAudioHandler, bumperRef.StrengthBumper)
     {
         _destructionEffectsHandler = destructionEffectsHandler;
         _collider2DBumperNormal = bumperRef.BumperNormal.GetComponent<Collider2D>();
@@ -76,7 +76,8 @@ public class BumperDestructionHandler : DestructionHandler, IDispose
     {
         _destructionEffectsHandler.HitBrokenEffect(HitPosition, ImpulseNormalValue);
     }
-    public void DestructionMode1()
+
+    private void DestructionMode1()
     {
         CompositeDisposable.Clear();
         SwitchSprites();

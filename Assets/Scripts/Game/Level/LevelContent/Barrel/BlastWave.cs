@@ -12,12 +12,13 @@ public class BlastWave
     private readonly Transform _transformPointReference;
     private readonly AnimationCurve _extinctionBlastWaveCurve;
     private readonly ContactFilter2D _contactFilter;
+    
     private readonly List<Collider2D> _hitCollidersAfterSphereCast = new List<Collider2D>();
-    private readonly CompositeDisposable _compositeDisposable = new CompositeDisposable();
+
+    private float _forceShockWaveInRadius;
+    private FrameByFrameDivider _frameByFrameDivider;
     private List<DebrisFragment> _debrisFragments;
     private List<Vector2> _debrisForces;
-    private float _forceShockWaveInRadius;
-    private int _calculatePart = 0;
 
     public BlastWave(DebrisPool debrisPool, Transform transformPointReference, AnimationCurve extinctionBlastWaveCurve, LayerMask blastWaveMask,
         float radiusShockWave, float radiusBurnWave, float force)
@@ -28,38 +29,28 @@ public class BlastWave
         _radiusShockWave = radiusShockWave;
         _radiusBurnWave = radiusBurnWave;
         _force = force;
+        _frameByFrameDivider = new FrameByFrameDivider();
         _contactFilter = new ContactFilter2D();
         _contactFilter.SetLayerMask(blastWaveMask);
     }
 
     public void Dispose()
     {
-        _compositeDisposable.Clear();
+        _frameByFrameDivider.Dispose();
     }
     public void InteractWithBlastWave()
     {
         if (TryCastSphere())
         {
-            Observable.EveryUpdate().Subscribe(_ =>
-            {
-                switch (_calculatePart)
+            _frameByFrameDivider.FrameByFrameSeparatedOperation(false,
+                () =>
                 {
-                    case 0:
-                        _debrisFragments = new List<DebrisFragment>(_hitCollidersAfterSphereCast.Count);
-                        _debrisForces = new List<Vector2>(_hitCollidersAfterSphereCast.Count);
-                        Sorting();
-                        _calculatePart++;
-                        break;
-                    case 1:
-                        CalculateForces();
-                        _calculatePart++;
-                        break;
-                    case 2:
-                        AddForces();
-                        _compositeDisposable.Clear();
-                        break;
-                }
-            }).AddTo(_compositeDisposable);
+                    _debrisFragments = new List<DebrisFragment>(_hitCollidersAfterSphereCast.Count);
+                    _debrisForces = new List<Vector2>(_hitCollidersAfterSphereCast.Count);
+                    Sorting();
+                },
+                CalculateForces,
+                AddForces);
         }
     }
 

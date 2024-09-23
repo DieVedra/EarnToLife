@@ -40,11 +40,13 @@ public class ZombieMove
     }
     public void Init()
     {
+        _rigidbody2D.simulated = true;
         SubscribeFixedUpdate();
     }
     public void Dispose()
     {
         _compositeDisposableFixedUpdate.Clear();
+        _rigidbody2D.simulated = false;
     }
     private void SubscribeFixedUpdate()
     {

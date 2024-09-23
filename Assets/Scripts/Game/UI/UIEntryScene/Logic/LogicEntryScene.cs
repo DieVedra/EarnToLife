@@ -10,11 +10,15 @@ public class LogicEntryScene
     private readonly AudioHandlerUI _audioHandlerUI;
     private readonly AudioSettingSwitch _audioSettingSwitch;
     private readonly Spawner _spawner;
+    private readonly IconLoadHandler _iconLoadHandler;
+
     public LogicEntryScene(Garage garage, Map map, SpriteRenderer startMenuBackground, ViewEntryScene viewEntryScene,
         GameData gameData, GarageData garageData, GlobalAudio globalAudio, PlayerDataHandler playerDataHandler)
     {
-        _sceneSwitch = new SceneSwitch(playerDataHandler, gameData);
+        _iconLoadHandler = new IconLoadHandler(viewEntryScene.IconLoad);
+        _sceneSwitch = new SceneSwitch(playerDataHandler, gameData, _iconLoadHandler);
         _audioHandlerUI = new AudioHandlerUI(globalAudio);
+
         _spawner = new Spawner();
         _confirmationUpgrade = new ConfirmationUpgrade(viewEntryScene.PanelGarage.PanelConfirmationUpgrade, _spawner,
             _audioHandlerUI, garageData.GaragePrefabsProvider.SegmentIconUpgradeButtonIconPrefab,
@@ -29,6 +33,6 @@ public class LogicEntryScene
             viewEntryScene.PanelStartMenu.PanelSettings.MusicTextStatus,
             viewEntryScene.PanelStartMenu.PanelSettings.SoundTextStatus);
         _panelsActivator = new PanelsActivator(viewEntryScene, _garageUI, _sceneSwitch, viewEntryScene.DarkBackground,
-            startMenuBackground, map, garage, gameData, _mapPanelHandler, _audioHandlerUI, _audioSettingSwitch);
+            startMenuBackground, map, garage, gameData, _mapPanelHandler, _audioHandlerUI, _audioSettingSwitch, _iconLoadHandler);
     }
 }

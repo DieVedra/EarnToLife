@@ -8,27 +8,35 @@ public class Box : DestructibleObject, IHitable, ICutable, IExplosive
 {
     private readonly float _forceMultiplier = 3f;
     private WoodDestructibleAudioHandler _woodDestructibleAudioHandler;
-
+    private IGlobalAudio _globalAudio;
+    private AudioClipProvider _audioClipProvider;
+    private TimeScaleSignal _timeScaleSignal;
+    
     public Vector2 Position => TransformBase.position;
-
     public bool IsBroken => base.ObjectIsBroken;
-
-
+    
     public IReadOnlyList<DebrisFragment> DebrisFragments => base.FragmentsDebris;
 
     [Inject]
-    private void Construct(ILevel level, IGlobalAudio globalAudio, AudioClipProvider audioClipProvider, TimeScaleSignal timeScaleSignal)
+    private void Construct(IGlobalAudio globalAudio, AudioClipProvider audioClipProvider, TimeScaleSignal timeScaleSignal)
     {
-        _woodDestructibleAudioHandler = new WoodDestructibleAudioHandler(GetComponent<AudioSource>(),
-            globalAudio.SoundReactiveProperty, globalAudio.AudioPauseReactiveProperty, new TimeScalePitchHandler(timeScaleSignal),
-            audioClipProvider.LevelAudioClipProvider.WoodBreaking1AudioClip,
-            audioClipProvider.LevelAudioClipProvider.WoodBreaking2AudioClip,
-            audioClipProvider.LevelAudioClipProvider.HitWood1AudioClip,
-            audioClipProvider.LevelAudioClipProvider.HitWood2AudioClip,
-            audioClipProvider.LevelAudioClipProvider.HitWood3AudioClip);
-        DebrisHitSound = _woodDestructibleAudioHandler.PlayHitWoodSound;
+        _globalAudio = globalAudio;
+        _audioClipProvider = audioClipProvider;
+        _timeScaleSignal = timeScaleSignal;
     }
 
+    private void Awake()
+    {
+        _woodDestructibleAudioHandler = new WoodDestructibleAudioHandler(GetComponent<AudioSource>(),
+            _globalAudio.SoundReactiveProperty, _globalAudio.AudioPauseReactiveProperty, new TimeScalePitchHandler(_timeScaleSignal),
+            _audioClipProvider.LevelAudioClipProvider.WoodBreaking1AudioClip,
+            _audioClipProvider.LevelAudioClipProvider.WoodBreaking2AudioClip,
+            _audioClipProvider.LevelAudioClipProvider.HitWood1AudioClip,
+            _audioClipProvider.LevelAudioClipProvider.HitWood2AudioClip,
+            _audioClipProvider.LevelAudioClipProvider.HitWood3AudioClip);
+        
+        base.Init(_woodDestructibleAudioHandler.PlayHitWoodSound);
+    }
     public bool TryBreakOnExplosion(Vector2 direction, float forceHit)
     {
         bool result;

@@ -18,6 +18,7 @@ public class DestructionEffectsHandler :IDispose
     private readonly CompositeDisposable _compositeDisposable = new CompositeDisposable();
     private readonly Transform _effectsParent;
     private readonly Spawner _spawner;
+    
     private readonly PoolBase<ParticleSystem> _glassEffects;
     private readonly PoolBase<ParticleSystem> _hitEffects;
 
@@ -62,9 +63,10 @@ public class DestructionEffectsHandler :IDispose
         if (_engineBurnEffect.isPlaying == false)
         {
             _engineBurnEffect.Play();
-            _destructionAudioHandler.PlayEngineBurn();
+            _destructionAudioHandler.PlayEngineBurnSound();
         }
     }
+    
     public void GlassBrokenEffect(Transform transformPoint, float force)
     {
         PlayEffect(_glassEffects, () => { _destructionAudioHandler.PlayGlassBreak();}, transformPoint.position);

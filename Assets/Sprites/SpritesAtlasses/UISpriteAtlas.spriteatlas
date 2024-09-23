@@ -79,6 +79,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 28834ed8d7d78ba499c8e0f2b079d135, type: 3}
   - {fileID: 21300000, guid: 1dde65496f2bd41489ec3452a85aa957, type: 3}
   - {fileID: 21300000, guid: 89026c1a110f70d4fa09d788c4e3a4f0, type: 3}
+  - {fileID: 21300000, guid: c8e4cb6aafde05844a5ce07194ae004c, type: 3}
   - {fileID: 21300000, guid: 18c30ecada4dbfb43a02c777dc7096d4, type: 3}
   - {fileID: 21300000, guid: 3fa1720bebde39f4c84648a8e3d68240, type: 3}
   - {fileID: 21300000, guid: a4d6586b0273dbf46af8066a753d9a4e, type: 3}
@@ -126,6 +127,7 @@ SpriteAtlas:
   - Lock
   - FuelIcon
   - Panel3
+  - IconLoad
   - Ball1
   - Pedal1
   - SliderBackground

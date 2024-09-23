@@ -23,15 +23,17 @@ public class PanelsActivator
     private readonly RectTransform _rectTransformPanelSettings;
     private readonly AudioHandlerUI _audioHandlerUI;
     private readonly AudioSettingSwitch _audioSettingSwitch;
+    private readonly IconLoadHandler _iconLoadHandler;
 
     private CancellationTokenSource _cancellationTokenSource;
 
     public PanelsActivator(ViewEntryScene viewEntryScene, GarageUI buttonsSelectLotCar, SceneSwitch sceneSwitch,
         Image background, SpriteRenderer startMenuBackground, Map map, Garage garage, GameData gameData, MapPanelHandler mapPanelHandler,
-        AudioHandlerUI audioHandlerUI, AudioSettingSwitch audioSettingSwitch)
+        AudioHandlerUI audioHandlerUI, AudioSettingSwitch audioSettingSwitch, IconLoadHandler iconLoadHandler)
     {
         _valuesPanelActivator = new ValuesPanelActivator();
         _audioSettingSwitch = audioSettingSwitch;
+        _iconLoadHandler = iconLoadHandler;
         _audioHandlerUI = audioHandlerUI;
         _startMenuPanel = viewEntryScene.PanelStartMenu;
         _settingsPanel = viewEntryScene.PanelStartMenu.PanelSettings;
@@ -138,20 +140,23 @@ public class PanelsActivator
         }));
         _garageUI.Activate();
         await Activate();
+        _garage.GarageLight.LampOn();
     }
 
     private async UniTask DeactivateGaragePanel()
     {
         _garagePanel.ButtonBackToMap.onClick.RemoveAllListeners();
         _garagePanel.ButtonGO.onClick.RemoveAllListeners();
+        await _garage.GarageLight.LampOff();
         await MoveAndFadeWhenAll(_garageUI.DeactivateUpgradeButtons(), Deactivate());
         _garageUI.Deactivate();
         SetActivateGaragePanel(false);
     }
     private async void EngineGame()
     {
-        _sceneSwitch.StartLoadLastLevel();
         await DeactivateGaragePanel();
+        _sceneSwitch.StartLoadLastLevel();
+        _iconLoadHandler.ShowIconLoad();
         _sceneSwitch.EndLoadingSceneAsync();
     }
     private async void ActivateSettingsPanel()
@@ -267,18 +272,21 @@ public class PanelsActivator
         }
         else
         {
-            return _valuesPanelActivator.DefaultDurationFade / (_valuesPanelActivator.ValueFadeBlackBackground / (_valuesPanelActivator.ValueFadeBlackBackground - currentAlphaValue));
+            return _valuesPanelActivator.DefaultDurationFade / 
+                   (_valuesPanelActivator.ValueFadeBlackBackground / (_valuesPanelActivator.ValueFadeBlackBackground - currentAlphaValue));
         }
     }
 
     private UniTask FadeWithCancellation()
     {
-        return _background.DOFade(_valuesPanelActivator.ValueFadeLightBackground, _valuesPanelActivator.DefaultDurationFade).WithCancellation(_cancellationTokenSource.Token);
+        return _background.DOFade(_valuesPanelActivator.ValueFadeLightBackground, _valuesPanelActivator.DefaultDurationFade)
+            .WithCancellation(_cancellationTokenSource.Token);
     }
 
     private UniTask Fade()
     {
-        return _background.DOFade(_valuesPanelActivator.ValueFadeBlackBackground, CalculateDuration(_background.color.a)).ToUniTask();
+        return _background.DOFade(_valuesPanelActivator.ValueFadeBlackBackground, CalculateDuration(_background.color.a))
+            .ToUniTask();
     }
 
     private UniTask MoveAndFadeWhenAll(UniTask movePanel, UniTask fadeFrame)
@@ -302,8 +310,8 @@ public class PanelsActivator
         DisableRaycastTargetDarkBackground();
         InitCancellationTokenSource();
         await FadeWithCancellation();
-        _cancellationTokenSource = null;
         DisableDarkBackground();
+        _cancellationTokenSource = null;
     }
 
     private void SetActivateStartPanel(bool key)

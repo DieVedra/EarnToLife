@@ -11,7 +11,7 @@ public abstract class DestructionHandler
     private readonly float _backwardMoveDamageMultiplier = 0.42f;
     private readonly float _halfStrengthMultiplier = 0.7f;
     private readonly float _minStrengthMultiplier = 0.2f;
-    private readonly DebrisParent _debrisParent;
+    private readonly DebrisKeeper _debrisKeeper;
     private readonly Speedometer _speedometer;
     private readonly LayerMask _canCollisionsLayerMasks;
     private readonly MonoBehaviour _monoBehaviour;
@@ -23,20 +23,17 @@ public abstract class DestructionHandler
     protected float HalfStrength;
     protected float MinStrength;
     protected float ImpulseNormalValue;
-    private string _name;
     private readonly DestructionAudioHandler _destructionAudioHandler;
 
     protected DestructionHandler(MonoBehaviour monoBehaviour, DestructionHandlerContent destructionHandlerContent,
-        string name,
         DestructionAudioHandler destructionAudioHandler = null,
         int maxStrength = 0)
     {
-        _name = name;
         _destructionAudioHandler = destructionAudioHandler;
         _carDebrisLayerNonInteractionWithCar = destructionHandlerContent.CarDebrisLayerNonInteractionWithCar;
         _carDebrisInteractingWithCar = destructionHandlerContent.CarDebrisInteractingWithCar;
         CalculateStrength(maxStrength);
-        _debrisParent = destructionHandlerContent.DebrisParent;
+        _debrisKeeper = destructionHandlerContent.debrisKeeper;
         _speedometer = destructionHandlerContent.Speedometer;
         _canCollisionsLayerMasks = destructionHandlerContent.CanCollisionsLayerMasks;
         _monoBehaviour = monoBehaviour;
@@ -44,7 +41,7 @@ public abstract class DestructionHandler
     protected virtual void TrySwitchMode(){}
     protected void PlaySoftHitSound()
     {
-        _destructionAudioHandler?.PlaySoftHit(ImpulseNormalValue, _name);
+        _destructionAudioHandler?.PlaySoftHit(ImpulseNormalValue);
     }
 
     protected bool CollisionHandling(Collision2D collision)
@@ -76,11 +73,11 @@ public abstract class DestructionHandler
     {
         if (transform == null)
         {
-            _debrisParent.AddToDebris(_monoBehaviour.transform);
+            _debrisKeeper.AddDebris(_monoBehaviour.transform);
         }
         else
         {
-            _debrisParent.AddToDebris(transform);
+            _debrisKeeper.AddDebris(transform);
         }
     }
     protected void SetCarDebrisLayerNonInteractableWithCar(Transform transform = null)

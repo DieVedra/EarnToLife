@@ -13,6 +13,7 @@ public class ViewUILevel : MonoBehaviour
     [SerializeField] private PanelScore _panelScore;
     [SerializeField] private DevicePanel _devicePanel;
     [SerializeField, HorizontalLine(color:EColor.White)] private Image _background;
+    [SerializeField, HorizontalLine(color:EColor.White)] private Image _iconLoad;
     [SerializeField] private Image _frameBackground;
     [SerializeField, HorizontalLine(color:EColor.White)] private Slider _levelProgress;
     [SerializeField] private Slider _levelLastProgress;
@@ -30,6 +31,7 @@ public class ViewUILevel : MonoBehaviour
     public PanelScore PanelScore => _panelScore;
     public DevicePanel DevicePanel => _devicePanel;
     public Image Background => _background;
+    public Image IconLoad => _iconLoad;
     public Image FrameBackground => _frameBackground;
     public Slider LevelProgress => _levelProgress;
     public Slider LevelLastProgress => _levelLastProgress;

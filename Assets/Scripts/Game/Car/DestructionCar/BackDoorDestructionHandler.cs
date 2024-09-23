@@ -13,7 +13,7 @@ public class BackDoorDestructionHandler : DestructionHandler
     private bool _isBroken = false;
 
     public BackDoorDestructionHandler(DoorRef doorRef, DestructionHandlerContent destructionHandlerContent, Action<Transform, float> effect) 
-        : base(doorRef, destructionHandlerContent, " BackDoor ", maxStrength: doorRef.StrengthDoors)
+        : base(doorRef, destructionHandlerContent, maxStrength: doorRef.StrengthDoors)
     {
         _doorRef = doorRef;
         _effect = effect;

@@ -17,7 +17,7 @@ public class ArmoredBackFrameDestructionHandler : DestructionHandler
     public Collider2D CurrentCollider { get; private set; }
     public ArmoredBackFrameDestructionHandler(ArmoredBackFrameRef armoredBackFrameRef, DestructionHandlerContent destructionHandlerContent,
         DestructionAudioHandler destructionAudioHandler)
-        : base(armoredBackFrameRef, destructionHandlerContent, " ArmoredBackFrame ", destructionAudioHandler)
+        : base(armoredBackFrameRef, destructionHandlerContent, destructionAudioHandler)
     {
         ArmoredBackFrameRef = armoredBackFrameRef;
         _armoredBackDamagedRoofDamaged = armoredBackFrameRef.ArmoredBackDamagedRoofDamaged;

@@ -6,8 +6,6 @@ public class LevelAudio : MonoBehaviour
     [SerializeField] private AudioSource _otherAudioSource;
     [SerializeField] private AudioSource _debrisAudioSource;
     private LevelAudioClipProvider _levelAudioClipProvider;
-    // public WoodDestructibleAudioHandler WoodDestructibleAudioHandler { get; private set; }
-    // public BarrelAudioHandler BarrelAudioHandler { get; private set; }
     public DebrisAudioHandler DebrisAudioHandler { get; private set; }
 
 

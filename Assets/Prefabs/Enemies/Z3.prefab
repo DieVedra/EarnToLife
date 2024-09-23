@@ -94,7 +94,6 @@ MonoBehaviour:
   _contactMask:
     serializedVersion: 2
     m_Bits: 13041664
-  _zombieDebrisLayer: 30
   _zombieTalkSoundPeriod: 5.48
   _hingeJoints2D:
   - {fileID: 4425694660454786538}
@@ -943,7 +942,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -4164210204856755369, guid: f1a6ecf5f31c8e14282397b273917f48, type: 3}
       propertyPath: m_SortingLayer
-      value: 5
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: -4164210204856755369, guid: f1a6ecf5f31c8e14282397b273917f48, type: 3}
       propertyPath: m_SortingLayerID
@@ -1007,7 +1006,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -1537998112213994131, guid: f1a6ecf5f31c8e14282397b273917f48, type: 3}
       propertyPath: m_SortingLayer
-      value: 5
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: -1537998112213994131, guid: f1a6ecf5f31c8e14282397b273917f48, type: 3}
       propertyPath: m_SortingLayerID
@@ -1047,7 +1046,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1066839047901558773, guid: f1a6ecf5f31c8e14282397b273917f48, type: 3}
       propertyPath: m_SortingLayer
-      value: 5
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 1066839047901558773, guid: f1a6ecf5f31c8e14282397b273917f48, type: 3}
       propertyPath: m_SortingLayerID
@@ -1067,7 +1066,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1857630455784180771, guid: f1a6ecf5f31c8e14282397b273917f48, type: 3}
       propertyPath: m_SortingLayer
-      value: 5
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 1857630455784180771, guid: f1a6ecf5f31c8e14282397b273917f48, type: 3}
       propertyPath: m_SortingLayerID
@@ -1075,7 +1074,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2081451758625736595, guid: f1a6ecf5f31c8e14282397b273917f48, type: 3}
       propertyPath: m_SortingLayer
-      value: 5
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 2081451758625736595, guid: f1a6ecf5f31c8e14282397b273917f48, type: 3}
       propertyPath: m_SortingLayerID
@@ -1083,7 +1082,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2100760795242056189, guid: f1a6ecf5f31c8e14282397b273917f48, type: 3}
       propertyPath: m_SortingLayer
-      value: 5
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 2100760795242056189, guid: f1a6ecf5f31c8e14282397b273917f48, type: 3}
       propertyPath: m_SortingLayerID
@@ -1155,7 +1154,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6266882146867800551, guid: f1a6ecf5f31c8e14282397b273917f48, type: 3}
       propertyPath: m_SortingLayer
-      value: 5
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 6266882146867800551, guid: f1a6ecf5f31c8e14282397b273917f48, type: 3}
       propertyPath: m_SortingLayerID
@@ -1604,7 +1603,7 @@ HingeJoint2D:
   m_GameObject: {fileID: 4649346274780634185}
   m_Enabled: 0
   serializedVersion: 4
-  m_EnableCollision: 0
+  m_EnableCollision: 1
   m_ConnectedRigidBody: {fileID: 4651559672275992831}
   m_BreakForce: Infinity
   m_BreakTorque: Infinity

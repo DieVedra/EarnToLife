@@ -9,13 +9,15 @@ using DG.Tweening;
 public class SceneSwitch
 {
     private GameData _gameData;
+    private readonly IconLoadHandler _iconLoadHandler;
     private PlayerDataHandler _playerDataHandler;
     private AsyncOperation _asyncOperation;
     public float LoadProgress => _asyncOperation.progress;
-    public SceneSwitch(PlayerDataHandler playerDataHandler, GameData gameData)
+    public SceneSwitch(PlayerDataHandler playerDataHandler, GameData gameData, IconLoadHandler iconLoadHandler)
     {
         _playerDataHandler = playerDataHandler;
         _gameData = gameData;
+        _iconLoadHandler = iconLoadHandler;
     }
     private void StartLoadSceneAsync(int index)
     {
@@ -23,6 +25,7 @@ public class SceneSwitch
         {
             _asyncOperation = SceneManager.LoadSceneAsync(index);
             _asyncOperation.allowSceneActivation = false;
+            _asyncOperation.completed += OnCompleteOperation;
         }
     }
     public void StartLoadLastLevel()
@@ -50,11 +53,12 @@ public class SceneSwitch
         if (_asyncOperation != null)
         {
             _asyncOperation.allowSceneActivation = true;
-            _asyncOperation = null;
         }
     }
 
-    // public void AbortAsyncLoading()
-    // {
-    // }
+    private void OnCompleteOperation(AsyncOperation asyncOperation)
+    {
+        _asyncOperation.completed -= OnCompleteOperation;
+        _iconLoadHandler.Dispose();
+    }
 }

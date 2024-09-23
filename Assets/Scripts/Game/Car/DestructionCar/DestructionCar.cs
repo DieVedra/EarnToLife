@@ -58,11 +58,6 @@ public class DestructionCar : MonoBehaviour
     [SerializeField, BoxGroup("Frame")] private SafetyFrameworkRef _safetyFrameworkRef;
     [SerializeField, BoxGroup("Frame")] private BottomRef _bottomRef;
 
-    [Button("test")]
-    private void a()
-    {
-        _frontBumperDestructionHandler.DestructionMode1();
-    }
     private DestructionEffectsHandler _destructionEffectsHandler;
     private DestructionAudioHandler _destructionAudioHandler;
     private CoupAnalyzer _coupAnalyzer;
@@ -86,24 +81,28 @@ public class DestructionCar : MonoBehaviour
     private BottomDestructionHandler _bottomDestructionHandler;
     private BackCarHandler _backCarHandler;
     private DestructionHandlerContent _destructionHandlerContent;
+    private GameOverSignal _gameOverSignal;
+    
     private List<IDispose> _disposes = new List<IDispose>();
     public FrontWingDestructionHandler FrontWingDestructionHandler { get; private set; }
     public CabineDestructionHandler CabineDestructionHandler { get; private set; }
 
     public event Action<WheelJoint2D, WheelCarValues> OnCarBrokenIntoTwoParts;
     public bool BottomDestructionOn => _bottomDestructionOn;
-    public void Construct(DestructionAudioHandler destructionAudioHandler, Exhaust exhaust, CarGun carGun, HotWheel hotWheel, CarMass carMass, Booster booster, Speedometer speedometer, CoupAnalyzer coupAnalyzer,
-        HotWheelRef hotWheelRef, BoosterRef boosterRef, GunRef gunRef,
-        DebrisParent debrisParent)
+    
+    public void Init(DestructionAudioHandler destructionAudioHandler, Exhaust exhaust, CarGun carGun, HotWheel hotWheel, CarMass carMass, Booster booster, Speedometer speedometer, CoupAnalyzer coupAnalyzer,
+        HotWheelRef hotWheelRef, BoosterRef boosterRef, GunRef gunRef, GameOverSignal gameOverSignal,
+        DebrisKeeper debrisKeeper)
     {
+        _gameOverSignal = gameOverSignal;
         InitDestructionAudioHandler(destructionAudioHandler);
         InitDestructionEffectsHandler();
         _coupAnalyzer = coupAnalyzer;
-        _destructionHandlerContent = new DestructionHandlerContent(speedometer, debrisParent, _canCollisionsLayerMasks, _carDebrisLayerNONInteractionWithCar, _carDebrisInteractingWithCar);
+        _destructionHandlerContent = new DestructionHandlerContent(speedometer, debrisKeeper, _canCollisionsLayerMasks, _carDebrisLayerNONInteractionWithCar, _carDebrisInteractingWithCar);
         _carMass = carMass;
         _exhaustHandler = new ExhaustHandler(exhaust, _point1, _point2);
         InitCabineHandler();
-        TryInitSafetyFrameworkDestructionHandler(debrisParent);
+        TryInitSafetyFrameworkDestructionHandler(debrisKeeper);
         InitBumpersHandler();
         InitGlassesHandler();
         InitHotWheel(hotWheel, hotWheelRef);
@@ -114,16 +113,7 @@ public class DestructionCar : MonoBehaviour
         TryInitWingsHandler(boosterRef);
         InitRoofHandler(carMass, coupAnalyzer);
         InitBottomHandler();
-
-        // a();
-    }
-
-    public void DisposeAll()
-    {
-        foreach (var dispose in _disposes)
-        {
-            dispose.Dispose();
-        }
+        _gameOverSignal.OnGameOver += SoftStopAudio;
     }
     private void InitDestructionAudioHandler(DestructionAudioHandler destructionAudioHandler)
     {
@@ -132,6 +122,22 @@ public class DestructionCar : MonoBehaviour
         _disposes.Add(_destructionAudioHandler);
     }
 
+    private void SoftStopAudio()
+    {
+        // _gameOverSignal.OnGameOver -= SoftStopAudio;
+        foreach (var dispose in _disposes)
+        {
+            dispose.Dispose();
+        }
+
+        if (_bottomDestructionOn == true)
+        {
+            _backCarHandler.OnCarBrokenIntoTwoParts -= CarBrokenIntoTwoParts;
+        }
+
+        _gameOverSignal.OnGameOver -= SoftStopAudio;
+        _destructionAudioHandler.SoftStopSound();
+    }
     private void InitDestructionEffectsHandler()
     {
         _destructionEffectsHandler = new DestructionEffectsHandler(_destructionAudioHandler, _glassBrokenEffectPrefab, _hitEffectPrefab,
@@ -286,11 +292,11 @@ public class DestructionCar : MonoBehaviour
         }
     }
 
-    private void TryInitSafetyFrameworkDestructionHandler(DebrisParent debrisParent)
+    private void TryInitSafetyFrameworkDestructionHandler(DebrisKeeper debrisKeeper)
     {
         if (CheckPart(_safetyFrameworkRef))
         {
-            _safetyFrameworkDestructionHandler = new SafetyFrameworkDestructionHandler(_safetyFrameworkRef, debrisParent, _carDebrisLayerNONInteractionWithCar);
+            _safetyFrameworkDestructionHandler = new SafetyFrameworkDestructionHandler(_safetyFrameworkRef, debrisKeeper, _carDebrisLayerNONInteractionWithCar);
         }
     }
 
@@ -386,12 +392,16 @@ public class DestructionCar : MonoBehaviour
         _carMass.ChangeMassOnCarBrokenIntoTwoParts();
     }
 
-    private void OnDisable()
-    {
-        DisposeAll();
-        if (_bottomDestructionOn == true)
-        {
-            _backCarHandler.OnCarBrokenIntoTwoParts -= CarBrokenIntoTwoParts;
-        }
-    }
+    // private void OnDisable()
+    // {
+    //     foreach (var dispose in _disposes)
+    //     {
+    //         dispose.Dispose();
+    //     }
+    //     if (_bottomDestructionOn == true)
+    //     {
+    //         _backCarHandler.OnCarBrokenIntoTwoParts -= CarBrokenIntoTwoParts;
+    //     }
+    //     _gameOverSignal.OnGameOver -= SoftStopAudio;
+    // }
 }

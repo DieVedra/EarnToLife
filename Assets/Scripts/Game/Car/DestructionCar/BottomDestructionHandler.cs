@@ -9,6 +9,7 @@ public class BottomDestructionHandler : DestructionHandler, IDispose
     private readonly Collider2D _collider2DStandart;
     private readonly Transform _armoredBottom;
     private readonly Transform _exhaust;
+    private readonly Collider2D _exhaustCollider2D;
     private readonly Transform _backCar;
     private readonly BackCarHandler _backCarHandler;
     private readonly RoofDestructionHandler _roofDestructionHandler;
@@ -22,10 +23,11 @@ public class BottomDestructionHandler : DestructionHandler, IDispose
     public BottomDestructionHandler(BottomRef bottomRef, BackCarHandler backCarHandler, RoofDestructionHandler roofDestructionHandler, 
         FrontDoorDestructionHandler frontDoorDestructionHandler, BackDoorDestructionHandler backDoorDestructionHandler, ExhaustHandler exhaustHandler,
         DestructionHandlerContent destructionHandlerContent, DestructionAudioHandler destructionAudioHandler,int strength, bool isArmored)
-        : base(bottomRef, destructionHandlerContent, " Bottom ", destructionAudioHandler, strength)
+        : base(bottomRef, destructionHandlerContent, destructionAudioHandler, strength)
     {
         _bottomRef = bottomRef;
         _exhaust = bottomRef.Exhaust;
+        _exhaustCollider2D = _exhaust.GetComponent<Collider2D>();
         _backCar = bottomRef.BackCar;
         _backCarHandler = backCarHandler;
         _roofDestructionHandler = roofDestructionHandler;
@@ -109,6 +111,7 @@ public class BottomDestructionHandler : DestructionHandler, IDispose
         {
             _exhaustBroken = true;
             _exhaustHandler.SetPoint2();
+            _exhaustCollider2D.enabled = true;
             TryAddRigidBody(_exhaust.gameObject);
             SetParentDebris(_exhaust);
             SetCarDebrisLayerNonInteractableWithCar(_exhaust);

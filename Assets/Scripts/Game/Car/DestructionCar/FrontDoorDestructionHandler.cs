@@ -16,7 +16,7 @@ public class FrontDoorDestructionHandler : DestructionHandler
     private bool _isBroken = false;
     public FrontDoorDestructionHandler(DoorRef doorRef, DestructionHandlerContent destructionHandlerContent, DestructionEffectsHandler destructionEffectsHandler,
         bool isArmored = false)
-        : base(doorRef, destructionHandlerContent, " FrontDoor ")
+        : base(doorRef, destructionHandlerContent)
     {
         _doorRef = doorRef;
         _destructionEffectsHandler = destructionEffectsHandler;

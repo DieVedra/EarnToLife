@@ -2,7 +2,9 @@ using System;
 using UnityEngine;
 using DG.Tweening;
 using System.Collections.Generic;
+using System.Threading;
 using Cysharp.Threading.Tasks;
+using UniRx;
 
 public class SwitchGarageLot
 {
@@ -12,6 +14,8 @@ public class SwitchGarageLot
     private int _currentSelectLotCarIndex;
     private IReadOnlyList<ParkingLot> _parkingLots;
 
+    private CancellationTokenSource _cancellationTokenSource;
+    private CompositeDisposable _compositeDisposable;
     public event Action<int> OnSwitch;
     public event Action<ParkingLot, int> OnEndLotSwitch;
     public SwitchGarageLot(IReadOnlyList<ParkingLot> lots, Transform lotsParentTransform)
@@ -19,6 +23,13 @@ public class SwitchGarageLot
         _parkingLots = lots;
         _transformLotsParent = lotsParentTransform;
         _currentSelectLotCarIndex = 0;
+        _cancellationTokenSource = new CancellationTokenSource();
+        _compositeDisposable = new CompositeDisposable();
+        Observable.OnceApplicationQuit().Subscribe(_ =>
+        {
+            _cancellationTokenSource.Cancel();
+            _compositeDisposable.Clear();
+        }).AddTo(_compositeDisposable);
     }
     public void SwitchLotRight()
     {
@@ -59,7 +70,8 @@ public class SwitchGarageLot
     }
     private async void MoveLot(float offset)
     {
-        await _transformLotsParent.DOMoveX(CalculateOffset(offset), DURATION_IN_SEC).SetEase(Ease.OutCubic).ToUniTask();
+        await _transformLotsParent.DOLocalMoveX(CalculateOffset(offset), DURATION_IN_SEC).SetEase(Ease.OutCubic)
+            .WithCancellation(_cancellationTokenSource.Token);
         InvokeEventEndSwitch();
     }
     private void InvokeEventEndSwitch()

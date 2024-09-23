@@ -25,13 +25,14 @@ public class PanelsHandler
     private GamePause _gamePause;
     private ResultsLevelHandler _resultsLevelHandler;
     private AudioSettingSwitch _audioSettingSwitch;
+    private readonly IconLoadHandler _iconLoadHandler;
     private IClickAudio _audioClickAudioHandler;
     
     private CancellationTokenSource _cancellationTokenSource = new CancellationTokenSource();
 
     public PanelsHandler(ViewUILevel viewUILevel, SceneSwitch sceneSwitch, PausePanelButtonsHandler pausePanelButtonsHandler,
         ButtonsControl buttonsControl, GamePause gamePause, ResultsLevelProvider resultsLevel,
-        ResultsLevelHandler resultsLevelUI, AudioSettingSwitch audioSettingSwitch, IClickAudio audioClickAudioHandler, ReactiveCommand disposeCommand)
+        ResultsLevelHandler resultsLevelUI, AudioSettingSwitch audioSettingSwitch, IconLoadHandler iconLoadHandler, IClickAudio audioClickAudioHandler, ReactiveCommand disposeCommand)
     {
         _valuesPanelHandler = new ValuesPanelHandler();
         _buttonPause = viewUILevel.ButtonPause;
@@ -47,6 +48,7 @@ public class PanelsHandler
         _resultsLevelProvider = resultsLevel;
         _resultsLevelHandler = resultsLevelUI;
         _audioSettingSwitch = audioSettingSwitch;
+        _iconLoadHandler = iconLoadHandler;
         _audioClickAudioHandler = audioClickAudioHandler;
         _resultsLevelProvider.OnOutCalculateResultsLevel += ActivateScorePanel;
         disposeCommand.Subscribe(_ => { Dispose();});
@@ -124,6 +126,7 @@ public class PanelsHandler
         await _background.DOFade(
             _valuesPanelHandler.BlackBackground,
             _valuesPanelHandler.BackgroundDurationFade).SetUpdate(true).WithCancellation(_cancellationTokenSource.Token);
+        _iconLoadHandler.ShowIconLoad();
         _panelPause.gameObject.SetActive(false);
         _gamePause.AbortPauseForLoad();
         EndLoadNextScene();
@@ -153,6 +156,7 @@ public class PanelsHandler
 
         EnableRaycastTargetDarkBackground();
         await _background.DOFade(_valuesPanelHandler.BlackBackground, _valuesPanelHandler.BackgroundDurationFade).WithCancellation(_cancellationTokenSource.Token);
+        _iconLoadHandler.ShowIconLoad();
         EndLoadNextScene();
     }
 

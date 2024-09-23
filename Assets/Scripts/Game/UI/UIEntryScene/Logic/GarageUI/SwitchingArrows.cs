@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
+using UniRx;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -17,6 +18,7 @@ public class SwitchingArrows
     private SwitchGarageLot _switchGarageLot;
     private AnimationSwitchArrows _animationSwitchArrows;
     private AudioHandlerUI _audioHandlerUI;
+    private CompositeDisposable _compositeDisposable;
    
     public SwitchingArrows(ButtonsUpgradeCar buttonsUpgradeCar, Garage garage, Button buttonRight, Button buttonLeft, LockLotIndicator lockLotIndicator, AudioHandlerUI audioHandlerUI)
     {
@@ -30,6 +32,12 @@ public class SwitchingArrows
         _switchGarageLot = _garage.SwitchGarageLot;
         _imageButtonRight = _buttonRight.GetComponent<Image>();
         _imageButtonLeft = _buttonLeft.GetComponent<Image>();
+        _compositeDisposable = new CompositeDisposable();
+        Observable.OnceApplicationQuit().Subscribe(_ =>
+        {
+            _animationSwitchArrows.Dispose();
+            _compositeDisposable.Clear();
+        }).AddTo(_compositeDisposable);
     }
 
     public void Activate()

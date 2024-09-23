@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Threading;
+using Cysharp.Threading.Tasks;
+using DG.Tweening;
 using UniRx;
 using UnityEngine;
 
@@ -16,6 +19,7 @@ public class DestructionAudioHandler : AudioPlayer, IDispose
     private readonly CompositeDisposable _compositeDisposableBurn = new CompositeDisposable();
     private readonly CompositeDisposable _compositeDisposableSoftHit = new CompositeDisposable();
     private readonly CompositeDisposable _compositeDisposableHardHit = new CompositeDisposable();
+    private readonly CancellationTokenSource _cancellationTokenSource = new CancellationTokenSource();
     private AnimationCurve _destructionAudioCurve;
     private bool _hitSoundIsPlay = false;
 
@@ -53,8 +57,17 @@ public class DestructionAudioHandler : AudioPlayer, IDispose
         _compositeDisposableHardHit.Clear();
         _timeScalePitchHandler.OnPitchTimeWarped -= SetPitch;
         _timeScalePitchHandler.Dispose();
+        _cancellationTokenSource.Cancel();
     }
 
+    public void SoftStopSound()
+    {
+        AudioSource.DOFade(0f, 1.5f).OnComplete(()=>
+        {
+            StopPlay();
+            Debug.Log($"    AudioSourceDestr    {AudioSource.volume} ");
+        }).WithCancellation(_cancellationTokenSource.Token);
+    }
     public void PlayHardHit(float force)
     {
         if (_hitSoundIsPlay == false)
@@ -70,7 +83,7 @@ public class DestructionAudioHandler : AudioPlayer, IDispose
         }
     }
 
-    public void PlaySoftHit(float force, string a)
+    public void PlaySoftHit(float force)
     {
         if (_hitSoundIsPlay == false)
         {
@@ -91,7 +104,7 @@ public class DestructionAudioHandler : AudioPlayer, IDispose
 
     }
 
-    public void PlayEngineBurn()
+    public void PlayEngineBurnSound()
     {
         SetVolume(_defaultVolume);
         TryPlayOneShotClip(_engineBrokenAudioClip);
@@ -111,10 +124,5 @@ public class DestructionAudioHandler : AudioPlayer, IDispose
     {
         SetVolume(_defaultVolume);
         TryPlayOneShotClip(_metalBendsAudioClip);
-    }
-
-    public void StopPlayEngineBurn()
-    {
-        StopPlay();
     }
 }

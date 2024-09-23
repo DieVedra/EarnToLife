@@ -17,7 +17,7 @@ public abstract class GlassDestructionHandler : DestructionHandler, IDispose
     protected bool IsBroken = false;
     protected GlassDestructionHandler(GlassRef glassRef, DestructionHandlerContent destructionHandlerContent, DestructionEffectsHandler destructionEffectsHandler,
         int layerLevelContent, int layerNotDestructibleLevelContent)
-    :base(glassRef, destructionHandlerContent, " GlassDestruction ", maxStrength: glassRef.StrengthGlass)
+    :base(glassRef, destructionHandlerContent, maxStrength: glassRef.StrengthGlass)
     {
         TryInitGlasses(glassRef);
         GlassRef = glassRef;

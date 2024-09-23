@@ -10,9 +10,13 @@ public class ViewEntryScene : MonoBehaviour
     [SerializeField] private GaragePanel _garagePanel;
     [Space(20f)]
     [SerializeField] private Image _darkBackground;
+    [SerializeField] private Image _iconLoad;
+
 
     public StartMenuPanel PanelStartMenu => _startMenuPanel;
     public MapPanel PanelMap => mapPanel;
     public GaragePanel PanelGarage => _garagePanel;
     public Image DarkBackground => _darkBackground;
+    public Image IconLoad => _iconLoad;
+
 }

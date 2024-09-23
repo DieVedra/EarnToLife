@@ -7,66 +7,85 @@ using Zenject;
 
 public class DestructibleObject : MonoBehaviour
 {
-    protected readonly float ForceMultiplierWholeObject = 3f;
-    private readonly float _addXRange = 30f;
-    private int _layerDebris;
-    private int _layerCar;
     [SerializeField] protected Transform WholeObjectTransform;
     [SerializeField] protected float Hardness = 30f;
     [SerializeField] private Transform _debrisParentLocal;
-    protected Rigidbody2D Rigidbody2D;
-    protected Transform TransformBase;
-    protected List<DebrisFragment> FragmentsDebris;
-    protected Action DebrisHitSound;
-    protected bool ObjectIsBroken;
-    private Transform _cameraTransform;
+
+    // private readonly float _addXRange = 30f;
+    private int _layerDebris;
+    private int _layerCar;
+    // private Transform _cameraTransform;
     private DestructionsSignal _destructionsSignal;
     private CompositeDisposable _compositeDisposable;
+    private Action<float> _debrisHitSound;
+
+    protected readonly float ForceMultiplierWholeObject = 3f;
+    protected Rigidbody2D Rigidbody2D;
+    protected Transform TransformBase;
+    protected bool ObjectIsBroken;
     
+    protected List<DebrisFragment> FragmentsDebris;
+
     [Inject]
     private void Construct(LayersProvider layersProvider, DestructionsSignal destructionsSignal, ILevel level)
     {
         _layerDebris = layersProvider.LayerDebris;
         _layerCar = layersProvider.CarLayer;
         _destructionsSignal = destructionsSignal;
-        _cameraTransform = level.CameraTransform; 
+        // _cameraTransform = level.CameraTransform;
+    }
+
+    protected void Init(Action<float> debrisHitSound)
+    {
+        TransformBase = transform;
         Rigidbody2D = GetComponent<Rigidbody2D>();
         FragmentsDebris = new List<DebrisFragment>();
-        TransformBase = transform;
         CollectDebrisChilds(_debrisParentLocal);
-        _compositeDisposable = new CompositeDisposable();
+        _debrisHitSound = debrisHitSound;
+        InitDebris();
     }
 
-    private void Start()
+    // private void Start()
+    // {
+    //     SubscribeEnableAndDisableObserve();
+    //     
+    // }
+
+    private void InitDebris()
     {
-        SubscribeEnableAndDisableObserve();
+        foreach (var debrisFragment in FragmentsDebris)
+        {
+            debrisFragment.Init(_debrisHitSound, _layerDebris, _layerCar);
+        }
     }
-
     protected void Destruct()
     {
         WholeObjectTransform.gameObject.SetActive(false);
         _debrisParentLocal.gameObject.SetActive(true);
+        Rigidbody2D.simulated = false;
+        Rigidbody2D.isKinematic = true;
+        ObjectIsBroken = true;
         AddRigidBodiesToDebrisAndSubscribeDebrisForHitSound();
         _destructionsSignal.OnDestruction?.Invoke();
-        Rigidbody2D.isKinematic = true;
-        Rigidbody2D.simulated = false;
-        ObjectIsBroken = true;
     }
-    private void SubscribeEnableAndDisableObserve()
-    {
-        gameObject.SetActive(false);
-        Observable.EveryUpdate().Subscribe(_ =>
-        {
-            if (TransformBase.position.x  + _addXRange < _cameraTransform.position.x)
-            {
-                gameObject.SetActive(false);
-            }
-            else if(TransformBase.position.x < _cameraTransform.position.x + _addXRange)
-            {
-                gameObject.SetActive(true);
-            }
-        }).AddTo(_compositeDisposable);
-    }
+    // private void SubscribeEnableAndDisableObserve()
+    // {
+    //     TransformBase = transform;
+    //     _compositeDisposable = new CompositeDisposable();
+    //     gameObject.SetActive(false);
+    //     Observable.EveryUpdate().Subscribe(_ =>
+    //     {
+    //         if (TransformBase.position.x  + _addXRange < _cameraTransform.position.x)
+    //         {
+    //             gameObject.SetActive(false);
+    //         }
+    //         else if(TransformBase.position.x - _addXRange < _cameraTransform.position.x)
+    //             // else if(TransformBase.position.x < _cameraTransform.position.x + _addXRange)
+    //         {
+    //             gameObject.SetActive(true);
+    //         }
+    //     }).AddTo(_compositeDisposable);
+    // }
     private void AddRigidBodiesToDebrisAndSubscribeDebrisForHitSound()
     {
         AddRigidBodiesToDebris();
@@ -92,7 +111,7 @@ public class DestructibleObject : MonoBehaviour
                 if (debris.GetChild(i).TryGetComponent(out Collider2D collider2D) == true)
                 {
                     DebrisFragment debrisFragment = debris.GetChild(i).AddComponent<DebrisFragment>();
-                    debrisFragment.Init(DebrisHitSound, _layerDebris, _layerCar);
+                    // debrisFragment.Init(_debrisHitSound, _layerDebris, _layerCar);
                     FragmentsDebris.Add(debrisFragment);
                 }
             }

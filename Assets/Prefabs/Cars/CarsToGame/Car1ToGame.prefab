@@ -9167,6 +9167,57 @@ MonoBehaviour:
     m_RotationOrder: 4
   _exhaustParticleSystem: {fileID: 929571869933985420}
   _gyroscopePower: 0.7
+  _gyroscopeCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: -1
+      value: -0.5
+      inSlope: 0.066195905
+      outSlope: 0.066195905
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.3560729
+    - serializedVersion: 3
+      time: -0.5
+      value: -0.8
+      inSlope: 0.5074637
+      outSlope: 0.5074637
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 1.7217724
+      outSlope: 1.7217724
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.5
+      value: 0.8
+      inSlope: 0.26130867
+      outSlope: 0.26130867
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0.5
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
   _groundContactMask:
     serializedVersion: 2
     m_Bits: 13565952
@@ -9366,18 +9417,27 @@ MonoBehaviour:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0.01
-      inSlope: 0.0099
-      outSlope: 0.0099
+      value: 0
+      inSlope: 0.4
+      outSlope: 0.4
       tangentMode: 34
       weightedMode: 0
       inWeight: 0
       outWeight: 0.33333334
     - serializedVersion: 3
+      time: 0.5
+      value: 0.2
+      inSlope: 0.011783027
+      outSlope: 0.011783027
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.19704044
+    - serializedVersion: 3
       time: 100
       value: 1
-      inSlope: 0.0099
-      outSlope: 0.0099
+      inSlope: 0.008040201
+      outSlope: 0.008040201
       tangentMode: 34
       weightedMode: 0
       inWeight: 0.33333334

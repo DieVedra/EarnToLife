@@ -14,6 +14,6 @@ public class ZombieBoozerAudioHandler : AudioPlayer
     }
     public void PlayFart()
     {
-        TryPlayOneShotClipWithRandomSectionVolumeAndPitch(_fartZombieAudioClip, _volumeSection, _pitchSection);
+        TryPlayOneShotClipWithRandomSectionVolumeAndPitch(_fartZombieAudioClip, GetRandomFloatValue(_volumeSection.x, _volumeSection.y), _pitchSection);
     }
 }

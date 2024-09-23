@@ -30,7 +30,7 @@ public class BackWingDestructionHandler : DestructionHandler, IDispose
         ArmoredBackFrameDestructionHandler armoredBackFrameHandler, BumperDestructionHandler backBumperDestructionHandler, 
         ExhaustHandler exhaustHandler, DestructionEffectsHandler destructionEffectsHandler, DestructionAudioHandler destructionAudioHandler,
         DestructionHandlerContent destructionHandlerContent, int totalStrength, bool isArmored, bool boosterActive)
-        :base(backWingRef, destructionHandlerContent, " BackWing ", destructionAudioHandler, totalStrength)
+        :base(backWingRef, destructionHandlerContent, destructionAudioHandler, totalStrength)
     {
         _glassDestructionHandler = glassDestructionHandler;
         _armoredBackFrameHandler = armoredBackFrameHandler;

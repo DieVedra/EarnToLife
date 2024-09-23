@@ -15,6 +15,7 @@ public class Beam1 : Beam, IHitable, ICutable
     {
         SetPositionsFragments();
         SetSizeToFragments();
+        base.Init();
     }
     public void DestructFromCut(Vector2 cutPos)
     {

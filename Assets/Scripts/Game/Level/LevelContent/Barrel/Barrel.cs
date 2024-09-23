@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
+using Cysharp.Threading.Tasks;
 using NaughtyAttributes;
 using UniRx;
 using UniRx.Triggers;
@@ -19,11 +21,18 @@ public class Barrel : DestructibleObject, IHitable, IShotable, ICutable, IExplos
     [SerializeField] private LayerMask _blastWaveMask;
     [SerializeField] private LayerMask _groundMask;
     [SerializeField] private AnimationCurve _extinctionBlastWaveCurve;
+
+    private readonly CompositeDisposable _compositeDisposable = new CompositeDisposable();
+    private CancellationTokenSource _cancellationTokenSource;
     private BarrelPool _barrelPoolEffects;
     private BlastWave _blastWave;
     private BarrelAudioHandler _barrelAudioHandler;
+    private IGlobalAudio _globalAudio;
+    private AudioClipProvider _audioClipProvider;
+    private TimeScaleSignal _timeScaleSignal;
     private ExplodeSignal _explodeSignal;
-    private readonly CompositeDisposable _compositeDisposable = new CompositeDisposable();
+    private ILevel _level;
+
     private Collider2D _collider2D => WholeObjectTransform.GetComponent<Collider2D>();
     public IReadOnlyList<DebrisFragment> DebrisFragments => base.FragmentsDebris;
     public Vector2 Position => TransformBase.position;
@@ -34,19 +43,26 @@ public class Barrel : DestructibleObject, IHitable, IShotable, ICutable, IExplos
     private void Construct(ILevel level, IGlobalAudio globalAudio, AudioClipProvider audioClipProvider, ExplodeSignal explodeSignal, TimeScaleSignal timeScaleSignal)
     {
         _barrelPoolEffects = level.LevelPool.BarrelPool;
-        _barrelAudioHandler = new BarrelAudioHandler(GetComponent<AudioSource>(),
-            globalAudio.SoundReactiveProperty, globalAudio.AudioPauseReactiveProperty, new TimeScalePitchHandler(timeScaleSignal),
-            audioClipProvider.LevelAudioClipProvider.HitBarrelAudioClip,
-            audioClipProvider.LevelAudioClipProvider.Explode1BarrelAudioClip,
-            audioClipProvider.LevelAudioClipProvider.Explode2BarrelAudioClip,
-            audioClipProvider.LevelAudioClipProvider.BurnBarrelAudioClip);
-        DebrisHitSound = level.LevelAudio.DebrisAudioHandler.PlayDebrisHitSound;
-
-        
-        
+        _globalAudio = globalAudio;
+        _audioClipProvider = audioClipProvider;
+        _timeScaleSignal = timeScaleSignal;
         _explodeSignal = explodeSignal;
-        _blastWave = new BlastWave(level.LevelPool.DebrisPool, WholeObjectTransform, _extinctionBlastWaveCurve, _blastWaveMask,
+        _level = level;
+    }
+
+    private void Awake()
+    {
+        _barrelAudioHandler = new BarrelAudioHandler(GetComponent<AudioSource>(),
+            _globalAudio.SoundReactiveProperty, _globalAudio.AudioPauseReactiveProperty, new TimeScalePitchHandler(_timeScaleSignal),
+            _audioClipProvider.LevelAudioClipProvider.HitBarrelAudioClip,
+            _audioClipProvider.LevelAudioClipProvider.Explode1BarrelAudioClip,
+            _audioClipProvider.LevelAudioClipProvider.Explode2BarrelAudioClip,
+            _audioClipProvider.LevelAudioClipProvider.BurnBarrelAudioClip);
+        
+        _blastWave = new BlastWave(_level.LevelPool.DebrisPool, WholeObjectTransform, _extinctionBlastWaveCurve, _blastWaveMask,
             _radiusShockWave, _radiusBurnWave, _forceBlastWave);
+        
+        base.Init(_level.LevelAudio.DebrisAudioHandler.PlayDebrisHitSound);
     }
 
     public void DestructFromCut(Vector2 cutPos)
@@ -100,7 +116,7 @@ public class Barrel : DestructibleObject, IHitable, IShotable, ICutable, IExplos
                 _barrelPoolEffects.PlayBarrelBurnEffect(new Vector2(WholeObjectTransform.position.x,
                         WholeObjectTransform.position.y + _burnOffset), delay);
                 _barrelAudioHandler.PlayBarrelBurn(delay).Forget();
-                StartCoroutine(ExplosionDelay(DestructAndExplosion));
+                DelayAndDo(DestructAndExplosion, UnityEngine.Random.Range(_explosionDelay.x, _explosionDelay.y)).Forget();
             }
             else
             {
@@ -122,11 +138,13 @@ public class Barrel : DestructibleObject, IHitable, IShotable, ICutable, IExplos
         _barrelPoolEffects.PlayBarrelExplosionEffect(WholeObjectTransform.position);
         _explodeSignal.OnExplosion?.Invoke(WholeObjectTransform.PositionVector2());
     }
-    private IEnumerator SubscribeCheckCollision()
+    private void SubscribeCheckCollision()
     {
-        yield return new WaitForSeconds(_startDelay);
-        _collider2D.OnCollisionEnter2DAsObservable()
-            .Subscribe(HandleCollision).AddTo(_compositeDisposable);
+        DelayAndDo(() =>
+        {
+            _collider2D.OnCollisionEnter2DAsObservable()
+                .Subscribe(HandleCollision).AddTo(_compositeDisposable);
+        }, _startDelay).Forget();
     }
     private void HandleCollision(Collision2D collision)
     {
@@ -143,11 +161,10 @@ public class Barrel : DestructibleObject, IHitable, IShotable, ICutable, IExplos
             TryBreakOnImpact(impulse);
         }
     }
-
-    private IEnumerator ExplosionDelay(Action operation)
+    private async UniTaskVoid DelayAndDo(Action operation, float time)
     {
-        yield return new WaitForSeconds(UnityEngine.Random.Range(_explosionDelay.x, _explosionDelay.y));
-        operation?.Invoke();
+        await UniTask.Delay(TimeSpan.FromSeconds(time), cancellationToken: _cancellationTokenSource.Token);
+        operation.Invoke();
     }
     private void OnDrawGizmos()
     {
@@ -161,13 +178,14 @@ public class Barrel : DestructibleObject, IHitable, IShotable, ICutable, IExplos
     }
     private new void OnEnable()
     {
-        StartCoroutine(SubscribeCheckCollision());
+        _cancellationTokenSource = new CancellationTokenSource();
+        SubscribeCheckCollision();
         base.OnEnable();
     }
     private void OnDisable()
     {
-        StopCoroutine(SubscribeCheckCollision());
         _compositeDisposable?.Clear();
+        _cancellationTokenSource?.Cancel();
         _barrelAudioHandler?.Dispose();
         _blastWave?.Dispose();
     }

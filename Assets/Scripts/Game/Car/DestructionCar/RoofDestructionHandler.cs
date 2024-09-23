@@ -40,9 +40,9 @@ public class RoofDestructionHandler : DestructionHandler, IDispose
         FrontDoorDestructionHandler frontDoorDestructionHandler, BackDoorDestructionHandler backDoorDestructionHandler,
         GlassDestructionHandler frontGlassDestructionHandler, GlassDestructionHandler backGlassDestructionHandler,
         GunDestructionHandler gunDestructionHandler, CabineDestructionHandler cabineDestructionHandler,
-        DestructionHandlerContent destructionHandlerContent,  DestructionAudioHandler destructionAudioHandler/*Action<float> soundBends, Action<float> soundHardHit, Action<float, string> soundSoftHit*/,
+        DestructionHandlerContent destructionHandlerContent,  DestructionAudioHandler destructionAudioHandler,
         int totalStrengthRoof, int fallingContentLayer, bool isArmored, bool safetyFrameworkInstalled)
-        : base(roofRef, destructionHandlerContent, " roof ",destructionAudioHandler, totalStrengthRoof)
+        : base(roofRef, destructionHandlerContent, destructionAudioHandler, totalStrengthRoof)
     {
         _roofRef = roofRef;
         _coupAnalyzer = coupAnalyzer;
@@ -228,8 +228,6 @@ public class RoofDestructionHandler : DestructionHandler, IDispose
 
     private bool CollisionHandlingRoof(Collision2D collision)
     {
-        // Debug.Log($"Overriding CollisionHandling roof ");
-
         bool result = false;
         if (1 << _fallingContentLayer == 1 << collision.gameObject.layer && _isСrushed == false)
         {
@@ -252,8 +250,6 @@ public class RoofDestructionHandler : DestructionHandler, IDispose
         }
         if (_coupAnalyzer.CarIsCoup == true)
         {
-            // Debug.Log($"Overriding CollisionHandling roof   CarIsCoup");
-
             if ((base.CheckCollision(collision) == true)
                 && _carHasBeenCoup == false)
             {

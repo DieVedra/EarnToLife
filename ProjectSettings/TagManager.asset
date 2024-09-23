@@ -41,8 +41,17 @@ TagManager:
   - name: LevelDecorations
     uniqueID: 4108439597
     locked: 0
+  - name: GarageSky
+    uniqueID: 3309238215
+    locked: 0
+  - name: Garage
+    uniqueID: 1923981327
+    locked: 0
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Conteiners
+    uniqueID: 1539085125
     locked: 0
   - name: Ground
     uniqueID: 306235141
@@ -52,9 +61,6 @@ TagManager:
     locked: 0
   - name: Beams
     uniqueID: 4212272321
-    locked: 0
-  - name: Conteiners
-    uniqueID: 1539085125
     locked: 0
   - name: Car
     uniqueID: 157630223
