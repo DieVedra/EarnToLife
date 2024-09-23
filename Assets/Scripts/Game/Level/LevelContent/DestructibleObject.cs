@@ -10,13 +10,12 @@ public class DestructibleObject : MonoBehaviour
     [SerializeField] protected Transform WholeObjectTransform;
     [SerializeField] protected float Hardness = 30f;
     [SerializeField] private Transform _debrisParentLocal;
-
-    // private readonly float _addXRange = 30f;
+    [SerializeField] private bool _isGrouped = false;
     private int _layerDebris;
     private int _layerCar;
-    // private Transform _cameraTransform;
     private DestructionsSignal _destructionsSignal;
     private CompositeDisposable _compositeDisposable;
+    
     private Action<float> _debrisHitSound;
 
     protected readonly float ForceMultiplierWholeObject = 3f;
@@ -25,6 +24,7 @@ public class DestructibleObject : MonoBehaviour
     protected bool ObjectIsBroken;
     
     protected List<DebrisFragment> FragmentsDebris;
+    public bool IsGrouped => _isGrouped;
 
     [Inject]
     private void Construct(LayersProvider layersProvider, DestructionsSignal destructionsSignal, ILevel level)
@@ -32,7 +32,6 @@ public class DestructibleObject : MonoBehaviour
         _layerDebris = layersProvider.LayerDebris;
         _layerCar = layersProvider.CarLayer;
         _destructionsSignal = destructionsSignal;
-        // _cameraTransform = level.CameraTransform;
     }
 
     protected void Init(Action<float> debrisHitSound)
@@ -44,13 +43,6 @@ public class DestructibleObject : MonoBehaviour
         _debrisHitSound = debrisHitSound;
         InitDebris();
     }
-
-    // private void Start()
-    // {
-    //     SubscribeEnableAndDisableObserve();
-    //     
-    // }
-
     private void InitDebris()
     {
         foreach (var debrisFragment in FragmentsDebris)
@@ -68,24 +60,7 @@ public class DestructibleObject : MonoBehaviour
         AddRigidBodiesToDebrisAndSubscribeDebrisForHitSound();
         _destructionsSignal.OnDestruction?.Invoke();
     }
-    // private void SubscribeEnableAndDisableObserve()
-    // {
-    //     TransformBase = transform;
-    //     _compositeDisposable = new CompositeDisposable();
-    //     gameObject.SetActive(false);
-    //     Observable.EveryUpdate().Subscribe(_ =>
-    //     {
-    //         if (TransformBase.position.x  + _addXRange < _cameraTransform.position.x)
-    //         {
-    //             gameObject.SetActive(false);
-    //         }
-    //         else if(TransformBase.position.x - _addXRange < _cameraTransform.position.x)
-    //             // else if(TransformBase.position.x < _cameraTransform.position.x + _addXRange)
-    //         {
-    //             gameObject.SetActive(true);
-    //         }
-    //     }).AddTo(_compositeDisposable);
-    // }
+    
     private void AddRigidBodiesToDebrisAndSubscribeDebrisForHitSound()
     {
         AddRigidBodiesToDebris();
@@ -111,7 +86,6 @@ public class DestructibleObject : MonoBehaviour
                 if (debris.GetChild(i).TryGetComponent(out Collider2D collider2D) == true)
                 {
                     DebrisFragment debrisFragment = debris.GetChild(i).AddComponent<DebrisFragment>();
-                    // debrisFragment.Init(_debrisHitSound, _layerDebris, _layerCar);
                     FragmentsDebris.Add(debrisFragment);
                 }
             }
@@ -141,7 +115,6 @@ public class DestructibleObject : MonoBehaviour
                 FragmentsDebris[i].Dispose();
             }
         }
-
         _compositeDisposable?.Clear();
     }
 }

@@ -1,8 +1,5 @@
-﻿
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using NaughtyAttributes;
-using UniRx;
 using UnityEngine;
 
 public class LevelBlock : MonoBehaviour
@@ -14,14 +11,14 @@ public class LevelBlock : MonoBehaviour
 
     [InfoBox("PointDisablePreviousBlock", EInfoBoxType.Normal)]
     [SerializeField] private Transform _pointDisablePreviousBlock;
-
+    
     private readonly FrameByFrameDivider _frameByFrameDivider = new FrameByFrameDivider();
     private readonly ArraySeparator<ActivityObject> _arraySeparator = new ArraySeparator<ActivityObject>();
     private ActivityHandler _activityHandler;
-    private CompositeDisposable _compositeDisposable = new CompositeDisposable();
 
     private List<ActivityObject> _activityObjects;
     private List<List<ActivityObject>> _activityObjectsSeparated;
+    private bool _isBlockContentEmpty => _activityObjects.Count > 0 ? false : true;
     public float PointEnableNextBlockX => _pointEnableNextBlock.position.x;
     public float PointDisablePreviousBlockX => _pointDisablePreviousBlock.position.x;
 
@@ -29,35 +26,43 @@ public class LevelBlock : MonoBehaviour
     {
         _activityHandler = activityHandler;
         _activityObjects = levelBlockContentGrouper.GetActivityContent(_content);
-        _activityObjectsSeparated = _arraySeparator.Separate(_activityObjects);
+        if (_isBlockContentEmpty == false)
+        {
+            _activityObjectsSeparated = _arraySeparator.Separate(_activityObjects);
+        }
         gameObject.SetActive(false);
     }
     public void Activate()
     {
-        Debug.Log($"Activate");
-
-        gameObject.SetActive(true);
-        _frameByFrameDivider.FrameByFrameSeparatedOperation(true,
-            () => { _activityHandler.UpdateActivityFromList(_activityObjectsSeparated[0]);
-                Debug.Log($"UpdateActivityFromList 1");
-            },
-            () =>
+        if (gameObject.activeSelf == false)
+        {
+            Debug.Log($"Activate LevelBlock");
+            gameObject.SetActive(true);
+            if (_isBlockContentEmpty == false)
             {
-                _activityHandler.UpdateActivityFromList(_activityObjectsSeparated[1]);
-                
-                Debug.Log($"UpdateActivityFromList 2");
-            },
-            () =>
-            {
-                _activityHandler.UpdateActivityFromList(_activityObjectsSeparated[2]);
-                Debug.Log($"UpdateActivityFromList 3");
-            });
+                _frameByFrameDivider.FrameByFrameSeparatedOperation(true,
+                    () => { _activityHandler.UpdateActivityFromList(_activityObjectsSeparated[0]);
+                    },
+                    () =>
+                    {
+                        _activityHandler.UpdateActivityFromList(_activityObjectsSeparated[1]);
+                    },
+                    () =>
+                    {
+                        _activityHandler.UpdateActivityFromList(_activityObjectsSeparated[2]);
+                    });
+            }
+        }
     }
 
     public void Deactivate()
     {
-        // _compositeDisposable.Clear();
-        _activityHandler.Dispose();
-        gameObject.SetActive(false);
+        if (gameObject.activeSelf == true)
+        {
+            Debug.Log($"Deactivate LevelBlock");
+
+            _frameByFrameDivider.Dispose();
+            gameObject.SetActive(false);
+        }
     }
 }

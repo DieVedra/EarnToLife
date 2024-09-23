@@ -65,7 +65,7 @@ public class ArraySeparator<T>
         List<T> part = new List<T>(endIndexRangeValue);
         for (int i = startIndexRangeValue; i < endIndexRangeValue; i++)
         {
-            part.Add(objectsToSeparate[startIndexRangeValue]);
+            part.Add(objectsToSeparate[i]);
         }
         return part;
     }

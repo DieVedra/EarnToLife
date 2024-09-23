@@ -592,9 +592,9 @@
                 </e>
                 <e p="Coil.cs" t="Include" />
                 <e p="DestructibleObject.cs" t="Include" />
+                <e p="Group.cs" t="Include" />
                 <e p="LevelDecoration.cs" t="Include" />
                 <e p="Trap.cs" t="Include" />
-                <e p="Warehouse.cs" t="Include" />
                 <e p="Zombie" t="Include">
                   <e p="Zombie.cs" t="Include" />
                   <e p="ZombieBoozer.cs" t="Include" />

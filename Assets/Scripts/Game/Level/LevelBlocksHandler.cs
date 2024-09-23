@@ -1,5 +1,4 @@
-﻿using UniRx;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class LevelBlocksHandler
 {
@@ -7,7 +6,6 @@ public class LevelBlocksHandler
     private readonly LevelBlock[] _levelBlocks;
     private int _currentBlockActiveIndex = 0;
     private ActivityHandler _activityHandler;
-    private CompositeDisposable _compositeDisposable = new CompositeDisposable();
     public LevelBlocksHandler(LevelBlock[] levelBlocks,
         LevelBlockContentGrouper levelBlockContentGrouper, Transform cameraTransform)
     {
@@ -18,15 +16,9 @@ public class LevelBlocksHandler
         DefineCurrentBlockActive();
         _levelBlocks[_currentBlockActiveIndex].Activate();
     }
-
-    public void Dispose()
-    {
-        _compositeDisposable.Clear();
-    }
-
+    
     public void TrySwitchToNextBlock()
     {
-        // Debug.Log($"TrySwitchToNextBlock");
         if (_cameraTransform.position.x > _levelBlocks[_currentBlockActiveIndex].PointEnableNextBlockX)
         {
             _levelBlocks[_currentBlockActiveIndex + 1].Activate();

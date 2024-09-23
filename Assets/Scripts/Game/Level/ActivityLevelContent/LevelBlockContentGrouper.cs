@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class LevelBlockContentGrouper
@@ -19,12 +20,17 @@ public class LevelBlockContentGrouper
         DestructibleObject[] destructibleObjects = content.GetComponentsInChildren<DestructibleObject>();
         Zombie[] zombies = content.GetComponentsInChildren<Zombie>();
         LevelDecoration[] levelDecorations = content.GetComponentsInChildren<LevelDecoration>();
+        Group[] groups = content.GetComponentsInChildren<Group>();
+        
+        destructibleObjects = destructibleObjects.Where(x=>x.IsGrouped == false).Cast<DestructibleObject>().ToArray();
+
         List<ActivityObject> activityObjects = new List<ActivityObject>();
         
         CreateAndAdd(ref activityObjects, destructibleObjects, _addXRangeDestructibleObjects);
+        CreateAndAdd(ref activityObjects, groups, _addXRangeDestructibleObjects);
         CreateAndAdd(ref activityObjects, zombies, _addXRangeZombies);
         CreateAndAdd(ref activityObjects, levelDecorations, _addXRangeLevelDecorations);
-        
+
         return activityObjects;
     }
 
@@ -35,4 +41,9 @@ public class LevelBlockContentGrouper
             activityObjectsPar.Add(new ActivityObject(objectContent.transform, addXRange));
         }
     }
+
+    // private DestructibleObject[] SortBuGrouped(DestructibleObject[] destructibleObjects)
+    // {
+    //     
+    // }
 }

@@ -1,5 +1,4 @@
-﻿using Cysharp.Threading.Tasks;
-using UniRx;
+﻿using UniRx;
 using UnityEngine;
 
 public class ActivityLevelContentHandler : MonoBehaviour
@@ -35,7 +34,6 @@ public class ActivityLevelContentHandler : MonoBehaviour
     }
     private void OnDisable()
     {
-        _levelBlocksHandler?.Dispose();
         _compositeDisposable.Clear();
         _debrisKeeper.Dispose();
     }
