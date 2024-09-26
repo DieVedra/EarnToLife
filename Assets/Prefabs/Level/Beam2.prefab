@@ -279,6 +279,7 @@ MonoBehaviour:
   WholeObjectTransform: {fileID: 48090269791492088}
   Hardness: 15
   _debrisParentLocal: {fileID: 3723734724087198669}
+  _isGrouped: 0
   _sprite: {fileID: 1007616268473741468}
   _spriteFragment1: {fileID: 8291457196404356086}
   _spriteFragment2: {fileID: 7716670098436952874}
@@ -304,7 +305,7 @@ Rigidbody2D:
   m_Material: {fileID: 6200000, guid: 2151713eab0114248a49f9453a47db44, type: 2}
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 1
+  m_CollisionDetection: 0
   m_Constraints: 0
 --- !u!82 &-1083456896390945631
 AudioSource:

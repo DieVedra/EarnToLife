@@ -49,8 +49,11 @@ public class BlastWave
                     _debrisForces = new List<Vector2>(_hitCollidersAfterSphereCast.Count);
                     Sorting();
                 },
-                CalculateForces,
-                AddForces);
+                () =>
+                {
+                    CalculateForces();
+                    AddForces();
+                });
         }
     }
 

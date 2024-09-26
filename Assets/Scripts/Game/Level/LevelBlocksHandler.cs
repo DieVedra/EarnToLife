@@ -30,6 +30,13 @@ public class LevelBlocksHandler
         }
     }
 
+    public void DeactivateAllBlocks()
+    {
+        foreach (var levelBlock in _levelBlocks)
+        {
+            levelBlock.Deactivate();
+        }
+    }
     private void InitBlocks(LevelBlockContentGrouper levelBlockContentGrouper)
     {
         foreach (LevelBlock levelBlock in _levelBlocks)

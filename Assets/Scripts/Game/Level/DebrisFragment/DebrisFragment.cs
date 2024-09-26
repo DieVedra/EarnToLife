@@ -11,15 +11,17 @@ public class DebrisFragment : MonoBehaviour
     private readonly float _forceMinValue = 0f;
     private readonly float _forceMaxValue = 5f;
     private readonly float _defaultVolume = 0.9f;
-    private int _layerDebris, _layerCar;
     private readonly float _delayChangeLayer = 0.3f;
+    private int _layerDebris, _layerCar;
+    private float _forceHit;
+
     private CompositeDisposable _compositeDisposable;
     private CancellationTokenSource _cancellationTokenSource;
     private Transform _fragmentTransform;
     private Collider2D _fragmentCollider2D;
     private Rigidbody2D _rigidbody2D;
     private DebrisFragmentCalculate _debrisFragmentCalculate;
-    private float _forceHit;
+    private bool _isActivate = false;
     private Action<float> _debrisHitSound;
 
     public Transform FragmentTransform => _fragmentTransform;
@@ -30,32 +32,24 @@ public class DebrisFragment : MonoBehaviour
 
     public void Init(Action<float> debrisHitSound, int layerDebris, int layerCar)
     {
+        gameObject.SetActive(false);
         _layerDebris = layerDebris;
         _layerCar = layerCar;
         _debrisHitSound = debrisHitSound;
         _fragmentTransform = transform;
+        InitRigidBody();
         _compositeDisposable = new CompositeDisposable();
         _debrisFragmentCalculate = new DebrisFragmentCalculate(_fragmentTransform);
         TypeCollider = _debrisFragmentCalculate.GetSizeFragmentAndSetCollider();
         SizeFragment = _debrisFragmentCalculate.SizeFragment;
         _fragmentCollider2D = _debrisFragmentCalculate.FragmentCollider2D;
+        _fragmentCollider2D.enabled = false;
         _cancellationTokenSource = new CancellationTokenSource();
     }
     public void Dispose()
     {
-        _compositeDisposable.Clear();
+        _compositeDisposable?.Clear();
         _cancellationTokenSource.Cancel();
-    }
-    public void InitRigidBody()
-    {
-        if (_fragmentTransform.TryGetComponent(out Rigidbody2D rigidbody2D))
-        {
-            _rigidbody2D = rigidbody2D;
-        }
-        else
-        {
-            _rigidbody2D = _fragmentTransform.gameObject.AddComponent<Rigidbody2D>();
-        }
     }
 
     public void TryAddForce(Vector2 force)
@@ -65,7 +59,34 @@ public class DebrisFragment : MonoBehaviour
             _rigidbody2D.AddForce(force, ForceMode2D.Force);
         }
     }
-    public void SubscribeFragment()
+
+    public void Activate()
+    {
+        if (_isActivate == false)
+        {
+            _isActivate = true;
+            _fragmentCollider2D.enabled = true;
+            _rigidbody2D.simulated = true;
+            SubscribeFragment();
+            gameObject.SetActive(true);
+        }
+    }
+
+    private void InitRigidBody()
+    {
+        if (_fragmentTransform.TryGetComponent(out Rigidbody2D rigidbody2D))
+        {
+            _rigidbody2D = rigidbody2D;
+        }
+        else
+        {
+            _rigidbody2D = _fragmentTransform.gameObject.AddComponent<Rigidbody2D>();
+        }
+
+        _rigidbody2D.simulated = false;
+    }
+
+    private void SubscribeFragment()
     {
         _fragmentCollider2D.OnCollisionEnter2DAsObservable().Subscribe(collision =>
         {
@@ -97,19 +118,21 @@ public class DebrisFragment : MonoBehaviour
         }
         else if (collider2D.transform.parent.gameObject.layer == _layerCar)
         {
-            LayerFragments().Forget();
+            SetLayerToFragments().Forget();
         }
         else
         {
             SetLayerDebris();
         }
     }
-    private async UniTaskVoid LayerFragments()
+
+    private async UniTaskVoid SetLayerToFragments()
     {
         await UniTask.Delay(TimeSpan.FromSeconds(_delayChangeLayer), cancellationToken: _cancellationTokenSource.Token);
         SetLayerDebris();
         UnsubscribeCollider();
     }
+
     private void SetLayerDebris()
     {
         _fragmentTransform.gameObject.layer = _layerDebris;
@@ -117,8 +140,9 @@ public class DebrisFragment : MonoBehaviour
 
     private void UnsubscribeCollider()
     {
-        _compositeDisposable.Clear();
+        _compositeDisposable?.Clear();
     }
+
     private float GetVolumeValueFromForceHit(ContactPoint2D[] contactPoints)
     {
         _forceHit = 0f;
@@ -132,5 +156,10 @@ public class DebrisFragment : MonoBehaviour
         }
         
         return Mathf.InverseLerp(_forceMinValue, _forceMaxValue, _forceHit);
+    }
+
+    private void OnDisable()
+    {
+        UnsubscribeCollider();
     }
 }

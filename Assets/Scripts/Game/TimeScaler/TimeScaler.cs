@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using NaughtyAttributes;
 using UnityEngine;
-using Zenject;
 
 public class TimeScaler : MonoBehaviour
 {
@@ -14,10 +13,11 @@ public class TimeScaler : MonoBehaviour
     private TimeScalerState _currentState;
     private TimeScalerFSM _timeScalerFsm;
     private TimeScalerValues _timeScalerValues;
+    private bool _isOn;
 
-    [Inject]
-    private void Construct(TimeScaleSignal timeScaleSignal)
+    public void Init(TimeScaleSignal timeScaleSignal, bool isOn)
     {
+        _isOn = isOn;
         _timeScalerValues = new TimeScalerValues(_downDuration, _upDuration, _downTargerTime);
         Dictionary<Type, TimeScalerState> dictionaryStates = new Dictionary<Type, TimeScalerState>
         {
@@ -28,14 +28,20 @@ public class TimeScaler : MonoBehaviour
         };
         _timeScalerFsm = new TimeScalerFSM(dictionaryStates);
     }
+
     public void TryStartTimeWarp()
     {
-        _timeScalerFsm.SetState<TimeScalerWarpState>();
+        if (_isOn == true)
+        {
+            _timeScalerFsm.SetState<TimeScalerWarpState>();
+        }
     }
+
     public void SetStopTime()
     {
         _timeScalerFsm.SetState<TimeScalerStopState>();
     }
+
     public void SetRunTime()
     {
         if (_timeScalerFsm.PreviousStateIsWarp == true)

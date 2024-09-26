@@ -16,7 +16,7 @@ public class GamePause : IGamePause
         _timeScaler = timeScaler;
         _soundPause = soundPause;
         IsPause = false;
-        AbortPause();
+        // AbortPause();
     }
 
     public void SetPause()

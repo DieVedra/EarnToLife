@@ -20,29 +20,46 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3af2ac40-862a-4bb0-a04f-e86f35a10e50" name="Default Changelist" comment="1112f">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.EarnToLife/.idea/contentModel.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.EarnToLife/.idea/contentModel.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.EarnToLife/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.EarnToLife/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Level/Ramp.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Level/Ramp.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Level/Warehouses.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Level/Warehouses/Warehouse1.prefab" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Level/Warehouses/Warehouse1.prefab.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Level/Warehouses/Warehouse2.prefab" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Level/Warehouses/Warehouse2.prefab.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Level/Warehouses/Warehouse3.prefab" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Level/Warehouses/Warehouse3.prefab.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Level/Warehouses/Warehouse4.prefab" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Level/Warehouses/Warehouse4.prefab.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Cars/CarsToGame/Car1ToGame.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Cars/CarsToGame/Car1ToGame.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Level/Beam1.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Level/Beam1.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Level/Beam2.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Level/Beam2.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Level/Boxes/Box1.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Level/Boxes/Box1.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Level/Boxes/Box2.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Level/Boxes/Box2.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Level/Boxes/Box3.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Level/Boxes/Box3.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Level/Boxes/Box4.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Level/Boxes/Box4.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Level/Briges/Bridge Trap.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Level/Briges/Bridge Trap.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Level/Briges/Bridge1 1.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Level/Briges/Bridge1 1.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Level/Briges/Bridge1.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Level/Briges/Bridge1.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Level/Briges/Bridge2.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Level/Briges/Bridge2.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Level/Briges/BrodgeSupport (1).prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Level/Briges/BrodgeSupport (1).prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Level/Groups/Group1.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Level/Groups/Group1.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Level/Groups/Group2.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Level/Groups/Group2.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Wall.prefab" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Wall.prefab.meta" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/Levels/Level_1_Parts/Part1.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Levels/Level_1_Parts/Part1.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/New Scene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/New Scene.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Game/Game.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Game/Game.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Game/GamePause.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Game/GamePause.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Game/Level/ActivityLevelContent/ActivityHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Game/Level/ActivityLevelContent/ActivityHandler.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Game/Level/ActivityLevelContent/ActivityLevelContentHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Game/Level/ActivityLevelContent/ActivityLevelContentHandler.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Game/Level/ActivityLevelContent/ActivityObject.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Game/Level/ActivityLevelContent/ActivityObject.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Game/Level/ActivityLevelContent/ArraySeparator.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Game/Level/ActivityLevelContent/ArraySeparator.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Game/Level/ActivityLevelContent/LevelBlockContentGrouper.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Game/Level/ActivityLevelContent/LevelBlockContentGrouper.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Game/Level/DebrisFragment/DebrisFragment.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Game/Level/DebrisFragment/DebrisFragment.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Game/Level/Level.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Game/Level/Level.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Game/Level/LevelBlock.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Game/Level/LevelBlock.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Game/Level/LevelBlocksHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Game/Level/LevelBlocksHandler.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Game/Level/LevelContent/Barrel/BlastWave.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Game/Level/LevelContent/Barrel/BlastWave.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Game/Level/LevelContent/DestructibleObject.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Game/Level/LevelContent/DestructibleObject.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Game/Level/LevelContent/Warehouse.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Game/Level/LevelContent/Warehouse.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Game/Level/LevelContent/Group.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Game/Level/LevelContent/Group.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Game/Level/LevelContent/LevelDecoration.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Game/Level/LevelContent/LevelDecoration.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Game/Level/LevelContent/Trap.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Game/Level/LevelContent/Trap.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Game/Level/LevelContent/Zombie/Zombie.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Game/Level/LevelContent/Zombie/Zombie.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Game/TimeScaler/TimeScaler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Game/TimeScaler/TimeScaler.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Game/TimeScaler/TimeScalerState/TimeScalerWarpState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Game/TimeScaler/TimeScalerState/TimeScalerWarpState.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Game/UI/UILevelScene/Logic/PanelsHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Game/UI/UILevelScene/Logic/PanelsHandler.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Installers/LevelScenesInstallers/SignalsInstaller.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Installers/LevelScenesInstallers/SignalsInstaller.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Interfaces/ILevel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Interfaces/ILevel.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -104,12 +121,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/Assets/Scripts/Game/Car/DestructionCar/GlassDestructionHandlers/GlassDestructionHandler.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Game/Car/DestructionCar/GunDestructionHandler.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Game/Car/DestructionCar/RoofDestructionHandler.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Game/Car/DestructionCar/HotWheelDestructionHandler.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Game/Car/DestructionCar/CabineDestructionHandler.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Game/Car/CarInLevel.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Game/Car/DestructionCar/DestructionEffectsHandler.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Game/Car/CarAudio/CarAudio.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Game/UI/UILevelScene/Logic/ButtonsControl.cs" />
@@ -125,36 +136,42 @@
         <option value="$PROJECT_DIR$/Assets/Scripts/Game/Car/DestructionCar/BottomDestructionHandler.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Game/Car/CarAudio/DestructionAudioHandler.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Game/Level/LevelContent/Zombie/ZombieMove.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Interfaces/ILevel.cs" />
         <option value="$PROJECT_DIR$/Assets/Scenes/test3.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Game/UI/UIEntryScene/Logic/PanelsActivator.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Game/UI/UILevelScene/Logic/IconLoadHandler.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Game/SceneSwitch.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Game/Level/ActivityLevelContentHandler.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Interfaces/IActivityLevelContentHandler.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Game/Level/LevelContent/LevelDecoration.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Game/Level/DebrisKeeper.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Game/Level/Audio/LevelAudio.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Game/Level/Level.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Game/Level/LevelContent/Zombie/Zombie.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Game/Level/LevelContent/Trap.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Game/Game.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Game/Level/ActivityLevelContent/LevelBlockContentSorter.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Game/Level/ActivityLevelContent/ActivityObjectsSeparator.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Game/Level/LevelContent/Barrel/BlastWave.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Game/FrameByFrameDivider.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Game/Level/ActivityLevelContent/ActivityObject.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Game/Level/ActivityLevelContent/ArraySeparator.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Game/Level/ActivityLevelContent/ActivityHandler.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Game/Level/LevelBlocksHandler.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Game/Level/ActivityLevelContent/ActivityLevelContentHandler.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Game/Level/LevelContent/Warehouse.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Game/Level/LevelContent/Groups.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Game/Level/LevelContent/Group.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Interfaces/IGrouped.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Game/Level/LevelContent/DestructibleObject.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Game/Level/LevelContent/Trap.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Game/Level/LevelBlocksHandler.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Game/Level/LevelContent/LevelDecoration.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Game/Level/LevelContent/Group.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Game/Level/Level.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Interfaces/ILevel.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Game/Level/ActivityLevelContent/LevelBlockContentGrouper.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Game/Level/ActivityLevelContent/ActivityObject.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Game/Level/ActivityLevelContent/ActivityHandler.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Game/Level/ActivityLevelContent/ActivityLevelContentHandler.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Game/Level/LevelContent/Barrel/BlastWave.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Game/Level/LevelContent/DestructibleObject.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Game/Level/LevelBlock.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Game/Level/DebrisFragment/DebrisFragment.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Game/Level/LevelContent/Zombie/Zombie.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Game/TimeScaler/TimeScaler.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Game/Game.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Installers/LevelScenesInstallers/SignalsInstaller.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Game/UI/UILevelScene/Logic/PanelsHandler.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Game/GamePause.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Game/TimeScaler/TimeScalerState/TimeScalerWarpState.cs" />
       </list>
     </option>
   </component>
@@ -334,7 +351,9 @@
       <workItem from="1727033793731" duration="4091000" />
       <workItem from="1727039094475" duration="4415000" />
       <workItem from="1727084921649" duration="18360000" />
-      <workItem from="1727117707679" duration="9499000" />
+      <workItem from="1727117707679" duration="9619000" />
+      <workItem from="1727208415825" duration="2108000" />
+      <workItem from="1727376383980" duration="10246000" />
     </task>
     <task id="LOCAL-00001" summary="Roof Destruction changed&#10;Back Wing Destruction changed">
       <created>1710195340693</created>

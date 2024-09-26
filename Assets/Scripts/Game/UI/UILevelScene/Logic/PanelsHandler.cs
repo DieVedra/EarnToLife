@@ -11,6 +11,7 @@ using UnityEngine.EventSystems;
 
 public class PanelsHandler
 {
+    private readonly string _blurAmountName = "_BlurAmount";
     private ValuesPanelHandler _valuesPanelHandler;
     private Button _buttonPause;
     private SceneSwitch _sceneSwitch;
@@ -87,7 +88,7 @@ public class PanelsHandler
                 _valuesPanelHandler.MovePanelDuration).SetEase(Ease.InOutQuint).SetUpdate(true).WithCancellation(_cancellationTokenSource.Token),
             CreateScreenShot(),
             _frameBackground.DOColor(_valuesPanelHandler.DarkenedFrameBackgroundColor, _valuesPanelHandler.FrameBackgroundDurationFade).SetUpdate(true).WithCancellation(_cancellationTokenSource.Token),
-            DOTween.To(() => 0f, x => _frameBackground.material.SetFloat("_BlurAmount", x), 0.5f, _valuesPanelHandler.FrameBackgroundDurationFade).SetUpdate(true).WithCancellation(_cancellationTokenSource.Token)
+            DOTween.To(() => 0f, x => _frameBackground.material.SetFloat(_blurAmountName, x), 0.5f, _valuesPanelHandler.FrameBackgroundDurationFade).SetUpdate(true).WithCancellation(_cancellationTokenSource.Token)
         );
     }
     private async void DeactivatePausePanel()
@@ -99,7 +100,7 @@ public class PanelsHandler
                 _valuesPanelHandler.StartPositionPanel,
                 _valuesPanelHandler.MovePanelDuration).SetEase(Ease.InOutQuint).SetUpdate(true).WithCancellation(_cancellationTokenSource.Token),
             _frameBackground.DOColor(_valuesPanelHandler.ClearFrameBackgroundColor, _valuesPanelHandler.FrameBackgroundDurationFade).SetUpdate(true).WithCancellation(_cancellationTokenSource.Token),
-            DOTween.To(() => 0.5f, x => _frameBackground.material.SetFloat("_BlurAmount", x), 0f, _valuesPanelHandler.FrameBackgroundDurationFade).SetUpdate(true).WithCancellation(_cancellationTokenSource.Token));
+            DOTween.To(() => 0.5f, x => _frameBackground.material.SetFloat(_blurAmountName, x), 0f, _valuesPanelHandler.FrameBackgroundDurationFade).SetUpdate(true).WithCancellation(_cancellationTokenSource.Token));
         
         _gamePause.AbortPause();
         _frameBackground.gameObject.SetActive(false);

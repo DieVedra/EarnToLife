@@ -4,19 +4,20 @@ using UnityEngine;
 [System.Serializable]
 public class ActivityObject
 {
-    public GameObject GameObject1;
-
+    public readonly float StartXRangeValue;
+    public readonly float EndXRangeValue;
+    public readonly float StartYRangeValue;
+    public readonly float EndYRangeValue;
     public readonly GameObject GameObject;
-    public readonly float StartRangeValue;
-    public readonly float EndRangeValue;
 
-    public ActivityObject(Transform transform, float addRangeValue)
+    public ActivityObject(Transform transform, float addXRangeValue, float addYRangeValue)
     {
         GameObject = transform.gameObject;
-        GameObject1 = GameObject;
         GameObject.SetActive(false);
         var position = transform.position;
-        StartRangeValue = position.x - addRangeValue;
-        EndRangeValue = position.x + addRangeValue;
+        StartXRangeValue = position.x - addXRangeValue;
+        EndXRangeValue = position.x + addXRangeValue;
+        StartYRangeValue = position.y + addYRangeValue;
+        EndYRangeValue = position.y - addYRangeValue;
     }
 }

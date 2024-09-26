@@ -40,6 +40,7 @@ public class Trap : MonoBehaviour
 
     private void OnEnable()
     {
+        _compositeDisposable = new CompositeDisposable();
         _trigger.OnTriggerEnter2DAsObservable().Subscribe(collider2D =>
         {
             if (collider2D.gameObject.layer == _targetLayerTriggering)

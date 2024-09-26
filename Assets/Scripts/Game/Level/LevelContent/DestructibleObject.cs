@@ -39,67 +39,45 @@ public class DestructibleObject : MonoBehaviour
         TransformBase = transform;
         Rigidbody2D = GetComponent<Rigidbody2D>();
         FragmentsDebris = new List<DebrisFragment>();
-        CollectDebrisChilds(_debrisParentLocal);
         _debrisHitSound = debrisHitSound;
-        InitDebris();
-    }
-    private void InitDebris()
-    {
-        foreach (var debrisFragment in FragmentsDebris)
-        {
-            debrisFragment.Init(_debrisHitSound, _layerDebris, _layerCar);
-        }
+        CollectDebrisChildsAndInitTheir(_debrisParentLocal);
     }
     protected void Destruct()
     {
         WholeObjectTransform.gameObject.SetActive(false);
-        _debrisParentLocal.gameObject.SetActive(true);
         Rigidbody2D.simulated = false;
         Rigidbody2D.isKinematic = true;
         ObjectIsBroken = true;
-        AddRigidBodiesToDebrisAndSubscribeDebrisForHitSound();
+        
+        _debrisParentLocal.gameObject.SetActive(true);
+        foreach (DebrisFragment fragmentDebris in FragmentsDebris)
+        {
+            fragmentDebris.Activate();
+        }
         _destructionsSignal.OnDestruction?.Invoke();
     }
-    
-    private void AddRigidBodiesToDebrisAndSubscribeDebrisForHitSound()
-    {
-        AddRigidBodiesToDebris();
-        SubscribeDebrisForHitSound();
-    }
-    private void AddRigidBodiesToDebris()
-    {
-        for (int i = 0; i < FragmentsDebris.Count; i++)
-        {
-            AddRigidBodyTo(FragmentsDebris[i]);
-        }
-    }
-    private void CollectDebrisChilds(Transform debris)
+    private void CollectDebrisChildsAndInitTheir(Transform debris)
     {
         for (int i = 0; i < debris.childCount; i++)
         {
             if (debris.GetChild(i).childCount > 0)
             {
-                CollectDebrisChilds(debris.GetChild(i));
+                CollectDebrisChildsAndInitTheir(debris.GetChild(i));
             }
             else
             {
-                if (debris.GetChild(i).TryGetComponent(out Collider2D collider2D) == true)
-                {
-                    DebrisFragment debrisFragment = debris.GetChild(i).AddComponent<DebrisFragment>();
-                    FragmentsDebris.Add(debrisFragment);
-                }
+                TryInitDebrisChild(debris.GetChild(i));
             }
         }
     }
-    private void AddRigidBodyTo(DebrisFragment fragment)
+
+    private void TryInitDebrisChild(Transform child)
     {
-        fragment.InitRigidBody();
-    }
-    private void SubscribeDebrisForHitSound()
-    {
-        for (int i = 0; i < FragmentsDebris.Count; i++)
+        if (child.TryGetComponent(out Collider2D collider2D) == true)
         {
-            FragmentsDebris[i].SubscribeFragment();
+            DebrisFragment debrisFragment = child.AddComponent<DebrisFragment>();
+            debrisFragment.Init(_debrisHitSound, _layerDebris, _layerCar);
+            FragmentsDebris.Add(debrisFragment);
         }
     }
     protected void OnEnable()
@@ -110,9 +88,9 @@ public class DestructibleObject : MonoBehaviour
     {
         if (FragmentsDebris != null)
         {
-            for (int i = 0; i < FragmentsDebris.Count; i++)
+            foreach (DebrisFragment fragmentDebris in FragmentsDebris)
             {
-                FragmentsDebris[i].Dispose();
+                fragmentDebris.Dispose();
             }
         }
         _compositeDisposable?.Clear();

@@ -7,12 +7,13 @@ public class LevelBlockContentGrouper
     private readonly float _addXRangeLevelDecorations;
     private readonly float _addXRangeDestructibleObjects;
     private readonly float _addXRangeZombies;
-
-    public LevelBlockContentGrouper(float addXRangeLevelDecorations, float addXRangeDestructibleObjects, float addXRangeZombies)
+    private readonly float _addYRangeForAll;
+    public LevelBlockContentGrouper(float addXRangeLevelDecorations, float addXRangeDestructibleObjects, float addXRangeZombies, float addYRangeForAll)
     {
         _addXRangeLevelDecorations = addXRangeLevelDecorations;
         _addXRangeDestructibleObjects = addXRangeDestructibleObjects;
         _addXRangeZombies = addXRangeZombies;
+        _addYRangeForAll = addYRangeForAll;
     }
 
     public List<ActivityObject> GetActivityContent(Transform content)
@@ -38,7 +39,7 @@ public class LevelBlockContentGrouper
     {
         foreach (var objectContent in objectsContent)
         {
-            activityObjectsPar.Add(new ActivityObject(objectContent.transform, addXRange));
+            activityObjectsPar.Add(new ActivityObject(objectContent.transform, addXRange, _addYRangeForAll));
         }
     }
 

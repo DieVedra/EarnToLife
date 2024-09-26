@@ -9,7 +9,6 @@ public class Level : MonoBehaviour, ILevel
 {
     [SerializeField, HorizontalLine(color: EColor.White)] private DebrisKeeper _debrisKeeper;
     [SerializeField] private ActivityLevelContentHandler _activityLevelContentHandler;
-    [SerializeField] private Transform _cameraTransform;
     
     [SerializeField, HorizontalLine(color: EColor.Green)] private Transform _debrisPoolEffectsParent;
     [SerializeField] private Transform _barrelPoolEffectsParent;
@@ -19,7 +18,6 @@ public class Level : MonoBehaviour, ILevel
     
     [SerializeField, HorizontalLine(color: EColor.Orange)] private Transform _startLevelPoint;
     [SerializeField] private Transform _endLevelPoint;
-    [SerializeField] private LevelBlock[] _levelBlocks;
     
     private LevelPool _levelPool;
     private LevelPrefabsProvider _levelPrefabsProvider;
@@ -30,7 +28,6 @@ public class Level : MonoBehaviour, ILevel
     public DebrisKeeper DebrisKeeper => _debrisKeeper;
     public LevelPool LevelPool => _levelPool;
     public LevelAudio LevelAudio =>_levelAudio;
-    public Transform CameraTransform => _cameraTransform;
     public Transform StartLevelPoint => _startLevelPoint;
     public Transform EndLevelPoint => _endLevelPoint;
     

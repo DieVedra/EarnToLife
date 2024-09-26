@@ -8,7 +8,6 @@ public class TimeScalerWarpState : TimeScalerState
     private readonly AnimationCurve _downTimeCurve;
     private readonly AnimationCurve _upTimeCurve;
     private readonly Action _setRunState;
-    private readonly CompositeDisposable _compositeDisposableUpdate = new CompositeDisposable();
     
     private float _currentDownDuration;
     private float _currentUpDuration;
@@ -16,6 +15,9 @@ public class TimeScalerWarpState : TimeScalerState
     private float _duration;
     private float _time;
     private float _currentTimeScaleValue;
+    private CompositeDisposable _compositeDisposableUpdate;
+    private CompositeDisposable _compositeDisposableTimer;
+
     private bool _timeDown = false;
     private bool _timeUp = false;
 
@@ -29,24 +31,30 @@ public class TimeScalerWarpState : TimeScalerState
 
     public override void Enter()
     {
-        TimeScaleSignal.OnTimeWarpedOn?.Invoke();
-        if (_timeDown == false && _timeUp == false)
+        _compositeDisposableTimer = new CompositeDisposable();
+        Observable.Timer(TimeSpan.FromSeconds(0.5f)).Subscribe(_ =>
         {
-            CalculateRandomValues();
-            SubscribeUpdate(_currentDownDuration, TimeDown);
-        }
-        else if (_timeDown == false && _timeUp == true)
-        {
-            SubscribeUpdate(_duration, TimeUp);
-        }
-        else if (_timeDown == true && _timeUp == false)
-        {
-            SubscribeUpdate(_duration, TimeDown);
-        }
+            _compositeDisposableUpdate = new CompositeDisposable();
+            TimeScaleSignal.OnTimeWarpedOn?.Invoke();
+            if (_timeDown == false && _timeUp == false)
+            {
+                CalculateRandomValues();
+                SubscribeUpdate(_currentDownDuration, TimeDown);
+            }
+            else if (_timeDown == false && _timeUp == true)
+            {
+                SubscribeUpdate(_duration, TimeUp);
+            }
+            else if (_timeDown == true && _timeUp == false)
+            {
+                SubscribeUpdate(_duration, TimeDown);
+            }
+        }).AddTo(_compositeDisposableTimer);
     }
 
     public override void Exit()
     {
+        _compositeDisposableTimer.Clear();
         _compositeDisposableUpdate.Clear();
     }
     private void SubscribeUpdate(float duration, Action operation)

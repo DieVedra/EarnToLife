@@ -13,13 +13,16 @@ public class ActivityHandler
     {
         foreach (ActivityObject activityObject in activityObjects)
         {
-            if (activityObject.EndRangeValue < _cameraTransform.position.x)
+            if (activityObject.EndXRangeValue < _cameraTransform.position.x)
             {
                 activityObject.GameObject.SetActive(false);
             }
-            else if(activityObject.StartRangeValue < _cameraTransform.position.x)
+            else if(activityObject.StartXRangeValue < _cameraTransform.position.x)
             {
-                activityObject.GameObject.SetActive(true);
+                if (activityObject.StartYRangeValue > _cameraTransform.position.y && activityObject.EndYRangeValue < _cameraTransform.position.y)
+                {
+                    activityObject.GameObject.SetActive(true);
+                }
             }
         }
     }

@@ -1,6 +1,7 @@
 using Cinemachine;
 using UnityEngine;
 using NaughtyAttributes;
+using Unity.VisualScripting;
 using Zenject;
 
 public class Game : MonoBehaviour
@@ -14,6 +15,8 @@ public class Game : MonoBehaviour
     
     [SerializeField, BoxGroup("Game Settings"), HorizontalLine(color:EColor.White)] private bool _limitRideBackIsOn;
     [SerializeField, BoxGroup("Game Settings")] private bool _autoGameOverIsOn;
+    [SerializeField, BoxGroup("Game Settings")]private bool _timeScaleIsOn;
+
     
     [Inject] private SaveService _saveService;
     [Inject] private PlayerDataProvider _playerDataProvider;
@@ -53,6 +56,7 @@ public class Game : MonoBehaviour
             _playerDataHandler = _playerDataProvider.PlayerDataHandler;
         }
         _spawner = new Spawner();
+        _timeScaler.Init(_timeScaleSignal, _timeScaleIsOn);
         _actionAnalyzer = new ActionAnalyzer(_timeScaler, _notificationsProvider, _explodeSignal, _destructionsSignal, _killsSignal, _gameOverSignal);
         InitCar();
         _limitRideBack.Init(_limitRideBackIsOn);

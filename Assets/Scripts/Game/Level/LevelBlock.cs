@@ -36,7 +36,6 @@ public class LevelBlock : MonoBehaviour
     {
         if (gameObject.activeSelf == false)
         {
-            Debug.Log($"Activate LevelBlock");
             gameObject.SetActive(true);
             if (_isBlockContentEmpty == false)
             {
@@ -59,8 +58,6 @@ public class LevelBlock : MonoBehaviour
     {
         if (gameObject.activeSelf == true)
         {
-            Debug.Log($"Deactivate LevelBlock");
-
             _frameByFrameDivider.Dispose();
             gameObject.SetActive(false);
         }

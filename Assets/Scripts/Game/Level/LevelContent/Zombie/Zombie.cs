@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
 using Cysharp.Threading.Tasks;
@@ -8,7 +7,6 @@ using UniRx;
 using UnityEngine;
 using UnityEngine.U2D.IK;
 using Zenject;
-using Random = UnityEngine.Random;
 
 [RequireComponent(typeof(AudioSource))]
 public class Zombie : MonoBehaviour, IHitable, IExplosive, IShotable, ICutable
@@ -41,12 +39,11 @@ public class Zombie : MonoBehaviour, IHitable, IExplosive, IShotable, ICutable
     
     private readonly float _delayChangeLayer = 1f;
     private readonly float _forceTearingUpMultiplier = 0.5f;
-    // private readonly float _addXRange = 35f;
     private readonly float _volumeDefaultValue = 1f;
     private int _zombieDebrisLayer;
     private int _layerCar;
+    
     private Transform _transform;
-    // private Transform _cameraTransform;
     private ZombiePool _zombiePool;
     private GamePause _gamePause;
     private CompositeDisposable _compositeDisposable = new CompositeDisposable();
@@ -66,7 +63,7 @@ public class Zombie : MonoBehaviour, IHitable, IExplosive, IShotable, ICutable
     protected event Action OnBroken;
     
     public Vector2 Position  => _transform.position;
-    public IReadOnlyList<DebrisFragment> DebrisFragments => _debrisFragments;
+    public IReadOnlyList<DebrisFragment> DebrisFragments => GetAndActivateDebrisFragments();
 
     public bool IsBroken { get; private set; }
     public Transform TargetTransform { get; private set; }
@@ -75,7 +72,6 @@ public class Zombie : MonoBehaviour, IHitable, IExplosive, IShotable, ICutable
     private void Construct(GamePause gamePause, AudioClipProvider audioClipProvider, LayersProvider layersProvider,
         KillsSignal killsSignal, GameOverSignal gameOverSignal, IGlobalAudio globalAudio,  ILevel level)
     {
-        // _cameraTransform = level.CameraTransform;
         _zombiePool = level.LevelPool.ZombiePool;
         TargetTransform = _bodyRigidbody2D.transform;
         _gamePause = gamePause;
@@ -105,7 +101,6 @@ public class Zombie : MonoBehaviour, IHitable, IExplosive, IShotable, ICutable
         {
             DebrisFragment debrisFragment = _forTearingUp[i].gameObject.AddComponent<DebrisFragment>();
             debrisFragment.Init(_zombieAudioHandler.PlayHit, _zombieDebrisLayer, _layerCar);
-            debrisFragment.InitRigidBody();
             _debrisFragments.Add(debrisFragment);
         }
         _zombieMove = new ZombieMove(transform, _rigidbody2D, _gamePause, _contactMask,
@@ -126,11 +121,6 @@ public class Zombie : MonoBehaviour, IHitable, IExplosive, IShotable, ICutable
         GameOverDisable();
     }
     
-    // private void Start()
-    // {
-    //     SubscribeEnableAndDisableObserve();
-    // }
-
     public void DestructFromShoot(Vector2 force)
     {
         if (IsBroken == false)
@@ -219,6 +209,19 @@ public class Zombie : MonoBehaviour, IHitable, IExplosive, IShotable, ICutable
         }
     }
 
+    private IReadOnlyList<DebrisFragment> GetAndActivateDebrisFragments()
+    {
+        ActivateDebrisFragments();
+        return _debrisFragments;
+    }
+
+    private void ActivateDebrisFragments()
+    {
+        foreach (DebrisFragment debrisFragment in _debrisFragments)
+        {
+            debrisFragment.Activate();
+        }
+    }
     private void AddBlood()
     {
         for (int i = 0; i < _bloodPoints.Length; i++)
@@ -240,7 +243,7 @@ public class Zombie : MonoBehaviour, IHitable, IExplosive, IShotable, ICutable
         IsBroken = true;
         _killsSignal.OnKill?.Invoke();
         ZombieBroken();
-        _bloodFall.Stop();
+        // _bloodFall.Stop();
         _rigidbody2D.simulated = false;
         _collider2D.enabled = false;
         _ikManager.enabled = false;
@@ -259,6 +262,8 @@ public class Zombie : MonoBehaviour, IHitable, IExplosive, IShotable, ICutable
         {
             collider2D.enabled = true;
         }
+
+        ActivateDebrisFragments();
         OnBroken?.Invoke();
         SwitchLayer().Forget();
     }
@@ -270,22 +275,7 @@ public class Zombie : MonoBehaviour, IHitable, IExplosive, IShotable, ICutable
             bodyPart.layer = _zombieDebrisLayer;
         }
     }
-    // private void SubscribeEnableAndDisableObserve()
-    // {
-    //     gameObject.SetActive(false);
-    //     Observable.EveryUpdate().Subscribe(_ =>
-    //     {
-    //         if (TargetTransform.position.x  + _addXRange < _cameraTransform.position.x)
-    //         {
-    //             gameObject.SetActive(false);
-    //         }
-    //         else if(TargetTransform.position.x   < _cameraTransform.position.x + _addXRange)
-    //         {
-    //             gameObject.SetActive(true);
-    //         }
-    //     }).AddTo(_compositeDisposable);
-    // }
-
+    
     private void OnDrawGizmos()
     {
         if (Application.isPlaying == false)

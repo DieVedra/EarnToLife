@@ -654,6 +654,7 @@ MonoBehaviour:
   WholeObjectTransform: {fileID: 8670320571690172547}
   Hardness: 12
   _debrisParentLocal: {fileID: 7938217869516217332}
+  _isGrouped: 0
 --- !u!50 &5584366686124154734
 Rigidbody2D:
   serializedVersion: 4
@@ -673,7 +674,7 @@ Rigidbody2D:
   m_Material: {fileID: 6200000, guid: 2151713eab0114248a49f9453a47db44, type: 2}
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 1
+  m_CollisionDetection: 0
   m_Constraints: 0
 --- !u!82 &-1804095715875617675
 AudioSource:
